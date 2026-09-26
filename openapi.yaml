@@ -1,0 +1,210 @@
+openapi: 3.0.3
+info:
+  title: Onix Apparel Commerce & Agent API
+  version: 1.0.0
+  description: >
+    OpenAPI specification for Onix Apparel's Google Cloud Vertex AI Commerce Search
+    and Gemini Enterprise Shopping Concierge integration.
+servers:
+  - url: http://localhost:3001
+    description: Local Development Proxy
+  - url: https://api.onixapparel.com
+    description: Production Google Cloud Run Service
+
+paths:
+  /api/health:
+    get:
+      summary: Health check and Vertex AI operational mode
+      description: Returns health status, live vs mock mode, GCP project ID, and catalog size.
+      responses:
+        '200':
+          description: Health check success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+
+  /api/search:
+    post:
+      summary: Search catalog via Google Cloud Vertex AI Retail Search or local fallback
+      description: Performs semantic retrieval, category filtering, facet aggregation, and autocorrection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchRequest'
+      responses:
+        '200':
+          description: Search results with dynamic facets
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResponse'
+        '400':
+          description: Invalid request body
+        '413':
+          description: Payload exceeds 100KB limit
+
+  /api/events:
+    post:
+      summary: Track Vertex AI Retail User Events
+      description: Logs user interactions (home-page-view, detail-page-view, add-to-cart, purchase-complete) for recommendation ML.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventRequest'
+      responses:
+        '200':
+          description: Event successfully logged
+
+components:
+  schemas:
+    SearchRequest:
+      type: object
+      properties:
+        query:
+          type: string
+          example: "black moto jacket"
+        category:
+          type: string
+          enum: ["all", "men's clothing", "women's clothing", "jewelery"]
+        minPrice:
+          type: number
+          example: 20.0
+        maxPrice:
+          type: number
+          example: 150.0
+        size:
+          type: string
+          example: "M"
+        color:
+          type: string
+          example: "Onyx Black"
+        sortBy:
+          type: string
+          enum: ["featured", "price-low", "price-high", "rating", "newest"]
+        pageSize:
+          type: integer
+          default: 20
+        visitorId:
+          type: string
+          example: "vis_982347102"
+
+    SearchResponse:
+      type: object
+      properties:
+        source:
+          type: string
+          enum: ["vertex-ai-live", "vertex-ai-simulation", "local-fallback"]
+        totalSize:
+          type: integer
+        correctedQuery:
+          type: string
+          nullable: true
+        facets:
+          type: array
+          items:
+            $ref: '#/components/schemas/FacetGroup'
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        price:
+          type: number
+        originalPrice:
+          type: number
+        discountPercent:
+          type: number
+        onSale:
+          type: boolean
+        description:
+          type: string
+        category:
+          type: string
+        image:
+          type: string
+        sizes:
+          type: array
+          items:
+            type: string
+        colors:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              hex:
+                type: string
+        inStock:
+          type: boolean
+        featured:
+          type: boolean
+        isNewArrival:
+          type: boolean
+        rating:
+          type: object
+          properties:
+            rate:
+              type: number
+            count:
+              type: integer
+
+    FacetGroup:
+      type: object
+      properties:
+        key:
+          type: string
+        values:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+              count:
+                type: integer
+
+    EventRequest:
+      type: object
+      required:
+        - eventType
+      properties:
+        eventType:
+          type: string
+          enum: ["home-page-view", "detail-page-view", "add-to-cart", "purchase-complete", "search"]
+        visitorId:
+          type: string
+        product:
+          $ref: '#/components/schemas/Product'
+        details:
+          type: object
+
+    HealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        mode:
+          type: string
+          enum: ["live", "mock"]
+        gcpProjectId:
+          type: string
+          nullable: true
+        location:
+          type: string
+        catalogItemCount:
+          type: integer
+        timestamp:
+          type: string

@@ -1,0 +1,94 @@
+{
+  "$schema": "https://raw.githubusercontent.com/google/agent-to-agent/main/schemas/agent-card.json",
+  "name": "Onix Apparel Shopping Concierge",
+  "description": "Enterprise-grade shopping and styling assistant for Onix Apparel. Capable of semantic catalog search, real-time facet filtering, client cart manipulation, and brand policy grounding (shipping, returns, sizing).",
+  "version": "1.0.0",
+  "protocol": "a2a/v1",
+  "provider": {
+    "name": "Onix Apparel",
+    "url": "https://onixapparel.com",
+    "contactEmail": "concierge@onixapparel.com"
+  },
+  "capabilities": {
+    "streaming": true,
+    "userEvents": true,
+    "clientActionBus": true
+  },
+  "endpoints": {
+    "search": "/api/search",
+    "events": "/api/events",
+    "health": "/api/health",
+    "openApi": "/openapi.yaml"
+  },
+  "tools": [
+    {
+      "name": "search_catalog",
+      "description": "Search clothing and fine jewelry catalog with semantic query matching, category filters, and price ranges.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "query": { "type": "string", "description": "Free text query, e.g. 'black leather jacket' or 'gold ring'" },
+          "category": { "type": "string", "enum": ["all", "men's clothing", "women's clothing", "jewelery"], "description": "Target collection" },
+          "maxPrice": { "type": "number", "description": "Maximum price in USD" },
+          "size": { "type": "string", "description": "Clothing or accessory size (e.g. S, M, L, XL, One Size)" },
+          "color": { "type": "string", "description": "Color name (e.g. Onyx Black, Warm Cream)" },
+          "sortBy": { "type": "string", "enum": ["featured", "price-low", "price-high", "rating", "newest"] }
+        }
+      }
+    },
+    {
+      "name": "add_to_cart",
+      "description": "Client action tool to add an item directly to the shopper's active cart.",
+      "parameters": {
+        "type": "object",
+        "required": ["productId"],
+        "properties": {
+          "productId": { "type": "integer", "description": "The product ID" },
+          "size": { "type": "string", "description": "Selected size" },
+          "color": { "type": "string", "description": "Selected color name" },
+          "quantity": { "type": "integer", "default": 1 }
+        }
+      }
+    },
+    {
+      "name": "view_product",
+      "description": "Opens the high-resolution Quick View detail modal on the shopper's screen.",
+      "parameters": {
+        "type": "object",
+        "required": ["productId"],
+        "properties": {
+          "productId": { "type": "integer", "description": "The product ID" }
+        }
+      }
+    },
+    {
+      "name": "navigate_collection",
+      "description": "Directs the customer's browser to a specific fashion department or sale collection.",
+      "parameters": {
+        "type": "object",
+        "required": ["collection"],
+        "properties": {
+          "collection": {
+            "type": "string",
+            "enum": ["women", "men", "accessories", "new", "sale"]
+          }
+        }
+      }
+    },
+    {
+      "name": "get_customer_care_policy",
+      "description": "Retrieves official brand policies for shipping, returns, sizing, and client services.",
+      "parameters": {
+        "type": "object",
+        "required": ["topic"],
+        "properties": {
+          "topic": {
+            "type": "string",
+            "enum": ["shipping", "returns", "sizing", "contact"],
+            "description": "The policy or assistance topic"
+          }
+        }
+      }
+    }
+  ]
+}
