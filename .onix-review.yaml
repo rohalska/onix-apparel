@@ -1,0 +1,6 @@
+# index.bucket is a PARENT prefix shared by every onboarded repo. The indexer
+# appends /<repo_slug>/.cocoindex_code automatically, so do not append your
+# repo name here. Its rsync uses --delete-unmatched-destination-objects, so
+# getting this wrong can delete unrelated data in the bucket.
+index:
+  bucket: gs://ehole-vertex-93ks-batch-ingestion/onix-review-index

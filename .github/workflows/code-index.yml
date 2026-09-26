@@ -1,0 +1,33 @@
+# Copy to .github/workflows/code-index.yml in your repo to keep the
+# semantic search index (used to ground PR reviews) up to date on main.
+name: Code Index Refresh
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**/*.py'
+      - '**/*.ts'
+      - '**/*.tsx'
+      - '**/*.js'
+      - '**/*.jsx'
+      - '**/*.dart'
+      - '**/*.go'
+      - '**/*.sql'
+      - '**/*.yaml'
+      - '**/*.yml'
+      - '**/*.md'
+      - '.onix-review.yaml'
+  workflow_dispatch:
+# cancel-in-progress must stay false: an interrupted rsync to GCS leaves the
+# index in a partial state, so a new run should queue behind the current one
+# rather than cancel it mid-sync.
+concurrency:
+  group: code-index
+  cancel-in-progress: false
+jobs:
+  refresh:
+    uses: onix-net/onix-code-agents/.github/workflows/index-refresh.yml@v1
+    permissions:
+      contents: read
+      id-token: write
+    secrets: inherit

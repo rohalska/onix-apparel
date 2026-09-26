@@ -1,0 +1,16 @@
+# Copy to .github/workflows/code-review.yml in your repo to opt in.
+name: Code Review
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+jobs:
+  review:
+    # v1 is a floating major tag that moves forward on each 1.x release, so
+    # you get fixes and improvements without repinning. For stricter
+    # reproducibility, pin to a specific release (e.g. @v1.0.0) or a commit SHA.
+    uses: onix-net/onix-code-agents/.github/workflows/review.yml@v1
+    permissions:
+      contents: read
+      pull-requests: write
+      id-token: write
+    secrets: inherit
