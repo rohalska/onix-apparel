@@ -70,7 +70,7 @@ gcloud projects add-iam-policy-binding YOUR_PROJECT_ID \
 
 ## 3. Product Catalog Ingestion
 
-ONIX Apparel provides a pre-formatted catalog file matching Google Retail API Product Schema: `vertex-retail-catalog.json`.
+ONIX Apparel provides a pre-formatted catalog file matching Google Retail API Product Schema: `vertex-retail-catalog.jsonl`.
 
 Execute the automated ingestion script:
 ```bash
@@ -80,14 +80,14 @@ Execute the automated ingestion script:
 Alternatively, run manually via Google Cloud CLI:
 ```bash
 # Upload catalog to staging bucket
-gsutil cp vertex-retail-catalog.json gs://YOUR_PROJECT_ID-retail-catalog-staging/
+gcloud storage cp vertex-retail-catalog.jsonl gs://YOUR_PROJECT_ID-retail-catalog-staging/
 
 # Ingest into Vertex AI Retail default branch
 gcloud retail products import \
   --project="YOUR_PROJECT_ID" \
   --catalog="default_catalog" \
   --branch="default_branch" \
-  --gcs-source-uris="gs://YOUR_PROJECT_ID-retail-catalog-staging/vertex-retail-catalog.json" \
+  --gcs-source-uris="gs://YOUR_PROJECT_ID-retail-catalog-staging/vertex-retail-catalog.jsonl" \
   --reconciliation-mode="INCREMENTAL"
 ```
 

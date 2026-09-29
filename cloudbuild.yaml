@@ -9,6 +9,18 @@ substitutions:
   _REPOSITORY: cloud-run-source-deploy
 
 steps:
+  # 0. Shell script syntax check
+  - name: 'bash'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        for script in scripts/*.sh; do
+          [ -e "$script" ] || continue
+          echo "Validating syntax for $script..."
+          bash -n "$script"
+        done
+
   # 1. Build Docker image
   - name: 'gcr.io/cloud-builders/docker'
     args:

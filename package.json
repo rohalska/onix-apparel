@@ -9,6 +9,7 @@
     "dev:server": "node server/proxy.mjs",
     "build": "tsc && vite build",
     "test": "node scripts/testRunner.mjs",
+    "lint:shell": "bash -n scripts/*.sh",
     "preview": "vite preview",
     "export:vertex": "node scripts/exportVertexCatalog.mjs"
   },
