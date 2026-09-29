@@ -2,9 +2,23 @@
 .git
 .gitignore
 node_modules/
-.env
-.env.local
+
+# Environment and Secret Files (Strict Protection - Keep all .env files out of Cloud Build uploads except .env.example)
+.env*
+!.env.example
+
+# Service Account and Credential Keys (Never upload service account JSON or keys to Cloud Build)
+*service-account*.json
+*credentials*.json
+*key*.json
+*.pem
+*.key
+gcp-key*.json
+
+# Test and coverage artifacts
 .test-dist/
 tests/
 coverage/
+
+# OS and system files
 .DS_Store

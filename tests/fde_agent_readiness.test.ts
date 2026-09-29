@@ -110,18 +110,43 @@ describe('Google Forward Deployment Engineer & Gemini Enterprise Readiness', () 
       assert.ok(cb.includes('--allow-unauthenticated'));
     });
 
-    it('should have .dockerignore and .gcloudignore preventing upload of node_modules and env', () => {
+    it('should have .dockerignore and .gcloudignore preventing upload of node_modules, .env*, and credential files', () => {
       const dockerIgnorePath = path.resolve(rootDir, '.dockerignore');
       const gcloudIgnorePath = path.resolve(rootDir, '.gcloudignore');
+      const gitIgnorePath = path.resolve(rootDir, '.gitignore');
       assert.ok(fs.existsSync(dockerIgnorePath));
       assert.ok(fs.existsSync(gcloudIgnorePath));
+      assert.ok(fs.existsSync(gitIgnorePath));
 
       const dContent = fs.readFileSync(dockerIgnorePath, 'utf-8');
       const gContent = fs.readFileSync(gcloudIgnorePath, 'utf-8');
+      const gitContent = fs.readFileSync(gitIgnorePath, 'utf-8');
+
+      // Dockerignore assertions
       assert.ok(dContent.includes('node_modules'));
-      assert.ok(dContent.includes('.env'));
+      assert.ok(dContent.includes('.env*'), '.dockerignore must ignore .env*');
+      assert.ok(dContent.includes('!.env.example'), '.dockerignore must have explicit exception for !.env.example');
+      assert.ok(dContent.includes('*service-account*.json'), '.dockerignore must ignore service-account JSON');
+      assert.ok(dContent.includes('*credentials*.json'), '.dockerignore must ignore credentials JSON');
+
+      // Gcloudignore assertions
       assert.ok(gContent.includes('node_modules'));
-      assert.ok(gContent.includes('.env'));
+      assert.ok(gContent.includes('.env*'), '.gcloudignore must ignore .env*');
+      assert.ok(gContent.includes('!.env.example'), '.gcloudignore must have explicit exception for !.env.example');
+      assert.ok(gContent.includes('*service-account*.json'), '.gcloudignore must ignore service-account JSON');
+      assert.ok(gContent.includes('*credentials*.json'), '.gcloudignore must ignore credentials JSON');
+
+      // Gitignore assertions
+      assert.ok(gitContent.includes('.env*'), '.gitignore must ignore .env*');
+      assert.ok(gitContent.includes('!.env.example'), '.gitignore must have explicit exception for !.env.example');
+      assert.ok(gitContent.includes('*service-account*.json'), '.gitignore must ignore service-account JSON');
+
+      // Verify no credential files exist in repository
+      const allFiles = fs.readdirSync(rootDir);
+      const credentialFiles = allFiles.filter(f =>
+        f.endsWith('.json') && (f.includes('service-account') || f.includes('key') || f.includes('credential'))
+      );
+      assert.deepEqual(credentialFiles, [], 'No service account or credential keys may exist in repository');
     });
   });
 

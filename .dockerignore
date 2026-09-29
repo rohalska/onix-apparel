@@ -1,12 +1,33 @@
-node_modules
-npm-debug.log
-.env
-.env.local
+# Dependencies and logs
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Git
 .git
 .gitignore
-.test-dist
+
+# Environment and Secret Files (Strict Protection - Ignore all .env files except .env.example)
+.env*
+!.env.example
+
+# Service Account and Credential Keys (Never bake credentials into Docker containers)
+*service-account*.json
+*credentials*.json
+*key*.json
+*.pem
+*.key
+gcp-key*.json
+
+# Test and coverage artifacts
+.test-dist/
 tests/
 coverage/
+
+# OS and system files
 .DS_Store
+
+# Documentation
 *.md
 !README.md

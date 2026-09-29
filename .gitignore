@@ -12,9 +12,18 @@ dist
 dist-ssr
 .test-dist
 *.local
-.env
-.env.*
+
+# Environment and Secret Files
+.env*
 !.env.example
+
+# Service Account and Credential Keys
+*service-account*.json
+*credentials*.json
+*key*.json
+*.pem
+*.key
+gcp-key*.json
 
 # Editor directories and files
 .vscode/*

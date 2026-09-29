@@ -52,8 +52,8 @@ gcloud services enable \
   --project="YOUR_PROJECT_ID"
 ```
 
-### 2.2 Configure IAM & Runtime Service Account
-Cloud Run uses its default Compute Service Account or a designated user-managed service account to authenticate with Vertex AI Search for Retail.
+### 2.2 Configure IAM & Workload Identity
+Cloud Run uses its default Compute Service Account (or a designated user-managed service account) with Workload Identity to authenticate with Vertex AI Search for Retail via the native Compute Metadata Server ADC. **Never store service-account JSON keys or credentials in the repository.**
 
 Grant the **Retail Viewer** and **Retail Editor** roles to the Cloud Run service account:
 ```bash
@@ -64,6 +64,18 @@ SERVICE_ACCOUNT="${PROJECT_NUMBER}-compute@developer.gserviceaccount.com"
 gcloud projects add-iam-policy-binding YOUR_PROJECT_ID \
   --member="serviceAccount:${SERVICE_ACCOUNT}" \
   --role="roles/retail.editor"
+```
+
+### 2.3 Secrets Management (Google Secret Manager)
+If your deployment requires sensitive API keys or credentials, source them from Google Secret Manager rather than `.env` files or hardcoded environment variables:
+```bash
+# Enable Secret Manager API
+gcloud services enable secretmanager.googleapis.com --project="YOUR_PROJECT_ID"
+
+# Grant Secret Accessor role to the Cloud Run runtime service account
+gcloud projects add-iam-policy-binding YOUR_PROJECT_ID \
+  --member="serviceAccount:${SERVICE_ACCOUNT}" \
+  --role="roles/secretmanager.secretAccessor"
 ```
 
 ---
@@ -112,6 +124,13 @@ gcloud run deploy onix-apparel \
   --port 8080 \
   --set-env-vars GCP_PROJECT_ID=YOUR_PROJECT_ID,GCP_LOCATION=global,GCP_CATALOG_ID=default_catalog,GCP_SERVING_CONFIG_ID=default_search
 ```
+
+> **Security Note**: Never include `.env` or credential files when deploying. If secrets are needed at runtime, bind them directly from Secret Manager:
+> ```bash
+> gcloud run deploy onix-apparel \
+>   ... \
+>   --set-secrets="API_SECRET_KEY=my-secret:latest"
+> ```
 
 Once deployment completes, Cloud Run will output your live HTTPS service URL:
 `https://onix-apparel-xxxxxx-uc.a.run.app`
