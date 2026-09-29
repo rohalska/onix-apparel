@@ -25,6 +25,10 @@ import { correctQuery } from './utils/fuzzySearch';
 import { CustomerCarePage, CustomerCareSection } from './components/CustomerCare/CustomerCarePage';
 import { ConciergeChatModal } from './components/ConciergeChatModal';
 import { subscribeToAgentActions } from './services/agentActionBus';
+import {
+  resolveValidatedAddToCart,
+  resolveValidatedOpenProduct,
+} from './utils/agentActionValidator';
 
 export type SpecialCollection = 'all' | 'new' | 'sale';
 
@@ -400,28 +404,22 @@ export const AppContent: React.FC = () => {
   useEffect(() => {
     return subscribeToAgentActions((action) => {
       if (action.action === 'ADD_TO_CART') {
-        const prod =
-          action.product ||
-          products.find((p) => p.id === action.productId) ||
-          (action.productTitle
-            ? products.find((p) => p.title.toLowerCase().includes(action.productTitle!.toLowerCase()))
-            : undefined);
-
-        if (prod) {
-          const size = action.size || prod.sizes?.[0] || 'M';
-          const color = action.color || prod.colors?.[0]?.name || 'Standard';
-          const qty = action.quantity || 1;
-          addToCart(prod, size, color, qty);
-          addToast('cart', 'Added to Shopping Bag by Concierge', `${prod.title} (${size}, ${color})`);
+        const validated = resolveValidatedAddToCart(action, products, FALLBACK_PRODUCTS);
+        if (validated) {
+          addToCart(
+            validated.product,
+            validated.size,
+            validated.color,
+            validated.quantity
+          );
+          addToast(
+            'cart',
+            'Added to Shopping Bag by Concierge',
+            `${validated.product.title} (${validated.size}, ${validated.color})`
+          );
         }
       } else if (action.action === 'OPEN_PRODUCT') {
-        const prod =
-          action.product ||
-          products.find((p) => p.id === action.productId) ||
-          (action.productTitle
-            ? products.find((p) => p.title.toLowerCase().includes(action.productTitle!.toLowerCase()))
-            : undefined);
-
+        const prod = resolveValidatedOpenProduct(action, products, FALLBACK_PRODUCTS);
         if (prod) {
           setSelectedProduct(prod);
         }

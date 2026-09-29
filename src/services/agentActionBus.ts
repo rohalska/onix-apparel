@@ -12,8 +12,11 @@ export type AgentActionType =
 
 export interface AgentActionPayload {
   action: AgentActionType;
+  /** Canonical product ID resolved against the store catalog */
   productId?: number;
+  /** @deprecated Untrusted: Storefront resolves by productId only against canonical catalog */
   productTitle?: string;
+  /** @deprecated Untrusted: Storefront resolves by productId only against canonical catalog */
   product?: Product;
   size?: string;
   color?: string;

@@ -92,13 +92,14 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   }, [promoCode]);
 
   const addToCart = (product: Product, selectedSize: string, selectedColor: string, quantity = 1) => {
+    const validQty = Math.max(1, Math.min(10, Math.floor(quantity) || 1));
     setCart((prev) => {
       const id = `${product.id}-${selectedSize}-${selectedColor}`;
       const existing = prev.find((item) => item.id === id);
 
       if (existing) {
         return prev.map((item) =>
-          item.id === id ? { ...item, quantity: item.quantity + quantity } : item
+          item.id === id ? { ...item, quantity: Math.min(item.quantity + validQty, 99) } : item
         );
       }
 
@@ -107,7 +108,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         {
           id,
           product,
-          quantity,
+          quantity: validQty,
           selectedSize,
           selectedColor,
         },
@@ -152,8 +153,11 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   // Calculations
-  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-  const subtotal = cart.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+  const totalItems = cart.reduce((sum, item) => sum + Math.max(0, item.quantity), 0);
+  const subtotal = cart.reduce(
+    (sum, item) => sum + Math.max(0, item.product.price) * Math.max(0, item.quantity),
+    0
+  );
 
   let discount = 0;
   if (promoCode) {
