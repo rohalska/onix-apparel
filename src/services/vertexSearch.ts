@@ -192,7 +192,8 @@ export function simulateClientSearch(
  */
 export async function searchVertexProducts(
   params: VertexSearchParams = {},
-  fallbackCatalog: Product[] = FALLBACK_PRODUCTS
+  fallbackCatalog: Product[] = FALLBACK_PRODUCTS,
+  externalSignal?: AbortSignal
 ): Promise<VertexSearchResponse> {
   const visitorId = getVisitorId();
 
@@ -200,23 +201,38 @@ export async function searchVertexProducts(
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 800);
 
-    const res = await fetch('/api/search', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        ...params,
-        visitorId,
-      }),
-      signal: controller.signal,
-    });
-    clearTimeout(timeoutId);
+    const onExternalAbort = () => controller.abort();
+    if (externalSignal) {
+      if (externalSignal.aborted) {
+        clearTimeout(timeoutId);
+        return simulateClientSearch(params, fallbackCatalog);
+      }
+      externalSignal.addEventListener('abort', onExternalAbort, { once: true });
+    }
 
-    if (res.ok) {
-      const data = await res.json();
-      if (data && Array.isArray(data.products) && data.products.length > 0) {
-        return data as VertexSearchResponse;
+    try {
+      const res = await fetch('/api/search', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...params,
+          visitorId,
+        }),
+        signal: controller.signal,
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        if (data && Array.isArray(data.products) && data.products.length > 0) {
+          return data as VertexSearchResponse;
+        }
+      }
+    } finally {
+      clearTimeout(timeoutId);
+      if (externalSignal) {
+        externalSignal.removeEventListener('abort', onExternalAbort);
       }
     }
   } catch {

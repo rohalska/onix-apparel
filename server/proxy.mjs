@@ -126,8 +126,11 @@ function getCorsOrigin(req) {
   return allowedList.includes(reqOrigin) ? reqOrigin : allowedList[0];
 }
 
+export const UPSTREAM_SEARCH_TIMEOUT_MS = parseInt(process.env.VERTEX_SEARCH_TIMEOUT_MS || '3000', 10);
+
 // Helper to send JSON response with standard CORS headers
 function sendJson(res, statusCode, data, req) {
+  if (res.writableEnded || res.destroyed) return;
   res.writeHead(statusCode, {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': req ? getCorsOrigin(req) : ALLOWED_ORIGIN,
@@ -332,12 +335,43 @@ const server = http.createServer(async (req, res) => {
       pageSize = 20
     } = body;
 
+    // Return immediately if client connection dropped before processing
+    if (req.destroyed || (req.socket && req.socket.destroyed)) {
+      return;
+    }
+
     // 1. LIVE MODE: Call Google Cloud Vertex AI Search for Retail
     if (isLiveMode) {
+      // Inbound cancellation propagation & upstream deadline management
+      const upstreamController = new AbortController();
+      const timeoutId = setTimeout(() => {
+        upstreamController.abort(new Error(`Upstream search deadline of ${UPSTREAM_SEARCH_TIMEOUT_MS}ms exceeded`));
+      }, UPSTREAM_SEARCH_TIMEOUT_MS);
+
+      const onClientClose = () => {
+        if (!res.writableEnded) {
+          upstreamController.abort(new Error('Inbound client disconnected'));
+        }
+      };
+
+      // Propagate cancellation from inbound request
+      req.on('close', onClientClose);
+      if (req.signal) {
+        req.signal.addEventListener('abort', onClientClose, { once: true });
+      }
+
       try {
+        if (req.destroyed || upstreamController.signal.aborted) {
+          return;
+        }
+
         const token = await getGcpAccessToken();
 
         if (token) {
+          if (req.destroyed || upstreamController.signal.aborted) {
+            return;
+          }
+
           const endpoint = `https://retail.googleapis.com/v2/projects/${GCP_PROJECT_ID}/locations/${GCP_LOCATION}/catalogs/${GCP_CATALOG_ID}/servingConfigs/${GCP_SERVING_CONFIG_ID}:search`;
 
           const filterConditions = [];
@@ -385,7 +419,8 @@ const server = http.createServer(async (req, res) => {
               'Authorization': `Bearer ${token}`,
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify(vertexPayload)
+            body: JSON.stringify(vertexPayload),
+            signal: upstreamController.signal
           });
 
           if (apiResponse.ok) {
@@ -401,8 +436,26 @@ const server = http.createServer(async (req, res) => {
           }
         }
       } catch (err) {
-        console.warn(`Vertex AI API call error (${err.message}). Using local catalog.`);
+        if (upstreamController.signal.aborted) {
+          console.warn(`Upstream Vertex AI request cancelled or timed out (${err.message}).`);
+          if (res.writableEnded || req.destroyed || (req.socket && req.socket.destroyed)) {
+            return;
+          }
+        } else {
+          console.warn(`Vertex AI API call error (${err.message}). Using local catalog.`);
+        }
+      } finally {
+        clearTimeout(timeoutId);
+        req.off('close', onClientClose);
+        if (req.signal) {
+          req.signal.removeEventListener('abort', onClientClose);
+        }
       }
+    }
+
+    // Stop processing if client disconnected before local catalog fallback
+    if (res.writableEnded || req.destroyed || (req.socket && req.socket.destroyed)) {
+      return;
     }
 
     // 2. SIMULATION / MOCK MODE: Semantic simulation with facets
