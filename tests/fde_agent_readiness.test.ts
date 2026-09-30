@@ -98,7 +98,7 @@ describe('Google Forward Deployment Engineer & Gemini Enterprise Readiness', () 
       assert.ok(dockerfile.includes('server/proxy.mjs'));
     });
 
-    it('should have cloudbuild.yaml configured for Cloud Run deployment', () => {
+    it('should have cloudbuild.yaml configured for Cloud Run deployment with scaling cap', () => {
       const cbPath = path.resolve(rootDir, 'cloudbuild.yaml');
       assert.ok(fs.existsSync(cbPath), 'cloudbuild.yaml must exist');
 
@@ -108,6 +108,7 @@ describe('Google Forward Deployment Engineer & Gemini Enterprise Readiness', () 
       assert.ok(cb.includes('deploy'));
       assert.ok(cb.includes('--port=8080'));
       assert.ok(cb.includes('--allow-unauthenticated'));
+      assert.ok(cb.includes('--max-instances'), 'cloudbuild.yaml must specify --max-instances to cap Cloud Run scaling');
     });
 
     it('should have .dockerignore and .gcloudignore preventing upload of node_modules and env', () => {
