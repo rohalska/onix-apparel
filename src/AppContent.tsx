@@ -133,6 +133,8 @@ export const AppContent: React.FC = () => {
 
   // Query Vertex AI Commerce Search in background to enrich facets / live GCP data
   useEffect(() => {
+    const controller = new AbortController();
+
     const timer = setTimeout(async () => {
       try {
         const res = await searchVertexProducts(
@@ -144,8 +146,11 @@ export const AppContent: React.FC = () => {
             color: selectedFacetColor || undefined,
             sortBy,
           },
-          products.length > 0 ? products : undefined
+          products.length > 0 ? products : undefined,
+          controller.signal
         );
+
+        if (controller.signal.aborted) return;
 
         if (res) {
           if (res.products && res.products.length > 0) {
@@ -164,11 +169,16 @@ export const AppContent: React.FC = () => {
           }
         }
       } catch (err) {
-        console.warn('Vertex search sync error:', err);
+        if (!controller.signal.aborted) {
+          console.warn('Vertex search sync error:', err);
+        }
       }
-    }, 150);
+    }, 300);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      controller.abort();
+    };
   }, [searchQuery, category, maxPrice, sortBy, selectedFacetSize, selectedFacetColor, products]);
 
   // Load products from Fake Store API (with local fallback)

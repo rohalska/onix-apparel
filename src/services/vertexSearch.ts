@@ -192,7 +192,8 @@ export function simulateClientSearch(
  */
 export async function searchVertexProducts(
   params: VertexSearchParams = {},
-  fallbackCatalog: Product[] = FALLBACK_PRODUCTS
+  fallbackCatalog: Product[] = FALLBACK_PRODUCTS,
+  externalSignal?: AbortSignal
 ): Promise<VertexSearchResponse> {
   const visitorId = getVisitorId();
 
@@ -200,23 +201,38 @@ export async function searchVertexProducts(
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 800);
 
-    const res = await fetch('/api/search', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        ...params,
-        visitorId,
-      }),
-      signal: controller.signal,
-    });
-    clearTimeout(timeoutId);
+    const onExternalAbort = () => controller.abort();
+    if (externalSignal) {
+      if (externalSignal.aborted) {
+        clearTimeout(timeoutId);
+        return simulateClientSearch(params, fallbackCatalog);
+      }
+      externalSignal.addEventListener('abort', onExternalAbort, { once: true });
+    }
 
-    if (res.ok) {
-      const data = await res.json();
-      if (data && Array.isArray(data.products) && data.products.length > 0) {
-        return data as VertexSearchResponse;
+    try {
+      const res = await fetch('/api/search', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...params,
+          visitorId,
+        }),
+        signal: controller.signal,
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        if (data && Array.isArray(data.products) && data.products.length > 0) {
+          return data as VertexSearchResponse;
+        }
+      }
+    } finally {
+      clearTimeout(timeoutId);
+      if (externalSignal) {
+        externalSignal.removeEventListener('abort', onExternalAbort);
       }
     }
   } catch {
@@ -227,19 +243,34 @@ export async function searchVertexProducts(
   return simulateClientSearch(params, fallbackCatalog);
 }
 
+export interface PurchaseItem {
+  product: Product;
+  quantity: number;
+  selectedSize?: string;
+  selectedColor?: string;
+}
+
+export interface PurchaseEventParams {
+  orderId: string;
+  revenue: number;
+  currencyCode?: string;
+  items: PurchaseItem[];
+}
+
 /**
- * Log real-time e-commerce user events (views, cart adds, purchases)
+ * Log real-time e-commerce user events (views, cart adds, search)
  * to train Vertex AI's personalization and ranking models (Quality Flywheel).
+ * Returns true if accepted by the Retail API (or local simulation), false otherwise.
  */
 export async function trackVertexUserEvent(
-  eventType: 'detail-page-view' | 'add-to-cart' | 'purchase-complete',
+  eventType: 'detail-page-view' | 'add-to-cart' | 'home-page-view' | 'search' | 'purchase-complete',
   product?: Product,
   details: Record<string, any> = {}
-): Promise<void> {
+): Promise<boolean> {
   const visitorId = getVisitorId();
 
   try {
-    await fetch('/api/events', {
+    const res = await fetch('/api/events', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -251,8 +282,59 @@ export async function trackVertexUserEvent(
         details,
       }),
     });
+
+    if (res.ok) {
+      const data = await res.json();
+      return Boolean(data.success);
+    }
+    return false;
   } catch {
     // Non-blocking telemetry
+    return false;
+  }
+}
+
+/**
+ * Log a single consolidated purchase-complete transaction event covering all items in the order
+ * according to Google Cloud Retail API userEvents:write specifications.
+ * Returns true if accepted by the Retail API (or local simulation), false otherwise.
+ */
+export async function trackVertexPurchaseEvent(
+  params: PurchaseEventParams
+): Promise<boolean> {
+  const visitorId = getVisitorId();
+
+  try {
+    const res = await fetch('/api/events', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        eventType: 'purchase-complete',
+        visitorId,
+        items: params.items.map((item) => ({
+          product: item.product,
+          quantity: item.quantity,
+          size: item.selectedSize,
+          color: item.selectedColor,
+        })),
+        purchaseTransaction: {
+          id: params.orderId,
+          revenue: params.revenue,
+          currencyCode: params.currencyCode || 'USD',
+        },
+      }),
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      return Boolean(data.success);
+    }
+    return false;
+  } catch {
+    // Non-blocking telemetry
+    return false;
   }
 }
 

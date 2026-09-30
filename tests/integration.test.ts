@@ -4,6 +4,7 @@ import {
   simulateClientSearch,
   searchVertexProducts,
   trackVertexUserEvent,
+  trackVertexPurchaseEvent,
 } from '../src/services/vertexSearch';
 import { FALLBACK_PRODUCTS } from '../src/data/fallbackProducts';
 
@@ -122,5 +123,153 @@ describe('Search Integration & Robustness Test Suite', () => {
     } finally {
       globalThis.fetch = originalFetch;
     }
+  });
+
+  it('should propagate cancellation when externalSignal is triggered', async () => {
+    const originalFetch = globalThis.fetch;
+    let fetchAborted = false;
+
+    globalThis.fetch = async (_url, options) => {
+      const signal = options?.signal;
+      if (signal) {
+        signal.addEventListener('abort', () => {
+          fetchAborted = true;
+        });
+      }
+      // Simulate delay longer than abort trigger
+      await new Promise((resolve) => setTimeout(resolve, 50));
+      return new Response(JSON.stringify({ products: [] }), { status: 200 });
+    };
+
+    try {
+      const controller = new AbortController();
+      const searchPromise = searchVertexProducts({ query: 'jacket' }, FALLBACK_PRODUCTS, controller.signal);
+      
+      // Abort immediately while fetch is in flight
+      controller.abort();
+      const res = await searchPromise;
+
+      assert.equal(fetchAborted, true, 'Fetch signal must be aborted when externalSignal aborts');
+      assert.ok(res, 'Must return simulation fallback without throwing');
+      assert.ok(res.products.length > 0);
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  it('should enforce upstream deadline in proxy.mjs', async () => {
+    const { UPSTREAM_SEARCH_TIMEOUT_MS } = await import('../server/proxy.mjs');
+    assert.ok(typeof UPSTREAM_SEARCH_TIMEOUT_MS === 'number');
+    assert.ok(UPSTREAM_SEARCH_TIMEOUT_MS >= 1000 && UPSTREAM_SEARCH_TIMEOUT_MS <= 10000,
+      `Upstream search deadline (${UPSTREAM_SEARCH_TIMEOUT_MS}ms) should be between 1s and 10s`);
+  });
+
+  it('should have debounced search in AppContent raised to at least 300ms', async () => {
+    const fs = await import('fs');
+    const path = await import('path');
+    const appContent = fs.readFileSync(path.resolve(process.cwd(), 'src/AppContent.tsx'), 'utf-8');
+    
+    // Verify 150ms debounce was replaced with >= 300ms
+    assert.ok(!appContent.includes('}, 150);'), 'Old 150ms debounce must be removed');
+    assert.ok(appContent.includes('}, 300);') || appContent.includes('}, 350);') || appContent.includes('}, 400);'),
+      'Search input debounce should be raised to at least 300ms');
+    assert.ok(appContent.includes('controller.abort()'), 'Cleanup must abort in-flight controller');
+  });
+
+  it('should track a single consolidated purchase transaction event covering all items', async () => {
+    const originalFetch = globalThis.fetch;
+    let postedPayload: any = null;
+
+    globalThis.fetch = async (_url, options) => {
+      postedPayload = JSON.parse(options?.body as string);
+      return new Response(JSON.stringify({ success: true, source: 'test' }), { status: 200 });
+    };
+
+    try {
+      const success = await trackVertexPurchaseEvent({
+        orderId: 'ONX-123456',
+        revenue: 219.90,
+        currencyCode: 'USD',
+        items: [
+          { product: FALLBACK_PRODUCTS[0], quantity: 1, selectedSize: 'M', selectedColor: 'Black' },
+          { product: FALLBACK_PRODUCTS[1], quantity: 2, selectedSize: 'L', selectedColor: 'Blue' },
+        ],
+      });
+
+      assert.equal(success, true);
+      assert.ok(postedPayload);
+      assert.equal(postedPayload.eventType, 'purchase-complete');
+      assert.equal(postedPayload.purchaseTransaction?.id, 'ONX-123456');
+      assert.equal(postedPayload.purchaseTransaction?.revenue, 219.90);
+      assert.equal(postedPayload.purchaseTransaction?.currencyCode, 'USD');
+      assert.equal(postedPayload.items?.length, 2);
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  it('should validate retail user events and reject invalid payloads', async () => {
+    const { buildRetailUserEvent, validateRetailUserEvent, UPSTREAM_EVENTS_TIMEOUT_MS } = await import('../server/proxy.mjs');
+
+    assert.ok(typeof UPSTREAM_EVENTS_TIMEOUT_MS === 'number');
+    assert.ok(UPSTREAM_EVENTS_TIMEOUT_MS >= 1000 && UPSTREAM_EVENTS_TIMEOUT_MS <= 10000);
+
+    // 1. Rejects unknown event type
+    const invalidType = buildRetailUserEvent({ eventType: 'unknown-event', visitorId: 'vis-1' });
+    const res1 = validateRetailUserEvent(invalidType);
+    assert.equal(res1.valid, false);
+
+    // 2. Rejects missing visitor ID
+    const missingVisitor = buildRetailUserEvent({ eventType: 'search', visitorId: '   ' });
+    const res2 = validateRetailUserEvent(missingVisitor);
+    assert.equal(res2.valid, false);
+
+    // 3. Rejects detail-page-view without product
+    const noProduct = buildRetailUserEvent({ eventType: 'detail-page-view', visitorId: 'vis-1' });
+    const res3 = validateRetailUserEvent(noProduct);
+    assert.equal(res3.valid, false);
+
+    // 4. Validates detail-page-view with product
+    const validDetail = buildRetailUserEvent({ eventType: 'detail-page-view', visitorId: 'vis-1', product: FALLBACK_PRODUCTS[0] });
+    const res4 = validateRetailUserEvent(validDetail);
+    assert.equal(res4.valid, true);
+
+    // 5. Rejects purchase-complete without items or with negative revenue
+    const invalidPurchase = buildRetailUserEvent({
+      eventType: 'purchase-complete',
+      visitorId: 'vis-1',
+      items: [],
+      purchaseTransaction: { id: 'ONX-1', revenue: -10 }
+    });
+    const res5 = validateRetailUserEvent(invalidPurchase);
+    assert.equal(res5.valid, false);
+
+    // 6. Validates purchase-complete with multi-item transaction
+    const validPurchase = buildRetailUserEvent({
+      eventType: 'purchase-complete',
+      visitorId: 'vis-1',
+      items: [
+        { product: FALLBACK_PRODUCTS[0], quantity: 1 },
+        { product: FALLBACK_PRODUCTS[1], quantity: 2 }
+      ],
+      purchaseTransaction: { id: 'ONX-123', revenue: 150.00, currencyCode: 'USD' }
+    });
+    const res6 = validateRetailUserEvent(validPurchase);
+    assert.equal(res6.valid, true);
+    assert.equal(validPurchase.productEventDetail.productDetails.length, 2);
+    assert.equal(validPurchase.productEventDetail.purchaseTransaction.id, 'ONX-123');
+    assert.equal(validPurchase.productEventDetail.purchaseTransaction.revenue, 150.00);
+  });
+
+  it('should verify CheckoutModal performs a single consolidated purchase tracking call', async () => {
+    const fs = await import('fs');
+    const path = await import('path');
+    const checkoutContent = fs.readFileSync(path.resolve(process.cwd(), 'src/components/CheckoutModal.tsx'), 'utf-8');
+
+    // Must NOT contain per-item loop tracking purchase-complete
+    assert.ok(!checkoutContent.includes("cart.forEach((item) => {\n      trackVertexUserEvent('purchase-complete'"),
+      'Must not track purchase-complete per item in a loop');
+    assert.ok(checkoutContent.includes('trackVertexPurchaseEvent({'),
+      'Must use trackVertexPurchaseEvent for unified order transaction');
   });
 });
