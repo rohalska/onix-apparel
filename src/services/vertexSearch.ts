@@ -216,7 +216,7 @@ export async function searchVertexProducts(
 
     if (res.ok) {
       const data = await res.json();
-      if (data && Array.isArray(data.products) && data.products.length > 0) {
+      if (data && Array.isArray(data.products)) {
         return data as VertexSearchResponse;
       }
     }

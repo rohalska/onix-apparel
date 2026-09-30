@@ -142,6 +142,7 @@ export const AppContent: React.FC = () => {
 
   // Query Vertex AI Commerce Search in background to enrich facets / live GCP data
   useEffect(() => {
+    let isActive = true;
     const timer = setTimeout(async () => {
       try {
         const res = await searchVertexProducts(
@@ -156,8 +157,10 @@ export const AppContent: React.FC = () => {
           products.length > 0 ? products : undefined,
         );
 
+        if (!isActive) return;
+
         if (res) {
-          if (res.products && res.products.length > 0) {
+          if (res.products) {
             setVertexResults(res.products);
           }
           if (res.correctedQuery) {
@@ -168,7 +171,7 @@ export const AppContent: React.FC = () => {
           if (res.source) {
             setSearchSource(res.source);
           }
-          if (res.facets && res.facets.length > 0) {
+          if (res.facets) {
             setFacets(res.facets);
           }
         }
@@ -177,7 +180,10 @@ export const AppContent: React.FC = () => {
       }
     }, 150);
 
-    return () => clearTimeout(timer);
+    return () => {
+      isActive = false;
+      clearTimeout(timer);
+    };
   }, [searchQuery, category, maxPrice, sortBy, selectedFacetSize, selectedFacetColor, products]);
 
   // Load products from Fake Store API (with local fallback)
@@ -351,9 +357,7 @@ export const AppContent: React.FC = () => {
 
   // If Live GCP returned server results, use them; otherwise use instant filtered list
   const displayedProducts =
-    vertexHealth?.mode === 'live' && vertexResults !== null && vertexResults.length > 0
-      ? vertexResults
-      : filteredProducts;
+    vertexHealth?.mode === 'live' && vertexResults !== null ? vertexResults : filteredProducts;
 
   const hasActiveFilters =
     searchQuery !== '' ||
