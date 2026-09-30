@@ -83,14 +83,16 @@ export const PrivacyPolicy: React.FC = () => {
               correlate search intent across page sessions.
             </li>
             <li>
-              <strong className="text-stone-800">Event Logging:</strong> User interactions including
-              item inspection (
+              <strong className="text-stone-800">Retail Event Telemetry:</strong> User interactions
+              including item inspection (
               <code className="text-xs bg-stone-100 px-1 py-0.5 rounded">detail-page-view</code>),
               bag additions (
               <code className="text-xs bg-stone-100 px-1 py-0.5 rounded">add-to-cart</code>), and
-              order completions (
+              single-transaction order completions (
               <code className="text-xs bg-stone-100 px-1 py-0.5 rounded">purchase-complete</code>)
-              are relayed to Vertex AI to optimize facet accuracy.
+              are validated and, when Live Mode is configured with Google Cloud credentials,
+              submitted to the Google Cloud Retail API to optimize search and ranking models. In
+              Local Simulation Mode, events are validated and simulated locally.
             </li>
             <li>
               <strong className="text-stone-800">No Third-Party Ad Trackers:</strong> We do not

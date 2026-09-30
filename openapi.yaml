@@ -58,7 +58,13 @@ paths:
               $ref: '#/components/schemas/EventRequest'
       responses:
         '200':
-          description: Event successfully logged
+          description: Event successfully logged or ingested into Retail API
+        '400':
+          description: Invalid request body or failed event validation
+        '502':
+          description: Bad gateway or upstream Retail API communication error
+        '504':
+          description: Upstream Retail API request timed out
 
 components:
   schemas:
@@ -195,6 +201,28 @@ components:
           type: string
         product:
           $ref: '#/components/schemas/Product'
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              product:
+                $ref: '#/components/schemas/Product'
+              quantity:
+                type: integer
+              size:
+                type: string
+              color:
+                type: string
+        purchaseTransaction:
+          type: object
+          properties:
+            id:
+              type: string
+            revenue:
+              type: number
+            currencyCode:
+              type: string
         details:
           type: object
 

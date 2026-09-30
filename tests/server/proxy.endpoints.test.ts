@@ -3,7 +3,7 @@ import net from 'net';
 // proxy.mjs has no type declarations; suppress the implicit-any error here
 // rather than widen allowJs/checkJs project-wide for one test file.
 // @ts-expect-error -- '../../server/proxy.mjs' has no declaration file
-import { server } from '../../server/proxy.mjs';
+import { server, buildRetailUserEvent, validateRetailUserEvent } from '../../server/proxy.mjs';
 
 // proxy.mjs derives live mode from GCP_PROJECT_ID at import time, so pin it
 // empty before that import runs, to keep a developer's .env from turning these
@@ -304,6 +304,114 @@ describe('POST /api/events input handling', () => {
       JSON.stringify({ eventType: 'add-to-cart', product: { id: 1 }, details: null }),
     );
     expect(res.status).toBe(200);
+  });
+
+  it('rejects an invalid eventType with 400', async () => {
+    const res = await postJson(
+      '/api/events',
+      JSON.stringify({ eventType: 'invalid-type', visitorId: 'v1' }),
+    );
+    expect(res.status).toBe(400);
+  });
+
+  it('rejects a whitespace-only visitorId with 400', async () => {
+    const res = await postJson(
+      '/api/events',
+      JSON.stringify({ eventType: 'detail-page-view', visitorId: '   ' }),
+    );
+    expect(res.status).toBe(400);
+  });
+
+  it('accepts a consolidated multi-item purchase-complete event', async () => {
+    const res = await postJson(
+      '/api/events',
+      JSON.stringify({
+        eventType: 'purchase-complete',
+        visitorId: 'buyer-1',
+        items: [
+          { product: { id: 101 }, quantity: 2 },
+          { product: { id: 102 }, quantity: 1 },
+        ],
+        purchaseTransaction: {
+          id: 'ord-999',
+          revenue: 159.98,
+          currencyCode: 'USD',
+        },
+      }),
+    );
+    expect(res.status).toBe(200);
+    const body = await res.json();
+    expect(body.success).toBe(true);
+    expect(body.loggedEvent.eventType).toBe('purchase-complete');
+    expect(body.loggedEvent.productEventDetail.productDetails).toHaveLength(2);
+    expect(body.loggedEvent.productEventDetail.productDetails[0].product.id).toBe('onx-101');
+    expect(body.loggedEvent.productEventDetail.purchaseTransaction.id).toBe('ord-999');
+    expect(body.loggedEvent.productEventDetail.purchaseTransaction.revenue).toBe(159.98);
+  });
+
+  it('rejects a purchase-complete event without items', async () => {
+    const res = await postJson(
+      '/api/events',
+      JSON.stringify({
+        eventType: 'purchase-complete',
+        visitorId: 'buyer-1',
+        items: [],
+        purchaseTransaction: {
+          id: 'ord-999',
+          revenue: 100,
+        },
+      }),
+    );
+    expect(res.status).toBe(400);
+  });
+
+  it('rejects a purchase-complete event with negative revenue', async () => {
+    const res = await postJson(
+      '/api/events',
+      JSON.stringify({
+        eventType: 'purchase-complete',
+        visitorId: 'buyer-1',
+        items: [{ product: { id: 1 }, quantity: 1 }],
+        purchaseTransaction: {
+          id: 'ord-999',
+          revenue: -50,
+        },
+      }),
+    );
+    expect(res.status).toBe(400);
+  });
+});
+
+describe('Retail User Event Helpers', () => {
+  it('correctly maps single and multi-item events', () => {
+    const single = buildRetailUserEvent({
+      eventType: 'detail-page-view',
+      visitorId: 'user-1',
+      product: { id: 42 },
+      details: { quantity: 1 },
+    });
+    expect(single.eventType).toBe('detail-page-view');
+    expect(single.productEventDetail?.productDetails[0].product.id).toBe('onx-42');
+
+    const multi = buildRetailUserEvent({
+      eventType: 'purchase-complete',
+      visitorId: 'user-2',
+      items: [{ product: { id: 'onx-99' }, quantity: 3 }],
+      purchaseTransaction: { id: 'tx-1', revenue: 75.5, currencyCode: 'USD' },
+    });
+    expect(multi.productEventDetail?.productDetails[0].product.id).toBe('onx-99');
+    expect(multi.productEventDetail?.purchaseTransaction?.revenue).toBe(75.5);
+  });
+
+  it('validates event schema correctly', () => {
+    expect(validateRetailUserEvent({}).valid).toBe(false);
+    expect(validateRetailUserEvent({ eventType: 'unknown', visitorId: 'v1' }).valid).toBe(false);
+    expect(validateRetailUserEvent({ eventType: 'detail-page-view', visitorId: '' }).valid).toBe(
+      false,
+    );
+    expect(validateRetailUserEvent({ eventType: 'detail-page-view', visitorId: 'v1' }).valid).toBe(
+      true,
+    );
   });
 });
 

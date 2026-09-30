@@ -38,6 +38,10 @@ const GCP_PROJECT_ID = process.env.GCP_PROJECT_ID?.trim() || '';
 const GCP_LOCATION = process.env.GCP_LOCATION?.trim() || 'global';
 const GCP_CATALOG_ID = process.env.GCP_CATALOG_ID?.trim() || 'default_catalog';
 const GCP_SERVING_CONFIG_ID = process.env.GCP_SERVING_CONFIG_ID?.trim() || 'default_search';
+export const UPSTREAM_EVENTS_TIMEOUT_MS = parseInt(
+  process.env.VERTEX_EVENTS_TIMEOUT_MS || '3000',
+  10,
+);
 
 const isLiveMode = Boolean(GCP_PROJECT_ID);
 
@@ -287,6 +291,133 @@ function badRequest(res, req, message) {
 
 function isPlainObject(value) {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+export function buildRetailUserEvent(body) {
+  const {
+    eventType,
+    visitorId = 'anon-visitor',
+    product,
+    items,
+    purchaseTransaction,
+    details = {},
+  } = body || {};
+
+  const eventPayload = {
+    eventType,
+    visitorId,
+    eventTime: new Date().toISOString(),
+  };
+
+  const productDetails = [];
+  if (Array.isArray(items) && items.length > 0) {
+    for (const item of items) {
+      const prodId = item.product?.id !== undefined ? item.product.id : item.id;
+      if (prodId !== undefined && prodId !== null) {
+        const normalizedId = String(prodId).startsWith('onx-') ? String(prodId) : `onx-${prodId}`;
+        productDetails.push({
+          product: { id: normalizedId },
+          quantity: item.quantity || 1,
+        });
+      }
+    }
+  } else if (product && product.id !== undefined && product.id !== null) {
+    const normalizedId = String(product.id).startsWith('onx-')
+      ? String(product.id)
+      : `onx-${product.id}`;
+    productDetails.push({
+      product: { id: normalizedId },
+      quantity: details?.quantity || 1,
+    });
+  }
+
+  if (eventType === 'purchase-complete') {
+    const txnId = purchaseTransaction?.id || details?.orderId || `order-${Date.now()}`;
+    const rawRevenue =
+      purchaseTransaction?.revenue !== undefined
+        ? purchaseTransaction.revenue
+        : details?.revenue !== undefined
+          ? details.revenue
+          : product
+            ? (product.price || 0) * (details?.quantity || 1)
+            : 0;
+    const revenue = typeof rawRevenue === 'number' && !isNaN(rawRevenue) ? rawRevenue : 0;
+    const currencyCode = purchaseTransaction?.currencyCode || details?.currencyCode || 'USD';
+
+    eventPayload.productEventDetail = {
+      productDetails,
+      purchaseTransaction: {
+        id: String(txnId),
+        revenue: Number(revenue),
+        currencyCode: String(currencyCode),
+      },
+    };
+  } else if (productDetails.length > 0) {
+    eventPayload.productEventDetail = {
+      productDetails,
+    };
+  }
+
+  return eventPayload;
+}
+
+export function validateRetailUserEvent(eventPayload) {
+  const allowedTypes = [
+    'home-page-view',
+    'detail-page-view',
+    'add-to-cart',
+    'purchase-complete',
+    'search',
+    'category-page-view',
+    'shopping-cart-page-view',
+  ];
+
+  if (!eventPayload || typeof eventPayload !== 'object') {
+    return { valid: false, error: 'Request body must be a valid JSON object' };
+  }
+  if (!eventPayload.eventType || typeof eventPayload.eventType !== 'string') {
+    return { valid: false, error: 'eventType is required and must be a string' };
+  }
+  if (!allowedTypes.includes(eventPayload.eventType)) {
+    return {
+      valid: false,
+      error: `Invalid eventType '${eventPayload.eventType}'. Allowed types: ${allowedTypes.join(', ')}`,
+    };
+  }
+  if (
+    !eventPayload.visitorId ||
+    typeof eventPayload.visitorId !== 'string' ||
+    !eventPayload.visitorId.trim()
+  ) {
+    return { valid: false, error: 'visitorId is required and must be a non-empty string' };
+  }
+
+  // Purchase complete requires transaction and at least one item
+  if (eventPayload.eventType === 'purchase-complete') {
+    const details = eventPayload.productEventDetail?.productDetails;
+    const txn = eventPayload.productEventDetail?.purchaseTransaction;
+    if (!Array.isArray(details) || details.length === 0) {
+      return {
+        valid: false,
+        error: 'purchase-complete requires at least one product in productDetails',
+      };
+    }
+    if (
+      !txn ||
+      !txn.id ||
+      typeof txn.revenue !== 'number' ||
+      isNaN(txn.revenue) ||
+      txn.revenue < 0
+    ) {
+      return {
+        valid: false,
+        error:
+          'purchase-complete requires a valid purchaseTransaction with id and non-negative revenue',
+      };
+    }
+  }
+
+  return { valid: true };
 }
 
 // Request dispatcher
@@ -636,34 +767,151 @@ const server = http.createServer(async (req, res) => {
       );
     }
 
-    // Events Logging
+    // Events Logging & Retail API Ingestion
     if (url.pathname === '/api/events' && req.method === 'POST') {
       if (!isPlainObject(body)) return badRequest(res, req, 'body must be a JSON object');
-      if (typeof body.eventType !== 'string' || body.eventType === '') {
-        return badRequest(res, req, 'eventType is required and must be a string');
+
+      // Return early if client disconnected
+      if (res.writableEnded || (req.socket && req.socket.destroyed)) {
+        return;
       }
 
-      const { eventType, visitorId = 'anon-visitor', product, details = {} } = body;
-      const eventPayload = {
-        eventType,
-        visitorId,
-        eventTime: new Date().toISOString(),
-        productEventDetail: product
-          ? {
-              productDetails: [
-                {
-                  product: { id: `onx-${product.id}` },
-                  quantity: details?.quantity || 1,
-                },
-              ],
-            }
-          : undefined,
-      };
+      const eventPayload = buildRetailUserEvent(body);
+      const validation = validateRetailUserEvent(eventPayload);
+      if (!validation.valid) {
+        return badRequest(res, req, validation.error);
+      }
 
       console.log(
-        `📊 [Vertex AI Event] ${eventType.toUpperCase()} | Visitor: ${visitorId} | Product: ${product?.title || 'N/A'}`,
+        `📊 [Vertex AI Event] ${eventPayload.eventType?.toUpperCase()} | Visitor: ${eventPayload.visitorId} | Items: ${eventPayload.productEventDetail?.productDetails?.length || 0}`,
       );
-      return sendJson(res, 200, { success: true, loggedEvent: eventPayload }, req);
+
+      // LIVE MODE: Submit directly to Google Cloud Retail API userEvents:write
+      if (isLiveMode) {
+        let timeoutId;
+        const abortController = new AbortController();
+
+        const onClientClose = () => {
+          abortController.abort();
+        };
+        req.on('close', onClientClose);
+
+        timeoutId = setTimeout(() => {
+          abortController.abort();
+        }, UPSTREAM_EVENTS_TIMEOUT_MS);
+
+        try {
+          const token = await getGcpAccessToken();
+          if (!token) {
+            clearTimeout(timeoutId);
+            req.off('close', onClientClose);
+            return sendJson(
+              res,
+              502,
+              {
+                success: false,
+                error: 'Failed to acquire GCP Access Token for Retail API ingestion',
+              },
+              req,
+            );
+          }
+
+          const endpoint = `https://retail.googleapis.com/v2/projects/${GCP_PROJECT_ID}/locations/${GCP_LOCATION}/catalogs/${GCP_CATALOG_ID}/userEvents:write`;
+
+          const apiResponse = await fetch(endpoint, {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(eventPayload),
+            signal: abortController.signal,
+          });
+
+          clearTimeout(timeoutId);
+          req.off('close', onClientClose);
+
+          if (res.writableEnded || (req.socket && req.socket.destroyed)) {
+            return;
+          }
+
+          if (apiResponse.ok) {
+            const data = await apiResponse.json().catch(() => ({}));
+            return sendJson(
+              res,
+              200,
+              {
+                success: true,
+                source: 'vertex-ai-live',
+                event: data,
+              },
+              req,
+            );
+          }
+
+          let errorMessage = `Retail API rejected event: HTTP ${apiResponse.status}`;
+          try {
+            const errData = await apiResponse.json();
+            if (errData.error?.message) {
+              errorMessage = errData.error.message;
+            }
+          } catch {
+            const rawText = await apiResponse.text().catch(() => '');
+            if (rawText) errorMessage = rawText;
+          }
+
+          return sendJson(
+            res,
+            apiResponse.status >= 400 && apiResponse.status < 600 ? apiResponse.status : 502,
+            {
+              success: false,
+              error: errorMessage,
+            },
+            req,
+          );
+        } catch (err) {
+          clearTimeout(timeoutId);
+          req.off('close', onClientClose);
+
+          if (res.writableEnded || (req.socket && req.socket.destroyed)) {
+            return;
+          }
+
+          if (abortController.signal.aborted) {
+            return sendJson(
+              res,
+              504,
+              {
+                success: false,
+                error: `Upstream Retail API timed out after ${UPSTREAM_EVENTS_TIMEOUT_MS}ms`,
+              },
+              req,
+            );
+          }
+
+          return sendJson(
+            res,
+            502,
+            {
+              success: false,
+              error: `Upstream Retail API request failed: ${err.message}`,
+            },
+            req,
+          );
+        }
+      }
+
+      // LOCAL / SIMULATION MODE
+      return sendJson(
+        res,
+        200,
+        {
+          success: true,
+          source: 'vertex-ai-simulation',
+          loggedEvent: eventPayload,
+        },
+        req,
+      );
     }
 
     // Serve A2A Agent Card for Gemini Enterprise registration

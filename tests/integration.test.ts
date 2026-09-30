@@ -4,6 +4,7 @@ import {
   simulateClientSearch,
   searchVertexProducts,
   trackVertexUserEvent,
+  trackVertexPurchaseEvent,
 } from '../src/services/vertexSearch';
 import { FALLBACK_PRODUCTS } from '../src/data/fallbackProducts';
 
@@ -113,6 +114,72 @@ describe('Search Integration & Robustness Test Suite', () => {
       await assert.doesNotReject(async () => {
         await trackVertexUserEvent('detail-page-view', FALLBACK_PRODUCTS[0]);
       });
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  it('should track consolidated purchase event and return true on success', async () => {
+    const originalFetch = globalThis.fetch;
+    let capturedBody: {
+      eventType: string;
+      purchaseTransaction: { id: string; revenue: number };
+      items: Array<unknown>;
+    } | null = null;
+
+    globalThis.fetch = (async (_input: RequestInfo | URL, init?: RequestInit) => {
+      capturedBody = JSON.parse(String(init?.body));
+      return new Response(JSON.stringify({ success: true }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }) as typeof fetch;
+
+    try {
+      const result = await trackVertexPurchaseEvent({
+        orderId: 'test-order-1',
+        revenue: 120.5,
+        currencyCode: 'USD',
+        items: [
+          {
+            product: FALLBACK_PRODUCTS[0],
+            quantity: 1,
+            selectedSize: 'M',
+            selectedColor: 'Black',
+          },
+          { product: FALLBACK_PRODUCTS[1], quantity: 2 },
+        ],
+      });
+
+      assert.equal(result, true);
+      assert.ok(capturedBody);
+      const parsed = capturedBody as {
+        eventType: string;
+        purchaseTransaction: { id: string; revenue: number };
+        items: Array<unknown>;
+      };
+      assert.equal(parsed.eventType, 'purchase-complete');
+      assert.equal(parsed.purchaseTransaction.id, 'test-order-1');
+      assert.equal(parsed.purchaseTransaction.revenue, 120.5);
+      assert.equal(parsed.items.length, 2);
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  it('should handle purchase event failure gracefully and return false without throwing', async () => {
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = async () => {
+      throw new Error('Telemetry network failure');
+    };
+
+    try {
+      const result = await trackVertexPurchaseEvent({
+        orderId: 'test-order-2',
+        revenue: 50,
+        items: [{ product: FALLBACK_PRODUCTS[0], quantity: 1 }],
+      });
+      assert.equal(result, false);
     } finally {
       globalThis.fetch = originalFetch;
     }
