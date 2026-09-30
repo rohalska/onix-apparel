@@ -158,31 +158,77 @@ export function sanitizeFilterValue(val) {
 }
 
 // In-Memory sliding-window rate limiter (120 req / minute per IP)
-const RATE_LIMIT_WINDOW_MS = 60 * 1000;
-const MAX_REQUESTS_PER_WINDOW = 120;
-const ipRequestCounts = new Map();
+//
+// Architectural note on Cloud Run & distributed environments:
+// This in-process rate limiter provides defense-in-depth protection for
+// individual container instances. However, because Cloud Run scales out
+// horizontally, per-instance state allows effective aggregate allowance to
+// multiply with instance count. In production environments, distributed quotas
+// and DDoS mitigation should be enforced at the infrastructure edge via
+// Google Cloud Armor security policies, an API Gateway, or a shared bounded
+// cache (e.g. Google Cloud Memorystore for Redis).
+export const RATE_LIMIT_WINDOW_MS = 60 * 1000;
+export const MAX_REQUESTS_PER_WINDOW = 120;
+export const MAX_TRACKED_IPS = 5000;
+export const ipRequestCounts = new Map();
 
-export function checkRateLimit(req) {
-  const ip =
-    req.headers['x-forwarded-for']?.split(',')[0]?.trim() || req.socket.remoteAddress || 'unknown';
-  const now = Date.now();
-  const record = ipRequestCounts.get(ip) || { count: 0, resetTime: now + RATE_LIMIT_WINDOW_MS };
-
-  if (now > record.resetTime) {
-    record.count = 1;
-    record.resetTime = now + RATE_LIMIT_WINDOW_MS;
-  } else {
-    record.count++;
-  }
-  ipRequestCounts.set(ip, record);
-
-  // Periodic cleanup of stale IPs
-  if (ipRequestCounts.size > 5000) {
-    for (const [k, v] of ipRequestCounts.entries()) {
-      if (now > v.resetTime) ipRequestCounts.delete(k);
+/**
+ * Derives the client IP address from the trusted reverse proxy.
+ *
+ * In Cloud Run (and reverse proxy architectures), any client-supplied
+ * X-Forwarded-For header is preserved with the immediate caller IP appended
+ * by the trusted proxy to the end of the chain. Trusting the first (leftmost)
+ * entry allows clients to bypass rate limiting and forge arbitrary IPs simply
+ * by rotating a spoofed header.
+ *
+ * Deriving from the right (the entry appended by the trusted proxy) ensures
+ * the rate limiter tracks the client IP verified by the proxy infrastructure.
+ */
+export function getClientIp(req) {
+  const xff = req.headers?.['x-forwarded-for'];
+  if (typeof xff === 'string' && xff.trim().length > 0) {
+    const parts = xff
+      .split(',')
+      .map((p) => p.trim())
+      .filter(Boolean);
+    if (parts.length > 0) {
+      // The rightmost entry is appended by the immediate trusted reverse proxy (e.g. Cloud Run GFE)
+      return parts[parts.length - 1];
     }
   }
+  return req.socket?.remoteAddress || 'unknown';
+}
 
+export function resetRateLimits() {
+  ipRequestCounts.clear();
+}
+
+export function checkRateLimit(req) {
+  const ip = getClientIp(req);
+  const now = Date.now();
+  let record = ipRequestCounts.get(ip);
+
+  if (!record || now > record.resetTime) {
+    // Before adding a new entry, strictly enforce the capacity bound
+    if (!record && ipRequestCounts.size >= MAX_TRACKED_IPS) {
+      // 1. Evict any expired entries
+      for (const [k, v] of ipRequestCounts.entries()) {
+        if (now > v.resetTime) ipRequestCounts.delete(k);
+      }
+      // 2. If still at or over capacity, evict oldest entries (FIFO / LRU)
+      while (ipRequestCounts.size >= MAX_TRACKED_IPS) {
+        const oldestKey = ipRequestCounts.keys().next().value;
+        ipRequestCounts.delete(oldestKey);
+      }
+    }
+    record = { count: 1, resetTime: now + RATE_LIMIT_WINDOW_MS };
+  } else {
+    record.count++;
+    // Delete and re-set to maintain LRU access order
+    ipRequestCounts.delete(ip);
+  }
+
+  ipRequestCounts.set(ip, record);
   return record.count <= MAX_REQUESTS_PER_WINDOW;
 }
 

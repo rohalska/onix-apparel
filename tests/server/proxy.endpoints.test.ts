@@ -3,7 +3,8 @@ import net from 'net';
 // proxy.mjs has no type declarations; suppress the implicit-any error here
 // rather than widen allowJs/checkJs project-wide for one test file.
 // @ts-expect-error -- '../../server/proxy.mjs' has no declaration file
-import { server, buildRetailUserEvent, validateRetailUserEvent } from '../../server/proxy.mjs';
+// prettier-ignore
+import { server, buildRetailUserEvent, validateRetailUserEvent, getClientIp, checkRateLimit, resetRateLimits, MAX_TRACKED_IPS, ipRequestCounts } from '../../server/proxy.mjs';
 
 // proxy.mjs derives live mode from GCP_PROJECT_ID at import time, so pin it
 // empty before that import runs, to keep a developer's .env from turning these
@@ -473,5 +474,79 @@ describe('POST /api/search sorting', () => {
       flags.slice(firstOld).some(Boolean),
       'a new arrival appears after a product that is not one',
     ).toBe(false);
+  });
+});
+
+describe('Rate limiting and trusted proxy resolution', () => {
+  it('extracts rightmost client IP appended by trusted proxy and falls back safely', () => {
+    // Single IP
+    expect(
+      getClientIp({
+        headers: { 'x-forwarded-for': '203.0.113.195' },
+        socket: { remoteAddress: '127.0.0.1' },
+      }),
+    ).toBe('203.0.113.195');
+
+    // Spoofed chain: client forged first hop, proxy appended verified second hop
+    expect(
+      getClientIp({
+        headers: { 'x-forwarded-for': 'attacker-spoofed-ip, 198.51.100.22' },
+        socket: { remoteAddress: '127.0.0.1' },
+      }),
+    ).toBe('198.51.100.22');
+
+    // Missing X-Forwarded-For falls back to socket address
+    expect(
+      getClientIp({
+        headers: {},
+        socket: { remoteAddress: '192.168.1.50' },
+      }),
+    ).toBe('192.168.1.50');
+  });
+
+  it('enforces 429 when client exceeds 120 req/window and blocks rotated spoofed headers', async () => {
+    resetRateLimits();
+    const targetIp = '198.51.100.77';
+
+    // Make 120 requests
+    for (let i = 0; i < 120; i++) {
+      const res = await fetch(`${base}/api/search`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Forwarded-For': `rotated-fake-${i}, ${targetIp}`,
+        },
+        body: JSON.stringify({ query: 'jacket' }),
+      });
+      expect(res.status).toBe(200);
+    }
+
+    // 121st request from same real IP (even with another fake header) must return 429
+    const throttled = await fetch(`${base}/api/search`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Forwarded-For': `yet-another-fake, ${targetIp}`,
+      },
+      body: JSON.stringify({ query: 'jacket' }),
+    });
+    expect(throttled.status).toBe(429);
+    const body = await throttled.json();
+    expect(body.error).toContain('Too Many Requests');
+  });
+
+  it('strictly bounds in-memory map size to MAX_TRACKED_IPS under IP churn', () => {
+    resetRateLimits();
+    const churnCount = MAX_TRACKED_IPS + 50;
+
+    for (let i = 0; i < churnCount; i++) {
+      const req = {
+        headers: { 'x-forwarded-for': `10.10.${i % 250}.${Math.floor(i / 250)}` },
+        socket: { remoteAddress: '127.0.0.1' },
+      };
+      checkRateLimit(req);
+    }
+
+    expect(ipRequestCounts.size).toBeLessThanOrEqual(MAX_TRACKED_IPS);
   });
 });

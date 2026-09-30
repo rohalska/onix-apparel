@@ -84,6 +84,36 @@ gcloud projects add-iam-policy-binding YOUR_PROJECT_ID \
   --role="roles/secretmanager.secretAccessor"
 ```
 
+### 2.4 Edge Rate Limiting & Distributed Quota Enforcement (Google Cloud Armor)
+
+The application proxy (`server/proxy.mjs`) implements a defense-in-depth sliding window rate limiter (120 req/min/IP) backed by an in-memory bounded LRU map (`MAX_TRACKED_IPS = 5000`) and derives the client IP from the trusted proxy hop (`X-Forwarded-For`).
+
+Because Cloud Run instances scale dynamically under traffic, in-process state is per-instance—scaling out instances multiplies the aggregate allowance. For production distributed environments, enforce global rate limits and DDoS mitigation at the edge using **Google Cloud Armor** with an External HTTP(S) Load Balancer:
+
+```bash
+# 1. Create a Cloud Armor security policy
+gcloud compute security-policies create onix-edge-rate-limit \
+  --description="Global edge rate limiting for ONIX Apparel Cloud Run backend"
+
+# 2. Add rate limiting rule (120 requests per minute per client IP)
+gcloud compute security-policies rules create 1000 \
+  --security-policy=onix-edge-rate-limit \
+  --action="rate-based-ban" \
+  --rate-limit-threshold-count=120 \
+  --rate-limit-threshold-interval-sec=60 \
+  --ban-duration-sec=300 \
+  --conform-action=allow \
+  --exceed-action=deny-429 \
+  --enforce-on-key=IP
+
+# 3. Attach security policy to the backend service routing to Cloud Run
+gcloud compute backend-services update onix-backend-service \
+  --security-policy=onix-edge-rate-limit \
+  --global
+```
+
+Alternatively, front the deployment with **Google Cloud API Gateway** or a centralized shared cache (e.g., **Google Cloud Memorystore for Redis**) to synchronize rate limit buckets across all active container instances.
+
 ---
 
 ## 3. Product Catalog Ingestion

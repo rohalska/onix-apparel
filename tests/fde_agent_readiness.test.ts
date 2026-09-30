@@ -190,16 +190,72 @@ describe('Google Forward Deployment Engineer & Gemini Enterprise Readiness', () 
       // proxy.mjs has no type declarations; suppress the implicit-any error
       // here rather than widen allowJs/checkJs project-wide for one test.
       // @ts-expect-error -- '../server/proxy.mjs' has no declaration file
-      const { checkRateLimit } = await import('../server/proxy.mjs');
+      const { checkRateLimit, resetRateLimits } = await import('../server/proxy.mjs');
+      resetRateLimits();
       const fakeReq = {
         headers: { 'x-forwarded-for': '198.51.100.42' },
         socket: { remoteAddress: '198.51.100.42' },
       };
 
-      // Initial requests should succeed
-      for (let i = 0; i < 10; i++) {
+      // Initial requests within the window limit should succeed
+      for (let i = 0; i < 120; i++) {
         assert.equal(checkRateLimit(fakeReq), true);
       }
+      // 121st request should be throttled
+      assert.equal(checkRateLimit(fakeReq), false);
+    });
+
+    it('should derive client IP from trusted proxy and resist spoofed leftmost X-Forwarded-For headers', async () => {
+      // @ts-expect-error -- '../server/proxy.mjs' has no declaration file
+      const { checkRateLimit, getClientIp, resetRateLimits } = await import('../server/proxy.mjs');
+      resetRateLimits();
+
+      // Client attempts to spoof IP by placing attacker IPs first, with real client IP appended by proxy
+      const realClientIp = '198.51.100.99';
+      const reqWithSpoof = {
+        headers: { 'x-forwarded-for': '203.0.113.195, 70.41.3.18, 198.51.100.99' },
+        socket: { remoteAddress: '127.0.0.1' },
+      };
+
+      assert.equal(getClientIp(reqWithSpoof), realClientIp);
+
+      // Rotating the spoofed leftmost header must NOT bypass the rate limit
+      for (let i = 0; i < 120; i++) {
+        const rotatingReq = {
+          headers: { 'x-forwarded-for': `spoofed-ip-${i}.com, ${realClientIp}` },
+          socket: { remoteAddress: '127.0.0.1' },
+        };
+        assert.equal(checkRateLimit(rotatingReq), true);
+      }
+
+      // Next request from the same real client (even with a new spoofed header) must be throttled
+      const throttledReq = {
+        headers: { 'x-forwarded-for': `another-spoof, ${realClientIp}` },
+        socket: { remoteAddress: '127.0.0.1' },
+      };
+      assert.equal(checkRateLimit(throttledReq), false);
+    });
+
+    it('should strictly bound cache size to MAX_TRACKED_IPS under high IP churn', async () => {
+      // prettier-ignore
+      // @ts-expect-error -- '../server/proxy.mjs' has no declaration file
+      const { checkRateLimit, resetRateLimits, ipRequestCounts, MAX_TRACKED_IPS } = await import('../server/proxy.mjs');
+      resetRateLimits();
+
+      // Simulate rapid incoming requests from distinct IPs exceeding MAX_TRACKED_IPS
+      const totalIps = MAX_TRACKED_IPS + 50;
+      for (let i = 0; i < totalIps; i++) {
+        const req = {
+          headers: { 'x-forwarded-for': `192.0.2.${i % 256}.${Math.floor(i / 256)}` },
+          socket: { remoteAddress: '127.0.0.1' },
+        };
+        checkRateLimit(req);
+      }
+
+      assert.ok(
+        ipRequestCounts.size <= MAX_TRACKED_IPS,
+        `ipRequestCounts (${ipRequestCounts.size}) exceeded MAX_TRACKED_IPS (${MAX_TRACKED_IPS})`,
+      );
     });
   });
 
