@@ -615,22 +615,39 @@ export const AppContent: React.FC = () => {
                 <span
                   className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border ${
                     vertexHealth?.mode === 'live'
-                      ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
+                      ? vertexHealth?.dependencyReadiness === 'error' ||
+                        searchSource === 'vertex-ai-simulation'
+                        ? 'bg-amber-50 text-amber-800 border-amber-200'
+                        : 'bg-emerald-50 text-emerald-800 border-emerald-200'
                       : 'bg-stone-100 text-stone-700 border-stone-200'
                   }`}
                   title={
                     vertexHealth?.mode === 'live'
-                      ? `Connected to Google Cloud project: ${vertexHealth.gcpProjectId}`
+                      ? vertexHealth?.dependencyReadiness === 'error' ||
+                        searchSource === 'vertex-ai-simulation'
+                        ? `Live mode degraded: ${vertexHealth?.fallbackReason || 'Upstream error'}. Serving mock data.`
+                        : `Connected to Google Cloud project: ${vertexHealth.gcpProjectId}`
                       : `Running in local Vertex AI mode (${searchSource})`
                   }
                 >
                   <span
                     className={`w-2 h-2 rounded-full ${
-                      vertexHealth?.mode === 'live' ? 'bg-emerald-500 animate-pulse' : 'bg-blue-500'
+                      vertexHealth?.mode === 'live'
+                        ? vertexHealth?.dependencyReadiness === 'error' ||
+                          searchSource === 'vertex-ai-simulation'
+                          ? 'bg-amber-500 animate-pulse'
+                          : 'bg-emerald-500 animate-pulse'
+                        : 'bg-blue-500'
                     }`}
                   />
                   Vertex AI Commerce Search (
-                  {vertexHealth?.mode === 'live' ? 'Live GCP' : 'Simulation'})
+                  {vertexHealth?.mode === 'live'
+                    ? vertexHealth?.dependencyReadiness === 'error' ||
+                      searchSource === 'vertex-ai-simulation'
+                      ? 'Live GCP - Degraded (Mock Data)'
+                      : 'Live GCP'
+                    : 'Simulation'}
+                  )
                 </span>
 
                 {displayedProducts.length > 0 && (

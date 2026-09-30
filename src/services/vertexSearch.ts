@@ -35,6 +35,8 @@ export interface VertexSearchResponse {
 export interface VertexHealthResponse {
   status: string;
   mode: 'live' | 'mock';
+  dependencyReadiness?: 'unknown' | 'ok' | 'error';
+  fallbackReason?: string | null;
   gcpProjectId: string | null;
   location: string;
   catalogItemCount: number;

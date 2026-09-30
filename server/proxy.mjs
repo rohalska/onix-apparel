@@ -41,6 +41,9 @@ const GCP_SERVING_CONFIG_ID = process.env.GCP_SERVING_CONFIG_ID?.trim() || 'defa
 
 const isLiveMode = Boolean(GCP_PROJECT_ID);
 
+let upstreamStatus = 'unknown'; // 'unknown', 'ok', 'error'
+let fallbackReason = null; // string | null
+
 console.log(`\n==============================================`);
 console.log(`🚀 ONIX APPAREL - Vertex AI Commerce Search Proxy`);
 console.log(`   Mode: ${isLiveMode ? 'LIVE (Google Cloud Vertex AI)' : 'LOCAL SIMULATION / MOCK'}`);
@@ -317,6 +320,8 @@ const server = http.createServer(async (req, res) => {
         {
           status: 'ok',
           mode: isLiveMode ? 'live' : 'mock',
+          dependencyReadiness: upstreamStatus,
+          fallbackReason: fallbackReason,
           gcpProjectId: GCP_PROJECT_ID || null,
           location: GCP_LOCATION,
           catalogItemCount: localCatalog.length,
@@ -454,6 +459,8 @@ const server = http.createServer(async (req, res) => {
             });
 
             if (apiResponse.ok) {
+              upstreamStatus = 'ok';
+              fallbackReason = null;
               const data = await apiResponse.json();
               const results = (data.results || []).map((r) =>
                 mapVertexProductToFrontend(r.product),
@@ -471,9 +478,22 @@ const server = http.createServer(async (req, res) => {
                 },
                 req,
               );
+            } else {
+              upstreamStatus = 'error';
+              try {
+                const errData = await apiResponse.json();
+                fallbackReason = `API Error ${apiResponse.status}: ${errData.error?.message || JSON.stringify(errData)}`;
+              } catch {
+                fallbackReason = `API Error ${apiResponse.status}: ${apiResponse.statusText}`;
+              }
             }
+          } else {
+            upstreamStatus = 'error';
+            fallbackReason = 'Failed to acquire GCP Access Token';
           }
         } catch (err) {
+          upstreamStatus = 'error';
+          fallbackReason = err.message;
           console.warn(`Vertex AI API call error (${err.message}). Using local catalog.`);
         }
       }
@@ -697,5 +717,54 @@ const isTesting =
 if (!isTesting) {
   server.listen(PORT, () => {
     console.log(`🌐 Vertex AI Proxy running at http://127.0.0.1:${PORT}`);
+
+    // Background ping to determine initial upstream status
+    if (isLiveMode) {
+      console.log(`   Performing initial upstream dependency check...`);
+      getGcpAccessToken()
+        .then((token) => {
+          if (!token) {
+            upstreamStatus = 'error';
+            fallbackReason = 'Failed to acquire GCP Access Token on startup';
+            console.warn(`   ⚠️  ${fallbackReason}`);
+            return;
+          }
+          const endpoint = `https://retail.googleapis.com/v2/projects/${GCP_PROJECT_ID}/locations/${GCP_LOCATION}/catalogs/${GCP_CATALOG_ID}/servingConfigs/${GCP_SERVING_CONFIG_ID}:search`;
+          fetch(endpoint, {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ pageSize: 1 }),
+          })
+            .then(async (apiResponse) => {
+              if (apiResponse.ok) {
+                upstreamStatus = 'ok';
+                fallbackReason = null;
+                console.log(`   ✅ Upstream Vertex AI Retail API is ready.`);
+              } else {
+                upstreamStatus = 'error';
+                try {
+                  const errData = await apiResponse.json();
+                  fallbackReason = `API Error ${apiResponse.status}: ${errData.error?.message || JSON.stringify(errData)}`;
+                } catch {
+                  fallbackReason = `API Error ${apiResponse.status}: ${apiResponse.statusText}`;
+                }
+                console.warn(`   ⚠️  Initial upstream check failed: ${fallbackReason}`);
+              }
+            })
+            .catch((err) => {
+              upstreamStatus = 'error';
+              fallbackReason = err.message;
+              console.warn(`   ⚠️  Initial upstream check failed: ${fallbackReason}`);
+            });
+        })
+        .catch((err) => {
+          upstreamStatus = 'error';
+          fallbackReason = err.message;
+          console.warn(`   ⚠️  Initial upstream check failed: ${fallbackReason}`);
+        });
+    }
   });
 }
