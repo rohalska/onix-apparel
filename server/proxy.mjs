@@ -563,7 +563,14 @@ const server = http.createServer(async (req, res) => {
             (a.attributes?.rating_rate?.numbers?.[0] || 0),
         );
       } else if (appliedSort === 'newest') {
-        filtered.sort((a, b) => (b.attributes?.is_new_arrival?.text?.[0] === 'true' ? 1 : -1));
+        // Compare both operands. The previous form ignored `a` and never
+        // returned 0, so it was not a valid comparator and the resulting order
+        // depended on the engine's sort implementation rather than the data.
+        filtered.sort((a, b) => {
+          const aNew = a.attributes?.is_new_arrival?.text?.[0] === 'true' ? 1 : 0;
+          const bNew = b.attributes?.is_new_arrival?.text?.[0] === 'true' ? 1 : 0;
+          return bNew - aNew;
+        });
       }
 
       // Compute dynamic facets

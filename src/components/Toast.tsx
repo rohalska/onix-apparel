@@ -14,10 +14,18 @@ interface ToastProps {
 }
 
 export const Toast: React.FC<ToastProps> = ({ toasts, onDismiss }) => {
-  if (toasts.length === 0) return null;
-
+  // The container renders even with nothing in it, and only its children are
+  // conditional. A live region has to be in the accessibility tree before the
+  // message arrives: mounting the region and its first message in the same commit
+  // is the usual reason an announcement never happens. polite rather than
+  // assertive, because none of these interrupt what the shopper is doing.
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none">
+    <div
+      role="status"
+      aria-live="polite"
+      aria-atomic="false"
+      className="fixed bottom-6 right-6 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none"
+    >
       {toasts.map((toast) => (
         <div
           key={toast.id}

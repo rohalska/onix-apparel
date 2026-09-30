@@ -15,7 +15,7 @@
     "coverage": "vitest run --coverage",
     "preview": "vite preview",
     "export:vertex": "node scripts/exportVertexCatalog.mjs",
-    "lint": "eslint . --max-warnings=18",
+    "lint": "eslint . --max-warnings=17",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },

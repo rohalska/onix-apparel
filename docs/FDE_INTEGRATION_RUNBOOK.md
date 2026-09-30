@@ -242,18 +242,53 @@ window.onixStore.dispatch({
 ```
 
 `window.onixStore.help()` prints the action list from the running application.
-Treat it as the list of what the bus _accepts_, not of what the storefront _does_:
-the two have drifted and neither is a complete contract.
 
-Only five actions are wired to behaviour in `AppContent.tsx`: `ADD_TO_CART`,
-`OPEN_PRODUCT`, `NAVIGATE_COLLECTION`, `SEARCH` and `CLEAR_FILTERS`. The type also
-declares `OPEN_CART`, `CLOSE_CART` and `APPLY_PROMO`, and `help()` advertises the
-first and last of those, but nothing subscribes to them — dispatching one does
-nothing and logs nothing. `help()`'s own `ADD_TO_CART` example also names a colour
-product 16 does not have, so it falls back rather than applying as written.
+All eight actions the type declares are handled, but by two different subscribers,
+which is why reading one file suggests otherwise:
 
-Those are defects rather than intended behaviour and are worth fixing at the source
-instead of documenting around. Until then, take the five above as the working set.
+| Subscriber                    | Actions                                                                         |
+| ----------------------------- | ------------------------------------------------------------------------------- |
+| `src/AppContent.tsx`          | `ADD_TO_CART`, `OPEN_PRODUCT`, `NAVIGATE_COLLECTION`, `SEARCH`, `CLEAR_FILTERS` |
+| `src/context/CartContext.tsx` | `OPEN_CART`, `CLOSE_CART`, `APPLY_PROMO`                                        |
+
+The split is declared as `CART_OWNED_ACTIONS` in `src/services/agentActionBus.ts`,
+and `tests/contracts/agentActions.test.ts` asserts that each declared action is
+handled by the subscriber that owns it.
+
+An action that is received but not applied is reported on one channel, whichever
+subscriber declined it. `reportActionRejected` logs the reason and emits an
+`onix:agent-action-rejected` event carrying `{ action, reason }`; `AppContent`
+subscribes once and raises an informational toast. That covers an unresolvable
+product or variant, a `NAVIGATE_COLLECTION` with no collection, a `SEARCH` whose
+query is missing or not a string, an unrecognised action, and a missing or invalid
+promo code, even though the promo handler lives in `CartContext` and renders no
+toast of its own.
+
+An agent can listen for that event to observe the outcome of what it dispatched
+instead of inferring it from the cart not changing:
+
+```js
+window.addEventListener('onix:agent-action-rejected', (e) =>
+  console.log(e.detail.action, e.detail.reason),
+);
+```
+
+A successful action does not currently emit a matching event, so this channel
+reports rejections only.
+
+#### The two catalogs disagree about variants
+
+The storefront serves `src/data/fallbackProducts.ts` when it is offline and the
+Vertex export in `vertex-retail-catalog.json` once the proxy is up, and the two
+datasets do not agree on colour names. Product 16, for example, is Rich Espresso /
+Charcoal Black / Burgundy Wine in the fallback set and Caramel Brown / Jet Black /
+Cognac in the Vertex export, so no single colour literal is valid against both.
+
+`resolveValidatedAddToCart` consults the active catalog first and falls back to the
+bundled dataset. An unmatched colour or size is **not** a rejection: it logs a
+warning and substitutes the product's first canonical variant. An agent that names
+a variant it cannot verify will therefore appear to succeed while adding something
+else, which is why `help()`'s `ADD_TO_CART` example no longer names a colour.
 
 #### Why the payload carries an ID and not a product
 

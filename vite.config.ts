@@ -30,14 +30,26 @@ export default defineConfig({
       // these as coverage improves. Numbers picked aspirationally get bypassed
       // within a week, which is worse than having none.
       thresholds: {
-        statements: 22, // measured 22.62
+        statements: 50, // measured 52.97-53.47
         // No global branch floor. Under the v8 provider a file that is never
         // loaded contributes no branch records, so the branches denominator
         // covers only tested files and the figure rises as coverage falls.
         // Testing a new file would add its uncovered branches and lower the
         // percentage, failing the build for improving coverage.
-        functions: 38, // measured 38.15
-        lines: 22, // measured 22.62
+        //
+        // The functions floor moves the same way, which is why it is loose
+        // rather than near the measured value. The behavioural bus tests mount
+        // AppContent, so the component tree it pulls in now contributes its
+        // uncovered functions to the denominator: statements and lines went
+        // from 22.62 to roughly 53 in the same change that took functions from
+        // 38.15 down to 35.29.
+        //
+        // The figures are a range, not a point: AppContent leaves a debounce and
+        // a toast timer pending under jsdom, so consecutive runs over an
+        // unchanged tree vary by about half a point. The floors sit far enough
+        // below the measurement that the variance cannot fail a build on its own.
+        functions: 34, // measured 35.29
+        lines: 50, // measured 52.97-53.47
       },
     },
   },

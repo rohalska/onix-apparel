@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import { DEFAULT_SORT } from '../shared/sortOptions.mjs';
 import { Navbar } from './components/Navbar';
 import { HeroBanner } from './components/HeroBanner';
@@ -25,13 +25,22 @@ import { FALLBACK_PRODUCTS } from './data/fallbackProducts';
 import { correctQuery } from './utils/fuzzySearch';
 import { CustomerCarePage, CustomerCareSection } from './components/CustomerCare/CustomerCarePage';
 import { ConciergeChatModal } from './components/ConciergeChatModal';
-import { subscribeToAgentActions } from './services/agentActionBus';
+import {
+  subscribeToAgentActions,
+  subscribeToActionRejections,
+  reportActionRejected,
+  CART_OWNED_ACTIONS,
+  type AgentActionPayload,
+} from './services/agentActionBus';
 import {
   resolveValidatedAddToCart,
   resolveValidatedOpenProduct,
 } from './utils/agentActionValidator';
 
 export type SpecialCollection = 'all' | 'new' | 'sale';
+
+/** Bounds the toast column; see addToast. */
+const MAX_VISIBLE_TOASTS = 3;
 
 export const AppContent: React.FC = () => {
   const [products, setProducts] = useState<Product[]>(FALLBACK_PRODUCTS);
@@ -213,9 +222,24 @@ export const AppContent: React.FC = () => {
   // Toast notification helper
   const addToast = (type: 'cart' | 'wishlist' | 'info', title: string, subtitle?: string) => {
     const id = Date.now().toString() + Math.random().toString();
-    setToasts((prev) => [...prev, { id, type, title, subtitle }]);
+    setToasts((prev) => {
+      // An agent can dispatch in a loop and every rejection raises a toast, so an
+      // unbounded queue of pointer-events-auto cards would cover the corner of the
+      // page. Collapsing applies to rejections only: two deliberate adds of the
+      // same product are two events and deserve two confirmations, and a repeat
+      // replaces its predecessor rather than being dropped, so the card the
+      // shopper ends up looking at is the one with a full dismissal timer.
+      const base =
+        type === 'info'
+          ? prev.filter((t) => !(t.type === type && t.title === title && t.subtitle === subtitle))
+          : prev;
+      return [...base, { id, type, title, subtitle }].slice(-MAX_VISIBLE_TOASTS);
+    });
     setTimeout(() => {
-      setToasts((prev) => prev.filter((t) => t.id !== id));
+      // Bails rather than filtering when the id is gone, which it will be for an
+      // entry evicted by the cap or replaced by a later duplicate. Returning prev
+      // unchanged avoids handing React a new array for a no-op.
+      setToasts((prev) => (prev.some((t) => t.id === id) ? prev.filter((t) => t.id !== id) : prev));
     }, 4000);
   };
 
@@ -414,34 +438,90 @@ export const AppContent: React.FC = () => {
     }
   };
 
-  // Listen to Client Action Bus events dispatched by Gemini Concierge or external agents
-  useEffect(() => {
-    return subscribeToAgentActions((action) => {
-      if (action.action === 'ADD_TO_CART') {
-        const validated = resolveValidatedAddToCart(action, products, FALLBACK_PRODUCTS);
-        if (validated) {
-          addToCart(validated.product, validated.size, validated.color, validated.quantity);
-          addToast(
-            'cart',
-            'Added to Shopping Bag by Concierge',
-            `${validated.product.title} (${validated.size}, ${validated.color})`,
-          );
-        }
-      } else if (action.action === 'OPEN_PRODUCT') {
-        const prod = resolveValidatedOpenProduct(action, products, FALLBACK_PRODUCTS);
-        if (prod) {
-          setSelectedProduct(prod);
-        }
-      } else if (action.action === 'NAVIGATE_COLLECTION' && action.collection) {
+  // Handles one action from the Client Action Bus. Defined during render so it
+  // sees current state, and reached through a ref below rather than captured by
+  // the subscription, which is registered once.
+  const handleAgentAction = (action: AgentActionPayload) => {
+    // Every path that declines to act reports on the bus rather than toasting
+    // directly, so that rejections from CartContext's subscriber, which has no
+    // toast surface, reach the shopper the same way these do. The toast itself is
+    // raised by the single subscriber below.
+    const reject = (reason: string) => reportActionRejected(String(action.action), reason);
+
+    if (action.action === 'ADD_TO_CART') {
+      const validated = resolveValidatedAddToCart(action, products, FALLBACK_PRODUCTS);
+      if (validated) {
+        addToCart(validated.product, validated.size, validated.color, validated.quantity);
+        addToast(
+          'cart',
+          'Added to Shopping Bag by Concierge',
+          `${validated.product.title} (${validated.size}, ${validated.color})`,
+        );
+      } else {
+        reject('That item or its options could not be matched to the catalog');
+      }
+    } else if (action.action === 'OPEN_PRODUCT') {
+      const prod = resolveValidatedOpenProduct(action, products, FALLBACK_PRODUCTS);
+      if (prod) {
+        setSelectedProduct(prod);
+      } else {
+        reject('That product could not be matched to the catalog');
+      }
+    } else if (action.action === 'NAVIGATE_COLLECTION') {
+      if (action.collection) {
         handleSelectCollection(action.collection);
-      } else if (action.action === 'SEARCH' && action.query !== undefined) {
+      } else {
+        reject('NAVIGATE_COLLECTION needs a collection');
+      }
+    } else if (action.action === 'SEARCH') {
+      // Only a string is safe here: handleSearchChange calls .trim() on it, and an
+      // agent emitting JSON commonly serializes an unset optional field as null.
+      if (typeof action.query === 'string') {
         handleSearchChange(action.query);
         handleSearchSubmit();
-      } else if (action.action === 'CLEAR_FILTERS') {
-        handleResetFilters();
+      } else {
+        reject('SEARCH needs a query string');
       }
+    } else if (action.action === 'CLEAR_FILTERS') {
+      handleResetFilters();
+    } else if (!CART_OWNED_ACTIONS.includes(action.action)) {
+      // Cart and promo actions belong to CartContext's subscriber, so they are
+      // not unknown here. Anything else genuinely is.
+      reject(`Unrecognized action ${String(action.action)}`);
+    }
+  };
+
+  // The subscription must not capture handleAgentAction directly. Its handlers read
+  // specialCollection, customerCareRoute and category, none of which are in the
+  // effect's dependency list, so a subscription registered on an early render would
+  // keep calling that render's closures. No storefront path was found where that
+  // produced a wrong result, so this closes a hazard rather than a known bug.
+  //
+  // The ref is published from an effect, not from the render body: React may
+  // discard a render it has started, and assigning during render would expose a
+  // closure over state that never committed.
+  //
+  // useLayoutEffect rather than useEffect, because it runs synchronously while
+  // React commits, before the browser is yielded to and so before any dispatched
+  // event could be delivered. A deferred useEffect would leave a window in which
+  // the ref still pointed at the previous render's handler.
+  const agentActionRef = useRef(handleAgentAction);
+  useLayoutEffect(() => {
+    agentActionRef.current = handleAgentAction;
+  });
+
+  // Listen to Client Action Bus events dispatched by Gemini Concierge or external agents
+  useEffect(() => {
+    return subscribeToAgentActions((action) => agentActionRef.current(action));
+  }, []);
+
+  // One place turns a rejection into something the shopper can see, wherever on
+  // the bus it was raised.
+  useEffect(() => {
+    return subscribeToActionRejections(({ reason }) => {
+      addToast('info', 'Concierge action was not applied', reason);
     });
-  }, [products, addToCart]);
+  }, []);
 
   const featuredProduct = useMemo(() => {
     return products.find((p) => p.featured) || products[0];

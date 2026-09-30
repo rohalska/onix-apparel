@@ -1,6 +1,10 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { Product, CartItem, PromoCode } from '../types/product';
-import { notifyCartState, subscribeToAgentActions } from '../services/agentActionBus';
+import {
+  notifyCartState,
+  subscribeToAgentActions,
+  reportActionRejected,
+} from '../services/agentActionBus';
 
 interface CartContextType {
   cart: CartItem[];
@@ -198,8 +202,19 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         setIsCartOpen(true);
       } else if (action.action === 'CLOSE_CART') {
         setIsCartOpen(false);
-      } else if (action.action === 'APPLY_PROMO' && action.promoCode) {
-        applyPromoCode(action.promoCode);
+      } else if (action.action === 'APPLY_PROMO') {
+        // applyPromoCode's result used to be discarded, which made a bad code look
+        // identical to one that was accepted. Reporting on the bus rather than to
+        // the console means the shopper sees it, since this provider renders no
+        // toast of its own.
+        if (typeof action.promoCode !== 'string' || !action.promoCode.trim()) {
+          reportActionRejected('APPLY_PROMO', 'No promo code was supplied');
+        } else {
+          const result = applyPromoCode(action.promoCode);
+          if (!result.success) {
+            reportActionRejected('APPLY_PROMO', result.message);
+          }
+        }
       }
     });
   }, []);

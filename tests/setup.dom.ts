@@ -21,8 +21,22 @@ if (typeof document !== 'undefined') {
   // localStorage and persist on every change, and jsdom does not reset storage
   // between `it()` blocks either. Clearing it here keeps one test's wishlist or
   // cart out of the next one.
+  // jsdom implements neither of these, and AppContent calls them from a
+  // setTimeout after a collection change, where a throw escapes the test that
+  // triggered it and surfaces as an unhandled rejection against whichever test
+  // happens to be running.
+  Element.prototype.scrollIntoView = () => {};
+  window.scrollTo = () => {};
+
+  //
+  // AppContent deep-links collections through `window.location.hash`, and jsdom
+  // keeps one `location` for every test in a file, so a test that navigated
+  // would otherwise hand the next one a pre-filtered catalog on mount.
   afterEach(() => {
     cleanup();
     localStorage.clear();
+    if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname);
+    }
   });
 }

@@ -340,3 +340,30 @@ describe('the request error boundary', () => {
     expect(health.status).toBe(200);
   });
 });
+
+describe('POST /api/search sorting', () => {
+  it('puts every new arrival ahead of everything else under sortBy newest', async () => {
+    // Pins the grouping itself: the bundled catalog interleaves new arrivals
+    // among the rest, so this fails if the sort is dropped or inverted. It does
+    // not distinguish the comparator's earlier form, which read only its second
+    // operand and never returned 0. That form violated the comparator contract
+    // but still grouped correctly for 14 items under V8's insertion sort, so no
+    // black-box assertion over this catalog can separate the two.
+    const res = await postJson('/api/search', JSON.stringify({ sortBy: 'newest' }));
+    expect(res.status).toBe(200);
+    const body = await res.json();
+    expect(body.appliedSort).toBe('newest');
+
+    const flags: boolean[] = body.products.map((p: { isNewArrival?: boolean }) =>
+      Boolean(p.isNewArrival),
+    );
+    expect(flags.filter(Boolean).length).toBeGreaterThan(0);
+    expect(flags.filter((f) => !f).length).toBeGreaterThan(0);
+
+    const firstOld = flags.indexOf(false);
+    expect(
+      flags.slice(firstOld).some(Boolean),
+      'a new arrival appears after a product that is not one',
+    ).toBe(false);
+  });
+});
