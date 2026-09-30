@@ -110,8 +110,12 @@ gcloud run deploy onix-apparel \
   --platform managed \
   --allow-unauthenticated \
   --port 8080 \
+  --max-instances 10 \
   --set-env-vars GCP_PROJECT_ID=YOUR_PROJECT_ID,GCP_LOCATION=global,GCP_CATALOG_ID=default_catalog,GCP_SERVING_CONFIG_ID=default_search
 ```
+
+> [!NOTE]
+> `--max-instances 10` caps auto-scaling to prevent unbudgeted cost spikes during search query spikes. Upstream calls also enforce a request deadline and cancellation propagation when clients disconnect.
 
 Once deployment completes, Cloud Run will output your live HTTPS service URL:
 `https://onix-apparel-xxxxxx-uc.a.run.app`
