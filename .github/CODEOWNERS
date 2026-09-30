@@ -1,0 +1,8 @@
+# The team owns everything by default.
+*                       @onix-net/gecx-shopping-agent-demo
+
+# Delivery machinery: same owners today, called out so a change to how the
+# repo releases or deploys is legible as such in the PR's file list.
+/.github/workflows/     @onix-net/gecx-shopping-agent-demo
+/Makefile               @onix-net/gecx-shopping-agent-demo
+/release-please-config.json @onix-net/gecx-shopping-agent-demo

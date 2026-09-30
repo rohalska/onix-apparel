@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { DEFAULT_SORT } from '../shared/sortOptions.mjs';
 import { Navbar } from './components/Navbar';
 import { HeroBanner } from './components/HeroBanner';
 import { FilterBar } from './components/FilterBar';
@@ -39,7 +40,7 @@ export const AppContent: React.FC = () => {
   const [specialCollection, setSpecialCollection] = useState<SpecialCollection>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [maxPrice, setMaxPrice] = useState<number>(700);
-  const [sortBy, setSortBy] = useState<SortOption>('featured');
+  const [sortBy, setSortBy] = useState<SortOption>(DEFAULT_SORT);
 
   // Vertex AI Commerce Search State
   const [vertexHealth, setVertexHealth] = useState<VertexHealthResponse | null>(null);
@@ -64,7 +65,9 @@ export const AppContent: React.FC = () => {
 
   const { addToCart } = useCart();
 
-  const handleSelectCollection = (collectionKey: 'women' | 'men' | 'accessories' | 'new' | 'sale') => {
+  const handleSelectCollection = (
+    collectionKey: 'women' | 'men' | 'accessories' | 'new' | 'sale',
+  ) => {
     setCustomerCareRoute(null);
     setSearchQuery('');
     setSelectedProduct(null);
@@ -111,7 +114,9 @@ export const AppContent: React.FC = () => {
   useEffect(() => {
     const handleHashChange = () => {
       const rawHash = window.location.hash.replace('#', '');
-      if (['shipping', 'returns', 'sizing', 'order-lookup', 'contact', 'privacy'].includes(rawHash)) {
+      if (
+        ['shipping', 'returns', 'sizing', 'order-lookup', 'contact', 'privacy'].includes(rawHash)
+      ) {
         setCustomerCareRoute(rawHash as CustomerCareSection);
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else if (['women', 'men', 'accessories', 'new', 'sale'].includes(rawHash)) {
@@ -148,7 +153,7 @@ export const AppContent: React.FC = () => {
             color: selectedFacetColor || undefined,
             sortBy,
           },
-          products.length > 0 ? products : undefined
+          products.length > 0 ? products : undefined,
         );
 
         if (res) {
@@ -222,11 +227,7 @@ export const AppContent: React.FC = () => {
   };
 
   const handleWishlistNotify = (title: string, added: boolean) => {
-    addToast(
-      'wishlist',
-      added ? 'Saved to Wishlist' : 'Removed from Wishlist',
-      title
-    );
+    addToast('wishlist', added ? 'Saved to Wishlist' : 'Removed from Wishlist', title);
   };
 
   const handleAddedToCartNotify = (product: Product, size: string) => {
@@ -254,7 +255,7 @@ export const AppContent: React.FC = () => {
               descLower.includes(token) ||
               catLower.includes(token) ||
               colorsLower.includes(token) ||
-              sizesLower.includes(token)
+              sizesLower.includes(token),
           );
           if (!matches) return false;
         } else {
@@ -291,13 +292,22 @@ export const AppContent: React.FC = () => {
         return true;
       })
       .sort((a, b) => {
-        if (sortBy === 'price-asc') return a.price - b.price;
-        if (sortBy === 'price-desc') return b.price - a.price;
+        if (sortBy === 'price-low') return a.price - b.price;
+        if (sortBy === 'price-high') return b.price - a.price;
         if (sortBy === 'rating') return b.rating.rate - a.rating.rate;
         if (sortBy === 'newest') return (b.isNewArrival ? 1 : 0) - (a.isNewArrival ? 1 : 0);
         return (b.featured ? 1 : 0) - (a.featured ? 1 : 0);
       });
-  }, [products, searchQuery, category, specialCollection, maxPrice, sortBy, selectedFacetSize, selectedFacetColor]);
+  }, [
+    products,
+    searchQuery,
+    category,
+    specialCollection,
+    maxPrice,
+    sortBy,
+    selectedFacetSize,
+    selectedFacetColor,
+  ]);
 
   // Detected autocorrection for the UI notice
   const detectedCorrection = useMemo(() => {
@@ -350,7 +360,7 @@ export const AppContent: React.FC = () => {
     category !== 'all' ||
     specialCollection !== 'all' ||
     maxPrice < 700 ||
-    sortBy !== 'featured' ||
+    sortBy !== DEFAULT_SORT ||
     selectedFacetSize !== null ||
     selectedFacetColor !== null;
 
@@ -392,7 +402,7 @@ export const AppContent: React.FC = () => {
     setCategory('all');
     setSpecialCollection('all');
     setMaxPrice(700);
-    setSortBy('featured');
+    setSortBy(DEFAULT_SORT);
     setSelectedFacetSize(null);
     setSelectedFacetColor(null);
     if (typeof window !== 'undefined' && window.location.hash) {
@@ -406,16 +416,11 @@ export const AppContent: React.FC = () => {
       if (action.action === 'ADD_TO_CART') {
         const validated = resolveValidatedAddToCart(action, products, FALLBACK_PRODUCTS);
         if (validated) {
-          addToCart(
-            validated.product,
-            validated.size,
-            validated.color,
-            validated.quantity
-          );
+          addToCart(validated.product, validated.size, validated.color, validated.quantity);
           addToast(
             'cart',
             'Added to Shopping Bag by Concierge',
-            `${validated.product.title} (${validated.size}, ${validated.color})`
+            `${validated.product.title} (${validated.size}, ${validated.color})`,
           );
         }
       } else if (action.action === 'OPEN_PRODUCT') {
@@ -493,185 +498,198 @@ export const AppContent: React.FC = () => {
 
           {/* Main Catalog Section */}
           <main id="catalog" className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <div>
-            <h2 className="text-2xl font-serif font-bold text-slate-900 tracking-tight capitalize">
-              {searchQuery.trim()
-                ? `Search Results for "${searchQuery}"`
-                : specialCollection === 'new'
-                ? 'Seasonal New Arrivals'
-                : specialCollection === 'sale'
-                ? 'End of Season Sale — Exclusive Markdowns'
-                : category === 'all'
-                ? 'Curated Wardrobe Collection'
-                : category === "men's clothing"
-                ? "Men's Apparel & Outerwear"
-                : category === "women's clothing"
-                ? "Women's Collection & Tops"
-                : 'Fine Jewelry & Accessories'}
-            </h2>
-            <p className="text-xs text-stone-500 mt-0.5">
-              {searchQuery.trim()
-                ? `Found ${displayedProducts.length} matching piece${displayedProducts.length === 1 ? '' : 's'} across all departments.`
-                : specialCollection === 'new'
-                ? `Showing ${displayedProducts.length} new seasonal arrivals fresh off the runway.`
-                : specialCollection === 'sale'
-                ? `Limited-time archive pricing and seasonal reductions. Up to 50% off select styles.`
-                : 'Refined tailoring, premium sustainable staples, and effortless styling.'}
-            </p>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-2">
-            {/* Vertex AI Mode Indicator */}
-            <span
-              className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border ${
-                vertexHealth?.mode === 'live'
-                  ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
-                  : 'bg-stone-100 text-stone-700 border-stone-200'
-              }`}
-              title={
-                vertexHealth?.mode === 'live'
-                  ? `Connected to Google Cloud project: ${vertexHealth.gcpProjectId}`
-                  : `Running in local Vertex AI mode (${searchSource})`
-              }
-            >
-              <span
-                className={`w-2 h-2 rounded-full ${
-                  vertexHealth?.mode === 'live' ? 'bg-emerald-500 animate-pulse' : 'bg-blue-500'
-                }`}
-              />
-              Vertex AI Commerce Search ({vertexHealth?.mode === 'live' ? 'Live GCP' : 'Simulation'})
-            </span>
-
-            {displayedProducts.length > 0 && (
-              <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-stone-200/60 text-stone-700">
-                <Sparkles className="w-3.5 h-3.5 text-amber-600" />
-                In Stock & Ready to Ship
-              </span>
-            )}
-          </div>
-        </div>
-
-        {/* Autocorrect / Query Expansion Notice */}
-        {detectedCorrection && (
-          <div className="mb-5 px-4 py-3 bg-amber-50/90 border border-amber-200 rounded-2xl flex items-center justify-between text-xs text-amber-900 shadow-sm animate-fade-in">
-            <div>
-              <span>Showing results for </span>
-              <strong className="underline decoration-amber-400 font-bold">{detectedCorrection}</strong>
-              <span className="text-amber-700 ml-1.5">(autocorrected from "{searchQuery}")</span>
-            </div>
-            <button
-              onClick={() => setSearchQuery(detectedCorrection)}
-              className="px-2.5 py-1 bg-amber-200/70 hover:bg-amber-200 text-amber-900 rounded-lg font-semibold transition-colors"
-            >
-              Update Search
-            </button>
-          </div>
-        )}
-
-        {/* Dynamic Facet Chips (from Vertex AI) */}
-        {computedFacets.length > 0 && (searchQuery.trim() || category !== 'all' || selectedFacetSize || selectedFacetColor) && (
-          <div className="mb-6 flex flex-wrap items-center gap-2 p-3 bg-white border border-stone-200 rounded-2xl shadow-sm">
-            <span className="text-xs font-semibold text-stone-500 uppercase tracking-wider mr-1">
-              Refine by Facet:
-            </span>
-            {computedFacets
-              .find((f) => f.key === 'sizes' || f.key === 'attributes.sizes')
-              ?.values.slice(0, 5)
-              .map((v) => (
-                <button
-                  key={v.value}
-                  onClick={() => setSelectedFacetSize(selectedFacetSize === v.value ? null : v.value)}
-                  className={`px-3 py-1 text-xs rounded-full border transition-all ${
-                    selectedFacetSize === v.value
-                      ? 'bg-slate-900 text-white border-slate-900 shadow-sm'
-                      : 'bg-stone-50 text-stone-700 border-stone-200 hover:border-stone-400'
-                  }`}
-                >
-                  Size {v.value} ({v.count})
-                </button>
-              ))}
-            {computedFacets
-              .find((f) => f.key === 'colors' || f.key === 'attributes.colors')
-              ?.values.slice(0, 4)
-              .map((v) => (
-                <button
-                  key={v.value}
-                  onClick={() => setSelectedFacetColor(selectedFacetColor === v.value ? null : v.value)}
-                  className={`px-3 py-1 text-xs rounded-full border transition-all ${
-                    selectedFacetColor === v.value
-                      ? 'bg-slate-900 text-white border-slate-900 shadow-sm'
-                      : 'bg-stone-50 text-stone-700 border-stone-200 hover:border-stone-400'
-                  }`}
-                >
-                  {v.value} ({v.count})
-                </button>
-              ))}
-            {(selectedFacetSize || selectedFacetColor) && (
-              <button
-                onClick={() => {
-                  setSelectedFacetSize(null);
-                  setSelectedFacetColor(null);
-                }}
-                className="text-xs text-rose-600 hover:text-rose-700 underline font-medium ml-2"
-              >
-                Clear Facets
-              </button>
-            )}
-          </div>
-        )}
-
-        {/* Loading Skeleton */}
-        {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {Array.from({ length: 8 }).map((_, i) => (
-              <div
-                key={i}
-                className="bg-white rounded-2xl p-4 border border-stone-200 animate-pulse space-y-3"
-              >
-                <div className="aspect-[3/4] bg-stone-200 rounded-xl" />
-                <div className="h-4 bg-stone-200 rounded w-3/4" />
-                <div className="h-4 bg-stone-200 rounded w-1/2" />
-                <div className="h-6 bg-stone-200 rounded w-1/4 mt-4" />
+            <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div>
+                <h2 className="text-2xl font-serif font-bold text-slate-900 tracking-tight capitalize">
+                  {searchQuery.trim()
+                    ? `Search Results for "${searchQuery}"`
+                    : specialCollection === 'new'
+                      ? 'Seasonal New Arrivals'
+                      : specialCollection === 'sale'
+                        ? 'End of Season Sale — Exclusive Markdowns'
+                        : category === 'all'
+                          ? 'Curated Wardrobe Collection'
+                          : category === "men's clothing"
+                            ? "Men's Apparel & Outerwear"
+                            : category === "women's clothing"
+                              ? "Women's Collection & Tops"
+                              : 'Fine Jewelry & Accessories'}
+                </h2>
+                <p className="text-xs text-stone-500 mt-0.5">
+                  {searchQuery.trim()
+                    ? `Found ${displayedProducts.length} matching piece${displayedProducts.length === 1 ? '' : 's'} across all departments.`
+                    : specialCollection === 'new'
+                      ? `Showing ${displayedProducts.length} new seasonal arrivals fresh off the runway.`
+                      : specialCollection === 'sale'
+                        ? `Limited-time archive pricing and seasonal reductions. Up to 50% off select styles.`
+                        : 'Refined tailoring, premium sustainable staples, and effortless styling.'}
+                </p>
               </div>
-            ))}
-          </div>
-        ) : displayedProducts.length === 0 ? (
-          /* Empty State */
-          <div className="bg-white rounded-3xl border border-stone-200 p-12 text-center max-w-md mx-auto my-12">
-            <div className="w-16 h-16 rounded-full bg-stone-100 flex items-center justify-center text-stone-400 mx-auto mb-4">
-              <AlertCircle className="w-8 h-8" />
+
+              <div className="flex flex-wrap items-center gap-2">
+                {/* Vertex AI Mode Indicator */}
+                <span
+                  className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border ${
+                    vertexHealth?.mode === 'live'
+                      ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
+                      : 'bg-stone-100 text-stone-700 border-stone-200'
+                  }`}
+                  title={
+                    vertexHealth?.mode === 'live'
+                      ? `Connected to Google Cloud project: ${vertexHealth.gcpProjectId}`
+                      : `Running in local Vertex AI mode (${searchSource})`
+                  }
+                >
+                  <span
+                    className={`w-2 h-2 rounded-full ${
+                      vertexHealth?.mode === 'live' ? 'bg-emerald-500 animate-pulse' : 'bg-blue-500'
+                    }`}
+                  />
+                  Vertex AI Commerce Search (
+                  {vertexHealth?.mode === 'live' ? 'Live GCP' : 'Simulation'})
+                </span>
+
+                {displayedProducts.length > 0 && (
+                  <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-stone-200/60 text-stone-700">
+                    <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+                    In Stock & Ready to Ship
+                  </span>
+                )}
+              </div>
             </div>
-            <h3 className="text-lg font-serif font-bold text-slate-900 mb-1">
-              No matching pieces found
-            </h3>
-            <p className="text-xs text-stone-500 mb-6">
-              We couldn't find any products matching your current filters or search term.
-            </p>
-            <button
-              onClick={handleResetFilters}
-              className="px-6 py-2.5 bg-slate-900 text-white text-xs font-semibold rounded-full hover:bg-slate-800 transition-all inline-flex items-center gap-2"
-            >
-              <RefreshCw className="w-3.5 h-3.5" />
-              Reset All Filters
-            </button>
-          </div>
-        ) : (
-          /* Products Grid */
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {displayedProducts.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                onQuickView={setSelectedProduct}
-                onAddToCartDirect={handleAddToCartDirect}
-                onWishlistNotify={handleWishlistNotify}
-              />
-            ))}
-          </div>
-        )}
-      </main>
-      </>
+
+            {/* Autocorrect / Query Expansion Notice */}
+            {detectedCorrection && (
+              <div className="mb-5 px-4 py-3 bg-amber-50/90 border border-amber-200 rounded-2xl flex items-center justify-between text-xs text-amber-900 shadow-sm animate-fade-in">
+                <div>
+                  <span>Showing results for </span>
+                  <strong className="underline decoration-amber-400 font-bold">
+                    {detectedCorrection}
+                  </strong>
+                  <span className="text-amber-700 ml-1.5">
+                    (autocorrected from "{searchQuery}")
+                  </span>
+                </div>
+                <button
+                  onClick={() => setSearchQuery(detectedCorrection)}
+                  className="px-2.5 py-1 bg-amber-200/70 hover:bg-amber-200 text-amber-900 rounded-lg font-semibold transition-colors"
+                >
+                  Update Search
+                </button>
+              </div>
+            )}
+
+            {/* Dynamic Facet Chips (from Vertex AI) */}
+            {computedFacets.length > 0 &&
+              (searchQuery.trim() ||
+                category !== 'all' ||
+                selectedFacetSize ||
+                selectedFacetColor) && (
+                <div className="mb-6 flex flex-wrap items-center gap-2 p-3 bg-white border border-stone-200 rounded-2xl shadow-sm">
+                  <span className="text-xs font-semibold text-stone-500 uppercase tracking-wider mr-1">
+                    Refine by Facet:
+                  </span>
+                  {computedFacets
+                    .find((f) => f.key === 'sizes' || f.key === 'attributes.sizes')
+                    ?.values.slice(0, 5)
+                    .map((v) => (
+                      <button
+                        key={v.value}
+                        onClick={() =>
+                          setSelectedFacetSize(selectedFacetSize === v.value ? null : v.value)
+                        }
+                        className={`px-3 py-1 text-xs rounded-full border transition-all ${
+                          selectedFacetSize === v.value
+                            ? 'bg-slate-900 text-white border-slate-900 shadow-sm'
+                            : 'bg-stone-50 text-stone-700 border-stone-200 hover:border-stone-400'
+                        }`}
+                      >
+                        Size {v.value} ({v.count})
+                      </button>
+                    ))}
+                  {computedFacets
+                    .find((f) => f.key === 'colors' || f.key === 'attributes.colors')
+                    ?.values.slice(0, 4)
+                    .map((v) => (
+                      <button
+                        key={v.value}
+                        onClick={() =>
+                          setSelectedFacetColor(selectedFacetColor === v.value ? null : v.value)
+                        }
+                        className={`px-3 py-1 text-xs rounded-full border transition-all ${
+                          selectedFacetColor === v.value
+                            ? 'bg-slate-900 text-white border-slate-900 shadow-sm'
+                            : 'bg-stone-50 text-stone-700 border-stone-200 hover:border-stone-400'
+                        }`}
+                      >
+                        {v.value} ({v.count})
+                      </button>
+                    ))}
+                  {(selectedFacetSize || selectedFacetColor) && (
+                    <button
+                      onClick={() => {
+                        setSelectedFacetSize(null);
+                        setSelectedFacetColor(null);
+                      }}
+                      className="text-xs text-rose-600 hover:text-rose-700 underline font-medium ml-2"
+                    >
+                      Clear Facets
+                    </button>
+                  )}
+                </div>
+              )}
+
+            {/* Loading Skeleton */}
+            {loading ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {Array.from({ length: 8 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="bg-white rounded-2xl p-4 border border-stone-200 animate-pulse space-y-3"
+                  >
+                    <div className="aspect-[3/4] bg-stone-200 rounded-xl" />
+                    <div className="h-4 bg-stone-200 rounded w-3/4" />
+                    <div className="h-4 bg-stone-200 rounded w-1/2" />
+                    <div className="h-6 bg-stone-200 rounded w-1/4 mt-4" />
+                  </div>
+                ))}
+              </div>
+            ) : displayedProducts.length === 0 ? (
+              /* Empty State */
+              <div className="bg-white rounded-3xl border border-stone-200 p-12 text-center max-w-md mx-auto my-12">
+                <div className="w-16 h-16 rounded-full bg-stone-100 flex items-center justify-center text-stone-400 mx-auto mb-4">
+                  <AlertCircle className="w-8 h-8" />
+                </div>
+                <h3 className="text-lg font-serif font-bold text-slate-900 mb-1">
+                  No matching pieces found
+                </h3>
+                <p className="text-xs text-stone-500 mb-6">
+                  We couldn't find any products matching your current filters or search term.
+                </p>
+                <button
+                  onClick={handleResetFilters}
+                  className="px-6 py-2.5 bg-slate-900 text-white text-xs font-semibold rounded-full hover:bg-slate-800 transition-all inline-flex items-center gap-2"
+                >
+                  <RefreshCw className="w-3.5 h-3.5" />
+                  Reset All Filters
+                </button>
+              </div>
+            ) : (
+              /* Products Grid */
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {displayedProducts.map((product) => (
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    onQuickView={setSelectedProduct}
+                    onAddToCartDirect={handleAddToCartDirect}
+                    onWishlistNotify={handleWishlistNotify}
+                  />
+                ))}
+              </div>
+            )}
+          </main>
+        </>
       )}
 
       {/* Product Detail Modal */}
@@ -691,10 +709,7 @@ export const AppContent: React.FC = () => {
       />
 
       {/* Checkout Modal */}
-      <CheckoutModal
-        isOpen={isCheckoutOpen}
-        onClose={() => setIsCheckoutOpen(false)}
-      />
+      <CheckoutModal isOpen={isCheckoutOpen} onClose={() => setIsCheckoutOpen(false)} />
 
       {/* Gemini Enterprise AI Concierge Assistant & Client Action Bus Shell */}
       <ConciergeChatModal />

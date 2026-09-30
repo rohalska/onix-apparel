@@ -1,4 +1,4 @@
-import { describe, it } from 'node:test';
+import { describe, it } from 'vitest';
 import assert from 'node:assert/strict';
 import { simulateClientSearch } from '../src/services/vertexSearch';
 import { FALLBACK_PRODUCTS } from '../src/data/fallbackProducts';
@@ -8,10 +8,16 @@ describe('Global vs Category Search Behavior', () => {
     const jacketRes = simulateClientSearch({ query: 'jacket', category: 'all' }, FALLBACK_PRODUCTS);
     assert.ok(jacketRes.products.length > 0, 'Must find jackets in global search');
 
-    const diamondRes = simulateClientSearch({ query: 'diamond', category: 'all' }, FALLBACK_PRODUCTS);
+    const diamondRes = simulateClientSearch(
+      { query: 'diamond', category: 'all' },
+      FALLBACK_PRODUCTS,
+    );
     assert.ok(diamondRes.products.length > 0, 'Must find diamonds in global search');
 
-    const backpackRes = simulateClientSearch({ query: 'backpack', category: 'all' }, FALLBACK_PRODUCTS);
+    const backpackRes = simulateClientSearch(
+      { query: 'backpack', category: 'all' },
+      FALLBACK_PRODUCTS,
+    );
     assert.ok(backpackRes.products.length > 0, 'Must find backpacks in global search');
   });
 

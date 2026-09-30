@@ -79,11 +79,14 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                 if (!target.dataset.hasFailed) {
                   target.dataset.hasFailed = 'true';
                   if (product.category === "women's clothing") {
-                    target.src = 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80';
+                    target.src =
+                      'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80';
                   } else if (product.category === 'jewelery') {
-                    target.src = 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80';
+                    target.src =
+                      'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80';
                   } else {
-                    target.src = 'https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?auto=format&fit=crop&w=800&q=80';
+                    target.src =
+                      'https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?auto=format&fit=crop&w=800&q=80';
                   }
                 }
               }}
@@ -113,9 +116,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                     />
                   ))}
                 </div>
-                <span className="text-xs font-bold text-slate-800">
-                  {product.rating.rate}
-                </span>
+                <span className="text-xs font-bold text-slate-800">{product.rating.rate}</span>
                 <span className="text-xs text-stone-400">
                   ({product.rating.count} verified reviews)
                 </span>
@@ -126,7 +127,9 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                 {product.title}
               </h2>
               <div className="flex items-baseline gap-2 mb-4">
-                <span className={`text-2xl font-bold ${product.onSale ? 'text-rose-700' : 'text-slate-900'}`}>
+                <span
+                  className={`text-2xl font-bold ${product.onSale ? 'text-rose-700' : 'text-slate-900'}`}
+                >
                   ${product.price.toFixed(2)}
                 </span>
                 {product.originalPrice && (
@@ -142,9 +145,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
               </div>
 
               {/* Description */}
-              <p className="text-sm text-stone-600 leading-relaxed mb-6">
-                {product.description}
-              </p>
+              <p className="text-sm text-stone-600 leading-relaxed mb-6">{product.description}</p>
 
               {/* Size Selector */}
               {product.sizes && product.sizes.length > 0 && (
@@ -221,9 +222,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                   >
                     -
                   </button>
-                  <span className="px-3 text-sm font-bold text-slate-800">
-                    {quantity}
-                  </span>
+                  <span className="px-3 text-sm font-bold text-slate-800">{quantity}</span>
                   <button
                     onClick={() => setQuantity((q) => q + 1)}
                     className="px-3 py-1 text-stone-600 hover:text-black font-semibold"

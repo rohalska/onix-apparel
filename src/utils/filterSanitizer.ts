@@ -5,5 +5,8 @@
 export function sanitizeFilterValue(val: unknown): string {
   if (typeof val !== 'string') return '';
   // Strip quotes, backslashes, parentheses, brackets, and semicolon characters
-  return val.replace(/["'\\;()\[\]{}]/g, '').trim().slice(0, 50);
+  return val
+    .replace(/["'\\;()[\]{}]/g, '')
+    .trim()
+    .slice(0, 50);
 }

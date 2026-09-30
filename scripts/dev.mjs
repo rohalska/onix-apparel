@@ -15,7 +15,7 @@ console.log('------------------------------------------------------------\n');
 const proxy = spawn(process.execPath, [path.resolve(rootDir, 'server/proxy.mjs')], {
   cwd: rootDir,
   stdio: 'inherit',
-  env: process.env
+  env: process.env,
 });
 
 // 2. Start Vite Frontend
@@ -23,13 +23,17 @@ const viteBin = path.resolve(rootDir, 'node_modules/.bin/vite');
 const vite = spawn(viteBin, ['--host', '--port', '5173'], {
   cwd: rootDir,
   stdio: 'inherit',
-  env: process.env
+  env: process.env,
 });
 
 function cleanup() {
   console.log('\n🛑 Shutting down Onix Apparel dev processes...');
-  try { proxy.kill('SIGTERM'); } catch {}
-  try { vite.kill('SIGTERM'); } catch {}
+  try {
+    proxy.kill('SIGTERM');
+  } catch {}
+  try {
+    vite.kill('SIGTERM');
+  } catch {}
   process.exit(0);
 }
 

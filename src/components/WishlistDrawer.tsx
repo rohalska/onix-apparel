@@ -93,11 +93,14 @@ export const WishlistDrawer: React.FC<WishlistDrawerProps> = ({
                         if (!target.dataset.hasFailed) {
                           target.dataset.hasFailed = 'true';
                           if (product.category === "women's clothing") {
-                            target.src = 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80';
+                            target.src =
+                              'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80';
                           } else if (product.category === 'jewelery') {
-                            target.src = 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=600&q=80';
+                            target.src =
+                              'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=600&q=80';
                           } else {
-                            target.src = 'https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?auto=format&fit=crop&w=600&q=80';
+                            target.src =
+                              'https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?auto=format&fit=crop&w=600&q=80';
                           }
                         }
                       }}

@@ -27,12 +27,35 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "query": { "type": "string", "description": "Free text query, e.g. 'black leather jacket' or 'gold ring'" },
-          "category": { "type": "string", "enum": ["all", "men's clothing", "women's clothing", "jewelery"], "description": "Target collection" },
+          "query": {
+            "type": "string",
+            "description": "Free text query, e.g. 'black leather jacket' or 'gold ring'"
+          },
+          "category": {
+            "type": "string",
+            "enum": ["all", "men's clothing", "women's clothing", "jewelery"],
+            "description": "Target collection"
+          },
           "maxPrice": { "type": "number", "description": "Maximum price in USD" },
-          "size": { "type": "string", "description": "Clothing or accessory size (e.g. S, M, L, XL, One Size)" },
+          "size": {
+            "type": "string",
+            "description": "Clothing or accessory size (e.g. S, M, L, XL, One Size)"
+          },
           "color": { "type": "string", "description": "Color name (e.g. Onyx Black, Warm Cream)" },
-          "sortBy": { "type": "string", "enum": ["featured", "price-low", "price-high", "rating", "newest"] }
+          "sortBy": {
+            "type": "string",
+            "enum": ["featured", "price-low", "price-high", "rating", "newest"]
+          }
+        }
+      },
+      "returns": {
+        "type": "object",
+        "properties": {
+          "appliedSort": {
+            "type": "string",
+            "enum": ["featured", "price-low", "price-high", "rating", "newest"],
+            "description": "The sort the server actually applied. It echoes sortBy when that value is recognised and reports 'featured' when it is not, so the sort fallback is observable rather than silent."
+          }
         }
       }
     },

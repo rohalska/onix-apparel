@@ -1,9 +1,8 @@
-import { describe, it } from 'node:test';
+import { describe, it } from 'vitest';
 import assert from 'node:assert/strict';
 import {
   resolveValidatedAddToCart,
   resolveValidatedOpenProduct,
-  MIN_ACTION_QUANTITY,
   MAX_ACTION_QUANTITY,
 } from '../src/utils/agentActionValidator';
 import { FALLBACK_PRODUCTS } from '../src/data/fallbackProducts';
@@ -29,7 +28,11 @@ describe('Agent Action Bus Security & Input Validation', () => {
       } as unknown as AgentActionPayload;
 
       const result = resolveValidatedAddToCart(maliciousAction, activeCatalog, FALLBACK_PRODUCTS);
-      assert.equal(result, null, 'Must reject action when productId is missing, ignoring fabricated product');
+      assert.equal(
+        result,
+        null,
+        'Must reject action when productId is missing, ignoring fabricated product',
+      );
     });
 
     it('should ignore fabricated price/title overrides even if valid productId is provided', () => {
@@ -46,8 +49,16 @@ describe('Agent Action Bus Security & Input Validation', () => {
       const result = resolveValidatedAddToCart(maliciousAction, activeCatalog, FALLBACK_PRODUCTS);
       assert.ok(result !== null);
       assert.equal(result.product.id, 3);
-      assert.equal(result.product.price, canonicalItem.price, 'Price must be resolved from canonical catalog');
-      assert.equal(result.product.title, canonicalItem.title, 'Title must be resolved from canonical catalog');
+      assert.equal(
+        result.product.price,
+        canonicalItem.price,
+        'Price must be resolved from canonical catalog',
+      );
+      assert.equal(
+        result.product.title,
+        canonicalItem.title,
+        'Title must be resolved from canonical catalog',
+      );
     });
 
     it('should reject non-numeric or non-positive product IDs', () => {
@@ -102,7 +113,11 @@ describe('Agent Action Bus Security & Input Validation', () => {
 
       const result = resolveValidatedAddToCart(action, activeCatalog, FALLBACK_PRODUCTS);
       assert.ok(result !== null);
-      assert.equal(result.size, canonicalItem.sizes![0], 'Should fall back to product default size');
+      assert.equal(
+        result.size,
+        canonicalItem.sizes![0],
+        'Should fall back to product default size',
+      );
     });
 
     it('should accept valid color and preserve canonical naming', () => {
@@ -126,7 +141,11 @@ describe('Agent Action Bus Security & Input Validation', () => {
 
       const result = resolveValidatedAddToCart(action, activeCatalog, FALLBACK_PRODUCTS);
       assert.ok(result !== null);
-      assert.equal(result.color, canonicalItem.colors![0].name, 'Should fall back to product default color');
+      assert.equal(
+        result.color,
+        canonicalItem.colors![0].name,
+        'Should fall back to product default color',
+      );
     });
   });
 
@@ -193,7 +212,11 @@ describe('Agent Action Bus Security & Input Validation', () => {
 
       const result = resolveValidatedAddToCart(action, activeCatalog, FALLBACK_PRODUCTS);
       assert.ok(result !== null);
-      assert.equal(result.quantity, MAX_ACTION_QUANTITY, `Should cap quantity at ${MAX_ACTION_QUANTITY}`);
+      assert.equal(
+        result.quantity,
+        MAX_ACTION_QUANTITY,
+        `Should cap quantity at ${MAX_ACTION_QUANTITY}`,
+      );
     });
 
     it('should floor decimal quantities to integers', () => {

@@ -10,6 +10,13 @@ WORKDIR /app
 
 # Install all dependencies (including devDependencies for tsc and vite)
 COPY package*.json ./
+
+# npm runs the `prepare` script at the end of `npm ci`, so the script it names
+# has to be in the build context before that line, not with the rest of the
+# source below. Spell the path out: `COPY package*.json scripts/ ./` flattens
+# scripts/ into the working directory and npm still cannot find it.
+COPY scripts/installHooks.mjs ./scripts/installHooks.mjs
+
 RUN npm ci
 
 # Copy project source
@@ -33,6 +40,7 @@ ENV PORT=8080
 COPY package*.json ./
 COPY --from=builder /app/dist ./dist
 COPY server/ ./server/
+COPY shared/ ./shared/
 COPY vertex-retail-catalog.json* ./
 COPY openapi.yaml ./
 COPY public/ ./public/

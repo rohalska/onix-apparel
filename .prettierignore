@@ -1,0 +1,10 @@
+dist
+coverage
+node_modules
+package-lock.json
+vertex-retail-catalog.json
+vertex-retail-catalog.jsonl
+# Local scratch directory, git-ignored via .git/info/exclude, which Prettier
+# does not read. Without this, `prettier --check .` fails on paths no commit
+# can fix.
+.superpowers

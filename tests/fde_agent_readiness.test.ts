@@ -1,4 +1,4 @@
-import { describe, it } from 'node:test';
+import { describe, it } from 'vitest';
 import assert from 'node:assert/strict';
 import fs from 'fs';
 import path from 'path';
@@ -96,6 +96,11 @@ describe('Google Forward Deployment Engineer & Gemini Enterprise Readiness', () 
       assert.ok(dockerfile.includes('FROM node:20-alpine AS runner'));
       assert.ok(dockerfile.includes('EXPOSE 8080'));
       assert.ok(dockerfile.includes('server/proxy.mjs'));
+      // The runner stage once shipped without shared/, so proxy.mjs threw
+      // ERR_MODULE_NOT_FOUND on its first import the moment the container
+      // started. A grep is a stopgap, not a substitute for the image build CI
+      // now runs, but it is the cheap check that would have caught that one.
+      assert.ok(dockerfile.includes('shared/'), 'runner stage must copy shared/');
     });
 
     it('should have cloudbuild.yaml configured for Cloud Run deployment', () => {
@@ -125,37 +130,70 @@ describe('Google Forward Deployment Engineer & Gemini Enterprise Readiness', () 
       // Dockerignore assertions
       assert.ok(dContent.includes('node_modules'));
       assert.ok(dContent.includes('.env*'), '.dockerignore must ignore .env*');
-      assert.ok(dContent.includes('!.env.example'), '.dockerignore must have explicit exception for !.env.example');
-      assert.ok(dContent.includes('*service-account*.json'), '.dockerignore must ignore service-account JSON');
-      assert.ok(dContent.includes('*credentials*.json'), '.dockerignore must ignore credentials JSON');
+      assert.ok(
+        dContent.includes('!.env.example'),
+        '.dockerignore must have explicit exception for !.env.example',
+      );
+      assert.ok(
+        dContent.includes('*service-account*.json'),
+        '.dockerignore must ignore service-account JSON',
+      );
+      assert.ok(
+        dContent.includes('*credentials*.json'),
+        '.dockerignore must ignore credentials JSON',
+      );
 
       // Gcloudignore assertions
       assert.ok(gContent.includes('node_modules'));
       assert.ok(gContent.includes('.env*'), '.gcloudignore must ignore .env*');
-      assert.ok(gContent.includes('!.env.example'), '.gcloudignore must have explicit exception for !.env.example');
-      assert.ok(gContent.includes('*service-account*.json'), '.gcloudignore must ignore service-account JSON');
-      assert.ok(gContent.includes('*credentials*.json'), '.gcloudignore must ignore credentials JSON');
+      assert.ok(
+        gContent.includes('!.env.example'),
+        '.gcloudignore must have explicit exception for !.env.example',
+      );
+      assert.ok(
+        gContent.includes('*service-account*.json'),
+        '.gcloudignore must ignore service-account JSON',
+      );
+      assert.ok(
+        gContent.includes('*credentials*.json'),
+        '.gcloudignore must ignore credentials JSON',
+      );
 
       // Gitignore assertions
       assert.ok(gitContent.includes('.env*'), '.gitignore must ignore .env*');
-      assert.ok(gitContent.includes('!.env.example'), '.gitignore must have explicit exception for !.env.example');
-      assert.ok(gitContent.includes('*service-account*.json'), '.gitignore must ignore service-account JSON');
+      assert.ok(
+        gitContent.includes('!.env.example'),
+        '.gitignore must have explicit exception for !.env.example',
+      );
+      assert.ok(
+        gitContent.includes('*service-account*.json'),
+        '.gitignore must ignore service-account JSON',
+      );
 
       // Verify no credential files exist in repository
       const allFiles = fs.readdirSync(rootDir);
-      const credentialFiles = allFiles.filter(f =>
-        f.endsWith('.json') && (f.includes('service-account') || f.includes('key') || f.includes('credential'))
+      const credentialFiles = allFiles.filter(
+        (f) =>
+          f.endsWith('.json') &&
+          (f.includes('service-account') || f.includes('key') || f.includes('credential')),
       );
-      assert.deepEqual(credentialFiles, [], 'No service account or credential keys may exist in repository');
+      assert.deepEqual(
+        credentialFiles,
+        [],
+        'No service account or credential keys may exist in repository',
+      );
     });
   });
 
   describe('In-Memory Sliding Window Rate Limiting', () => {
     it('should allow legitimate requests and throttle excessive bursts', async () => {
+      // proxy.mjs has no type declarations; suppress the implicit-any error
+      // here rather than widen allowJs/checkJs project-wide for one test.
+      // @ts-expect-error -- '../server/proxy.mjs' has no declaration file
       const { checkRateLimit } = await import('../server/proxy.mjs');
       const fakeReq = {
         headers: { 'x-forwarded-for': '198.51.100.42' },
-        socket: { remoteAddress: '198.51.100.42' }
+        socket: { remoteAddress: '198.51.100.42' },
       };
 
       // Initial requests should succeed
@@ -167,7 +205,13 @@ describe('Google Forward Deployment Engineer & Gemini Enterprise Readiness', () 
 
   describe('Privacy Policy & Responsible AI Transparency', () => {
     it('should include customer care privacy policy with AI disclosures', () => {
-      const privacyPath = path.resolve(rootDir, 'src', 'components', 'CustomerCare', 'PrivacyPolicy.tsx');
+      const privacyPath = path.resolve(
+        rootDir,
+        'src',
+        'components',
+        'CustomerCare',
+        'PrivacyPolicy.tsx',
+      );
       assert.ok(fs.existsSync(privacyPath), 'PrivacyPolicy.tsx component must exist');
 
       const content = fs.readFileSync(privacyPath, 'utf-8');

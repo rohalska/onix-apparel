@@ -53,8 +53,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     }
   };
 
-  const matchingPreview =
-    searchResults && searchQuery.trim() ? searchResults.slice(0, 4) : [];
+  const matchingPreview = searchResults && searchQuery.trim() ? searchResults.slice(0, 4) : [];
 
   const categories: { label: string; value: Category }[] = [
     { label: 'All Collections', value: 'all' },
@@ -69,7 +68,8 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className="bg-slate-900 text-stone-200 text-xs py-2 px-4 text-center font-medium tracking-wider flex items-center justify-center gap-2">
         <Sparkles className="w-3.5 h-3.5 text-amber-400" />
         <span>
-          SUMMER CAPSULE: USE CODE <span className="font-bold text-amber-300">SAVE20</span> FOR 20% OFF • COMPLIMENTARY SHIPPING OVER $75
+          SUMMER CAPSULE: USE CODE <span className="font-bold text-amber-300">SAVE20</span> FOR 20%
+          OFF • COMPLIMENTARY SHIPPING OVER $75
         </span>
       </div>
 
@@ -87,7 +87,10 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Brand Logo */}
-          <div className="flex items-center gap-3 cursor-pointer" onClick={() => onSelectCategory('all')}>
+          <div
+            className="flex items-center gap-3 cursor-pointer"
+            onClick={() => onSelectCategory('all')}
+          >
             <span className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-slate-950">
               ONIX
             </span>
@@ -165,12 +168,15 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <div className="absolute left-0 right-0 mt-2 bg-white rounded-2xl shadow-2xl border border-stone-200 py-2 z-50 animate-fade-in min-w-[320px] max-w-sm">
                   <div className="px-3 py-1.5 text-[11px] font-semibold text-stone-400 uppercase tracking-wider flex items-center justify-between border-b border-stone-100">
                     <span>Products ({searchResults?.length || 0})</span>
-                    <span className="text-stone-400 lowercase font-normal">press enter to view all</span>
+                    <span className="text-stone-400 lowercase font-normal">
+                      press enter to view all
+                    </span>
                   </div>
 
                   {matchingPreview.length === 0 ? (
                     <div className="px-4 py-5 text-center text-xs text-stone-500">
-                      No matching pieces found for <span className="font-semibold text-slate-900">"{searchQuery}"</span>
+                      No matching pieces found for{' '}
+                      <span className="font-semibold text-slate-900">"{searchQuery}"</span>
                     </div>
                   ) : (
                     <div className="divide-y divide-stone-100">
@@ -193,7 +199,9 @@ export const Navbar: React.FC<NavbarProps> = ({
                               {item.title}
                             </p>
                             <p className="text-[11px] text-stone-500 flex items-center gap-1.5 mt-0.5">
-                              <span className="font-bold text-slate-900">${item.price.toFixed(2)}</span>
+                              <span className="font-bold text-slate-900">
+                                ${item.price.toFixed(2)}
+                              </span>
                               <span>•</span>
                               <span className="capitalize">{item.category}</span>
                             </p>
@@ -300,9 +308,15 @@ export const Navbar: React.FC<NavbarProps> = ({
                     }}
                     className="p-2.5 flex items-center gap-2.5 text-xs hover:bg-stone-50 cursor-pointer"
                   >
-                    <img src={item.image} alt={item.title} className="w-9 h-9 object-cover rounded bg-stone-100 shrink-0 border border-stone-200" />
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-9 h-9 object-cover rounded bg-stone-100 shrink-0 border border-stone-200"
+                    />
                     <span className="truncate font-medium text-slate-900 flex-1">{item.title}</span>
-                    <span className="font-bold text-slate-900 shrink-0">${item.price.toFixed(2)}</span>
+                    <span className="font-bold text-slate-900 shrink-0">
+                      ${item.price.toFixed(2)}
+                    </span>
                   </div>
                 ))}
                 <button
@@ -331,7 +345,9 @@ export const Navbar: React.FC<NavbarProps> = ({
                     setMobileMenuOpen(false);
                   }}
                   className={`block w-full text-left px-3 py-2 text-sm font-medium rounded-md ${
-                    active ? 'bg-stone-200/60 font-semibold text-black' : 'text-stone-600 hover:bg-stone-100'
+                    active
+                      ? 'bg-stone-200/60 font-semibold text-black'
+                      : 'text-stone-600 hover:bg-stone-100'
                   }`}
                 >
                   {cat.label}

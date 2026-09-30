@@ -1,5 +1,14 @@
 import React, { useState } from 'react';
-import { X, CheckCircle, ShieldCheck, Lock, CreditCard, Truck, ArrowLeft, ArrowRight } from 'lucide-react';
+import {
+  X,
+  CheckCircle,
+  ShieldCheck,
+  Lock,
+  CreditCard,
+  Truck,
+  ArrowLeft,
+  ArrowRight,
+} from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { useCart } from '../context/CartContext';
 import { trackVertexUserEvent } from '../services/vertexSearch';
@@ -230,7 +239,9 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose })
                       <p className="text-xs font-bold text-slate-900">
                         {shipping === 0 ? 'Free Standard Express' : 'Standard Shipping'}
                       </p>
-                      <p className="text-[11px] text-stone-500">Delivered within 3-5 business days</p>
+                      <p className="text-[11px] text-stone-500">
+                        Delivered within 3-5 business days
+                      </p>
                     </div>
                   </div>
                   <span className="text-xs font-bold text-slate-900">
@@ -263,7 +274,9 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose })
                 <div className="space-y-0.5">
                   <p className="text-xs font-semibold">Demo Sandbox Environment</p>
                   <p className="text-[11px] text-amber-800 leading-relaxed">
-                    This is a simulated retail store for Google Cloud & Gemini Enterprise demonstration. No real credit card or financial data is accepted, collected, or processed.
+                    This is a simulated retail store for Google Cloud & Gemini Enterprise
+                    demonstration. No real credit card or financial data is accepted, collected, or
+                    processed.
                   </p>
                 </div>
               </div>
@@ -379,7 +392,10 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose })
                   Thank you, {completedOrder.customer.fullName.split(' ')[0]}!
                 </h3>
                 <p className="text-xs text-stone-500 mt-1">
-                  Confirmation receipt has been sent to <span className="font-semibold text-slate-800">{completedOrder.customer.email}</span>
+                  Confirmation receipt has been sent to{' '}
+                  <span className="font-semibold text-slate-800">
+                    {completedOrder.customer.email}
+                  </span>
                 </p>
               </div>
 
@@ -387,17 +403,25 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose })
               <div className="bg-stone-50 p-5 rounded-2xl border border-stone-200 text-left space-y-4">
                 <div className="flex items-center justify-between border-b border-stone-200 pb-3">
                   <div>
-                    <span className="text-[11px] text-stone-400 uppercase tracking-wider font-semibold">Order ID</span>
-                    <p className="text-sm font-mono font-bold text-slate-900">{completedOrder.orderId}</p>
+                    <span className="text-[11px] text-stone-400 uppercase tracking-wider font-semibold">
+                      Order ID
+                    </span>
+                    <p className="text-sm font-mono font-bold text-slate-900">
+                      {completedOrder.orderId}
+                    </p>
                   </div>
                   <div className="text-right">
-                    <span className="text-[11px] text-stone-400 uppercase tracking-wider font-semibold">Date</span>
+                    <span className="text-[11px] text-stone-400 uppercase tracking-wider font-semibold">
+                      Date
+                    </span>
                     <p className="text-xs font-medium text-slate-800">{completedOrder.date}</p>
                   </div>
                 </div>
 
                 <div>
-                  <span className="text-[11px] text-stone-400 uppercase tracking-wider font-semibold">Shipping Address</span>
+                  <span className="text-[11px] text-stone-400 uppercase tracking-wider font-semibold">
+                    Shipping Address
+                  </span>
                   <p className="text-xs text-slate-800 font-medium mt-0.5">
                     {completedOrder.customer.address}, {completedOrder.customer.city},{' '}
                     {completedOrder.customer.postalCode}, {completedOrder.customer.country}

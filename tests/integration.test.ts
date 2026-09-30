@@ -1,4 +1,4 @@
-import { describe, it } from 'node:test';
+import { describe, it } from 'vitest';
 import assert from 'node:assert/strict';
 import {
   simulateClientSearch,
@@ -74,10 +74,7 @@ describe('Search Integration & Robustness Test Suite', () => {
     };
 
     try {
-      const res = await searchVertexProducts(
-        { query: 'jacket' },
-        FALLBACK_PRODUCTS
-      );
+      const res = await searchVertexProducts({ query: 'jacket' }, FALLBACK_PRODUCTS);
 
       assert.ok(res, 'Expected a valid response even when network fails');
       assert.ok(res.products.length > 0, 'Expected fallback search to find jackets');
@@ -97,10 +94,7 @@ describe('Search Integration & Robustness Test Suite', () => {
     };
 
     try {
-      const res = await searchVertexProducts(
-        { query: 'shirt' },
-        FALLBACK_PRODUCTS
-      );
+      const res = await searchVertexProducts({ query: 'shirt' }, FALLBACK_PRODUCTS);
 
       assert.ok(res);
       assert.ok(res.products.length > 0, 'Expected fallback search to find shirts');

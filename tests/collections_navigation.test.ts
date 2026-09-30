@@ -1,4 +1,4 @@
-import { describe, it } from 'node:test';
+import { describe, it } from 'vitest';
 import assert from 'node:assert/strict';
 import { FALLBACK_PRODUCTS } from '../src/data/fallbackProducts';
 
@@ -27,21 +27,21 @@ describe('Footer Collections Links & Catalog Filtering', () => {
     });
   });
 
-  it('verifies filtering for Women\'s Apparel (#women) returns only women\'s clothing', () => {
+  it("verifies filtering for Women's Apparel (#women) returns only women's clothing", () => {
     const womenProducts = FALLBACK_PRODUCTS.filter(
-      (p) => p.category.toLowerCase() === "women's clothing"
+      (p) => p.category.toLowerCase() === "women's clothing",
     );
-    assert.ok(womenProducts.length > 0, 'Must have women\'s clothing products');
+    assert.ok(womenProducts.length > 0, "Must have women's clothing products");
     womenProducts.forEach((p) => {
       assert.equal(p.category, "women's clothing");
     });
   });
 
-  it('verifies filtering for Men\'s Casual & Outerwear (#men) returns only men\'s clothing', () => {
+  it("verifies filtering for Men's Casual & Outerwear (#men) returns only men's clothing", () => {
     const menProducts = FALLBACK_PRODUCTS.filter(
-      (p) => p.category.toLowerCase() === "men's clothing"
+      (p) => p.category.toLowerCase() === "men's clothing",
     );
-    assert.ok(menProducts.length > 0, 'Must have men\'s clothing products');
+    assert.ok(menProducts.length > 0, "Must have men's clothing products");
     menProducts.forEach((p) => {
       assert.equal(p.category, "men's clothing");
     });
@@ -49,7 +49,7 @@ describe('Footer Collections Links & Catalog Filtering', () => {
 
   it('verifies filtering for Fine Jewelry & Accessories (#accessories) returns only jewelry', () => {
     const jewelryProducts = FALLBACK_PRODUCTS.filter(
-      (p) => p.category.toLowerCase() === 'jewelery'
+      (p) => p.category.toLowerCase() === 'jewelery',
     );
     assert.ok(jewelryProducts.length > 0, 'Must have jewelry products');
     jewelryProducts.forEach((p) => {
@@ -71,7 +71,10 @@ describe('Footer Collections Links & Catalog Filtering', () => {
     const explicitSale = FALLBACK_PRODUCTS.filter((p) => p.onSale);
     assert.ok(explicitSale.length >= 4, 'Must have at least 4 marked down sale products');
     explicitSale.forEach((p) => {
-      assert.ok(p.originalPrice && p.originalPrice > p.price, 'Original price must exceed sale price');
+      assert.ok(
+        p.originalPrice && p.originalPrice > p.price,
+        'Original price must exceed sale price',
+      );
       assert.ok(p.discountPercent && p.discountPercent > 0, 'Must have discount percent');
     });
   });

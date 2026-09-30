@@ -2,6 +2,7 @@ import http from 'http';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { DEFAULT_SORT, ORDER_BY, isSortValue } from '../shared/sortOptions.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -17,7 +18,7 @@ if (fs.existsSync(envPath)) {
   } else {
     try {
       const envContent = fs.readFileSync(envPath, 'utf-8');
-      envContent.split('\n').forEach(line => {
+      envContent.split('\n').forEach((line) => {
         const trimmed = line.trim();
         if (trimmed && !trimmed.startsWith('#')) {
           const eqIdx = trimmed.indexOf('=');
@@ -87,7 +88,7 @@ function mapVertexProductToFrontend(vertexProduct) {
 
   const colors = colorNames.map((name, i) => ({
     name,
-    hex: colorHexes[i] || '#1c1917'
+    hex: colorHexes[i] || '#1c1917',
   }));
 
   const ratingRate = vertexProduct.attributes?.rating_rate?.numbers?.[0] || 4.5;
@@ -104,13 +105,13 @@ function mapVertexProductToFrontend(vertexProduct) {
     image: vertexProduct.images?.[0]?.uri || '',
     rating: {
       rate: ratingRate,
-      count: ratingCount
+      count: ratingCount,
     },
     sizes,
     colors,
     inStock: vertexProduct.availability === 'IN_STOCK',
     featured,
-    isNewArrival
+    isNewArrival,
   };
 }
 
@@ -134,7 +135,7 @@ function sendJson(res, statusCode, data, req) {
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     'X-Content-Type-Options': 'nosniff',
-    'X-Frame-Options': 'SAMEORIGIN'
+    'X-Frame-Options': 'SAMEORIGIN',
   });
   res.end(JSON.stringify(data));
 }
@@ -143,7 +144,10 @@ function sendJson(res, statusCode, data, req) {
 export function sanitizeFilterValue(val) {
   if (typeof val !== 'string') return '';
   // Strip quotes, backslashes, parentheses, brackets, and semicolon characters
-  return val.replace(/["'\\;()\[\]{}]/g, '').trim().slice(0, 50);
+  return val
+    .replace(/["'\\;()[\]{}]/g, '')
+    .trim()
+    .slice(0, 50);
 }
 
 // In-Memory sliding-window rate limiter (120 req / minute per IP)
@@ -152,7 +156,8 @@ const MAX_REQUESTS_PER_WINDOW = 120;
 const ipRequestCounts = new Map();
 
 export function checkRateLimit(req) {
-  const ip = req.headers['x-forwarded-for']?.split(',')[0]?.trim() || req.socket.remoteAddress || 'unknown';
+  const ip =
+    req.headers['x-forwarded-for']?.split(',')[0]?.trim() || req.socket.remoteAddress || 'unknown';
   const now = Date.now();
   const record = ipRequestCounts.get(ip) || { count: 0, resetTime: now + RATE_LIMIT_WINDOW_MS };
 
@@ -187,10 +192,13 @@ export async function getGcpAccessToken() {
 
   // 2. Try native Google Cloud Metadata Server (Cloud Run, GKE, GCE native ADC)
   try {
-    const metaRes = await fetch('http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token', {
-      headers: { 'Metadata-Flavor': 'Google' },
-      signal: AbortSignal.timeout(1500)
-    });
+    const metaRes = await fetch(
+      'http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token',
+      {
+        headers: { 'Metadata-Flavor': 'Google' },
+        signal: AbortSignal.timeout(1500),
+      },
+    );
     if (metaRes.ok) {
       const data = await metaRes.json();
       if (data.access_token) return data.access_token;
@@ -219,14 +227,14 @@ const MIME_TYPES = {
   '.woff2': 'font/woff2',
   '.ttf': 'font/ttf',
   '.yaml': 'text/yaml; charset=UTF-8',
-  '.txt': 'text/plain; charset=UTF-8'
+  '.txt': 'text/plain; charset=UTF-8',
 };
 
 export function serveStatic(req, res, pathname) {
   if (!fs.existsSync(distDir)) return false;
 
   // Prevent path traversal
-  const safeSuffix = path.normalize(pathname).replace(/^(\.\.[\/\\])+/, '');
+  const safeSuffix = path.normalize(pathname).replace(/^(\.\.[/\\])+/, '');
   let filePath = path.join(distDir, safeSuffix);
 
   // If path is a directory, look for index.html
@@ -256,7 +264,7 @@ export function serveStatic(req, res, pathname) {
       'Access-Control-Allow-Origin': getCorsOrigin(req),
       'X-Content-Type-Options': 'nosniff',
       'X-Frame-Options': 'SAMEORIGIN',
-      'Cache-Control': ext === '.html' ? 'no-cache' : 'public, max-age=31536000, immutable'
+      'Cache-Control': ext === '.html' ? 'no-cache' : 'public, max-age=31536000, immutable',
     });
     res.end(content);
     return true;
@@ -264,315 +272,411 @@ export function serveStatic(req, res, pathname) {
   return false;
 }
 
+/**
+ * Every /api/ route assumes a JSON object body. A null, a scalar, or a
+ * non-string field where a string is expected used to reach a property access
+ * and throw inside an async handler with no rejection boundary, which ends the
+ * process. These endpoints are public, so that is a request away.
+ */
+function badRequest(res, req, message) {
+  return sendJson(res, 400, { error: 'Bad Request', message }, req);
+}
+
+function isPlainObject(value) {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
 // Request dispatcher
 const server = http.createServer(async (req, res) => {
-  // Handle CORS preflight
-  if (req.method === 'OPTIONS') {
-    res.writeHead(204, {
-      'Access-Control-Allow-Origin': getCorsOrigin(req),
-      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-      'Access-Control-Max-Age': '86400'
-    });
-    return res.end();
-  }
-
-  const url = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
-
-  // Rate limiting guard on API endpoints
-  if (url.pathname.startsWith('/api/')) {
-    if (!checkRateLimit(req)) {
-      return sendJson(res, 429, { error: 'Too Many Requests. Please slow down.' }, req);
+  try {
+    // Handle CORS preflight
+    if (req.method === 'OPTIONS') {
+      res.writeHead(204, {
+        'Access-Control-Allow-Origin': getCorsOrigin(req),
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        'Access-Control-Max-Age': '86400',
+      });
+      return res.end();
     }
-  }
 
-  // Health check
-  if (url.pathname === '/api/health' && req.method === 'GET') {
-    return sendJson(res, 200, {
-      status: 'ok',
-      mode: isLiveMode ? 'live' : 'mock',
-      gcpProjectId: GCP_PROJECT_ID || null,
-      location: GCP_LOCATION,
-      catalogItemCount: localCatalog.length,
-      timestamp: new Date().toISOString()
-    }, req);
-  }
+    const url = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
 
-  // Parse JSON body for POST requests with DoS / payload size limits
-  let body = {};
-  if (req.method === 'POST') {
-    try {
-      let receivedBytes = 0;
-      const chunks = [];
-      for await (const chunk of req) {
-        receivedBytes += chunk.length;
-        if (receivedBytes > MAX_BODY_BYTES) {
-          return sendJson(res, 413, { error: 'Payload too large. Maximum size is 100KB.' }, req);
-        }
-        chunks.push(chunk);
+    // Rate limiting guard on API endpoints
+    if (url.pathname.startsWith('/api/')) {
+      if (!checkRateLimit(req)) {
+        return sendJson(res, 429, { error: 'Too Many Requests. Please slow down.' }, req);
       }
-      const raw = Buffer.concat(chunks).toString('utf-8');
-      if (raw) body = JSON.parse(raw);
-    } catch (err) {
-      return sendJson(res, 400, { error: 'Invalid JSON body' }, req);
     }
-  }
 
-  // Search Endpoint
-  if (url.pathname === '/api/search' && req.method === 'POST') {
-    const {
-      query = '',
-      category,
-      minPrice,
-      maxPrice,
-      size,
-      color,
-      sortBy = 'featured',
-      visitorId = 'anon-visitor',
-      pageSize = 20
-    } = body;
+    // Health check
+    if (url.pathname === '/api/health' && req.method === 'GET') {
+      return sendJson(
+        res,
+        200,
+        {
+          status: 'ok',
+          mode: isLiveMode ? 'live' : 'mock',
+          gcpProjectId: GCP_PROJECT_ID || null,
+          location: GCP_LOCATION,
+          catalogItemCount: localCatalog.length,
+          timestamp: new Date().toISOString(),
+        },
+        req,
+      );
+    }
 
-    // 1. LIVE MODE: Call Google Cloud Vertex AI Search for Retail
-    if (isLiveMode) {
+    // Parse JSON body for POST requests with DoS / payload size limits
+    let body = {};
+    if (req.method === 'POST') {
       try {
-        const token = await getGcpAccessToken();
+        let receivedBytes = 0;
+        let tooLarge = false;
+        const chunks = [];
+        // destroyOnReturn: false so that breaking out of the loop below stops
+        // reading without destroying the request stream. The default would
+        // tear the socket down while the client is still uploading, which
+        // RSTs the connection and can discard the 413 out of the client's
+        // receive buffer before it is read.
+        for await (const chunk of req.iterator({ destroyOnReturn: false })) {
+          receivedBytes += chunk.length;
+          if (receivedBytes > MAX_BODY_BYTES) {
+            tooLarge = true;
+            break;
+          }
+          chunks.push(chunk);
+        }
+        if (tooLarge) {
+          // Send first, drain second. Holding the 413 back until the upload
+          // finishes leaves a client that stalls or trickles with no response
+          // at all, and the socket pinned until server.requestTimeout fires,
+          // so a handful of oversized uploads could occupy every connection
+          // on the instance. Answering straight away releases the client;
+          // resume() then discards whatever is still inbound, in the
+          // background, so the leftover bytes cannot corrupt the next request
+          // parsed off a reused keep-alive connection.
+          sendJson(res, 413, { error: 'Payload too large. Maximum size is 100KB.' }, req);
+          req.on('error', () => {
+            // The client went away mid-drain. The 413 is already out and Node
+            // cleans up the socket itself, so there is nothing to do beyond
+            // keeping this from surfacing as an unhandled stream error.
+          });
+          req.resume();
+          return;
+        }
+        const raw = Buffer.concat(chunks).toString('utf-8');
+        if (raw) body = JSON.parse(raw);
+      } catch {
+        // A response may already have gone out above, and a failure while
+        // draining must not turn into a second one.
+        if (res.headersSent) return;
+        return sendJson(res, 400, { error: 'Invalid JSON body' }, req);
+      }
+    }
 
-        if (token) {
-          const endpoint = `https://retail.googleapis.com/v2/projects/${GCP_PROJECT_ID}/locations/${GCP_LOCATION}/catalogs/${GCP_CATALOG_ID}/servingConfigs/${GCP_SERVING_CONFIG_ID}:search`;
+    // Search Endpoint
+    if (url.pathname === '/api/search' && req.method === 'POST') {
+      if (!isPlainObject(body)) return badRequest(res, req, 'body must be a JSON object');
+      // Deliberate leniency beyond the published contract: openapi.yaml does not
+      // mark these fields nullable, but a client that sends an explicit null for
+      // an unset optional field is treated as if it omitted it, rather than
+      // getting a 400 in front of a customer.
+      if (body.query != null && typeof body.query !== 'string') {
+        return badRequest(res, req, 'query must be a string');
+      }
+      if (body.sortBy != null && typeof body.sortBy !== 'string') {
+        return badRequest(res, req, 'sortBy must be a string');
+      }
 
-          const filterConditions = [];
-          if (category && category !== 'all') {
-            if (category === "men's clothing") {
-              filterConditions.push('(categories: ANY("Apparel > Men\'s Clothing"))');
-            } else if (category === "women's clothing") {
-              filterConditions.push('(categories: ANY("Apparel > Women\'s Clothing"))');
-            } else if (category === 'jewelery') {
-              filterConditions.push('(categories: ANY("Accessories > Fine Jewelry"))');
+      const { category, minPrice, maxPrice, size, color } = body;
+      // Destructuring defaults only fire for `undefined`, not `null`, so every
+      // defaulted field is normalized with `??`. A null visitorId or pageSize
+      // forwarded to Vertex is rejected there, which would silently drop live
+      // mode back to the local catalog.
+      const query = body.query ?? '';
+      const appliedSort = isSortValue(body.sortBy) ? body.sortBy : DEFAULT_SORT;
+      const visitorId = body.visitorId ?? 'anon-visitor';
+      const pageSize = body.pageSize ?? 20;
+
+      // 1. LIVE MODE: Call Google Cloud Vertex AI Search for Retail
+      if (isLiveMode) {
+        try {
+          const token = await getGcpAccessToken();
+
+          if (token) {
+            const endpoint = `https://retail.googleapis.com/v2/projects/${GCP_PROJECT_ID}/locations/${GCP_LOCATION}/catalogs/${GCP_CATALOG_ID}/servingConfigs/${GCP_SERVING_CONFIG_ID}:search`;
+
+            const filterConditions = [];
+            if (category && category !== 'all') {
+              if (category === "men's clothing") {
+                filterConditions.push('(categories: ANY("Apparel > Men\'s Clothing"))');
+              } else if (category === "women's clothing") {
+                filterConditions.push('(categories: ANY("Apparel > Women\'s Clothing"))');
+              } else if (category === 'jewelery') {
+                filterConditions.push('(categories: ANY("Accessories > Fine Jewelry"))');
+              }
+            }
+            const numMinPrice =
+              typeof minPrice === 'number' && !isNaN(minPrice) ? minPrice : undefined;
+            const numMaxPrice =
+              typeof maxPrice === 'number' && !isNaN(maxPrice) ? maxPrice : undefined;
+            if (numMinPrice !== undefined) filterConditions.push(`price >= ${numMinPrice}`);
+            if (numMaxPrice !== undefined) filterConditions.push(`price <= ${numMaxPrice}`);
+
+            // Sanitize facet values against filter query injection
+            const cleanSize = sanitizeFilterValue(size);
+            const cleanColor = sanitizeFilterValue(color);
+            if (cleanSize) filterConditions.push(`(attributes.sizes: ANY("${cleanSize}"))`);
+            if (cleanColor) filterConditions.push(`(attributes.colors: ANY("${cleanColor}"))`);
+
+            const orderBy = ORDER_BY[appliedSort];
+
+            const vertexPayload = {
+              query: typeof query === 'string' ? query.trim().slice(0, 100) : '',
+              visitorId,
+              pageSize,
+              filter: filterConditions.join(' AND ') || undefined,
+              orderBy: orderBy || undefined,
+              facetSpecs: [
+                { facetKey: { key: 'categories' }, limit: 10 },
+                { facetKey: { key: 'attributes.sizes' }, limit: 10 },
+                { facetKey: { key: 'attributes.colors' }, limit: 10 },
+              ],
+            };
+
+            const apiResponse = await fetch(endpoint, {
+              method: 'POST',
+              headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(vertexPayload),
+            });
+
+            if (apiResponse.ok) {
+              const data = await apiResponse.json();
+              const results = (data.results || []).map((r) =>
+                mapVertexProductToFrontend(r.product),
+              );
+              return sendJson(
+                res,
+                200,
+                {
+                  source: 'vertex-ai-live',
+                  appliedSort,
+                  totalSize: data.totalSize || results.length,
+                  correctedQuery: data.correctedQuery || null,
+                  facets: data.facets || [],
+                  products: results,
+                },
+                req,
+              );
             }
           }
-          const numMinPrice = typeof minPrice === 'number' && !isNaN(minPrice) ? minPrice : undefined;
-          const numMaxPrice = typeof maxPrice === 'number' && !isNaN(maxPrice) ? maxPrice : undefined;
-          if (numMinPrice !== undefined) filterConditions.push(`price >= ${numMinPrice}`);
-          if (numMaxPrice !== undefined) filterConditions.push(`price <= ${numMaxPrice}`);
-
-          // Sanitize facet values against filter query injection
-          const cleanSize = sanitizeFilterValue(size);
-          const cleanColor = sanitizeFilterValue(color);
-          if (cleanSize) filterConditions.push(`(attributes.sizes: ANY("${cleanSize}"))`);
-          if (cleanColor) filterConditions.push(`(attributes.colors: ANY("${cleanColor}"))`);
-
-          let orderBy = '';
-          if (sortBy === 'price-low') orderBy = 'price asc';
-          if (sortBy === 'price-high') orderBy = 'price desc';
-          if (sortBy === 'rating') orderBy = 'attributes.rating_rate desc';
-
-          const vertexPayload = {
-            query: typeof query === 'string' ? query.trim().slice(0, 100) : '',
-            visitorId,
-            pageSize,
-            filter: filterConditions.join(' AND ') || undefined,
-            orderBy: orderBy || undefined,
-            facetSpecs: [
-              { facetKey: { key: 'categories' }, limit: 10 },
-              { facetKey: { key: 'attributes.sizes' }, limit: 10 },
-              { facetKey: { key: 'attributes.colors' }, limit: 10 }
-            ]
-          };
-
-          const apiResponse = await fetch(endpoint, {
-            method: 'POST',
-            headers: {
-              'Authorization': `Bearer ${token}`,
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(vertexPayload)
-          });
-
-          if (apiResponse.ok) {
-            const data = await apiResponse.json();
-            const results = (data.results || []).map(r => mapVertexProductToFrontend(r.product));
-            return sendJson(res, 200, {
-              source: 'vertex-ai-live',
-              totalSize: data.totalSize || results.length,
-              correctedQuery: data.correctedQuery || null,
-              facets: data.facets || [],
-              products: results
-            }, req);
-          }
+        } catch (err) {
+          console.warn(`Vertex AI API call error (${err.message}). Using local catalog.`);
         }
-      } catch (err) {
-        console.warn(`Vertex AI API call error (${err.message}). Using local catalog.`);
       }
-    }
 
-    // 2. SIMULATION / MOCK MODE: Semantic simulation with facets
-    loadLocalCatalog();
-    let filtered = [...localCatalog];
+      // 2. SIMULATION / MOCK MODE: Semantic simulation with facets
+      loadLocalCatalog();
+      let filtered = [...localCatalog];
 
-    // Category filter
-    if (category && category !== 'all') {
-      filtered = filtered.filter(p => {
-        const hierarchy = (p.categories || []).join(' ').toLowerCase();
-        if (category === "men's clothing") return hierarchy.includes("men's clothing");
-        if (category === "women's clothing") return hierarchy.includes("women's clothing");
-        if (category === 'jewelery') return hierarchy.includes("jewelry") || hierarchy.includes("accessories");
-        return true;
-      });
-    }
+      // Category filter
+      if (category && category !== 'all') {
+        filtered = filtered.filter((p) => {
+          const hierarchy = (p.categories || []).join(' ').toLowerCase();
+          if (category === "men's clothing") return hierarchy.includes("men's clothing");
+          if (category === "women's clothing") return hierarchy.includes("women's clothing");
+          if (category === 'jewelery')
+            return hierarchy.includes('jewelry') || hierarchy.includes('accessories');
+          return true;
+        });
+      }
 
-    // Price filter
-    if (minPrice !== undefined && minPrice !== null) {
-      filtered = filtered.filter(p => (p.priceInfo?.price || 0) >= minPrice);
-    }
-    if (maxPrice !== undefined && maxPrice !== null) {
-      filtered = filtered.filter(p => (p.priceInfo?.price || 0) <= maxPrice);
-    }
+      // Price filter
+      if (minPrice !== undefined && minPrice !== null) {
+        filtered = filtered.filter((p) => (p.priceInfo?.price || 0) >= minPrice);
+      }
+      if (maxPrice !== undefined && maxPrice !== null) {
+        filtered = filtered.filter((p) => (p.priceInfo?.price || 0) <= maxPrice);
+      }
 
-    // Size filter
-    if (size) {
-      filtered = filtered.filter(p => p.attributes?.sizes?.text?.includes(size));
-    }
+      // Size filter
+      if (size) {
+        filtered = filtered.filter((p) => p.attributes?.sizes?.text?.includes(size));
+      }
 
-    // Color filter
-    if (color) {
-      filtered = filtered.filter(p => p.attributes?.colors?.text?.includes(color));
-    }
+      // Color filter
+      if (color) {
+        filtered = filtered.filter((p) => p.attributes?.colors?.text?.includes(color));
+      }
 
-    // Semantic query matching
-    let correctedQuery = null;
-    const cleanQ = query.trim().toLowerCase();
-    if (cleanQ) {
-      if (cleanQ.includes('jacet') || cleanQ.includes('jaket')) correctedQuery = 'jacket';
-      if (cleanQ.includes('shrt') || cleanQ.includes('tshirt')) correctedQuery = 't-shirt';
-      if (cleanQ.includes('jewl') || cleanQ.includes('dimond')) correctedQuery = 'diamond';
+      // Semantic query matching
+      let correctedQuery = null;
+      const cleanQ = query.trim().toLowerCase();
+      if (cleanQ) {
+        if (cleanQ.includes('jacet') || cleanQ.includes('jaket')) correctedQuery = 'jacket';
+        if (cleanQ.includes('shrt') || cleanQ.includes('tshirt')) correctedQuery = 't-shirt';
+        if (cleanQ.includes('jewl') || cleanQ.includes('dimond')) correctedQuery = 'diamond';
 
-      const tokens = Array.from(
-        new Set([
-          ...cleanQ.split(/\s+/).filter(Boolean),
-          ...(correctedQuery ? correctedQuery.split(/\s+/).filter(Boolean) : []),
-        ])
+        const tokens = Array.from(
+          new Set([
+            ...cleanQ.split(/\s+/).filter(Boolean),
+            ...(correctedQuery ? correctedQuery.split(/\s+/).filter(Boolean) : []),
+          ]),
+        );
+
+        filtered = filtered
+          .map((p) => {
+            let score = 0;
+            const titleLower = (p.title || '').toLowerCase();
+            const descLower = (p.description || '').toLowerCase();
+            const tagsLower = (p.tags || []).join(' ').toLowerCase();
+            const catLower = (p.categories || []).join(' ').toLowerCase();
+            const colorsLower = (p.attributes?.colors?.text || []).join(' ').toLowerCase();
+
+            for (const token of tokens) {
+              if (titleLower.includes(token)) score += 10;
+              if (tagsLower.includes(token)) score += 5;
+              if (catLower.includes(token)) score += 4;
+              if (colorsLower.includes(token)) score += 3;
+              if (descLower.includes(token)) score += 2;
+            }
+
+            return { product: p, score };
+          })
+          .filter((item) => item.score > 0)
+          .sort((a, b) => b.score - a.score)
+          .map((item) => item.product);
+      }
+
+      // Sorting
+      if (appliedSort === 'price-low') {
+        filtered.sort((a, b) => (a.priceInfo?.price || 0) - (b.priceInfo?.price || 0));
+      } else if (appliedSort === 'price-high') {
+        filtered.sort((a, b) => (b.priceInfo?.price || 0) - (a.priceInfo?.price || 0));
+      } else if (appliedSort === 'rating') {
+        filtered.sort(
+          (a, b) =>
+            (b.attributes?.rating_rate?.numbers?.[0] || 0) -
+            (a.attributes?.rating_rate?.numbers?.[0] || 0),
+        );
+      } else if (appliedSort === 'newest') {
+        filtered.sort((a, b) => (b.attributes?.is_new_arrival?.text?.[0] === 'true' ? 1 : -1));
+      }
+
+      // Compute dynamic facets
+      const categoriesMap = {};
+      const sizesMap = {};
+      const colorsMap = {};
+
+      for (const item of filtered) {
+        for (const cat of item.categories || []) categoriesMap[cat] = (categoriesMap[cat] || 0) + 1;
+        for (const s of item.attributes?.sizes?.text || []) sizesMap[s] = (sizesMap[s] || 0) + 1;
+        for (const c of item.attributes?.colors?.text || []) colorsMap[c] = (colorsMap[c] || 0) + 1;
+      }
+
+      const facets = [
+        {
+          key: 'categories',
+          values: Object.entries(categoriesMap).map(([value, count]) => ({ value, count })),
+        },
+        {
+          key: 'sizes',
+          values: Object.entries(sizesMap).map(([value, count]) => ({ value, count })),
+        },
+        {
+          key: 'colors',
+          values: Object.entries(colorsMap).map(([value, count]) => ({ value, count })),
+        },
+      ];
+
+      const products = filtered.map(mapVertexProductToFrontend);
+
+      return sendJson(
+        res,
+        200,
+        {
+          source: 'vertex-ai-simulation',
+          appliedSort,
+          totalSize: products.length,
+          correctedQuery,
+          facets,
+          products,
+        },
+        req,
       );
-
-      filtered = filtered.map(p => {
-        let score = 0;
-        const titleLower = (p.title || '').toLowerCase();
-        const descLower = (p.description || '').toLowerCase();
-        const tagsLower = (p.tags || []).join(' ').toLowerCase();
-        const catLower = (p.categories || []).join(' ').toLowerCase();
-        const colorsLower = (p.attributes?.colors?.text || []).join(' ').toLowerCase();
-
-        for (const token of tokens) {
-          if (titleLower.includes(token)) score += 10;
-          if (tagsLower.includes(token)) score += 5;
-          if (catLower.includes(token)) score += 4;
-          if (colorsLower.includes(token)) score += 3;
-          if (descLower.includes(token)) score += 2;
-        }
-
-        return { product: p, score };
-      })
-      .filter(item => item.score > 0)
-      .sort((a, b) => b.score - a.score)
-      .map(item => item.product);
     }
 
-    // Sorting
-    if (sortBy === 'price-low') {
-      filtered.sort((a, b) => (a.priceInfo?.price || 0) - (b.priceInfo?.price || 0));
-    } else if (sortBy === 'price-high') {
-      filtered.sort((a, b) => (b.priceInfo?.price || 0) - (a.priceInfo?.price || 0));
-    } else if (sortBy === 'rating') {
-      filtered.sort((a, b) => (b.attributes?.rating_rate?.numbers?.[0] || 0) - (a.attributes?.rating_rate?.numbers?.[0] || 0));
-    } else if (sortBy === 'newest') {
-      filtered.sort((a, b) => (b.attributes?.is_new_arrival?.text?.[0] === 'true' ? 1 : -1));
-    }
-
-    // Compute dynamic facets
-    const categoriesMap = {};
-    const sizesMap = {};
-    const colorsMap = {};
-
-    for (const item of filtered) {
-      for (const cat of item.categories || []) categoriesMap[cat] = (categoriesMap[cat] || 0) + 1;
-      for (const s of item.attributes?.sizes?.text || []) sizesMap[s] = (sizesMap[s] || 0) + 1;
-      for (const c of item.attributes?.colors?.text || []) colorsMap[c] = (colorsMap[c] || 0) + 1;
-    }
-
-    const facets = [
-      {
-        key: 'categories',
-        values: Object.entries(categoriesMap).map(([value, count]) => ({ value, count }))
-      },
-      {
-        key: 'sizes',
-        values: Object.entries(sizesMap).map(([value, count]) => ({ value, count }))
-      },
-      {
-        key: 'colors',
-        values: Object.entries(colorsMap).map(([value, count]) => ({ value, count }))
+    // Events Logging
+    if (url.pathname === '/api/events' && req.method === 'POST') {
+      if (!isPlainObject(body)) return badRequest(res, req, 'body must be a JSON object');
+      if (typeof body.eventType !== 'string' || body.eventType === '') {
+        return badRequest(res, req, 'eventType is required and must be a string');
       }
-    ];
 
-    const products = filtered.map(mapVertexProductToFrontend);
+      const { eventType, visitorId = 'anon-visitor', product, details = {} } = body;
+      const eventPayload = {
+        eventType,
+        visitorId,
+        eventTime: new Date().toISOString(),
+        productEventDetail: product
+          ? {
+              productDetails: [
+                {
+                  product: { id: `onx-${product.id}` },
+                  quantity: details?.quantity || 1,
+                },
+              ],
+            }
+          : undefined,
+      };
 
-    return sendJson(res, 200, {
-      source: 'vertex-ai-simulation',
-      totalSize: products.length,
-      correctedQuery,
-      facets,
-      products
-    }, req);
-  }
+      console.log(
+        `📊 [Vertex AI Event] ${eventType.toUpperCase()} | Visitor: ${visitorId} | Product: ${product?.title || 'N/A'}`,
+      );
+      return sendJson(res, 200, { success: true, loggedEvent: eventPayload }, req);
+    }
 
-  // Events Logging
-  if (url.pathname === '/api/events' && req.method === 'POST') {
-    const { eventType, visitorId = 'anon-visitor', product, details = {} } = body;
-    const eventPayload = {
-      eventType,
-      visitorId,
-      eventTime: new Date().toISOString(),
-      productEventDetail: product ? {
-        productDetails: [{
-          product: { id: `onx-${product.id}` },
-          quantity: details.quantity || 1
-        }]
-      } : undefined
-    };
+    // Serve A2A Agent Card for Gemini Enterprise registration
+    if (url.pathname === '/.well-known/agent-card.json' && req.method === 'GET') {
+      const cardPath = path.resolve(rootDir, 'public', '.well-known', 'agent-card.json');
+      if (fs.existsSync(cardPath)) {
+        const cardContent = JSON.parse(fs.readFileSync(cardPath, 'utf-8'));
+        return sendJson(res, 200, cardContent, req);
+      }
+    }
 
-    console.log(`📊 [Vertex AI Event] ${eventType.toUpperCase()} | Visitor: ${visitorId} | Product: ${product?.title || 'N/A'}`);
-    return sendJson(res, 200, { success: true, loggedEvent: eventPayload }, req);
-  }
+    // Serve OpenAPI specification
+    if (url.pathname === '/openapi.yaml' && req.method === 'GET') {
+      const yamlPath = path.resolve(rootDir, 'openapi.yaml');
+      if (fs.existsSync(yamlPath)) {
+        const content = fs.readFileSync(yamlPath, 'utf-8');
+        res.writeHead(200, {
+          'Content-Type': 'application/x-yaml',
+          'Access-Control-Allow-Origin': getCorsOrigin(req),
+        });
+        return res.end(content);
+      }
+    }
 
-  // Serve A2A Agent Card for Gemini Enterprise registration
-  if (url.pathname === '/.well-known/agent-card.json' && req.method === 'GET') {
-    const cardPath = path.resolve(rootDir, 'public', '.well-known', 'agent-card.json');
-    if (fs.existsSync(cardPath)) {
-      const cardContent = JSON.parse(fs.readFileSync(cardPath, 'utf-8'));
-      return sendJson(res, 200, cardContent, req);
+    // Serve static assets and SPA fallback for Cloud Run container
+    if (req.method === 'GET') {
+      const served = serveStatic(req, res, url.pathname);
+      if (served) return;
+    }
+
+    // Not found
+    return sendJson(res, 404, { error: 'Not found' }, req);
+  } catch (err) {
+    console.error('[proxy] unhandled request error', err);
+    if (!res.headersSent) {
+      sendJson(res, 500, { error: 'Internal Server Error' }, req);
+    } else {
+      res.destroy();
     }
   }
-
-  // Serve OpenAPI specification
-  if (url.pathname === '/openapi.yaml' && req.method === 'GET') {
-    const yamlPath = path.resolve(rootDir, 'openapi.yaml');
-    if (fs.existsSync(yamlPath)) {
-      const content = fs.readFileSync(yamlPath, 'utf-8');
-      res.writeHead(200, {
-        'Content-Type': 'application/x-yaml',
-        'Access-Control-Allow-Origin': getCorsOrigin(req)
-      });
-      return res.end(content);
-    }
-  }
-
-  // Serve static assets and SPA fallback for Cloud Run container
-  if (req.method === 'GET') {
-    const served = serveStatic(req, res, url.pathname);
-    if (served) return;
-  }
-
-  // Not found
-  return sendJson(res, 404, { error: 'Not found' }, req);
 });
 
 export { server };

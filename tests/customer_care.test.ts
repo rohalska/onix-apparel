@@ -1,12 +1,21 @@
-import { describe, it } from 'node:test';
+import { describe, it } from 'vitest';
 import assert from 'node:assert/strict';
 
 describe('Customer Care Links & Route Resolution', () => {
-  const customerCareRoutes = ['shipping', 'returns', 'sizing', 'order-lookup', 'contact', 'privacy'];
+  const customerCareRoutes = [
+    'shipping',
+    'returns',
+    'sizing',
+    'order-lookup',
+    'contact',
+    'privacy',
+  ];
 
   it('validates that all 6 required Customer Care routes are recognized', () => {
     customerCareRoutes.forEach((route) => {
-      assert.ok(['shipping', 'returns', 'sizing', 'order-lookup', 'contact', 'privacy'].includes(route));
+      assert.ok(
+        ['shipping', 'returns', 'sizing', 'order-lookup', 'contact', 'privacy'].includes(route),
+      );
     });
   });
 

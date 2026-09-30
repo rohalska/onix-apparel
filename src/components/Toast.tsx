@@ -24,12 +24,18 @@ export const Toast: React.FC<ToastProps> = ({ toasts, onDismiss }) => {
           className="pointer-events-auto flex items-center justify-between p-4 bg-slate-900 text-white rounded-xl shadow-2xl border border-slate-800 animate-slide-up"
         >
           <div className="flex items-center gap-3">
-            {toast.type === 'cart' && <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />}
-            {toast.type === 'wishlist' && <Heart className="w-5 h-5 text-rose-400 fill-rose-400 shrink-0" />}
+            {toast.type === 'cart' && (
+              <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+            )}
+            {toast.type === 'wishlist' && (
+              <Heart className="w-5 h-5 text-rose-400 fill-rose-400 shrink-0" />
+            )}
             {toast.type === 'info' && <AlertCircle className="w-5 h-5 text-amber-400 shrink-0" />}
             <div>
               <p className="text-sm font-medium tracking-wide">{toast.title}</p>
-              {toast.subtitle && <p className="text-xs text-slate-400 line-clamp-1">{toast.subtitle}</p>}
+              {toast.subtitle && (
+                <p className="text-xs text-slate-400 line-clamp-1">{toast.subtitle}</p>
+              )}
             </div>
           </div>
           <button

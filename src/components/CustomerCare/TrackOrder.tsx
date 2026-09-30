@@ -94,7 +94,13 @@ export const TrackOrder: React.FC = () => {
         <div className="text-xs leading-relaxed">
           <p className="font-bold text-amber-900">Where do I find my order details?</p>
           <p className="text-amber-800/90 mt-0.5">
-            You can find your <strong>Order Number</strong> (e.g. <code className="bg-amber-100/80 px-1 py-0.5 rounded font-mono font-bold">ONX-84920</code>) and <strong>Carrier Tracking Number</strong> in the purchase confirmation email sent immediately after you placed your order. Please also check your spam or promotions folders if you cannot locate it in your primary inbox.
+            You can find your <strong>Order Number</strong> (e.g.{' '}
+            <code className="bg-amber-100/80 px-1 py-0.5 rounded font-mono font-bold">
+              ONX-84920
+            </code>
+            ) and <strong>Carrier Tracking Number</strong> in the purchase confirmation email sent
+            immediately after you placed your order. Please also check your spam or promotions
+            folders if you cannot locate it in your primary inbox.
           </p>
         </div>
       </div>
@@ -176,12 +182,19 @@ export const TrackOrder: React.FC = () => {
                 </span>
               </div>
               <p className="text-xs text-stone-500 mt-1">
-                Carrier: {trackingResult.carrier} • Tracking: <span className="font-mono text-slate-900 font-semibold">{trackingResult.trackingNumber}</span>
+                Carrier: {trackingResult.carrier} • Tracking:{' '}
+                <span className="font-mono text-slate-900 font-semibold">
+                  {trackingResult.trackingNumber}
+                </span>
               </p>
             </div>
             <div className="text-right sm:self-center">
-              <span className="text-[11px] uppercase tracking-wider text-stone-400 font-semibold block">Estimated Arrival</span>
-              <span className="text-sm font-bold text-slate-900">{trackingResult.estimatedDelivery}</span>
+              <span className="text-[11px] uppercase tracking-wider text-stone-400 font-semibold block">
+                Estimated Arrival
+              </span>
+              <span className="text-sm font-bold text-slate-900">
+                {trackingResult.estimatedDelivery}
+              </span>
             </div>
           </div>
 
@@ -222,7 +235,10 @@ export const TrackOrder: React.FC = () => {
             </h4>
             <div className="border border-stone-200 rounded-xl divide-y divide-stone-100 overflow-hidden text-xs">
               {trackingResult.history.map((event, idx) => (
-                <div key={idx} className="p-3 bg-stone-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                <div
+                  key={idx}
+                  className="p-3 bg-stone-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-1"
+                >
                   <div className="flex items-start gap-2.5">
                     <MapPin className="w-3.5 h-3.5 text-stone-400 shrink-0 mt-0.5" />
                     <div>
@@ -231,7 +247,9 @@ export const TrackOrder: React.FC = () => {
                     </div>
                   </div>
                   <div className="text-[11px] text-stone-400 sm:text-right shrink-0">
-                    <span>{event.date} at {event.time}</span>
+                    <span>
+                      {event.date} at {event.time}
+                    </span>
                   </div>
                 </div>
               ))}
@@ -247,7 +265,9 @@ export const TrackOrder: React.FC = () => {
               {trackingResult.items.map((item, idx) => (
                 <div key={idx} className="p-3 flex items-center justify-between">
                   <span className="text-slate-900 font-medium">{item.title}</span>
-                  <span className="text-stone-500 font-semibold">Qty: {item.qty} • ${item.price.toFixed(2)}</span>
+                  <span className="text-stone-500 font-semibold">
+                    Qty: {item.qty} • ${item.price.toFixed(2)}
+                  </span>
                 </div>
               ))}
             </div>

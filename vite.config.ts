@@ -13,4 +13,32 @@ export default defineConfig({
       },
     },
   },
+  test: {
+    // Node is the default because most suites exercise services and the proxy.
+    // Component tests opt into jsdom with a `@vitest-environment jsdom` docblock.
+    environment: 'node',
+    include: ['tests/**/*.test.ts', 'tests/**/*.test.tsx'],
+    // Runs for every test file. It is a no-op under node and registers the
+    // component cleanup under jsdom, so a component test gets unmounted and
+    // its localStorage cleared without having to import anything.
+    setupFiles: ['tests/setup.dom.ts'],
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'json-summary'],
+      include: ['src/**', 'server/**', 'shared/**'],
+      // Set to what the suite measured when this landed, rounded down. Raise
+      // these as coverage improves. Numbers picked aspirationally get bypassed
+      // within a week, which is worse than having none.
+      thresholds: {
+        statements: 22, // measured 22.62
+        // No global branch floor. Under the v8 provider a file that is never
+        // loaded contributes no branch records, so the branches denominator
+        // covers only tested files and the figure rises as coverage falls.
+        // Testing a new file would add its uncovered branches and lower the
+        // percentage, failing the build for improving coverage.
+        functions: 38, // measured 38.15
+        lines: 22, // measured 22.62
+      },
+    },
+  },
 });

@@ -1,5 +1,14 @@
 import React from 'react';
-import { Truck, RotateCcw, Ruler, PackageSearch, Headset, ShieldCheck, ChevronRight, ArrowLeft } from 'lucide-react';
+import {
+  Truck,
+  RotateCcw,
+  Ruler,
+  PackageSearch,
+  Headset,
+  ShieldCheck,
+  ChevronRight,
+  ArrowLeft,
+} from 'lucide-react';
 import { ShippingPolicy } from './ShippingPolicy';
 import { ReturnsPolicy } from './ReturnsPolicy';
 import { SizingGuide } from './SizingGuide';
@@ -7,7 +16,8 @@ import { TrackOrder } from './TrackOrder';
 import { ContactClientServices } from './ContactClientServices';
 import { PrivacyPolicy } from './PrivacyPolicy';
 
-export type CustomerCareSection = 'shipping' | 'returns' | 'sizing' | 'order-lookup' | 'contact' | 'privacy';
+export type CustomerCareSection =
+  'shipping' | 'returns' | 'sizing' | 'order-lookup' | 'contact' | 'privacy';
 
 interface CustomerCarePageProps {
   currentSection: CustomerCareSection;
@@ -118,9 +128,12 @@ export const CustomerCarePage: React.FC<CustomerCarePageProps> = ({
 
             {/* Concierge Help Box */}
             <div className="p-4 rounded-xl bg-amber-50 border border-amber-200/80 mt-6 space-y-2">
-              <h4 className="text-xs font-bold text-amber-950 font-serif">Need Personal Assistance?</h4>
+              <h4 className="text-xs font-bold text-amber-950 font-serif">
+                Need Personal Assistance?
+              </h4>
               <p className="text-[11px] text-amber-800 leading-relaxed">
-                Our client concierge team is on hand 7 days a week for immediate styling & order support.
+                Our client concierge team is on hand 7 days a week for immediate styling & order
+                support.
               </p>
               <button
                 onClick={() => onNavigate('contact')}

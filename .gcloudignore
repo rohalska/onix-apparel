@@ -15,8 +15,9 @@ node_modules/
 *.key
 gcp-key*.json
 
-# Test and coverage artifacts
-.test-dist/
+
+# Local scratch directory
+.superpowers/
 tests/
 coverage/
 

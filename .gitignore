@@ -10,7 +10,6 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
-.test-dist
 *.local
 
 # Environment and Secret Files
@@ -35,3 +34,6 @@ gcp-key*.json
 *.njsproj
 *.sln
 *.sw?
+
+# Test coverage output
+coverage/

@@ -1,38 +1,85 @@
 name: CI
 
 on:
-  push:
-    branches: [ main ]
   pull_request:
-    branches: [ main ]
+    # `edited` is load-bearing, and it is not in the default set. The pr-title
+    # job below checks the title, and a title is edited without touching a
+    # commit: open as `feat: x`, go green, rename to "Repo foundation", squash
+    # merge, release nothing. Without this the gate only ever sees the title the
+    # pull request was opened with.
+    types: [opened, synchronize, reopened, edited]
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  validate-and-test:
+  # The landing path is squash-merge, so the pull request title becomes the
+  # commit subject on main and release-please derives the version bump and the
+  # changelog entry from it. A title like "Repo foundation" merges green and
+  # then releases nothing at all, silently.
+  #
+  # Only meaningful on a pull request: a push to main has no title to check,
+  # and the commit-msg hook has already vetted the subject of every commit.
+  pr-title:
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Check Shell Script Syntax
+      - name: Title must be a Conventional Commit
+        env:
+          # Via the environment, not interpolated into the script, so a title
+          # containing shell metacharacters cannot run as code.
+          TITLE: ${{ github.event.pull_request.title }}
         run: |
-          for script in scripts/*.sh; do
-            [ -e "$script" ] || continue
-            echo "Checking syntax: $script"
-            bash -n "$script"
-          done
+          set -euo pipefail
+          # Keep this list and this pattern identical to the commit-msg hook in
+          # lefthook.yml. If they drift, one of the two gates stops meaning
+          # anything.
+          types='feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert'
+          if ! printf '%s' "$TITLE" | grep -qE "^(${types})(\([A-Za-z0-9._/-]+\))?!?: .+"; then
+            echo "::error::PR title must follow Conventional Commits, e.g. 'feat: add fuzzy matching' or 'fix(server): drain oversized bodies'"
+            exit 1
+          fi
 
-      - name: Run Test Suite
-        run: npm test
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      # Actions are pinned by commit SHA with the version in the trailing
+      # comment, so a compromised or force-moved tag cannot change what runs
+      # here. Upgrade by editing the SHA and the comment together, in a pull
+      # request, which puts the new version through this same gate.
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
 
-      - name: Build Application
-        run: npm run build
+      # v4.4.0, comfortably past v4.1.0, which is the floor for reading a
+      # version from .tool-versions. Pinning any earlier would leave the
+      # workflow running but no longer honouring the repo's pin.
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          # Read the pin from the repo rather than restating it here, so the
+          # workflow cannot drift from what runs locally.
+          node-version-file: .tool-versions
+          cache: npm
+
+      - run: make setup
+
+      # CI runs the same target a developer runs. Inlining the commands here
+      # is how "works on my machine" gets reintroduced.
+      - run: make check
+
+      # The gate has to build the image, not just the app. A shared/ import was
+      # added to server/proxy.mjs while the runner stage never copied that
+      # directory: green in every other gate, ERR_MODULE_NOT_FOUND the moment
+      # the container started. Nothing is pushed here -- publishing the image
+      # belongs to the deploy work, not to this gate.
+      - name: Build the runtime image
+        run: docker build -t clothing-store:ci .
+
+      - name: Upload coverage summary
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: coverage-summary
+          path: coverage/coverage-summary.json
+          if-no-files-found: warn

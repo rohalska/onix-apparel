@@ -1,6 +1,7 @@
 import { Product } from '../types/product';
 import { FALLBACK_PRODUCTS } from '../data/fallbackProducts';
 import { correctQuery } from '../utils/fuzzySearch';
+import { DEFAULT_SORT } from '../../shared/sortOptions.mjs';
 
 export interface FacetValue {
   value: string;
@@ -64,7 +65,7 @@ function getVisitorId(): string {
  */
 export function simulateClientSearch(
   params: VertexSearchParams = {},
-  catalog: Product[] = FALLBACK_PRODUCTS
+  catalog: Product[] = FALLBACK_PRODUCTS,
 ): VertexSearchResponse {
   const {
     query = '',
@@ -73,7 +74,7 @@ export function simulateClientSearch(
     maxPrice = 700,
     size,
     color,
-    sortBy = 'featured',
+    sortBy = DEFAULT_SORT,
   } = params;
 
   let filtered = [...catalog];
@@ -99,7 +100,7 @@ export function simulateClientSearch(
   // 4. Color Filter
   if (color) {
     filtered = filtered.filter((p) =>
-      p.colors?.some((c) => c.name.toLowerCase() === color.toLowerCase())
+      p.colors?.some((c) => c.name.toLowerCase() === color.toLowerCase()),
     );
   }
 
@@ -137,9 +138,9 @@ export function simulateClientSearch(
   }
 
   // 6. Sorting
-  if (sortBy === 'price-asc') {
+  if (sortBy === 'price-low') {
     filtered.sort((a, b) => a.price - b.price);
-  } else if (sortBy === 'price-desc') {
+  } else if (sortBy === 'price-high') {
     filtered.sort((a, b) => b.price - a.price);
   } else if (sortBy === 'rating') {
     filtered.sort((a, b) => b.rating.rate - a.rating.rate);
@@ -192,7 +193,7 @@ export function simulateClientSearch(
  */
 export async function searchVertexProducts(
   params: VertexSearchParams = {},
-  fallbackCatalog: Product[] = FALLBACK_PRODUCTS
+  fallbackCatalog: Product[] = FALLBACK_PRODUCTS,
 ): Promise<VertexSearchResponse> {
   const visitorId = getVisitorId();
 
@@ -234,7 +235,7 @@ export async function searchVertexProducts(
 export async function trackVertexUserEvent(
   eventType: 'detail-page-view' | 'add-to-cart' | 'purchase-complete',
   product?: Product,
-  details: Record<string, any> = {}
+  details: Record<string, any> = {},
 ): Promise<void> {
   const visitorId = getVisitorId();
 

@@ -1,4 +1,4 @@
-import { describe, it } from 'node:test';
+import { describe, it } from 'vitest';
 import assert from 'node:assert/strict';
 import { simulateClientSearch } from '../src/services/vertexSearch';
 import { FALLBACK_PRODUCTS } from '../src/data/fallbackProducts';
@@ -9,17 +9,19 @@ describe('Search UX & Business Logic Edge Cases', () => {
     // there are men's jackets in the store!
     const womensOnlyResults = simulateClientSearch(
       { query: 'mens cotton jacket', category: "women's clothing" },
-      FALLBACK_PRODUCTS
+      FALLBACK_PRODUCTS,
     );
 
     // If restricted strictly by category:
     const globalResults = simulateClientSearch(
       { query: 'mens cotton jacket', category: 'all' },
-      FALLBACK_PRODUCTS
+      FALLBACK_PRODUCTS,
     );
 
     assert.ok(globalResults.products.length > 0, 'Global search must find the Mens Cotton Jacket');
-    console.log(`Global search count: ${globalResults.products.length}, Category restricted count: ${womensOnlyResults.products.length}`);
+    console.log(
+      `Global search count: ${globalResults.products.length}, Category restricted count: ${womensOnlyResults.products.length}`,
+    );
   });
 
   it('Partial word matching: "jack" should match "Mens Cotton Jacket"', () => {

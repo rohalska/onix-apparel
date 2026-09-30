@@ -1,8 +1,7 @@
-import { describe, it } from 'node:test';
+import { describe, it } from 'vitest';
 import assert from 'node:assert/strict';
 import { simulateClientSearch } from '../src/services/vertexSearch';
 import { FALLBACK_PRODUCTS } from '../src/data/fallbackProducts';
-import { Product } from '../src/types/product';
 
 describe('Vertex AI & Local Search Simulation Suite', () => {
   it('should return all products when query is empty', () => {
@@ -32,7 +31,7 @@ describe('Vertex AI & Local Search Simulation Suite', () => {
     assert.equal(lowerRes.products.length, mixedRes.products.length);
     assert.deepEqual(
       lowerRes.products.map((p) => p.id),
-      upperRes.products.map((p) => p.id)
+      upperRes.products.map((p) => p.id),
     );
   });
 
@@ -110,21 +109,21 @@ describe('Vertex AI & Local Search Simulation Suite', () => {
   });
 
   it('should correctly sort by price low-to-high', () => {
-    const res = simulateClientSearch({ query: '', sortBy: 'price-asc' }, FALLBACK_PRODUCTS);
+    const res = simulateClientSearch({ query: '', sortBy: 'price-low' }, FALLBACK_PRODUCTS);
     for (let i = 0; i < res.products.length - 1; i++) {
       assert.ok(
         res.products[i].price <= res.products[i + 1].price,
-        `Expected ascending prices: ${res.products[i].price} <= ${res.products[i + 1].price}`
+        `Expected ascending prices: ${res.products[i].price} <= ${res.products[i + 1].price}`,
       );
     }
   });
 
   it('should correctly sort by price high-to-low', () => {
-    const res = simulateClientSearch({ query: '', sortBy: 'price-desc' }, FALLBACK_PRODUCTS);
+    const res = simulateClientSearch({ query: '', sortBy: 'price-high' }, FALLBACK_PRODUCTS);
     for (let i = 0; i < res.products.length - 1; i++) {
       assert.ok(
         res.products[i].price >= res.products[i + 1].price,
-        `Expected descending prices: ${res.products[i].price} >= ${res.products[i + 1].price}`
+        `Expected descending prices: ${res.products[i].price} >= ${res.products[i + 1].price}`,
       );
     }
   });
@@ -143,7 +142,7 @@ describe('Vertex AI & Local Search Simulation Suite', () => {
     // Does search return 0 results because of the category lock?
     const res = simulateClientSearch(
       { query: 'mens cotton jacket', category: "women's clothing" },
-      FALLBACK_PRODUCTS
+      FALLBACK_PRODUCTS,
     );
     // If strict category filter is applied, it will return 0 results even though the store has the item!
     console.log(`Cross-category search count: ${res.products.length}`);

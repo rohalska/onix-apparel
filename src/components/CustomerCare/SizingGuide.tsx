@@ -23,7 +23,8 @@ export const SizingGuide: React.FC = () => {
           Apparel & Jewelry Sizing Guide
         </h1>
         <p className="text-sm text-stone-600 mt-2 leading-relaxed">
-          Find your flawless silhouette. Our garments are tailored to international luxury ready-to-wear standards. Use our size conversion and body measurement tables below.
+          Find your flawless silhouette. Our garments are tailored to international luxury
+          ready-to-wear standards. Use our size conversion and body measurement tables below.
         </p>
       </div>
 
@@ -67,7 +68,9 @@ export const SizingGuide: React.FC = () => {
           <button
             onClick={() => setUnit('in')}
             className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${
-              unit === 'in' ? 'bg-white text-slate-900 shadow-xs' : 'text-stone-500 hover:text-slate-900'
+              unit === 'in'
+                ? 'bg-white text-slate-900 shadow-xs'
+                : 'text-stone-500 hover:text-slate-900'
             }`}
           >
             Inches (in)
@@ -75,7 +78,9 @@ export const SizingGuide: React.FC = () => {
           <button
             onClick={() => setUnit('cm')}
             className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${
-              unit === 'cm' ? 'bg-white text-slate-900 shadow-xs' : 'text-stone-500 hover:text-slate-900'
+              unit === 'cm'
+                ? 'bg-white text-slate-900 shadow-xs'
+                : 'text-stone-500 hover:text-slate-900'
             }`}
           >
             Centimeters (cm)
@@ -101,37 +106,67 @@ export const SizingGuide: React.FC = () => {
                 <tr>
                   <td className="py-3 px-4 font-bold text-slate-900">XS</td>
                   <td className="py-3 px-4 text-stone-600">0 – 2</td>
-                  <td className="py-3 px-4">{convert(32)} – {convert(33)}</td>
-                  <td className="py-3 px-4">{convert(24)} – {convert(25)}</td>
-                  <td className="py-3 px-4">{convert(34)} – {convert(35)}</td>
+                  <td className="py-3 px-4">
+                    {convert(32)} – {convert(33)}
+                  </td>
+                  <td className="py-3 px-4">
+                    {convert(24)} – {convert(25)}
+                  </td>
+                  <td className="py-3 px-4">
+                    {convert(34)} – {convert(35)}
+                  </td>
                 </tr>
                 <tr>
                   <td className="py-3 px-4 font-bold text-slate-900">S</td>
                   <td className="py-3 px-4 text-stone-600">4 – 6</td>
-                  <td className="py-3 px-4">{convert(34)} – {convert(35)}</td>
-                  <td className="py-3 px-4">{convert(26)} – {convert(27)}</td>
-                  <td className="py-3 px-4">{convert(36)} – {convert(37)}</td>
+                  <td className="py-3 px-4">
+                    {convert(34)} – {convert(35)}
+                  </td>
+                  <td className="py-3 px-4">
+                    {convert(26)} – {convert(27)}
+                  </td>
+                  <td className="py-3 px-4">
+                    {convert(36)} – {convert(37)}
+                  </td>
                 </tr>
                 <tr>
                   <td className="py-3 px-4 font-bold text-slate-900">M</td>
                   <td className="py-3 px-4 text-stone-600">8 – 10</td>
-                  <td className="py-3 px-4">{convert(36)} – {convert(37)}</td>
-                  <td className="py-3 px-4">{convert(28)} – {convert(29)}</td>
-                  <td className="py-3 px-4">{convert(38)} – {convert(39)}</td>
+                  <td className="py-3 px-4">
+                    {convert(36)} – {convert(37)}
+                  </td>
+                  <td className="py-3 px-4">
+                    {convert(28)} – {convert(29)}
+                  </td>
+                  <td className="py-3 px-4">
+                    {convert(38)} – {convert(39)}
+                  </td>
                 </tr>
                 <tr>
                   <td className="py-3 px-4 font-bold text-slate-900">L</td>
                   <td className="py-3 px-4 text-stone-600">12 – 14</td>
-                  <td className="py-3 px-4">{convert(38.5)} – {convert(40)}</td>
-                  <td className="py-3 px-4">{convert(30.5)} – {convert(32)}</td>
-                  <td className="py-3 px-4">{convert(40.5)} – {convert(42)}</td>
+                  <td className="py-3 px-4">
+                    {convert(38.5)} – {convert(40)}
+                  </td>
+                  <td className="py-3 px-4">
+                    {convert(30.5)} – {convert(32)}
+                  </td>
+                  <td className="py-3 px-4">
+                    {convert(40.5)} – {convert(42)}
+                  </td>
                 </tr>
                 <tr>
                   <td className="py-3 px-4 font-bold text-slate-900">XL</td>
                   <td className="py-3 px-4 text-stone-600">16</td>
-                  <td className="py-3 px-4">{convert(41.5)} – {convert(43)}</td>
-                  <td className="py-3 px-4">{convert(33.5)} – {convert(35)}</td>
-                  <td className="py-3 px-4">{convert(43.5)} – {convert(45)}</td>
+                  <td className="py-3 px-4">
+                    {convert(41.5)} – {convert(43)}
+                  </td>
+                  <td className="py-3 px-4">
+                    {convert(33.5)} – {convert(35)}
+                  </td>
+                  <td className="py-3 px-4">
+                    {convert(43.5)} – {convert(45)}
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -156,45 +191,93 @@ export const SizingGuide: React.FC = () => {
               <tbody className="divide-y divide-stone-200 bg-white">
                 <tr>
                   <td className="py-3 px-4 font-bold text-slate-900">XS</td>
-                  <td className="py-3 px-4">{convert(34)} – {convert(36)}</td>
-                  <td className="py-3 px-4">{convert(28)} – {convert(30)}</td>
-                  <td className="py-3 px-4">{convert(14)} – {convert(14.5)}</td>
-                  <td className="py-3 px-4">{convert(32)} – {convert(32.5)}</td>
+                  <td className="py-3 px-4">
+                    {convert(34)} – {convert(36)}
+                  </td>
+                  <td className="py-3 px-4">
+                    {convert(28)} – {convert(30)}
+                  </td>
+                  <td className="py-3 px-4">
+                    {convert(14)} – {convert(14.5)}
+                  </td>
+                  <td className="py-3 px-4">
+                    {convert(32)} – {convert(32.5)}
+                  </td>
                 </tr>
                 <tr>
                   <td className="py-3 px-4 font-bold text-slate-900">S</td>
-                  <td className="py-3 px-4">{convert(36)} – {convert(38)}</td>
-                  <td className="py-3 px-4">{convert(30)} – {convert(32)}</td>
-                  <td className="py-3 px-4">{convert(14.5)} – {convert(15)}</td>
-                  <td className="py-3 px-4">{convert(32.5)} – {convert(33)}</td>
+                  <td className="py-3 px-4">
+                    {convert(36)} – {convert(38)}
+                  </td>
+                  <td className="py-3 px-4">
+                    {convert(30)} – {convert(32)}
+                  </td>
+                  <td className="py-3 px-4">
+                    {convert(14.5)} – {convert(15)}
+                  </td>
+                  <td className="py-3 px-4">
+                    {convert(32.5)} – {convert(33)}
+                  </td>
                 </tr>
                 <tr>
                   <td className="py-3 px-4 font-bold text-slate-900">M</td>
-                  <td className="py-3 px-4">{convert(38)} – {convert(40)}</td>
-                  <td className="py-3 px-4">{convert(32)} – {convert(34)}</td>
-                  <td className="py-3 px-4">{convert(15)} – {convert(15.5)}</td>
-                  <td className="py-3 px-4">{convert(33.5)} – {convert(34)}</td>
+                  <td className="py-3 px-4">
+                    {convert(38)} – {convert(40)}
+                  </td>
+                  <td className="py-3 px-4">
+                    {convert(32)} – {convert(34)}
+                  </td>
+                  <td className="py-3 px-4">
+                    {convert(15)} – {convert(15.5)}
+                  </td>
+                  <td className="py-3 px-4">
+                    {convert(33.5)} – {convert(34)}
+                  </td>
                 </tr>
                 <tr>
                   <td className="py-3 px-4 font-bold text-slate-900">L</td>
-                  <td className="py-3 px-4">{convert(42)} – {convert(44)}</td>
-                  <td className="py-3 px-4">{convert(36)} – {convert(38)}</td>
-                  <td className="py-3 px-4">{convert(16)} – {convert(16.5)}</td>
-                  <td className="py-3 px-4">{convert(34.5)} – {convert(35)}</td>
+                  <td className="py-3 px-4">
+                    {convert(42)} – {convert(44)}
+                  </td>
+                  <td className="py-3 px-4">
+                    {convert(36)} – {convert(38)}
+                  </td>
+                  <td className="py-3 px-4">
+                    {convert(16)} – {convert(16.5)}
+                  </td>
+                  <td className="py-3 px-4">
+                    {convert(34.5)} – {convert(35)}
+                  </td>
                 </tr>
                 <tr>
                   <td className="py-3 px-4 font-bold text-slate-900">XL</td>
-                  <td className="py-3 px-4">{convert(46)} – {convert(48)}</td>
-                  <td className="py-3 px-4">{convert(40)} – {convert(42)}</td>
-                  <td className="py-3 px-4">{convert(17)} – {convert(17.5)}</td>
-                  <td className="py-3 px-4">{convert(35.5)} – {convert(36)}</td>
+                  <td className="py-3 px-4">
+                    {convert(46)} – {convert(48)}
+                  </td>
+                  <td className="py-3 px-4">
+                    {convert(40)} – {convert(42)}
+                  </td>
+                  <td className="py-3 px-4">
+                    {convert(17)} – {convert(17.5)}
+                  </td>
+                  <td className="py-3 px-4">
+                    {convert(35.5)} – {convert(36)}
+                  </td>
                 </tr>
                 <tr>
                   <td className="py-3 px-4 font-bold text-slate-900">XXL</td>
-                  <td className="py-3 px-4">{convert(50)} – {convert(52)}</td>
-                  <td className="py-3 px-4">{convert(44)} – {convert(46)}</td>
-                  <td className="py-3 px-4">{convert(18)} – {convert(18.5)}</td>
-                  <td className="py-3 px-4">{convert(36.5)} – {convert(37)}</td>
+                  <td className="py-3 px-4">
+                    {convert(50)} – {convert(52)}
+                  </td>
+                  <td className="py-3 px-4">
+                    {convert(44)} – {convert(46)}
+                  </td>
+                  <td className="py-3 px-4">
+                    {convert(18)} – {convert(18.5)}
+                  </td>
+                  <td className="py-3 px-4">
+                    {convert(36.5)} – {convert(37)}
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -261,15 +344,24 @@ export const SizingGuide: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-stone-600">
           <div className="space-y-1">
             <h5 className="font-bold text-slate-900">1. Chest / Bust</h5>
-            <p>Measure around the fullest part of your chest, keeping the tape level under your arms and across shoulder blades.</p>
+            <p>
+              Measure around the fullest part of your chest, keeping the tape level under your arms
+              and across shoulder blades.
+            </p>
           </div>
           <div className="space-y-1">
             <h5 className="font-bold text-slate-900">2. Natural Waist</h5>
-            <p>Measure around your natural waistline, which is the narrowest point of your torso, usually about 1 inch above the navel.</p>
+            <p>
+              Measure around your natural waistline, which is the narrowest point of your torso,
+              usually about 1 inch above the navel.
+            </p>
           </div>
           <div className="space-y-1">
             <h5 className="font-bold text-slate-900">3. Hips</h5>
-            <p>Stand with feet together and measure around the fullest point of your hips and seat (approximately 8 inches below your waist).</p>
+            <p>
+              Stand with feet together and measure around the fullest point of your hips and seat
+              (approximately 8 inches below your waist).
+            </p>
           </div>
         </div>
       </div>

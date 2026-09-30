@@ -1,5 +1,15 @@
 import React, { useState } from 'react';
-import { X, Trash2, Plus, Minus, ArrowRight, ShoppingBag, Sparkles, Tag, Check } from 'lucide-react';
+import {
+  X,
+  Trash2,
+  Plus,
+  Minus,
+  ArrowRight,
+  ShoppingBag,
+  Sparkles,
+  Tag,
+  Check,
+} from 'lucide-react';
 import { useCart } from '../context/CartContext';
 
 interface CartDrawerProps {
@@ -27,7 +37,9 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onProceedToCheckout }) =
   } = useCart();
 
   const [inputCode, setInputCode] = useState('');
-  const [promoFeedback, setPromoFeedback] = useState<{ success: boolean; message: string } | null>(null);
+  const [promoFeedback, setPromoFeedback] = useState<{ success: boolean; message: string } | null>(
+    null,
+  );
 
   if (!isCartOpen) return null;
 
@@ -43,7 +55,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onProceedToCheckout }) =
 
   const freeShippingProgress = Math.min(
     100,
-    Math.round(((freeShippingThreshold - amountUntilFreeShipping) / freeShippingThreshold) * 100)
+    Math.round(((freeShippingThreshold - amountUntilFreeShipping) / freeShippingThreshold) * 100),
   );
 
   return (
@@ -78,11 +90,16 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onProceedToCheckout }) =
               <span>
                 {amountUntilFreeShipping > 0 ? (
                   <>
-                    Add <span className="font-bold text-slate-900">${amountUntilFreeShipping.toFixed(2)}</span> more for Free Shipping
+                    Add{' '}
+                    <span className="font-bold text-slate-900">
+                      ${amountUntilFreeShipping.toFixed(2)}
+                    </span>{' '}
+                    more for Free Shipping
                   </>
                 ) : (
                   <span className="text-emerald-700 font-bold flex items-center gap-1">
-                    <Sparkles className="w-3.5 h-3.5" /> You've unlocked Complimentary Express Shipping!
+                    <Sparkles className="w-3.5 h-3.5" /> You've unlocked Complimentary Express
+                    Shipping!
                   </span>
                 )}
               </span>
@@ -134,11 +151,14 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onProceedToCheckout }) =
                         if (!target.dataset.hasFailed) {
                           target.dataset.hasFailed = 'true';
                           if (item.product.category === "women's clothing") {
-                            target.src = 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80';
+                            target.src =
+                              'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80';
                           } else if (item.product.category === 'jewelery') {
-                            target.src = 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=600&q=80';
+                            target.src =
+                              'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=600&q=80';
                           } else {
-                            target.src = 'https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?auto=format&fit=crop&w=600&q=80';
+                            target.src =
+                              'https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?auto=format&fit=crop&w=600&q=80';
                           }
                         }
                       }}
@@ -163,9 +183,13 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onProceedToCheckout }) =
                       </div>
 
                       <div className="text-[11px] text-stone-500 mt-1 flex items-center gap-2">
-                        <span>Size: <strong className="text-slate-800">{item.selectedSize}</strong></span>
+                        <span>
+                          Size: <strong className="text-slate-800">{item.selectedSize}</strong>
+                        </span>
                         <span>•</span>
-                        <span>Color: <strong className="text-slate-800">{item.selectedColor}</strong></span>
+                        <span>
+                          Color: <strong className="text-slate-800">{item.selectedColor}</strong>
+                        </span>
                       </div>
                     </div>
 

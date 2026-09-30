@@ -1,3 +1,5 @@
+import type { SORT_VALUES } from '../../shared/sortOptions.mjs';
+
 export interface Rating {
   rate: number;
   count: number;
@@ -32,7 +34,7 @@ export interface CartItem {
 
 export type Category = 'all' | "men's clothing" | "women's clothing" | 'jewelery';
 
-export type SortOption = 'featured' | 'price-asc' | 'price-desc' | 'rating' | 'newest';
+export type SortOption = (typeof SORT_VALUES)[number];
 
 export interface FilterState {
   category: Category;

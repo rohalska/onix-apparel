@@ -12,7 +12,8 @@ export const ShippingPolicy: React.FC = () => {
           Complimentary Shipping Policy
         </h1>
         <p className="text-sm text-stone-600 mt-2 leading-relaxed">
-          At Onix Apparel, every piece is handled with meticulous care and dispatched from our temperature-controlled atelier in sustainable, signature packaging.
+          At Onix Apparel, every piece is handled with meticulous care and dispatched from our
+          temperature-controlled atelier in sustainable, signature packaging.
         </p>
       </div>
 
@@ -23,8 +24,12 @@ export const ShippingPolicy: React.FC = () => {
             <Truck className="w-4 h-4" />
           </div>
           <div>
-            <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider">Free Over $75</h4>
-            <p className="text-xs text-stone-500 mt-0.5">Complimentary standard ground on all domestic orders over $75.</p>
+            <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+              Free Over $75
+            </h4>
+            <p className="text-xs text-stone-500 mt-0.5">
+              Complimentary standard ground on all domestic orders over $75.
+            </p>
           </div>
         </div>
 
@@ -33,8 +38,12 @@ export const ShippingPolicy: React.FC = () => {
             <Clock className="w-4 h-4" />
           </div>
           <div>
-            <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider">Fast Dispatch</h4>
-            <p className="text-xs text-stone-500 mt-0.5">Orders placed before 1:00 PM EST ship within 1–2 business days.</p>
+            <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+              Fast Dispatch
+            </h4>
+            <p className="text-xs text-stone-500 mt-0.5">
+              Orders placed before 1:00 PM EST ship within 1–2 business days.
+            </p>
           </div>
         </div>
 
@@ -43,8 +52,12 @@ export const ShippingPolicy: React.FC = () => {
             <ShieldCheck className="w-4 h-4 text-emerald-400" />
           </div>
           <div>
-            <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider">Insured Delivery</h4>
-            <p className="text-xs text-stone-500 mt-0.5">Full transit insurance and tracking included on every parcel.</p>
+            <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+              Insured Delivery
+            </h4>
+            <p className="text-xs text-stone-500 mt-0.5">
+              Full transit insurance and tracking included on every parcel.
+            </p>
           </div>
         </div>
       </div>
@@ -76,7 +89,9 @@ export const ShippingPolicy: React.FC = () => {
                 <td className="py-3.5 px-4 text-stone-800">$15.00</td>
               </tr>
               <tr>
-                <td className="py-3.5 px-4 font-semibold text-slate-900">Priority Next-Day Overnight</td>
+                <td className="py-3.5 px-4 font-semibold text-slate-900">
+                  Priority Next-Day Overnight
+                </td>
                 <td className="py-3.5 px-4 text-stone-600">Next Business Day (by 3 PM)</td>
                 <td className="py-3.5 px-4 text-stone-800">$25.00</td>
                 <td className="py-3.5 px-4 text-stone-800">$25.00</td>
@@ -88,15 +103,22 @@ export const ShippingPolicy: React.FC = () => {
 
       {/* Packaging & Signature */}
       <div className="space-y-4 text-xs text-stone-600 leading-relaxed">
-        <h3 className="text-base font-bold text-slate-900 font-serif">Signature Packaging & Delivery Standards</h3>
+        <h3 className="text-base font-bold text-slate-900 font-serif">
+          Signature Packaging & Delivery Standards
+        </h3>
         <p>
-          All apparel items arrive wrapped in breathable, unbleached tissue within our 100% recyclable FSC-certified keepsake box. Fine jewelry orders are housed in our velvet-lined hard presentation case and require an adult signature upon delivery for high-value protection.
+          All apparel items arrive wrapped in breathable, unbleached tissue within our 100%
+          recyclable FSC-certified keepsake box. Fine jewelry orders are housed in our velvet-lined
+          hard presentation case and require an adult signature upon delivery for high-value
+          protection.
         </p>
 
         <div className="p-4 rounded-xl bg-amber-50/70 border border-amber-200 text-amber-900 flex items-start gap-3 mt-3">
           <AlertCircle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
           <p className="text-xs">
-            <span className="font-bold">Holiday & Capsule Peak Surcharge Notice:</span> During peak collection drops, order handling may take up to 48 hours before carrier dispatch. You will receive real-time courier tracking as soon as your label is generated.
+            <span className="font-bold">Holiday & Capsule Peak Surcharge Notice:</span> During peak
+            collection drops, order handling may take up to 48 hours before carrier dispatch. You
+            will receive real-time courier tracking as soon as your label is generated.
           </p>
         </div>
       </div>

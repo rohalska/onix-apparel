@@ -84,8 +84,8 @@ export const FilterBar: React.FC<FilterBarProps> = ({
               className="text-xs font-medium bg-stone-100 border border-stone-200 rounded-lg px-3 py-1.5 text-slate-800 outline-none focus:ring-1 focus:ring-slate-400 cursor-pointer"
             >
               <option value="featured">Featured / Popular</option>
-              <option value="price-asc">Price: Low to High</option>
-              <option value="price-desc">Price: High to Low</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
               <option value="rating">Highest Rated</option>
               <option value="newest">New Arrivals</option>
             </select>

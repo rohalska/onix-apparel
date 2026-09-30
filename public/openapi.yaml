@@ -67,10 +67,10 @@ components:
       properties:
         query:
           type: string
-          example: "black moto jacket"
+          example: 'black moto jacket'
         category:
           type: string
-          enum: ["all", "men's clothing", "women's clothing", "jewelery"]
+          enum: ['all', "men's clothing", "women's clothing", 'jewelery']
         minPrice:
           type: number
           example: 20.0
@@ -79,26 +79,33 @@ components:
           example: 150.0
         size:
           type: string
-          example: "M"
+          example: 'M'
         color:
           type: string
-          example: "Onyx Black"
+          example: 'Onyx Black'
         sortBy:
           type: string
-          enum: ["featured", "price-low", "price-high", "rating", "newest"]
+          enum: ['featured', 'price-low', 'price-high', 'rating', 'newest']
         pageSize:
           type: integer
           default: 20
         visitorId:
           type: string
-          example: "vis_982347102"
+          example: 'vis_982347102'
 
     SearchResponse:
       type: object
       properties:
         source:
           type: string
-          enum: ["vertex-ai-live", "vertex-ai-simulation", "local-fallback"]
+          enum: ['vertex-ai-live', 'vertex-ai-simulation', 'local-fallback']
+        appliedSort:
+          type: string
+          enum: ['featured', 'price-low', 'price-high', 'rating', 'newest']
+          description: >
+            The sort the server actually applied. It echoes the requested sortBy
+            when that value is recognised and reports 'featured' when it is not,
+            so a client can tell an honoured sort from a silently ignored one.
         totalSize:
           type: integer
         correctedQuery:
@@ -183,7 +190,7 @@ components:
       properties:
         eventType:
           type: string
-          enum: ["home-page-view", "detail-page-view", "add-to-cart", "purchase-complete", "search"]
+          enum: ['home-page-view', 'detail-page-view', 'add-to-cart', 'purchase-complete', 'search']
         visitorId:
           type: string
         product:
@@ -198,7 +205,7 @@ components:
           type: string
         mode:
           type: string
-          enum: ["live", "mock"]
+          enum: ['live', 'mock']
         gcpProjectId:
           type: string
           nullable: true

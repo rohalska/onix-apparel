@@ -3,7 +3,9 @@ import { ArrowRight, Check, Heart, Mail, ShieldCheck } from 'lucide-react';
 
 export interface FooterProps {
   onSelectCollection?: (collectionKey: 'women' | 'men' | 'accessories' | 'new' | 'sale') => void;
-  onSelectCustomerCare?: (sectionKey: 'shipping' | 'returns' | 'sizing' | 'order-lookup' | 'contact' | 'privacy') => void;
+  onSelectCustomerCare?: (
+    sectionKey: 'shipping' | 'returns' | 'sizing' | 'order-lookup' | 'contact' | 'privacy',
+  ) => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({ onSelectCollection, onSelectCustomerCare }) => {
@@ -25,15 +27,14 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCollection, onSelectCust
           {/* Brand Info */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-2">
-              <span className="font-serif text-2xl font-bold tracking-tight text-white">
-                ONIX
-              </span>
+              <span className="font-serif text-2xl font-bold tracking-tight text-white">ONIX</span>
               <span className="text-[10px] tracking-widest font-semibold uppercase px-2 py-0.5 rounded bg-stone-800 text-stone-300 border border-stone-700">
                 Apparel
               </span>
             </div>
             <p className="text-xs text-stone-400 max-w-sm leading-relaxed">
-              Curated clothing & timeless silhouettes created for thoughtful modern living. Powered by Google Cloud Vertex AI Search.
+              Curated clothing & timeless silhouettes created for thoughtful modern living. Powered
+              by Google Cloud Vertex AI Search.
             </p>
             <div className="flex items-center gap-2 text-xs text-stone-400">
               <ShieldCheck className="w-4 h-4 text-emerald-400" />
@@ -43,9 +44,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCollection, onSelectCust
 
           {/* Collections */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-white">
-              Collections
-            </h4>
+            <h4 className="text-xs font-bold uppercase tracking-wider text-white">Collections</h4>
             <ul className="space-y-2 text-xs text-stone-400">
               <li>
                 <a
@@ -122,9 +121,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCollection, onSelectCust
 
           {/* Customer Support */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-white">
-              Customer Care
-            </h4>
+            <h4 className="text-xs font-bold uppercase tracking-wider text-white">Customer Care</h4>
             <ul className="space-y-2 text-xs text-stone-400">
               <li>
                 <a
@@ -259,7 +256,8 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCollection, onSelectCust
                     className="underline hover:text-stone-400 transition-colors cursor-pointer"
                   >
                     Terms of Service & Privacy Policy
-                  </a>.
+                  </a>
+                  .
                 </p>
               </form>
             )}
@@ -269,11 +267,13 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCollection, onSelectCust
         {/* Bottom bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-stone-500">
           <div>
-            © {new Date().getFullYear()} ONIX Apparel Inc. Designed with care. Powered by Fake Store API.
+            © {new Date().getFullYear()} ONIX Apparel Inc. Designed with care. Powered by Fake Store
+            API.
           </div>
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1">
-              Crafted with <Heart className="w-3 h-3 text-rose-500 fill-rose-500" /> for modern fashion
+              Crafted with <Heart className="w-3 h-3 text-rose-500 fill-rose-500" /> for modern
+              fashion
             </span>
             <span>•</span>
             <a

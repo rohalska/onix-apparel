@@ -32,7 +32,9 @@ export interface AgentActionPayload {
  */
 export function dispatchAgentAction(action: AgentActionPayload): void {
   if (typeof window !== 'undefined') {
-    window.dispatchEvent(new CustomEvent<AgentActionPayload>('onix:agent-action', { detail: action }));
+    window.dispatchEvent(
+      new CustomEvent<AgentActionPayload>('onix:agent-action', { detail: action }),
+    );
   }
 }
 
@@ -58,7 +60,14 @@ export function notifyCartState(cartDetail: {
   itemCount: number;
   subtotal: number;
   total: number;
-  items: Array<{ id: string; title: string; price: number; quantity: number; size: string; color: string }>;
+  items: Array<{
+    id: string;
+    title: string;
+    price: number;
+    quantity: number;
+    size: string;
+    color: string;
+  }>;
 }): void {
   if (typeof window !== 'undefined') {
     window.dispatchEvent(new CustomEvent('onix:cart-updated', { detail: cartDetail }));
@@ -81,6 +90,6 @@ if (typeof window !== 'undefined') {
   - window.onixStore.dispatch({ action: 'APPLY_PROMO', promoCode: 'SAVE20' })
   - window.onixStore.dispatch({ action: 'SEARCH', query: 'jacket' })
       `);
-    }
+    },
   };
 }

@@ -26,7 +26,8 @@ export const ContactClientServices: React.FC = () => {
           Contact Client Services
         </h1>
         <p className="text-sm text-stone-600 mt-2 leading-relaxed">
-          Our dedicated client advisors are here to assist with styling consultations, order tracking, bespoke inquiries, and aftercare.
+          Our dedicated client advisors are here to assist with styling consultations, order
+          tracking, bespoke inquiries, and aftercare.
         </p>
       </div>
 
@@ -37,7 +38,9 @@ export const ContactClientServices: React.FC = () => {
           <div className="p-2 w-8 h-8 rounded-lg bg-slate-900 text-white flex items-center justify-center">
             <Mail className="w-4 h-4" />
           </div>
-          <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider">Email Concierge</h4>
+          <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+            Email Concierge
+          </h4>
           <a
             href="mailto:concierge@onixapparel.com"
             className="text-xs font-semibold text-slate-900 hover:text-amber-800 transition-colors block"
@@ -52,7 +55,9 @@ export const ContactClientServices: React.FC = () => {
           <div className="p-2 w-8 h-8 rounded-lg bg-slate-900 text-white flex items-center justify-center">
             <Phone className="w-4 h-4" />
           </div>
-          <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider">Toll-Free Phone</h4>
+          <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+            Toll-Free Phone
+          </h4>
           <a
             href="tel:+18005556649"
             className="text-xs font-semibold text-slate-900 hover:text-amber-800 transition-colors block"
@@ -67,7 +72,9 @@ export const ContactClientServices: React.FC = () => {
           <div className="p-2 w-8 h-8 rounded-lg bg-slate-900 text-white flex items-center justify-center">
             <MapPin className="w-4 h-4" />
           </div>
-          <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider">Onix Flagship Atelier</h4>
+          <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+            Onix Flagship Atelier
+          </h4>
           <p className="text-xs font-semibold text-slate-900">450 Madison Avenue</p>
           <p className="text-[11px] text-stone-500">New York, NY 10022</p>
         </div>
@@ -77,7 +84,9 @@ export const ContactClientServices: React.FC = () => {
           <div className="p-2 w-8 h-8 rounded-lg bg-slate-900 text-white flex items-center justify-center">
             <Sparkles className="w-4 h-4 text-amber-300" />
           </div>
-          <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider">Beverly Hills Salon</h4>
+          <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+            Beverly Hills Salon
+          </h4>
           <p className="text-xs font-semibold text-slate-900">9500 Wilshire Blvd</p>
           <p className="text-[11px] text-stone-500">Beverly Hills, CA 90212</p>
         </div>
@@ -90,14 +99,23 @@ export const ContactClientServices: React.FC = () => {
             <div className="w-12 h-12 mx-auto rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center">
               <CheckCircle2 className="w-6 h-6" />
             </div>
-            <h3 className="text-lg font-bold text-slate-900 font-serif">Inquiry Received with Distinction</h3>
+            <h3 className="text-lg font-bold text-slate-900 font-serif">
+              Inquiry Received with Distinction
+            </h3>
             <p className="text-xs text-stone-600 max-w-md mx-auto">
-              Thank you, {formData.name}. An Onix client advisor has received your message regarding "{formData.subject}" and will respond to <span className="font-semibold text-slate-900">{formData.email}</span> shortly.
+              Thank you, {formData.name}. An Onix client advisor has received your message regarding
+              "{formData.subject}" and will respond to{' '}
+              <span className="font-semibold text-slate-900">{formData.email}</span> shortly.
             </p>
             <button
               onClick={() => {
                 setSubmitted(false);
-                setFormData({ name: '', email: '', subject: 'Order Inquiries & Tracking', message: '' });
+                setFormData({
+                  name: '',
+                  email: '',
+                  subject: 'Order Inquiries & Tracking',
+                  message: '',
+                });
               }}
               className="mt-4 px-4 py-2 bg-stone-100 text-slate-800 text-xs font-bold rounded-lg hover:bg-stone-200 transition-colors"
             >
@@ -106,7 +124,9 @@ export const ContactClientServices: React.FC = () => {
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
-            <h3 className="text-base font-bold text-slate-900 font-serif">Send an Inquiry to Our Client Advisors</h3>
+            <h3 className="text-base font-bold text-slate-900 font-serif">
+              Send an Inquiry to Our Client Advisors
+            </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
@@ -148,10 +168,18 @@ export const ContactClientServices: React.FC = () => {
                 className="w-full px-3.5 py-2.5 text-xs bg-stone-50 border border-stone-300 rounded-lg outline-none focus:border-slate-900 focus:bg-white text-slate-900"
               >
                 <option value="Order Inquiries & Tracking">Order Inquiries & Tracking</option>
-                <option value="Returns & Exchanges Assistance">Returns & Exchanges Assistance</option>
-                <option value="Private Styling & Fit Consultation">Private Styling & Fit Consultation</option>
-                <option value="Fine Jewelry & Custom Ring Sizing">Fine Jewelry & Custom Ring Sizing</option>
-                <option value="Wholesale, Press & Partnerships">Wholesale, Press & Partnerships</option>
+                <option value="Returns & Exchanges Assistance">
+                  Returns & Exchanges Assistance
+                </option>
+                <option value="Private Styling & Fit Consultation">
+                  Private Styling & Fit Consultation
+                </option>
+                <option value="Fine Jewelry & Custom Ring Sizing">
+                  Fine Jewelry & Custom Ring Sizing
+                </option>
+                <option value="Wholesale, Press & Partnerships">
+                  Wholesale, Press & Partnerships
+                </option>
               </select>
             </div>
 

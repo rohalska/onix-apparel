@@ -1,4 +1,4 @@
-import { describe, it } from 'node:test';
+import { describe, it } from 'vitest';
 import assert from 'node:assert/strict';
 import fs from 'fs';
 import path from 'path';
@@ -21,7 +21,7 @@ describe('Shell Script Quality & GCP Retail Ingestion Invariants', () => {
 
   it('all shell scripts in scripts/ must pass bash -n syntax check without error', () => {
     const scriptsDir = path.resolve(rootDir, 'scripts');
-    const shellFiles = fs.readdirSync(scriptsDir).filter(f => f.endsWith('.sh'));
+    const shellFiles = fs.readdirSync(scriptsDir).filter((f) => f.endsWith('.sh'));
     assert.ok(shellFiles.length > 0, 'At least one shell script should exist');
 
     for (const file of shellFiles) {
@@ -39,15 +39,19 @@ describe('Shell Script Quality & GCP Retail Ingestion Invariants', () => {
     assert.equal(
       /\$\{[^}]*===/.test(content),
       false,
-      'Must not contain JavaScript triple equals in parameter expansions'
+      'Must not contain JavaScript triple equals in parameter expansions',
     );
-    assert.equal(content.includes('? \'us-central1\' :'), false, 'Must not contain JavaScript ternary operator');
+    assert.equal(
+      content.includes("? 'us-central1' :"),
+      false,
+      'Must not contain JavaScript ternary operator',
+    );
 
     // Must contain bash conditional for location
     assert.ok(
       content.includes('if [ "${BUCKET_LOCATION}" = "global" ]') ||
-      content.includes('if [ "$BUCKET_LOCATION" = "global" ]'),
-      'Must contain standard Bash conditional mapping global to us-central1'
+        content.includes('if [ "$BUCKET_LOCATION" = "global" ]'),
+      'Must contain standard Bash conditional mapping global to us-central1',
     );
   });
 
@@ -57,12 +61,12 @@ describe('Shell Script Quality & GCP Retail Ingestion Invariants', () => {
     // Documented Retail import requires JSON Lines
     assert.ok(
       content.includes('vertex-retail-catalog.jsonl'),
-      'Must reference vertex-retail-catalog.jsonl'
+      'Must reference vertex-retail-catalog.jsonl',
     );
     assert.equal(
       content.includes('vertex-retail-catalog.json"'),
       false,
-      'Must not target vertex-retail-catalog.json array'
+      'Must not target vertex-retail-catalog.json array',
     );
   });
 
@@ -70,8 +74,14 @@ describe('Shell Script Quality & GCP Retail Ingestion Invariants', () => {
     const content = fs.readFileSync(importScriptPath, 'utf-8');
 
     assert.equal(content.includes('gsutil'), false, 'Must not use deprecated gsutil');
-    assert.ok(content.includes('gcloud storage buckets describe'), 'Must use gcloud storage buckets describe');
-    assert.ok(content.includes('gcloud storage buckets create'), 'Must use gcloud storage buckets create');
+    assert.ok(
+      content.includes('gcloud storage buckets describe'),
+      'Must use gcloud storage buckets describe',
+    );
+    assert.ok(
+      content.includes('gcloud storage buckets create'),
+      'Must use gcloud storage buckets create',
+    );
     assert.ok(content.includes('gcloud storage cp'), 'Must use gcloud storage cp');
   });
 
@@ -98,6 +108,17 @@ describe('Shell Script Quality & GCP Retail Ingestion Invariants', () => {
     const ghPath = path.resolve(rootDir, '.github', 'workflows', 'ci.yml');
     assert.ok(fs.existsSync(ghPath), '.github/workflows/ci.yml must exist');
     const ghContent = fs.readFileSync(ghPath, 'utf-8');
-    assert.ok(ghContent.includes('bash -n'), 'ci.yml must include bash -n syntax check');
+    // Assert both halves of the contract, not a substring that a comment could
+    // satisfy: CI invokes `make check`, and the Makefile's check target depends on
+    // a shell-lint target. ShellCheck supersedes `bash -n` -- it reports everything
+    // bash -n does and more -- so the tool is deliberately not asserted here.
+    assert.match(ghContent, /run:\s*make check/, 'ci.yml must invoke make check');
+    const mkContent = fs.readFileSync(path.resolve(rootDir, 'Makefile'), 'utf-8');
+    assert.match(
+      mkContent,
+      /^check:[^\n]*\blint-shell\b/m,
+      "the Makefile's check target must depend on lint-shell",
+    );
+    assert.match(mkContent, /^lint-shell:/m, 'the Makefile must define lint-shell');
   });
 });

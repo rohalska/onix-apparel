@@ -26,9 +26,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   };
 
   const formatCategory = (cat: string) => {
-    if (cat === "men's clothing") return "Men";
-    if (cat === "women's clothing") return "Women";
-    if (cat === "jewelery") return "Accessories";
+    if (cat === "men's clothing") return 'Men';
+    if (cat === "women's clothing") return 'Women';
+    if (cat === 'jewelery') return 'Accessories';
     return cat;
   };
 
@@ -134,7 +134,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         {/* Price & Add to Cart Button */}
         <div className="mt-auto pt-3 flex items-center justify-between border-t border-stone-100">
           <div className="flex items-baseline gap-1.5">
-            <span className={`text-base font-bold ${product.onSale ? 'text-rose-700' : 'text-slate-900'} tracking-tight`}>
+            <span
+              className={`text-base font-bold ${product.onSale ? 'text-rose-700' : 'text-slate-900'} tracking-tight`}
+            >
               ${product.price.toFixed(2)}
             </span>
             {product.originalPrice && (
@@ -147,7 +149,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           <button
             onClick={() => onAddToCartDirect(product)}
             className="p-2 bg-stone-100 text-slate-900 rounded-xl hover:bg-slate-900 hover:text-white transition-all flex items-center gap-1 text-xs font-semibold"
-            aria-label="Add to cart"
+            aria-label="Add to bag"
             title="Quick Add to Bag"
           >
             <ShoppingBag className="w-4 h-4" />

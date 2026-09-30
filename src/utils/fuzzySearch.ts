@@ -112,7 +112,13 @@ export function correctTypo(token: string): string | null {
   }
 
   // Common quick aliases
-  if (clean === 'jacet' || clean === 'jaket' || clean === 'jacktet' || clean === 'jakcet' || clean === 'jackt') {
+  if (
+    clean === 'jacet' ||
+    clean === 'jaket' ||
+    clean === 'jacktet' ||
+    clean === 'jakcet' ||
+    clean === 'jackt'
+  ) {
     return 'jacket';
   }
   if (clean === 'shrt' || clean === 'tshirt' || clean === 't-shrt') {

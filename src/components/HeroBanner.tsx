@@ -14,10 +14,9 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
   onQuickView,
 }) => {
   const displayImage =
-    featuredProduct?.image ||
-    'https://m.media-amazon.com/images/I/71li-ujtlUL._AC_UX679.jpg';
+    featuredProduct?.image || 'https://m.media-amazon.com/images/I/71li-ujtlUL._AC_UX679.jpg';
   const displayPrice = featuredProduct?.price ? `$${featuredProduct.price.toFixed(2)}` : '$55.99';
-  const displayTitle = featuredProduct?.title || "Mens Cotton Jacket";
+  const displayTitle = featuredProduct?.title || 'Mens Cotton Jacket';
   return (
     <div className="relative overflow-hidden bg-[#f4ece3] border-b border-stone-200">
       {/* Background ambient gradient */}
@@ -38,7 +37,8 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
             </h1>
 
             <p className="text-base sm:text-lg text-stone-600 max-w-xl leading-relaxed">
-              Discover timeless silhouettes and meticulously crafted wardrobe staples. Sourced with premium sustainable fabrics designed to endure beyond transient seasons.
+              Discover timeless silhouettes and meticulously crafted wardrobe staples. Sourced with
+              premium sustainable fabrics designed to endure beyond transient seasons.
             </p>
 
             <div className="flex flex-wrap items-center gap-3 pt-2">
@@ -109,28 +109,36 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
           <div className="flex items-center gap-3">
             <Truck className="w-5 h-5 text-stone-800 shrink-0" />
             <div>
-              <p className="text-xs font-bold uppercase tracking-wider text-slate-900">Free Express Shipping</p>
+              <p className="text-xs font-bold uppercase tracking-wider text-slate-900">
+                Free Express Shipping
+              </p>
               <p className="text-[11px] text-stone-500">On all orders over $75</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
             <RefreshCw className="w-5 h-5 text-stone-800 shrink-0" />
             <div>
-              <p className="text-xs font-bold uppercase tracking-wider text-slate-900">30-Day Easy Returns</p>
+              <p className="text-xs font-bold uppercase tracking-wider text-slate-900">
+                30-Day Easy Returns
+              </p>
               <p className="text-[11px] text-stone-500">Hassle-free exchanges</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
             <ShieldCheck className="w-5 h-5 text-stone-800 shrink-0" />
             <div>
-              <p className="text-xs font-bold uppercase tracking-wider text-slate-900">Sustainably Sourced</p>
+              <p className="text-xs font-bold uppercase tracking-wider text-slate-900">
+                Sustainably Sourced
+              </p>
               <p className="text-[11px] text-stone-500">100% certified fabrics</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
             <Sparkles className="w-5 h-5 text-stone-800 shrink-0" />
             <div>
-              <p className="text-xs font-bold uppercase tracking-wider text-slate-900">Authentic Quality</p>
+              <p className="text-xs font-bold uppercase tracking-wider text-slate-900">
+                Authentic Quality
+              </p>
               <p className="text-[11px] text-stone-500">Guaranteed craftsmanship</p>
             </div>
           </div>

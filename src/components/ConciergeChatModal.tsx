@@ -20,18 +20,18 @@ const INITIAL_MESSAGES: Message[] = [
   {
     id: 'welcome',
     sender: 'assistant',
-    text: "Welcome to Onix Apparel. I am your Gemini-powered Shopping Concierge. I can curate seasonal looks, check store policies, and add items directly to your shopping bag.",
+    text: 'Welcome to Onix Apparel. I am your Gemini-powered Shopping Concierge. I can curate seasonal looks, check store policies, and add items directly to your shopping bag.',
     timestamp: 'Just now',
   },
 ];
 
 const SUGGESTED_QUERIES = [
   {
-    text: "Show me seasonal sale jackets under $60",
+    text: 'Show me seasonal sale jackets under $60',
     action: { action: 'SEARCH' as const, query: 'jacket' },
   },
   {
-    text: "What is your complimentary shipping policy?",
+    text: 'What is your complimentary shipping policy?',
     policyHash: '#shipping',
   },
   {
@@ -39,7 +39,7 @@ const SUGGESTED_QUERIES = [
     action: { action: 'NAVIGATE_COLLECTION' as const, collection: 'women' as const },
   },
   {
-    text: "How do your apparel sizes run?",
+    text: 'How do your apparel sizes run?',
     policyHash: '#sizing',
   },
 ];
@@ -87,30 +87,35 @@ export const ConciergeChatModal: React.FC = () => {
 
       if (lower.includes('jacket') || lower.includes('coat')) {
         recProd = FALLBACK_PRODUCTS.find((p) => p.id === 3) || FALLBACK_PRODUCTS[2];
-        replyText = "Here is our top-rated outerwear: the Mens Cotton Outerwear Jacket ($55.99). It features durable windbreak twill and classic styling.";
+        replyText =
+          'Here is our top-rated outerwear: the Mens Cotton Outerwear Jacket ($55.99). It features durable windbreak twill and classic styling.';
         actPrompt = {
-          label: "Add Mens Cotton Jacket (M) to Bag",
+          label: 'Add Mens Cotton Jacket (M) to Bag',
           action: { action: 'ADD_TO_CART', productId: recProd.id, size: 'M', color: 'Warm Cream' },
         };
       } else if (lower.includes('ship') || lower.includes('delivery')) {
-        replyText = "Onix offers complimentary 2-day priority shipping on all orders over $75. Orders placed before 2:00 PM EST ship same-day!";
+        replyText =
+          'Onix offers complimentary 2-day priority shipping on all orders over $75. Orders placed before 2:00 PM EST ship same-day!';
         actPrompt = {
-          label: "View Complimentary Shipping Policy",
+          label: 'View Complimentary Shipping Policy',
           action: { action: 'NAVIGATE_COLLECTION', collection: 'all' as any },
         };
       } else if (lower.includes('return') || lower.includes('refund')) {
-        replyText = "We offer a 30-day hassle-free return and exchange window. Pre-paid insured return labels are included with every order.";
+        replyText =
+          'We offer a 30-day hassle-free return and exchange window. Pre-paid insured return labels are included with every order.';
       } else if (lower.includes('women') || lower.includes('dress') || lower.includes('t-shirt')) {
         recProd = FALLBACK_PRODUCTS.find((p) => p.id === 18) || FALLBACK_PRODUCTS[17];
-        replyText = "From our Women's Collection, I recommend the Opna Moisture Performance Tee ($7.95). Marked down 38% for our seasonal clearance.";
+        replyText =
+          "From our Women's Collection, I recommend the Opna Moisture Performance Tee ($7.95). Marked down 38% for our seasonal clearance.";
         actPrompt = {
-          label: "Add to Bag ($7.95)",
+          label: 'Add to Bag ($7.95)',
           action: { action: 'ADD_TO_CART', productId: recProd.id, size: 'S', color: 'Onyx Black' },
         };
       } else if (lower.includes('sale') || lower.includes('discount')) {
-        replyText = "Our End of Season Sale is live with reductions up to 50% across apparel and fine jewelry.";
+        replyText =
+          'Our End of Season Sale is live with reductions up to 50% across apparel and fine jewelry.';
         actPrompt = {
-          label: "Explore End of Season Sale",
+          label: 'Explore End of Season Sale',
           action: { action: 'NAVIGATE_COLLECTION', collection: 'sale' },
         };
       } else {

@@ -4,7 +4,12 @@ import { notifyCartState, subscribeToAgentActions } from '../services/agentActio
 
 interface CartContextType {
   cart: CartItem[];
-  addToCart: (product: Product, selectedSize: string, selectedColor: string, quantity?: number) => void;
+  addToCart: (
+    product: Product,
+    selectedSize: string,
+    selectedColor: string,
+    quantity?: number,
+  ) => void;
   removeFromCart: (cartItemId: string) => void;
   updateQuantity: (cartItemId: string, newQuantity: number) => void;
   clearCart: () => void;
@@ -30,13 +35,13 @@ const VALID_PROMOS: Record<string, PromoCode> = {
   SAVE20: {
     code: 'SAVE20',
     discountType: 'percentage',
-    value: 0.20,
+    value: 0.2,
     description: '20% off entire order',
   },
   WELCOME10: {
     code: 'WELCOME10',
     discountType: 'percentage',
-    value: 0.10,
+    value: 0.1,
     description: '10% off new customer discount',
   },
   FREESHIP: {
@@ -48,7 +53,7 @@ const VALID_PROMOS: Record<string, PromoCode> = {
 };
 
 const FREE_SHIPPING_THRESHOLD = 75;
-const STANDARD_SHIPPING_COST = 8.50;
+const STANDARD_SHIPPING_COST = 8.5;
 const TAX_RATE = 0.0825; // 8.25% standard sales tax
 
 export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -91,7 +96,12 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
   }, [promoCode]);
 
-  const addToCart = (product: Product, selectedSize: string, selectedColor: string, quantity = 1) => {
+  const addToCart = (
+    product: Product,
+    selectedSize: string,
+    selectedColor: string,
+    quantity = 1,
+  ) => {
     const validQty = Math.max(1, Math.min(10, Math.floor(quantity) || 1));
     setCart((prev) => {
       const id = `${product.id}-${selectedSize}-${selectedColor}`;
@@ -99,7 +109,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
       if (existing) {
         return prev.map((item) =>
-          item.id === id ? { ...item, quantity: Math.min(item.quantity + validQty, 99) } : item
+          item.id === id ? { ...item, quantity: Math.min(item.quantity + validQty, 99) } : item,
         );
       }
 
@@ -127,7 +137,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       return;
     }
     setCart((prev) =>
-      prev.map((item) => (item.id === cartItemId ? { ...item, quantity: newQuantity } : item))
+      prev.map((item) => (item.id === cartItemId ? { ...item, quantity: newQuantity } : item)),
     );
   };
 
@@ -143,9 +153,15 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const cleanCode = code.trim().toUpperCase();
     if (VALID_PROMOS[cleanCode]) {
       setPromoCode(VALID_PROMOS[cleanCode]);
-      return { success: true, message: `Code applied: ${VALID_PROMOS[cleanCode].description}!` };
+      return {
+        success: true,
+        message: `Code applied: ${VALID_PROMOS[cleanCode].description}!`,
+      };
     }
-    return { success: false, message: 'Invalid or expired promo code. Try SAVE20 or FREESHIP' };
+    return {
+      success: false,
+      message: 'Invalid or expired promo code. Try SAVE20 or FREESHIP',
+    };
   };
 
   const removePromoCode = () => {
@@ -156,7 +172,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const totalItems = cart.reduce((sum, item) => sum + Math.max(0, item.quantity), 0);
   const subtotal = cart.reduce(
     (sum, item) => sum + Math.max(0, item.product.price) * Math.max(0, item.quantity),
-    0
+    0,
   );
 
   let discount = 0;
@@ -166,7 +182,8 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
   }
 
-  const qualifiesForFreeShipping = subtotal >= FREE_SHIPPING_THRESHOLD || promoCode?.discountType === 'shipping';
+  const qualifiesForFreeShipping =
+    subtotal >= FREE_SHIPPING_THRESHOLD || promoCode?.discountType === 'shipping';
   const shipping = cart.length === 0 ? 0 : qualifiesForFreeShipping ? 0 : STANDARD_SHIPPING_COST;
   const taxableAmount = Math.max(0, subtotal - discount);
   const tax = taxableAmount * TAX_RATE;

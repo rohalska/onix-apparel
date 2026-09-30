@@ -12,7 +12,8 @@ export const ReturnsPolicy: React.FC = () => {
           30-Day Easy Returns & Exchanges
         </h1>
         <p className="text-sm text-stone-600 mt-2 leading-relaxed">
-          We want you to love everything you purchase from Onix Apparel. If a piece does not fit or meet your expectations, we gladly accept returns and exchanges within 30 days of receipt.
+          We want you to love everything you purchase from Onix Apparel. If a piece does not fit or
+          meet your expectations, we gladly accept returns and exchanges within 30 days of receipt.
         </p>
       </div>
 
@@ -21,46 +22,73 @@ export const ReturnsPolicy: React.FC = () => {
         <h3 className="text-base font-bold text-slate-900 font-serif">How to Initiate a Return</h3>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div className="p-4 rounded-xl bg-stone-50 border border-stone-200 space-y-2">
-            <span className="w-6 h-6 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold">1</span>
+            <span className="w-6 h-6 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold">
+              1
+            </span>
             <h4 className="text-xs font-bold text-slate-900">Start Online</h4>
-            <p className="text-xs text-stone-500">Visit our Returns Portal with your Order ID and shipping zip code.</p>
+            <p className="text-xs text-stone-500">
+              Visit our Returns Portal with your Order ID and shipping zip code.
+            </p>
           </div>
 
           <div className="p-4 rounded-xl bg-stone-50 border border-stone-200 space-y-2">
-            <span className="w-6 h-6 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold">2</span>
+            <span className="w-6 h-6 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold">
+              2
+            </span>
             <h4 className="text-xs font-bold text-slate-900">Print Label</h4>
-            <p className="text-xs text-stone-500">Generate a complimentary pre-paid digital label or QR drop-off code.</p>
+            <p className="text-xs text-stone-500">
+              Generate a complimentary pre-paid digital label or QR drop-off code.
+            </p>
           </div>
 
           <div className="p-4 rounded-xl bg-stone-50 border border-stone-200 space-y-2">
-            <span className="w-6 h-6 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold">3</span>
+            <span className="w-6 h-6 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold">
+              3
+            </span>
             <h4 className="text-xs font-bold text-slate-900">Pack & Drop</h4>
-            <p className="text-xs text-stone-500">Place items in the original box with tags intact and hand to carrier.</p>
+            <p className="text-xs text-stone-500">
+              Place items in the original box with tags intact and hand to carrier.
+            </p>
           </div>
 
           <div className="p-4 rounded-xl bg-stone-50 border border-stone-200 space-y-2">
-            <span className="w-6 h-6 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold">4</span>
+            <span className="w-6 h-6 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold">
+              4
+            </span>
             <h4 className="text-xs font-bold text-slate-900">Fast Refund</h4>
-            <p className="text-xs text-stone-500">Refund issued to original payment within 3–5 days of facility intake.</p>
+            <p className="text-xs text-stone-500">
+              Refund issued to original payment within 3–5 days of facility intake.
+            </p>
           </div>
         </div>
       </div>
 
       {/* Return Eligibility Guidelines */}
       <div className="border border-stone-200 rounded-xl p-5 bg-white space-y-4">
-        <h3 className="text-base font-bold text-slate-900 font-serif">Item Eligibility Requirements</h3>
+        <h3 className="text-base font-bold text-slate-900 font-serif">
+          Item Eligibility Requirements
+        </h3>
         <ul className="space-y-3 text-xs text-stone-600">
           <li className="flex items-start gap-2.5">
             <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-            <span><strong className="text-slate-900">Unworn & Unaltered:</strong> Items must be in brand new, unwashed condition with no perfume, makeup, or deodorant marks.</span>
+            <span>
+              <strong className="text-slate-900">Unworn & Unaltered:</strong> Items must be in brand
+              new, unwashed condition with no perfume, makeup, or deodorant marks.
+            </span>
           </li>
           <li className="flex items-start gap-2.5">
             <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-            <span><strong className="text-slate-900">Original Security Tags:</strong> All designer hangtags, security ribbons, and packaging dust bags must remain intact.</span>
+            <span>
+              <strong className="text-slate-900">Original Security Tags:</strong> All designer
+              hangtags, security ribbons, and packaging dust bags must remain intact.
+            </span>
           </li>
           <li className="flex items-start gap-2.5">
             <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-            <span><strong className="text-slate-900">Fine Jewelry & Rings:</strong> Must be returned in the original velvet box with authenticity certificate cards included.</span>
+            <span>
+              <strong className="text-slate-900">Fine Jewelry & Rings:</strong> Must be returned in
+              the original velvet box with authenticity certificate cards included.
+            </span>
           </li>
         </ul>
       </div>
@@ -73,7 +101,8 @@ export const ReturnsPolicy: React.FC = () => {
             Looking to exchange for a different size?
           </h4>
           <p className="text-xs text-stone-600">
-            Exchanges are 100% free with no restocking fee. We immediately dispatch your replacement size as soon as your return is scanned.
+            Exchanges are 100% free with no restocking fee. We immediately dispatch your replacement
+            size as soon as your return is scanned.
           </p>
         </div>
         <a

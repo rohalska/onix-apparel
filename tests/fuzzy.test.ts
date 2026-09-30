@@ -1,6 +1,6 @@
-import { describe, it } from 'node:test';
+import { describe, it } from 'vitest';
 import assert from 'node:assert/strict';
-import { levenshteinDistance, correctQuery, APPAREL_DICTIONARY } from '../src/utils/fuzzySearch';
+import { levenshteinDistance, correctQuery } from '../src/utils/fuzzySearch';
 
 describe('Fuzzy Spell Checking & Autocorrection', () => {
   it('calculates levenshtein distance accurately', () => {

@@ -27,22 +27,26 @@ export interface ValidatedAddToCartParams {
 export function resolveValidatedAddToCart(
   action: AgentActionPayload,
   activeCatalog: Product[],
-  fallbackCatalog: Product[]
+  fallbackCatalog: Product[],
 ): ValidatedAddToCartParams | null {
   // 1. Accept product IDs only - must be a valid positive integer
   const rawId = action.productId;
   if (typeof rawId !== 'number' || !Number.isInteger(rawId) || rawId <= 0) {
-    console.warn('[AgentActionBus] Rejected ADD_TO_CART: productId must be a positive integer', rawId);
+    console.warn(
+      '[AgentActionBus] Rejected ADD_TO_CART: productId must be a positive integer',
+      rawId,
+    );
     return null;
   }
 
   // 2. Resolve against canonical catalog (active products or fallback dataset)
   const canonicalProduct =
-    activeCatalog.find((p) => p.id === rawId) ||
-    fallbackCatalog.find((p) => p.id === rawId);
+    activeCatalog.find((p) => p.id === rawId) || fallbackCatalog.find((p) => p.id === rawId);
 
   if (!canonicalProduct) {
-    console.warn(`[AgentActionBus] Rejected ADD_TO_CART: product ID ${rawId} not found in canonical catalog`);
+    console.warn(
+      `[AgentActionBus] Rejected ADD_TO_CART: product ID ${rawId} not found in canonical catalog`,
+    );
     return null;
   }
 
@@ -50,14 +54,17 @@ export function resolveValidatedAddToCart(
   let quantity = 1;
   if (action.quantity !== undefined) {
     if (typeof action.quantity !== 'number' || !Number.isFinite(action.quantity)) {
-      console.warn('[AgentActionBus] Rejected ADD_TO_CART: quantity must be a finite number', action.quantity);
+      console.warn(
+        '[AgentActionBus] Rejected ADD_TO_CART: quantity must be a finite number',
+        action.quantity,
+      );
       return null;
     }
 
     const floored = Math.floor(action.quantity);
     if (floored < MIN_ACTION_QUANTITY) {
       console.warn(
-        `[AgentActionBus] Rejected ADD_TO_CART: non-positive quantity ${action.quantity} (min: ${MIN_ACTION_QUANTITY})`
+        `[AgentActionBus] Rejected ADD_TO_CART: non-positive quantity ${action.quantity} (min: ${MIN_ACTION_QUANTITY})`,
       );
       return null;
     }
@@ -67,9 +74,7 @@ export function resolveValidatedAddToCart(
 
   // 4. Validate variants: size
   const validSizes =
-    canonicalProduct.sizes && canonicalProduct.sizes.length > 0
-      ? canonicalProduct.sizes
-      : ['M'];
+    canonicalProduct.sizes && canonicalProduct.sizes.length > 0 ? canonicalProduct.sizes : ['M'];
 
   let size = validSizes[0];
   if (action.size && typeof action.size === 'string') {
@@ -79,7 +84,7 @@ export function resolveValidatedAddToCart(
       size = matchedSize;
     } else {
       console.warn(
-        `[AgentActionBus] Invalid size "${action.size}" for product ${canonicalProduct.id}. Defaulting to canonical "${size}"`
+        `[AgentActionBus] Invalid size "${action.size}" for product ${canonicalProduct.id}. Defaulting to canonical "${size}"`,
       );
     }
   }
@@ -98,7 +103,7 @@ export function resolveValidatedAddToCart(
       color = matchedColor.name;
     } else {
       console.warn(
-        `[AgentActionBus] Invalid color "${action.color}" for product ${canonicalProduct.id}. Defaulting to canonical "${color}"`
+        `[AgentActionBus] Invalid color "${action.color}" for product ${canonicalProduct.id}. Defaulting to canonical "${color}"`,
       );
     }
   }
@@ -118,20 +123,24 @@ export function resolveValidatedAddToCart(
 export function resolveValidatedOpenProduct(
   action: AgentActionPayload,
   activeCatalog: Product[],
-  fallbackCatalog: Product[]
+  fallbackCatalog: Product[],
 ): Product | null {
   const rawId = action.productId;
   if (typeof rawId !== 'number' || !Number.isInteger(rawId) || rawId <= 0) {
-    console.warn('[AgentActionBus] Rejected OPEN_PRODUCT: productId must be a positive integer', rawId);
+    console.warn(
+      '[AgentActionBus] Rejected OPEN_PRODUCT: productId must be a positive integer',
+      rawId,
+    );
     return null;
   }
 
   const canonicalProduct =
-    activeCatalog.find((p) => p.id === rawId) ||
-    fallbackCatalog.find((p) => p.id === rawId);
+    activeCatalog.find((p) => p.id === rawId) || fallbackCatalog.find((p) => p.id === rawId);
 
   if (!canonicalProduct) {
-    console.warn(`[AgentActionBus] Rejected OPEN_PRODUCT: product ID ${rawId} not found in canonical catalog`);
+    console.warn(
+      `[AgentActionBus] Rejected OPEN_PRODUCT: product ID ${rawId} not found in canonical catalog`,
+    );
     return null;
   }
 

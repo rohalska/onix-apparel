@@ -12,7 +12,7 @@ const CLOTHING_COLORS = [
   { name: 'Heather Grey', hex: '#64748b' },
   { name: 'Navy Blue', hex: '#1e3a5f' },
   { name: 'Warm Cream', hex: '#f5efe6' },
-  { name: 'Forest Green', hex: '#2d4a3e' }
+  { name: 'Forest Green', hex: '#2d4a3e' },
 ];
 
 export function normalizeImageUrl(url: string): string {
@@ -45,11 +45,21 @@ function enhanceProduct(item: any): Product {
     sizes: item.sizes || (isClothing ? (isMen ? MEN_SIZES : DEFAULT_SIZES) : ACCESSORY_SIZES),
     colors: item.colors || CLOTHING_COLORS,
     inStock: item.inStock !== undefined ? item.inStock : true,
-    featured: item.featured !== undefined ? item.featured : (item.rating?.rate >= 4.0),
-    isNewArrival: item.isNewArrival !== undefined ? item.isNewArrival : (item.id % 2 === 0),
-    onSale: item.onSale !== undefined ? item.onSale : (item.price < 35),
-    originalPrice: item.originalPrice !== undefined ? item.originalPrice : (item.onSale || item.price < 35 ? Math.round(item.price * 1.35 * 100) / 100 : undefined),
-    discountPercent: item.discountPercent !== undefined ? item.discountPercent : (item.onSale || item.price < 35 ? Math.round((1 - item.price / (item.price * 1.35)) * 100) : undefined),
+    featured: item.featured !== undefined ? item.featured : item.rating?.rate >= 4.0,
+    isNewArrival: item.isNewArrival !== undefined ? item.isNewArrival : item.id % 2 === 0,
+    onSale: item.onSale !== undefined ? item.onSale : item.price < 35,
+    originalPrice:
+      item.originalPrice !== undefined
+        ? item.originalPrice
+        : item.onSale || item.price < 35
+          ? Math.round(item.price * 1.35 * 100) / 100
+          : undefined,
+    discountPercent:
+      item.discountPercent !== undefined
+        ? item.discountPercent
+        : item.onSale || item.price < 35
+          ? Math.round((1 - item.price / (item.price * 1.35)) * 100)
+          : undefined,
   };
 }
 
@@ -71,12 +81,13 @@ export async function fetchProducts(category?: Category): Promise<Product[]> {
     }
 
     const data = await res.json();
-    
+
     // Filter to retain only clothing and jewelry (retail fashion focus)
     const fashionItems = (data as any[]).filter(
-      (item) => item.category === "men's clothing" || 
-                item.category === "women's clothing" || 
-                item.category === "jewelery"
+      (item) =>
+        item.category === "men's clothing" ||
+        item.category === "women's clothing" ||
+        item.category === 'jewelery',
     );
 
     if (fashionItems.length === 0) {
@@ -91,9 +102,10 @@ export async function fetchProducts(category?: Category): Promise<Product[]> {
 }
 
 function getFallback(category?: Category): Product[] {
-  const items = !category || category === 'all'
-    ? FALLBACK_PRODUCTS
-    : FALLBACK_PRODUCTS.filter((item) => item.category === category);
+  const items =
+    !category || category === 'all'
+      ? FALLBACK_PRODUCTS
+      : FALLBACK_PRODUCTS.filter((item) => item.category === category);
   return items.map((item) => ({
     ...item,
     image: normalizeImageUrl(item.image),
@@ -111,7 +123,7 @@ export async function fetchProductById(id: number): Promise<Product | null> {
     if (!res.ok) throw new Error('Failed to fetch');
     const data = await res.json();
     return enhanceProduct(data);
-  } catch (error) {
+  } catch {
     const fallbackItem = FALLBACK_PRODUCTS.find((p) => p.id === id);
     return fallbackItem || null;
   }
