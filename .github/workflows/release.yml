@@ -4,9 +4,10 @@ on:
   push:
     branches: [main]
 
+# The App token below does every write, so GITHUB_TOKEN needs no write scope.
+# Left at contents: read rather than {} so the job keeps a readable baseline.
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
 
 jobs:
   release-please:
@@ -16,11 +17,39 @@ jobs:
       release_created: ${{ steps.release.outputs.release_created }}
       tag_name: ${{ steps.release.outputs.tag_name }}
     steps:
+      # An App token, not the default GITHUB_TOKEN. A pull request opened by
+      # GITHUB_TOKEN does not raise events that start other workflows, so the
+      # release pull request's own CI lands as action_required and waits for
+      # somebody to press a button. That was observed twice on #20 before this
+      # change, and `check` is a required status check, so the release path is
+      # blocked on a manual click every single release without this.
+      #
+      # RELEASE_APP_ID and RELEASE_APP_PRIVATE_KEY are organisation secrets
+      # already available to this repository. cloudtop-workstations and
+      # onix-code-agents use the same pair the same way.
+      - name: Generate GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          app-id: ${{ secrets.RELEASE_APP_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+          # Workflow-level `permissions` constrain only GITHUB_TOKEN, so without
+          # these the minted token carries every permission the shared org App
+          # holds on this repository. release-please needs exactly two.
+          permission-contents: write
+          permission-pull-requests: write
+          # Labels live under the Issues permission. release-please marks its
+          # pull request `autorelease: pending` and then `autorelease: tagged`,
+          # and #20 already carries that label, so without this the next run
+          # 403s on a step that currently works. Both sibling repos grant it.
+          permission-issues: write
+
       # Pinned by commit SHA with the version in the comment, so a moved tag
       # cannot change what runs. This action holds write access to contents and
       # pull requests, which makes the pin worth more here than anywhere else.
       - uses: googleapis/release-please-action@5c625bfb5d1ff62eadeeb3772007f7f66fdcf071 # v4.4.1
         id: release
         with:
+          token: ${{ steps.app-token.outputs.token }}
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
