@@ -14,10 +14,10 @@ A modern, high-performance apparel e-commerce store built with **React**, **Type
 - **Query Autocorrection & Expansion**: Detects typos (e.g., `"jacet"` &rarr; `"jacket"`, `"dimond"` &rarr; `"diamond"`) and provides instant query adjustment in the UI.
 - **Dynamic Facets**: Real-time faceted filtering for sizes, colors, and hierarchical categories with dynamic counts.
 - **Retail ML Event Telemetry (Quality Flywheel)**:
-  - Automatically logs e-commerce user events to train Vertex AI's personalization and ranking models:
+  - Validates and ingests e-commerce user events to train Vertex AI's personalization and ranking models (submitting directly to Google Cloud Retail API's `userEvents:write` endpoint in Live Mode, returning success only upon API acceptance, or validated and simulated in-memory in Local Mode):
     - `detail-page-view`: Triggered when inspecting a product in the quick-view modal.
     - `add-to-cart`: Triggered when adding items to the shopping bag.
-    - `purchase-complete`: Triggered upon checkout completion with itemized order details.
+    - `purchase-complete`: Triggered upon checkout completion as a single unified transaction event covering all purchased items with total revenue and transaction ID.
   - Generates and reuses an anonymous persistent `visitorId` stored in `localStorage`.
 - **Google Cloud Retail API Catalog Exporter**:
   - Exports products into strict Google Cloud `google.cloud.retail.v2.Product` format (`PRIMARY` type, hierarchical categories, custom attributes, price info, and validated CDN image URIs).

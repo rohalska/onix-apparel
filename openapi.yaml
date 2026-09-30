@@ -58,7 +58,13 @@ paths:
               $ref: '#/components/schemas/EventRequest'
       responses:
         '200':
-          description: Event successfully logged
+          description: Event successfully logged and accepted
+        '400':
+          description: Event validation failed
+        '502':
+          description: Upstream Google Cloud Retail API rejected event
+        '504':
+          description: Upstream Google Cloud Retail API deadline exceeded
 
 components:
   schemas:
@@ -190,6 +196,30 @@ components:
           $ref: '#/components/schemas/Product'
         details:
           type: object
+        items:
+          type: array
+          description: Cart items included in a consolidated purchase transaction
+          items:
+            type: object
+            properties:
+              product:
+                $ref: '#/components/schemas/Product'
+              quantity:
+                type: integer
+              size:
+                type: string
+              color:
+                type: string
+        purchaseTransaction:
+          type: object
+          description: Transaction metadata for purchase-complete events
+          properties:
+            id:
+              type: string
+            revenue:
+              type: number
+            currencyCode:
+              type: string
 
     HealthResponse:
       type: object
