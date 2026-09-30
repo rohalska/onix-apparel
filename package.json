@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "prepare": "node scripts/installHooks.mjs",
+    "prepare": "node -e \"const f='scripts/installHooks.mjs';if(require('node:fs').existsSync(f))require('node:child_process').execFileSync(process.execPath,[f],{stdio:'inherit'})\"",
     "hooks": "node scripts/installHooks.mjs --force",
     "dev": "node scripts/dev.mjs",
     "dev:frontend": "vite --host 127.0.0.1 --port 5173",
