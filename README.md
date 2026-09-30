@@ -43,8 +43,10 @@ A modern, high-performance apparel e-commerce store built with **React**, **Type
 ## 📁 Project Structure
 
 ```
-clothing-store/
+gecx-shopping-agent-demo/
 ├── .env.example                  # Environment configuration template for Google Cloud
+├── Dockerfile                    # Multi-stage build; the runner stage is what Cloud Run runs
+├── cloudbuild.yaml               # Unused. See Deployment below before touching it
 ├── .tool-versions                # Pinned toolchain versions (Node, OpenTofu, Terragrunt)
 ├── Makefile                      # Single entry point for every quality gate
 ├── lefthook.yml                  # pre-commit and commit-msg hooks
@@ -65,8 +67,10 @@ clothing-store/
 │   ├── data/                     # Fallback & local catalog data
 │   ├── services/
 │   │   ├── api.ts                # Base catalog loader & image sanitization
-│   │   └── vertexSearch.ts       # Frontend Vertex AI search client & event tracker
-│   └── types/                    # TypeScript interfaces (Product, CartItem, Filters...)
+│   │   ├── vertexSearch.ts       # Frontend Vertex AI search client & event tracker
+│   │   └── agentActionBus.ts     # Typed bus Gemini agents dispatch on
+│   ├── types/                    # TypeScript interfaces (Product, CartItem, Filters...)
+│   └── utils/                    # agentActionValidator, filterSanitizer, fuzzySearch
 ├── vertex-retail-catalog.jsonl   # Ready-to-import Google Cloud Retail API catalog
 └── vertex-retail-catalog.json    # Formatted JSON catalog for review
 ```
@@ -134,7 +138,7 @@ mean the same run. `make` on its own lists the targets.
 | :------------------ | :--------------------------------------------------------------------------------- |
 | `make setup`        | Installs dependencies exactly as locked (`npm ci`) and installs the git hooks      |
 | `make hooks`        | Installs the git hooks deliberately; refuses if `core.hooksPath` leaves the repo   |
-| `make lint`         | ESLint across the tree, with a warning ratchet (`--max-warnings=13`)               |
+| `make lint`         | ESLint across the tree, with a warning ratchet (`--max-warnings=18`)               |
 | `make format`       | Rewrites files with Prettier                                                       |
 | `make format-check` | Fails if anything is unformatted                                                   |
 | `make typecheck`    | `tsc --noEmit`                                                                     |
@@ -225,6 +229,56 @@ Prefer the `make` targets above for anything in the gate; these are what they ca
 | `npm run format:check`  | Checks formatting without writing                                                                  |
 | `npm run prepare`       | Installs the lefthook git hooks, unless `core.hooksPath` points outside the repo; runs on `npm ci` |
 | `npm run hooks`         | What `make hooks` calls: installs deliberately, refusing a `core.hooksPath` outside the repo       |
+
+---
+
+## 🚢 Deployment
+
+**Nothing in this repository deploys yet.** There is no pipeline, no registry and
+no Cloud Run service. What exists today is the release machinery that a deploy
+will hang off, and this section records the shape it will take so that the next
+person does not have to reconstruct it.
+
+`cloudbuild.yaml` is **vestigial** and has never run here. It arrived with the
+code from a personal repository, and nothing _executes_ it: no trigger, no
+workflow, no Make target, no npm script. It builds an image in Cloud Build and
+deploys a service still named `onix-apparel`, referenced by tag rather than by
+digest, so what runs is whatever that tag points at when the deploy happens.
+
+It is scheduled for deletion with the deploy work rather than kept as a second,
+divergent path. Do not wire it up.
+
+Two tests hold it in place and will fail the moment it is removed, so deleting it
+is not a one-line change: `tests/fde_agent_readiness.test.ts` asserts the file
+exists and contains specific Cloud Run flags, and `tests/shell_import_script.test.ts`
+asserts it contains a `bash -n` step — under a test name claiming that is how CI
+checks shell scripts, which stopped being true when `make lint-shell` took over
+with ShellCheck. Both tests encode the belief this section corrects, and both have
+to go with the file.
+
+### The intended model
+
+Build in GitHub Actions, store in Artifact Registry, apply with OpenTofu through
+Terragrunt. Cloud Build is not used.
+
+1. Merging the standing release pull request cuts a `v*` tag.
+2. That same run builds the image **once**, pushes it to Artifact Registry tagged
+   with the version and the git SHA, and resolves it to a digest.
+3. Dev is applied with that digest as a Terragrunt input, never a floating tag,
+   so nothing can repoint what dev is running.
+4. Promotion to prod is a manual job: it checks the version is a real release,
+   creates `prd-v<version>` on that exact commit, and the deploy copies **the same
+   digest** into prod and applies it. No rebuild, so prod runs bit-for-bit what
+   dev ran.
+5. Rollback is promoting an older `v*`.
+
+### Why OpenTofu owns the image and not just the service
+
+The digest is an input to the Cloud Run resource rather than something a deploy
+script pushes past it. That is what makes `tofu plan` on a promotion show the
+reviewer the actual image change before it is applied, which is the whole point of
+gating prod on a plan rather than on a version number. A deploy that ran
+`gcloud run deploy` outside state would leave that plan with nothing to say.
 
 ---
 

@@ -1,7 +1,7 @@
 # Hooks call Makefile targets rather than restating commands, so the hook and CI
 # run the same code. pre-commit takes the fast subset -- `make check-fast` is
 # `make check` minus the coverage instrumentation, the threshold gate and the
-# production build. It runs the same 94 tests, in about half the wall time, and
+# production build. It runs the same suite, in about half the wall time, and
 # CI re-runs the full `make check` anyway, since any hook can be skipped with
 # --no-verify. A gate that costs a developer too much on every commit is a gate
 # that gets skipped, and then it protects nothing.

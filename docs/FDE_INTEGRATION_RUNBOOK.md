@@ -117,11 +117,29 @@ gcloud retail products import \
 
 ### Option A: 1-Click Automated Cloud Build (Recommended)
 
-Submit the build using the included [cloudbuild.yaml](file:///Users/tiffany.valentina/Documents/Antigravity/clothing-store/cloudbuild.yaml):
+Submit the build using the `cloudbuild.yaml` at the repository root:
 
 ```bash
 gcloud builds submit --config=cloudbuild.yaml --project="YOUR_PROJECT_ID"
 ```
+
+> **These two options are manual stopgaps, and both are outdated. Flagged for review rather than removed.**
+>
+> `cloudbuild.yaml` is unused: nothing in the repository references it, it has never
+> run here, and it is scheduled for deletion with the deploy work. Option A submits it
+> anyway.
+>
+> Both options deploy a service named `onix-apparel`, which is the name from the
+> repository this code came from. The service will be named `gecx-shopping-agent-demo`.
+>
+> Neither matches how this will actually ship: GitHub Actions builds the image once per
+> release, Artifact Registry stores it, and OpenTofu applies it by digest, with prod
+> promoted from the same digest rather than rebuilt. See the Deployment section of the
+> README.
+>
+> Until that pipeline exists these commands are the only way to get the app onto Cloud
+> Run by hand, so they are kept. Expect to substitute the service name, and do not
+> take Option A as evidence that Cloud Build is part of the design.
 
 ### Option B: Direct Source Deploy via gcloud CLI
 
@@ -190,48 +208,79 @@ Gemini Enterprise agents embedded on the page (or communicating via an iframe/si
 Open DevTools on the deployed application and test the following commands:
 
 ```javascript
-// 1. Inspect storefront status
-window.onixStore.getState();
+// 1. List the available actions, printed by the running app
+window.onixStore.help();
 
-// 2. Autonomous Bag Addition (e.g. Gemini recommends an item and user says "add it")
+// 2. Autonomous bag addition (Gemini recommends an item and the user says "add it")
+//    Product 16 is the moto jacket: sizes XS-XL, colors Rich Espresso,
+//    Charcoal Black, Burgundy Wine. Both values below are real variants of it.
 window.onixStore.dispatch({
-  type: 'ADD_TO_CART',
-  product: {
-    id: 1,
-    title: 'Fjallraven - Foldsack No. 1 Backpack',
-    price: 109.95,
-    category: "men's clothing",
-    image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg',
-  },
+  action: 'ADD_TO_CART',
+  productId: 16,
   quantity: 1,
   size: 'M',
-  color: 'Navy',
+  color: 'Charcoal Black',
 });
 
-// 3. Open Product Detail Modal
+// 3. Open the product detail modal
 window.onixStore.dispatch({
-  type: 'OPEN_PRODUCT',
-  product: {
-    id: 2,
-    title: 'Mens Casual Premium Slim Fit T-Shirts',
-    price: 22.3,
-    category: "men's clothing",
-    image: 'https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg',
-  },
+  action: 'OPEN_PRODUCT',
+  productId: 2,
 });
 
-// 4. Trigger Category Navigation
+// 4. Trigger category navigation
 window.onixStore.dispatch({
-  type: 'NAVIGATE_COLLECTION',
+  action: 'NAVIGATE_COLLECTION',
   collection: 'women',
 });
 
-// 5. Execute Catalog Search
+// 5. Execute a catalog search
 window.onixStore.dispatch({
-  type: 'SEARCH',
+  action: 'SEARCH',
   query: 'leather jacket',
 });
 ```
+
+`window.onixStore.help()` prints the action list from the running application.
+Treat it as the list of what the bus _accepts_, not of what the storefront _does_:
+the two have drifted and neither is a complete contract.
+
+Only five actions are wired to behaviour in `AppContent.tsx`: `ADD_TO_CART`,
+`OPEN_PRODUCT`, `NAVIGATE_COLLECTION`, `SEARCH` and `CLEAR_FILTERS`. The type also
+declares `OPEN_CART`, `CLOSE_CART` and `APPLY_PROMO`, and `help()` advertises the
+first and last of those, but nothing subscribes to them — dispatching one does
+nothing and logs nothing. `help()`'s own `ADD_TO_CART` example also names a colour
+product 16 does not have, so it falls back rather than applying as written.
+
+Those are defects rather than intended behaviour and are worth fixing at the source
+instead of documenting around. Until then, take the five above as the working set.
+
+#### Why the payload carries an ID and not a product
+
+The discriminator is `action`, not `type`, and an item is named by `productId`
+alone. The storefront resolves that ID against its canonical catalog and ignores
+any `product` object in the payload — `product` and `productTitle` are still
+accepted by the type for backwards compatibility but are marked deprecated and
+untrusted.
+
+That is deliberate. Anything running in the page context can dispatch on this bus,
+so a payload that carried its own title, price and image could inject an item that
+does not exist or reprice one that does, and the cart total would follow it. An ID
+that has to resolve against the catalog cannot.
+
+Two consequences worth knowing before you test:
+
+- An action naming an ID that is not in the catalog is **rejected**, and the
+  reason is written to the browser console. Nothing else reports it: there is no
+  toast, no UI change and no server-side record, and the success path is the only
+  one that raises a toast. So from the operator's side a rejected action looks
+  like nothing happened — keep the console open while testing.
+- `quantity` is bounded. It is floored first, so `2.7` becomes `2`, then values
+  above 10 are capped rather than rejected. Anything non-finite, or that floors
+  below 1, is rejected.
+- `size` and `color` are validated against the resolved product's real variants.
+  An unsupported value falls back to that product's canonical default and logs
+  that it did, rather than adding an item in a variant that does not exist.
 
 ### 6.2 Cart Event Telemetry Listener
 
