@@ -31,6 +31,7 @@ ENV PORT=8080
 
 # Copy necessary production artifacts
 COPY package*.json ./
+RUN npm ci --omit=dev
 COPY --from=builder /app/dist ./dist
 COPY server/ ./server/
 COPY shared/ ./shared/
