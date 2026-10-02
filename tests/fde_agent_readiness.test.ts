@@ -149,10 +149,22 @@ describe('Google Forward Deployment Engineer & Gemini Enterprise Readiness', () 
         'Runbook must name retail.userEvents.create, which the runtime role grants for event ingestion',
       );
 
-      // Must document roles/iam.serviceAccountUser authorization for Cloud Build
+      // The deploying identity needs roles/iam.serviceAccountUser on the runtime
+      // account, or a deploy that sets an explicit runtime service account fails.
+      // That identity is gecx-shop-deploy in the GitHub Actions release job.
+      // Cloud Build used to do this and no longer does, so the runbook must not
+      // send a reader back to it.
       assert.ok(
         runbook.includes('roles/iam.serviceAccountUser'),
-        'Runbook must document roles/iam.serviceAccountUser for Cloud Build deployment identity',
+        'Runbook must document roles/iam.serviceAccountUser, which the deploy identity needs to act as the runtime account',
+      );
+      assert.ok(
+        runbook.includes('gecx-shop-deploy'),
+        'Runbook must name gecx-shop-deploy as the deploying identity that holds roles/iam.serviceAccountUser',
+      );
+      assert.ok(
+        !/cloud\s*build/i.test(runbook),
+        'Runbook must not attribute deployment to Cloud Build; the release workflow deploys',
       );
 
       // Must separate deployment catalog import identity
