@@ -53,3 +53,76 @@ jobs:
           token: ${{ steps.app-token.outputs.token }}
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
+
+  # Runs only when release-please cut a release on this push. A plain merge to
+  # main skips it. Checks out the release tag, never pull request code, and is
+  # the only job that reaches the deployer (bound to refs/heads/main).
+  deploy-dev:
+    needs: release-please
+    if: needs.release-please.outputs.release_created == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      IMAGE_REPO: us-central1-docker.pkg.dev/onx-dev-int-shop-demo-qes8/gecx-shopping-agent-demo/app
+      TAG_NAME: ${{ needs.release-please.outputs.tag_name }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ needs.release-please.outputs.tag_name }}
+
+      - uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3.0.0
+        with:
+          workload_identity_provider: projects/835936341567/locations/global/workloadIdentityPools/github/providers/github
+          service_account: gecx-shop-deploy@onx-dev-int-shop-demo-qes8.iam.gserviceaccount.com
+
+      - uses: google-github-actions/setup-gcloud@aa5489c8933f4cc7a4f7d45035b3b1440c9c10db # v3.0.1
+
+      - name: Configure Docker for Artifact Registry
+        run: gcloud auth configure-docker us-central1-docker.pkg.dev --quiet
+
+      - name: Build and push the image
+        id: build
+        run: |
+          docker build -t "${IMAGE_REPO}:${TAG_NAME}" .
+          docker push "${IMAGE_REPO}:${TAG_NAME}"
+          digest="$(gcloud artifacts docker images describe "${IMAGE_REPO}:${TAG_NAME}" --format='value(image_summary.digest)')"
+          case "$digest" in
+            sha256:*) ;;
+            *) echo "unexpected digest: '${digest}'" >&2; exit 1 ;;
+          esac
+          echo "Built ${IMAGE_REPO}@${digest}"
+          echo "digest=${digest}" >> "$GITHUB_OUTPUT"
+
+      - uses: opentofu/setup-opentofu@a1320f892987e89d278cc92dc5adc984fb93aca4 # v2.0.2
+        with:
+          tofu_version_file: infra/.opentofu-version
+
+      - name: Install Terragrunt at the committed pin
+        run: |
+          tg="$(tr -d '[:space:]' < infra/.terragrunt-version)"
+          base="https://github.com/gruntwork-io/terragrunt/releases/download/v${tg}"
+          curl -fsSL -o terragrunt_linux_amd64 "${base}/terragrunt_linux_amd64"
+          curl -fsSL -o SHA256SUMS "${base}/SHA256SUMS"
+          grep ' terragrunt_linux_amd64$' SHA256SUMS | sha256sum -c -
+          sudo install -m 0755 terragrunt_linux_amd64 /usr/local/bin/terragrunt
+          rm -f terragrunt_linux_amd64 SHA256SUMS
+          terragrunt --version
+
+      - name: Apply the Cloud Run leaf
+        env:
+          IMAGE_DIGEST: ${{ steps.build.outputs.digest }}
+        run: terragrunt apply --working-dir infra/live/dev/us-central1/cloud-run -auto-approve --non-interactive
+
+      - name: Verify the deployed image matches the build
+        env:
+          WANT_DIGEST: ${{ steps.build.outputs.digest }}
+        run: |
+          deployed="$(gcloud run services describe gecx-shopping-agent-demo --region us-central1 --project onx-dev-int-shop-demo-qes8 --format='value(spec.template.spec.containers[0].image)')"
+          echo "Deployed image: ${deployed}"
+          echo "Built digest:   ${WANT_DIGEST}"
+          if [ "${deployed}" != "${IMAGE_REPO}@${WANT_DIGEST}" ]; then
+            echo "Deployed image does not match the digest that was built." >&2
+            exit 1
+          fi

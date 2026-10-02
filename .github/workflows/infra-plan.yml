@@ -1,0 +1,121 @@
+name: infra-plan
+
+# Plan-on-pull-request. This MUST stay on the plain pull_request event; the
+# base-ref variant carries refs/heads/main and would satisfy the deployer's
+# Workload Identity binding. See infra/README.md.
+on:
+  pull_request:
+    paths:
+      - 'infra/**'
+
+permissions:
+  contents: read
+  id-token: write
+  pull-requests: write
+
+concurrency:
+  group: infra-plan-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      # The planner is read-only and bound repository-wide. Never the deployer.
+      - uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3.0.0
+        with:
+          workload_identity_provider: projects/835936341567/locations/global/workloadIdentityPools/github/providers/github
+          service_account: gecx-shop-plan@onx-dev-int-shop-demo-qes8.iam.gserviceaccount.com
+
+      - uses: opentofu/setup-opentofu@a1320f892987e89d278cc92dc5adc984fb93aca4 # v2.0.2
+        with:
+          tofu_version_file: infra/.opentofu-version
+
+      - name: Install Terragrunt at the committed pin
+        run: |
+          tg="$(tr -d '[:space:]' < infra/.terragrunt-version)"
+          base="https://github.com/gruntwork-io/terragrunt/releases/download/v${tg}"
+          curl -fsSL -o terragrunt_linux_amd64 "${base}/terragrunt_linux_amd64"
+          curl -fsSL -o SHA256SUMS "${base}/SHA256SUMS"
+          grep ' terragrunt_linux_amd64$' SHA256SUMS | sha256sum -c -
+          sudo install -m 0755 terragrunt_linux_amd64 /usr/local/bin/terragrunt
+          rm -f terragrunt_linux_amd64 SHA256SUMS
+          terragrunt --version
+
+      # Plan against the digest that is actually deployed. Without this the plan
+      # compares the live service to the leaf's committed placeholder and proposes
+      # reverting the image on every pull request, which is noise that would train
+      # readers to ignore the plan. roles/viewer includes run.services.get, so the
+      # planner can read it.
+      - name: Read the deployed image digest
+        id: deployed
+        run: |
+          set -euo pipefail
+          img=$(gcloud run services describe gecx-shopping-agent-demo \
+            --region us-central1 --project onx-dev-int-shop-demo-qes8 \
+            --format='value(spec.template.spec.containers[0].image)' || true)
+          digest="${img##*@}"
+          if [ -n "$digest" ] && [ "$digest" != "$img" ]; then
+            echo "digest=$digest" >> "$GITHUB_OUTPUT"
+            echo "Planning against deployed digest $digest"
+          else
+            echo "digest=" >> "$GITHUB_OUTPUT"
+            echo "No deployed digest found; the leaf placeholder will be used."
+          fi
+
+      # -lock=false is required: the planner cannot write the state lock object.
+      - name: Plan dev
+        id: plan
+        continue-on-error: true
+        env:
+          # Empty when nothing is deployed yet, in which case the leaf falls back
+          # to its committed placeholder, which is the correct behaviour for a
+          # first-ever plan.
+          IMAGE_DIGEST: ${{ steps.deployed.outputs.digest }}
+        run: |
+          terragrunt run --all --non-interactive --no-color --working-dir infra/live/dev -- plan -lock=false 2>&1 | tee "$RUNNER_TEMP/plan.txt"
+
+      - name: Comment the plan
+        if: always()
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        env:
+          PLAN_OUTCOME: ${{ steps.plan.outcome }}
+          PLAN_FILE: ${{ runner.temp }}/plan.txt
+        with:
+          script: |
+            const fs = require('fs');
+            const limit = 60000;
+            let out = fs.existsSync(process.env.PLAN_FILE)
+              ? fs.readFileSync(process.env.PLAN_FILE, 'utf8')
+              : '(no plan output captured)';
+            let note = '';
+            if (out.length > limit) {
+              out = out.slice(-limit);
+              note = `\n_Output truncated to the last ${limit} characters._\n`;
+            }
+            // A longer fence than any run of backticks in the output keeps it intact.
+            const fence = '`'.repeat(Math.max(3, ...(out.match(/`+/g) || []).map(m => m.length + 1)));
+            const status = process.env.PLAN_OUTCOME === 'success' ? 'succeeded' : 'FAILED';
+            const body = [
+              `### infra plan (dev): ${status}`,
+              note,
+              '<details><summary>Plan output</summary>',
+              '',
+              fence + 'text',
+              out,
+              fence,
+              '',
+              '</details>',
+            ].join('\n');
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body,
+            });
+
+      - name: Fail if the plan failed
+        if: steps.plan.outcome == 'failure'
+        run: exit 1

@@ -9,6 +9,14 @@ resource "google_cloud_run_v2_service" "this" {
   deletion_protection = var.deletion_protection
   ingress             = "INGRESS_TRAFFIC_ALL"
 
+  # The v2 API always reports a service-level scaling block, distinct from the
+  # per-revision scaling inside `template`. Leaving it undeclared makes every
+  # plan propose removing it, which is a no-op the API immediately undoes — a
+  # perpetual diff that trains readers to ignore plans. Declared to match.
+  scaling {
+    min_instance_count = var.min_instance_count
+  }
+
   template {
     service_account = var.service_account_email
 
