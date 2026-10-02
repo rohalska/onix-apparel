@@ -61,7 +61,9 @@ echo ""
 echo "🚀 4. Triggering Vertex AI Retail import job..."
 PARENT="projects/${PROJECT_ID}/locations/${LOCATION}/catalogs/${CATALOG_ID}/branches/${BRANCH_ID}"
 
-IMPORT_PAYLOAD=$(cat <<EOF
+  ERRORS_PREFIX="${BUCKET_NAME}/errors"
+
+  IMPORT_PAYLOAD=$(cat <<EOF
 {
   "inputConfig": {
     "gcsSource": {
@@ -69,25 +71,28 @@ IMPORT_PAYLOAD=$(cat <<EOF
       "dataSchema": "product"
     }
   },
+  "errorsConfig": {
+    "gcsPrefix": "${ERRORS_PREFIX}"
+  },
   "reconciliationMode": "INCREMENTAL"
 }
 EOF
 )
 
-TOKEN=$(gcloud auth print-access-token)
+  TOKEN=$(gcloud auth print-access-token)
 
-if ! RESPONSE=$(curl -sS --fail-with-body -X POST \
-  "https://retail.googleapis.com/v2/${PARENT}/products:import" \
-  -H "Authorization: Bearer ${TOKEN}" \
-  -H "Content-Type: application/json; charset=utf-8" \
-  -H "X-Goog-User-Project: ${PROJECT_ID}" \
-  -d "${IMPORT_PAYLOAD}"); then
-  echo "❌ Error: Failed to trigger Retail product import." >&2
-  exit 1
-fi
+  if ! RESPONSE=$(curl -sS --fail-with-body -X POST \
+    "https://retail.googleapis.com/v2/${PARENT}/products:import" \
+    -H "Authorization: Bearer ${TOKEN}" \
+    -H "Content-Type: application/json; charset=utf-8" \
+    -H "X-Goog-User-Project: ${PROJECT_ID}" \
+    -d "${IMPORT_PAYLOAD}"); then
+    echo "❌ Error: Failed to trigger Retail product import." >&2
+    exit 1
+  fi
 
-echo "Response from Retail API:"
-echo "${RESPONSE}" | jq . 2>/dev/null || echo "${RESPONSE}"
+  echo "Response from Retail API:"
+  echo "${RESPONSE}" | jq . 2>/dev/null || echo "${RESPONSE}"
 
 if command -v jq >/dev/null 2>&1; then
   OPERATION_NAME=$(echo "${RESPONSE}" | jq -r '.name // empty')

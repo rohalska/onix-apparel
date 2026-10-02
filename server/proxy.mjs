@@ -232,18 +232,52 @@ export function checkRateLimit(req) {
   return record.count <= MAX_REQUESTS_PER_WINDOW;
 }
 
-// Google Cloud Access Token acquisition with native Compute Metadata Server ADC fallback
+// Google Cloud Access Token cache
+let cachedGcpToken = null;
+let cachedGcpTokenExpiresAt = 0;
+const TOKEN_CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
+
+export function resetGcpTokenCache() {
+  cachedGcpToken = null;
+  cachedGcpTokenExpiresAt = 0;
+}
+
+export function getCachedGcpToken() {
+  return cachedGcpToken;
+}
+
+// Google Cloud Access Token acquisition with prioritized resolution:
+// 1. Explicit environment variable (CI, test pipelines, manual override)
+// 2. In-memory cache hit
+// 3. GoogleAuth library (if available / service account credentials)
+// 4. Native Compute Metadata Server ADC (Cloud Run, GKE, GCE)
+// 5. Non-production developer workstation fallback via async execFile('gcloud', ...) with timeout
 export async function getGcpAccessToken() {
-  // 1. Try google-auth-library if installed
+  // 1. Explicit environment variable always takes precedence (CI, tests)
+  if (process.env.GOOGLE_ACCESS_TOKEN) {
+    return process.env.GOOGLE_ACCESS_TOKEN;
+  }
+
+  // 2. Return cached token if still valid
+  const now = Date.now();
+  if (cachedGcpToken && now < cachedGcpTokenExpiresAt) {
+    return cachedGcpToken;
+  }
+
+  // 3. Try google-auth-library if installed
   try {
     const { GoogleAuth } = await import('google-auth-library');
     const auth = new GoogleAuth({ scopes: ['https://www.googleapis.com/auth/cloud-platform'] });
     const client = await auth.getClient();
     const tokenRes = await client.getAccessToken();
-    if (tokenRes?.token) return tokenRes.token;
+    if (tokenRes?.token) {
+      cachedGcpToken = tokenRes.token;
+      cachedGcpTokenExpiresAt = now + TOKEN_CACHE_TTL_MS;
+      return cachedGcpToken;
+    }
   } catch {}
 
-  // 2. Try native Google Cloud Metadata Server (Cloud Run, GKE, GCE native ADC)
+  // 4. Try native Google Cloud Metadata Server (Cloud Run, GKE, GCE native ADC)
   try {
     const metaRes = await fetch(
       'http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token',
@@ -254,12 +288,43 @@ export async function getGcpAccessToken() {
     );
     if (metaRes.ok) {
       const data = await metaRes.json();
-      if (data.access_token) return data.access_token;
+      if (data.access_token) {
+        cachedGcpToken = data.access_token;
+        const ttl =
+          typeof data.expires_in === 'number'
+            ? Math.max((data.expires_in - 300) * 1000, 60000)
+            : TOKEN_CACHE_TTL_MS;
+        cachedGcpTokenExpiresAt = now + ttl;
+        return cachedGcpToken;
+      }
     }
   } catch {}
 
-  // 3. Fallback to environment variable (local dev or CI)
-  return process.env.GOOGLE_ACCESS_TOKEN || null;
+  // 5. Development-only workstation fallback: async execFile with strict timeout
+  if (process.env.NODE_ENV !== 'production') {
+    try {
+      const { execFile } = await import('child_process');
+      const token = await new Promise((resolve) => {
+        execFile(
+          'gcloud',
+          ['auth', 'print-access-token'],
+          { timeout: 3000, maxBuffer: 1024 * 1024, windowsHide: true },
+          (err, stdout) => {
+            if (err || !stdout) return resolve(null);
+            const trimmed = stdout.trim();
+            resolve(trimmed || null);
+          },
+        );
+      });
+      if (token) {
+        cachedGcpToken = token;
+        cachedGcpTokenExpiresAt = now + TOKEN_CACHE_TTL_MS;
+        return cachedGcpToken;
+      }
+    } catch {}
+  }
+
+  return null;
 }
 
 // Static File & Single Page Application (SPA) Serving for Production Cloud Run
@@ -631,6 +696,7 @@ const server = http.createServer(async (req, res) => {
               headers: {
                 Authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json',
+                'X-Goog-User-Project': GCP_PROJECT_ID,
               },
               body: JSON.stringify(vertexPayload),
             });
@@ -869,6 +935,7 @@ const server = http.createServer(async (req, res) => {
             headers: {
               Authorization: `Bearer ${token}`,
               'Content-Type': 'application/json',
+              'X-Goog-User-Project': GCP_PROJECT_ID,
             },
             body: JSON.stringify(eventPayload),
             signal: abortController.signal,
@@ -1029,6 +1096,7 @@ if (!isTesting) {
             headers: {
               Authorization: `Bearer ${token}`,
               'Content-Type': 'application/json',
+              'X-Goog-User-Project': GCP_PROJECT_ID,
             },
             body: JSON.stringify({ pageSize: 1 }),
           })
