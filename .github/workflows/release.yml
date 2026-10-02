@@ -87,7 +87,17 @@ jobs:
         run: |
           docker build -t "${IMAGE_REPO}:${TAG_NAME}" .
           docker push "${IMAGE_REPO}:${TAG_NAME}"
-          digest="$(gcloud artifacts docker images describe "${IMAGE_REPO}:${TAG_NAME}" --format='value(image_summary.digest)')"
+
+          # Read the digest from the local image rather than asking Artifact
+          # Registry. `gcloud artifacts docker images describe` also fetches
+          # vulnerability occurrences, so it needs
+          # containeranalysis.occurrences.list, which this deploy identity does
+          # not have and should not need in order to learn what it just pushed.
+          # RepoDigests is populated by the push and is the authoritative record
+          # of it.
+          digest="$(docker image inspect "${IMAGE_REPO}:${TAG_NAME}" \
+            --format '{{range .RepoDigests}}{{println .}}{{end}}' \
+            | grep "^${IMAGE_REPO}@" | head -1 | sed "s|^${IMAGE_REPO}@||")"
           case "$digest" in
             sha256:*) ;;
             *) echo "unexpected digest: '${digest}'" >&2; exit 1 ;;
