@@ -113,6 +113,142 @@ describe('Google Forward Deployment Engineer & Gemini Enterprise Readiness', () 
       assert.ok(cb.includes('deploy'));
       assert.ok(cb.includes('--port=8080'));
       assert.ok(cb.includes('--allow-unauthenticated'));
+      assert.ok(
+        cb.includes('--service-account='),
+        'cloudbuild.yaml must specify dedicated --service-account',
+      );
+      assert.ok(
+        cb.includes('_SERVICE_ACCOUNT: onix-storefront-runtime'),
+        'cloudbuild.yaml must declare dedicated user-managed runtime service account substitution',
+      );
+    });
+
+    it('should enforce least privilege and separation of duties for IAM service accounts in runbook', () => {
+      const runbookPath = path.resolve(rootDir, 'docs', 'FDE_INTEGRATION_RUNBOOK.md');
+      assert.ok(fs.existsSync(runbookPath), 'FDE_INTEGRATION_RUNBOOK.md must exist');
+
+      const runbook = fs.readFileSync(runbookPath, 'utf-8');
+
+      // Regression check: Must not assign default compute account to SERVICE_ACCOUNT
+      // (This exact variable definition existed in the unpatched runbook)
+      assert.ok(
+        !runbook.includes(
+          'SERVICE_ACCOUNT="${PROJECT_NUMBER}-compute@developer.gserviceaccount.com"',
+        ),
+        'Runbook must not assign the default compute engine account to SERVICE_ACCOUNT',
+      );
+
+      // Regression check: Must not bind default compute account to roles/retail.editor
+      assert.ok(
+        !/--member=["']serviceAccount:[^"']*compute@developer\.gserviceaccount\.com["'][^;|\n]*?--role=["']roles\/retail\.editor["']/.test(
+          runbook,
+        ) &&
+          !/SERVICE_ACCOUNT=["'][^"']*compute@developer\.gserviceaccount\.com["'][\s\S]{1,200}--member=["']serviceAccount:\$\{SERVICE_ACCOUNT\}["'][\s\S]{1,100}--role=["']roles\/retail\.editor["']/.test(
+            runbook,
+          ),
+        'Runbook must not grant roles/retail.editor to the default compute engine service account',
+      );
+
+      // Must not reference unset ${YOUR_PROJECT_ID} shell variable in commands (e.g. staging bucket)
+      assert.ok(
+        !runbook.includes('${YOUR_PROJECT_ID}'),
+        'Runbook must not reference unset ${YOUR_PROJECT_ID} shell variable',
+      );
+
+      // Must document dedicated runtime service account with viewer role
+      assert.ok(
+        runbook.includes('onix-storefront-runtime'),
+        'Runbook must specify onix-storefront-runtime service account',
+      );
+      assert.ok(
+        runbook.includes('roles/retail.viewer'),
+        'Runbook must grant roles/retail.viewer for runtime search queries',
+      );
+      assert.ok(
+        runbook.includes('retail.servingConfigs.search'),
+        'Runbook must explain that roles/retail.viewer covers retail.servingConfigs.search',
+      );
+
+      // Must document roles/iam.serviceAccountUser authorization for Cloud Build
+      assert.ok(
+        runbook.includes('roles/iam.serviceAccountUser'),
+        'Runbook must document roles/iam.serviceAccountUser for Cloud Build deployment identity',
+      );
+
+      // Must separate deployment catalog import identity
+      assert.ok(
+        runbook.includes('onix-catalog-deployer'),
+        'Runbook must separate catalog import to dedicated deployer service account',
+      );
+
+      // Must configure --service-account in Option B deployment example
+      assert.ok(
+        runbook.includes(
+          '--service-account "onix-storefront-runtime@YOUR_PROJECT_ID.iam.gserviceaccount.com"',
+        ),
+        'Runbook Option B must specify dedicated --service-account',
+      );
+    });
+
+    it('should verify that all Google Cloud APIs invoked at runtime in server/proxy.mjs match the documented least-privilege IAM roles', () => {
+      const proxyPath = path.resolve(rootDir, 'server', 'proxy.mjs');
+      const proxyCode = fs.readFileSync(proxyPath, 'utf-8');
+      const runbookPath = path.resolve(rootDir, 'docs', 'FDE_INTEGRATION_RUNBOOK.md');
+      const runbook = fs.readFileSync(runbookPath, 'utf-8');
+
+      // 1. Scan for all external Google APIs called in proxy.mjs (excluding OAuth scope URIs)
+      const googleApiRegex = /https:\/\/([a-zA-Z0-9.-]+\.googleapis\.com\/[^\s"'`]+)/g;
+      const allMatches = [...proxyCode.matchAll(googleApiRegex)].map((m) => m[0]);
+      const endpointMatches = allMatches.filter((url) => !url.includes('/auth/'));
+      assert.ok(endpointMatches.length > 0, 'proxy.mjs must contain upstream Google API calls');
+
+      // 2. Every endpoint must belong to retail.googleapis.com
+      for (const endpoint of endpointMatches) {
+        assert.ok(
+          endpoint.startsWith('https://retail.googleapis.com/v2/'),
+          `Unexpected runtime Google API endpoint called in proxy.mjs: ${endpoint}`,
+        );
+      }
+
+      // 3. Ensure no ungranted Google API hosts are referenced at runtime
+      const prohibitedApis = [
+        'aiplatform.googleapis.com',
+        'storage.googleapis.com',
+        'compute.googleapis.com',
+        'iam.googleapis.com',
+      ];
+      for (const prohibited of prohibitedApis) {
+        assert.ok(
+          !proxyCode.includes(prohibited),
+          `Runtime server proxy.mjs must not invoke ${prohibited}`,
+        );
+      }
+
+      // 4. Verify search and userEvents endpoints have corresponding IAM roles in runbook
+      assert.ok(
+        proxyCode.includes(':search') && runbook.includes('roles/retail.viewer'),
+        'Runbook must document roles/retail.viewer for runtime :search endpoint in proxy.mjs',
+      );
+      assert.ok(
+        proxyCode.includes('userEvents:write') && runbook.includes('retail.userEvents.create'),
+        'Runbook must document retail.userEvents.create for runtime userEvents:write in proxy.mjs',
+      );
+
+      // 5. Verify package.json does not declare ungranted GCP client SDKs for runtime
+      const pkgJsonPath = path.resolve(rootDir, 'package.json');
+      const pkg = JSON.parse(fs.readFileSync(pkgJsonPath, 'utf-8'));
+      const runtimeDeps = Object.keys(pkg.dependencies || {});
+      const prohibitedDeps = [
+        '@google-cloud/vertexai',
+        '@google-cloud/storage',
+        '@google-cloud/secret-manager',
+      ];
+      for (const dep of prohibitedDeps) {
+        assert.ok(
+          !runtimeDeps.includes(dep),
+          `package.json runtime dependencies must not include ${dep} without corresponding IAM documentation`,
+        );
+      }
     });
 
     it('should have .dockerignore and .gcloudignore preventing upload of node_modules, .env*, and credential files', () => {

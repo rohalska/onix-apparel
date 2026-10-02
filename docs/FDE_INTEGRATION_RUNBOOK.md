@@ -54,20 +54,118 @@ gcloud services enable \
   --project="YOUR_PROJECT_ID"
 ```
 
-### 2.2 Configure IAM & Workload Identity
+### 2.2 Configure IAM & Service Accounts (Least Privilege & Separation of Duties)
 
-Cloud Run uses its default Compute Service Account (or a designated user-managed service account) with Workload Identity to authenticate with Vertex AI Search for Retail via the native Compute Metadata Server ADC. **Never store service-account JSON keys or credentials in the repository.**
+The storefront separates identities by duty: **Runtime Storefront Identity** (reading catalog search and recording customer activity) and **Deployment Identity** (importing product catalogs and provisioning infrastructure).
 
-Grant the **Retail Viewer** and **Retail Editor** roles to the Cloud Run service account:
+> [!WARNING]
+> **Never use the default Compute Engine service account (`${PROJECT_NUMBER}-compute@developer.gserviceaccount.com`)** for Cloud Run or grant it `roles/retail.editor`. The default account often carries broad legacy project permissions, and pairing it with catalog write privileges on a public-facing web service violates the principle of least privilege.
+> Never store service-account JSON keys or credentials in the repository.
+
+Define your project variables for the commands below:
 
 ```bash
-PROJECT_NUMBER=$(gcloud projects describe YOUR_PROJECT_ID --format="value(projectNumber)")
-SERVICE_ACCOUNT="${PROJECT_NUMBER}-compute@developer.gserviceaccount.com"
+PROJECT_ID="YOUR_PROJECT_ID"
+PROJECT_NUMBER=$(gcloud projects describe "${PROJECT_ID}" --format="value(projectNumber)")
+```
 
-# Grant Retail permissions
-gcloud projects add-iam-policy-binding YOUR_PROJECT_ID \
-  --member="serviceAccount:${SERVICE_ACCOUNT}" \
+#### 1. Dedicated Runtime Service Account (`onix-storefront-runtime`)
+
+Create a dedicated user-managed service account for the Cloud Run instance:
+
+```bash
+gcloud iam service-accounts create onix-storefront-runtime \
+  --display-name="ONIX Storefront Cloud Run Runtime" \
+  --description="Minimal identity for storefront container executing Search queries and ingesting User Events" \
+  --project="${PROJECT_ID}"
+
+RUNTIME_SA="onix-storefront-runtime@${PROJECT_ID}.iam.gserviceaccount.com"
+```
+
+Grant **Retail Viewer** (`roles/retail.viewer`) for Search and Browse query execution (covers `retail.servingConfigs.search` and catalog read operations):
+
+```bash
+gcloud projects add-iam-policy-binding "${PROJECT_ID}" \
+  --member="serviceAccount:${RUNTIME_SA}" \
+  --role="roles/retail.viewer"
+```
+
+Grant **User Event Ingestion** (`retail.userEvents.create`) for recommendations and analytics:
+
+```bash
+# Create minimal custom role for recording user events
+gcloud iam roles create onix_retail_user_event_writer \
+  --project="${PROJECT_ID}" \
+  --title="ONIX Retail User Event Writer" \
+  --description="Allows real-time user-event ingestion for recommendations" \
+  --permissions="retail.userEvents.create" \
+  --stage="GA"
+
+gcloud projects add-iam-policy-binding "${PROJECT_ID}" \
+  --member="serviceAccount:${RUNTIME_SA}" \
+  --role="projects/${PROJECT_ID}/roles/onix_retail_user_event_writer"
+```
+
+_(Note: If custom roles cannot be created in your GCP organization, `roles/retail.editor` should be granted strictly to this isolated `RUNTIME_SA` rather than the default compute service account, but isolating runtime from catalog import remains best practice)._
+
+##### Runtime Google Cloud API Footprint & IAM Mapping
+
+The storefront container (`server/proxy.mjs`) calls only the following external Google Cloud APIs at runtime:
+
+| Endpoint                                                         | Upstream Service                     | Operation                           | Required Permission            | Bound IAM Role                                               |
+| ---------------------------------------------------------------- | ------------------------------------ | ----------------------------------- | ------------------------------ | ------------------------------------------------------------ |
+| `https://retail.googleapis.com/v2/.../servingConfigs/...:search` | Retail API (`retail.googleapis.com`) | Commerce search and faceted browse  | `retail.servingConfigs.search` | `roles/retail.viewer`                                        |
+| `https://retail.googleapis.com/v2/.../userEvents:write`          | Retail API (`retail.googleapis.com`) | Real-time event ingestion           | `retail.userEvents.create`     | `projects/${PROJECT_ID}/roles/onix_retail_user_event_writer` |
+| `http://metadata.google.internal/.../token`                      | Compute Engine Metadata Server       | In-container OAuth token generation | _(built-in Cloud Run ADC)_     | Attached `onix-storefront-runtime` identity                  |
+
+**Other Google Cloud APIs Not Invoked at Runtime**:
+
+- **Vertex AI (`aiplatform.googleapis.com`)**: Storefront search is powered directly by Google Cloud Retail API (`retail.googleapis.com`). The container does not call `aiplatform.googleapis.com` or include `@google-cloud/vertexai`. No Vertex AI roles (`roles/aiplatform.user`) are required for the runtime account.
+- **Cloud Storage (`storage.googleapis.com`)**: Catalog schema upload and staging is strictly an admin deployment task handled by `scripts/importToGcpRetail.sh`, bound to `onix-catalog-deployer`. The runtime container does not read or write GCS buckets.
+- **Secret Manager (`secretmanager.googleapis.com`)**: Cloud Run receives configuration via environment variables in `cloudbuild.yaml`. If you choose to mount sensitive secrets into Cloud Run from Secret Manager, grant `roles/secretmanager.secretAccessor` to `onix-storefront-runtime` as documented in §2.3.
+
+#### 2. Authorize Cloud Build Deployment (`roles/iam.serviceAccountUser`)
+
+When deploying Cloud Run via `cloudbuild.yaml` (or CI/CD pipelines) using an explicit `--service-account`, Google Cloud requires that the deploying Cloud Build service account has permission to act as that runtime service account (`roles/iam.serviceAccountUser`). Without this role, `gcloud run deploy --service-account` fails with a permission error.
+
+```bash
+# Authorize Cloud Build service account to act as onix-storefront-runtime
+BUILD_SA="${PROJECT_NUMBER}@cloudbuild.gserviceaccount.com"
+gcloud iam service-accounts add-iam-policy-binding "${RUNTIME_SA}" \
+  --member="serviceAccount:${BUILD_SA}" \
+  --role="roles/iam.serviceAccountUser" \
+  --project="${PROJECT_ID}"
+
+# If your project uses the default compute service account as Cloud Build builder identity:
+COMPUTE_BUILD_SA="${PROJECT_NUMBER}-compute@developer.gserviceaccount.com"
+gcloud iam service-accounts add-iam-policy-binding "${RUNTIME_SA}" \
+  --member="serviceAccount:${COMPUTE_BUILD_SA}" \
+  --role="roles/iam.serviceAccountUser" \
+  --project="${PROJECT_ID}"
+```
+
+#### 3. Dedicated Deployment & Catalog Import Identity (`onix-catalog-deployer`)
+
+Catalog ingestion via `scripts/importToGcpRetail.sh` performs bulk product imports into branch 0 (`products:import`) and writes staging files to Google Cloud Storage. This requires write access to the catalog and storage bucket, which must be kept on a separate deployment/CI identity:
+
+```bash
+# Create dedicated catalog deployer service account for CI / admin ingestion
+gcloud iam service-accounts create onix-catalog-deployer \
+  --display-name="ONIX Retail Catalog Deployer" \
+  --description="Deployment identity for catalog schema and product import pipeline" \
+  --project="${PROJECT_ID}"
+
+DEPLOYER_SA="onix-catalog-deployer@${PROJECT_ID}.iam.gserviceaccount.com"
+
+# Grant Retail Editor for catalog import & branch management
+gcloud projects add-iam-policy-binding "${PROJECT_ID}" \
+  --member="serviceAccount:${DEPLOYER_SA}" \
   --role="roles/retail.editor"
+
+# Grant Storage Object Admin on the staging bucket
+gcloud storage buckets add-iam-policy-binding "gs://${PROJECT_ID}-retail-catalog-staging" \
+  --member="serviceAccount:${DEPLOYER_SA}" \
+  --role="roles/storage.objectAdmin"
 ```
 
 ### 2.3 Secrets Management (Google Secret Manager)
@@ -76,11 +174,11 @@ If your deployment requires sensitive API keys or credentials, source them from 
 
 ```bash
 # Enable Secret Manager API
-gcloud services enable secretmanager.googleapis.com --project="YOUR_PROJECT_ID"
+gcloud services enable secretmanager.googleapis.com --project="${PROJECT_ID}"
 
 # Grant Secret Accessor role to the Cloud Run runtime service account
-gcloud projects add-iam-policy-binding YOUR_PROJECT_ID \
-  --member="serviceAccount:${SERVICE_ACCOUNT}" \
+gcloud projects add-iam-policy-binding "${PROJECT_ID}" \
+  --member="serviceAccount:${RUNTIME_SA}" \
   --role="roles/secretmanager.secretAccessor"
 ```
 
@@ -153,6 +251,12 @@ Submit the build using the `cloudbuild.yaml` at the repository root:
 gcloud builds submit --config=cloudbuild.yaml --project="YOUR_PROJECT_ID"
 ```
 
+> **Prerequisites for Cloud Build**: Before submitting `cloudbuild.yaml`, ensure you have completed Section 2.2:
+>
+> 1. Created the runtime service account `onix-storefront-runtime`.
+> 2. Granted `roles/iam.serviceAccountUser` on `onix-storefront-runtime` to the Cloud Build service account (`${PROJECT_NUMBER}@cloudbuild.gserviceaccount.com` or compute runner identity).
+>    If these steps are skipped, Cloud Build's deploy step (`gcloud run deploy --service-account`) will fail with a permission error.
+
 > **These two options are manual stopgaps, and both are outdated. Flagged for review rather than removed.**
 >
 > `cloudbuild.yaml` is unused: nothing in the repository references it, it has never
@@ -181,11 +285,12 @@ gcloud run deploy onix-apparel \
   --region us-central1 \
   --platform managed \
   --allow-unauthenticated \
+  --service-account "onix-storefront-runtime@YOUR_PROJECT_ID.iam.gserviceaccount.com" \
   --port 8080 \
   --set-env-vars GCP_PROJECT_ID=YOUR_PROJECT_ID,GCP_LOCATION=global,GCP_CATALOG_ID=default_catalog,GCP_SERVING_CONFIG_ID=default_search
 ```
 
-> **Security Note**: Never include `.env` or credential files when deploying. If secrets are needed at runtime, bind them directly from Secret Manager:
+> **Security Note**: Never deploy public-facing Cloud Run containers without an explicit `--service-account`. Omitting it causes Cloud Run to run as the project's default Compute Engine service account. Also never include `.env` or credential files when deploying; if secrets are needed at runtime, bind them directly from Secret Manager:
 >
 > ```bash
 > gcloud run deploy onix-apparel \
