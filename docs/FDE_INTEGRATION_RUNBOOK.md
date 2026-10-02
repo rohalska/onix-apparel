@@ -48,7 +48,6 @@ Ensure the following APIs are enabled in your target Google Cloud Project:
 gcloud services enable \
   run.googleapis.com \
   artifactregistry.googleapis.com \
-  cloudbuild.googleapis.com \
   retail.googleapis.com \
   aiplatform.googleapis.com \
   --project="YOUR_PROJECT_ID"
@@ -56,7 +55,16 @@ gcloud services enable \
 
 ### 2.2 Configure IAM & Service Accounts (Least Privilege & Separation of Duties)
 
-The storefront separates identities by duty: **Runtime Storefront Identity** (reading catalog search and recording customer activity) and **Deployment Identity** (importing product catalogs and provisioning infrastructure).
+The storefront separates identities by duty. Four service accounts exist in the dev project, all managed by the OpenTofu code under `infra/`:
+
+| Service account     | Duty                                                        |
+| ------------------- | ----------------------------------------------------------- |
+| `gecx-shop-run`     | Runtime: the identity the Cloud Run container executes as   |
+| `gecx-shop-deploy`  | CI deploy: applies the service from the release workflow    |
+| `gecx-shop-plan`    | CI plan: read-only, used for plan runs on untrusted PR code |
+| `gecx-shop-catalog` | Catalog import: runs `scripts/importToGcpRetail.sh`         |
+
+The `gcloud` commands below show what each identity needs and are kept for reference and for projects that are not managed with OpenTofu. In the dev project, do not run them: `infra/` owns these accounts and their bindings.
 
 > [!WARNING]
 > **Never use the default Compute Engine service account (`${PROJECT_NUMBER}-compute@developer.gserviceaccount.com`)** for Cloud Run or grant it `roles/retail.editor`. The default account often carries broad legacy project permissions, and pairing it with catalog write privileges on a public-facing web service violates the principle of least privilege.
@@ -69,104 +77,88 @@ PROJECT_ID="YOUR_PROJECT_ID"
 PROJECT_NUMBER=$(gcloud projects describe "${PROJECT_ID}" --format="value(projectNumber)")
 ```
 
-#### 1. Dedicated Runtime Service Account (`onix-storefront-runtime`)
+#### 1. Dedicated Runtime Service Account (`gecx-shop-run`)
 
 Create a dedicated user-managed service account for the Cloud Run instance:
 
 ```bash
-gcloud iam service-accounts create onix-storefront-runtime \
-  --display-name="ONIX Storefront Cloud Run Runtime" \
+gcloud iam service-accounts create gecx-shop-run \
+  --display-name="GECX shopping agent demo runtime" \
   --description="Minimal identity for storefront container executing Search queries and ingesting User Events" \
   --project="${PROJECT_ID}"
 
-RUNTIME_SA="onix-storefront-runtime@${PROJECT_ID}.iam.gserviceaccount.com"
+RUNTIME_SA="gecx-shop-run@${PROJECT_ID}.iam.gserviceaccount.com"
 ```
 
-Grant **Retail Viewer** (`roles/retail.viewer`) for Search and Browse query execution (covers `retail.servingConfigs.search` and catalog read operations):
+The runtime holds a **custom role**, not a predefined one. It grants exactly two permissions, the two that `server/proxy.mjs` needs:
+
+- `retail.servingConfigs.search` for Search and Browse queries
+- `retail.userEvents.create` for `userEvents:write` ingestion
+
+A predefined role was not used because none fits. `roles/retail.viewer` covers search but omits `retail.userEvents.create`, so event ingestion would fail with a permission error. `roles/retail.editor` has both, but it additionally grants product deletion, catalog import and model tuning, which a public-facing container must not hold.
 
 ```bash
-gcloud projects add-iam-policy-binding "${PROJECT_ID}" \
-  --member="serviceAccount:${RUNTIME_SA}" \
-  --role="roles/retail.viewer"
-```
-
-Grant **User Event Ingestion** (`retail.userEvents.create`) for recommendations and analytics:
-
-```bash
-# Create minimal custom role for recording user events
-gcloud iam roles create onix_retail_user_event_writer \
+gcloud iam roles create gecxShoppingAgentRuntime \
   --project="${PROJECT_ID}" \
-  --title="ONIX Retail User Event Writer" \
-  --description="Allows real-time user-event ingestion for recommendations" \
-  --permissions="retail.userEvents.create" \
+  --title="GECX shopping agent demo runtime" \
+  --description="Search queries and user-event ingestion, nothing else" \
+  --permissions="retail.servingConfigs.search,retail.userEvents.create" \
   --stage="GA"
 
 gcloud projects add-iam-policy-binding "${PROJECT_ID}" \
   --member="serviceAccount:${RUNTIME_SA}" \
-  --role="projects/${PROJECT_ID}/roles/onix_retail_user_event_writer"
+  --role="projects/${PROJECT_ID}/roles/gecxShoppingAgentRuntime"
 ```
-
-_(Note: If custom roles cannot be created in your GCP organization, `roles/retail.editor` should be granted strictly to this isolated `RUNTIME_SA` rather than the default compute service account, but isolating runtime from catalog import remains best practice)._
 
 ##### Runtime Google Cloud API Footprint & IAM Mapping
 
 The storefront container (`server/proxy.mjs`) calls only the following external Google Cloud APIs at runtime:
 
-| Endpoint                                                         | Upstream Service                     | Operation                           | Required Permission            | Bound IAM Role                                               |
-| ---------------------------------------------------------------- | ------------------------------------ | ----------------------------------- | ------------------------------ | ------------------------------------------------------------ |
-| `https://retail.googleapis.com/v2/.../servingConfigs/...:search` | Retail API (`retail.googleapis.com`) | Commerce search and faceted browse  | `retail.servingConfigs.search` | `roles/retail.viewer`                                        |
-| `https://retail.googleapis.com/v2/.../userEvents:write`          | Retail API (`retail.googleapis.com`) | Real-time event ingestion           | `retail.userEvents.create`     | `projects/${PROJECT_ID}/roles/onix_retail_user_event_writer` |
-| `http://metadata.google.internal/.../token`                      | Compute Engine Metadata Server       | In-container OAuth token generation | _(built-in Cloud Run ADC)_     | Attached `onix-storefront-runtime` identity                  |
+| Endpoint                                                         | Upstream Service                     | Operation                           | Required Permission            | Bound IAM Role                                          |
+| ---------------------------------------------------------------- | ------------------------------------ | ----------------------------------- | ------------------------------ | ------------------------------------------------------- |
+| `https://retail.googleapis.com/v2/.../servingConfigs/...:search` | Retail API (`retail.googleapis.com`) | Commerce search and faceted browse  | `retail.servingConfigs.search` | `projects/${PROJECT_ID}/roles/gecxShoppingAgentRuntime` |
+| `https://retail.googleapis.com/v2/.../userEvents:write`          | Retail API (`retail.googleapis.com`) | Real-time event ingestion           | `retail.userEvents.create`     | `projects/${PROJECT_ID}/roles/gecxShoppingAgentRuntime` |
+| `http://metadata.google.internal/.../token`                      | Compute Engine Metadata Server       | In-container OAuth token generation | _(built-in Cloud Run ADC)_     | Attached `gecx-shop-run` identity                       |
 
 **Other Google Cloud APIs Not Invoked at Runtime**:
 
 - **Vertex AI (`aiplatform.googleapis.com`)**: Storefront search is powered directly by Google Cloud Retail API (`retail.googleapis.com`). The container does not call `aiplatform.googleapis.com` or include `@google-cloud/vertexai`. No Vertex AI roles (`roles/aiplatform.user`) are required for the runtime account.
-- **Cloud Storage (`storage.googleapis.com`)**: Catalog schema upload and staging is strictly an admin deployment task handled by `scripts/importToGcpRetail.sh`, bound to `onix-catalog-deployer`. The runtime container does not read or write GCS buckets.
-- **Secret Manager (`secretmanager.googleapis.com`)**: Cloud Run receives configuration via environment variables in `cloudbuild.yaml`. If you choose to mount sensitive secrets into Cloud Run from Secret Manager, grant `roles/secretmanager.secretAccessor` to `onix-storefront-runtime` as documented in §2.3.
+- **Cloud Storage (`storage.googleapis.com`)**: Catalog schema upload and staging is strictly an admin deployment task handled by `scripts/importToGcpRetail.sh`, bound to `gecx-shop-catalog`. The runtime container does not read or write GCS buckets.
+- **Secret Manager (`secretmanager.googleapis.com`)**: Cloud Run receives configuration via environment variables set on the Cloud Run service by OpenTofu. If you choose to mount sensitive secrets into Cloud Run from Secret Manager, grant `roles/secretmanager.secretAccessor` to `gecx-shop-run` as documented in §2.3.
 
-#### 2. Authorize Cloud Build Deployment (`roles/iam.serviceAccountUser`)
+#### 2. Authorize the Deploy Identity (`roles/iam.serviceAccountUser`)
 
-When deploying Cloud Run via `cloudbuild.yaml` (or CI/CD pipelines) using an explicit `--service-account`, Google Cloud requires that the deploying Cloud Build service account has permission to act as that runtime service account (`roles/iam.serviceAccountUser`). Without this role, `gcloud run deploy --service-account` fails with a permission error.
+When a service is deployed with an explicit runtime service account, Google Cloud requires that the deploying identity has permission to act as that account (`roles/iam.serviceAccountUser`). Without it, the deploy fails with a permission error. In this repository the deploying identity is `gecx-shop-deploy`, and the binding is scoped to the runtime account only, not granted project-wide.
 
 ```bash
-# Authorize Cloud Build service account to act as onix-storefront-runtime
-BUILD_SA="${PROJECT_NUMBER}@cloudbuild.gserviceaccount.com"
+DEPLOY_SA="gecx-shop-deploy@${PROJECT_ID}.iam.gserviceaccount.com"
 gcloud iam service-accounts add-iam-policy-binding "${RUNTIME_SA}" \
-  --member="serviceAccount:${BUILD_SA}" \
-  --role="roles/iam.serviceAccountUser" \
-  --project="${PROJECT_ID}"
-
-# If your project uses the default compute service account as Cloud Build builder identity:
-COMPUTE_BUILD_SA="${PROJECT_NUMBER}-compute@developer.gserviceaccount.com"
-gcloud iam service-accounts add-iam-policy-binding "${RUNTIME_SA}" \
-  --member="serviceAccount:${COMPUTE_BUILD_SA}" \
+  --member="serviceAccount:${DEPLOY_SA}" \
   --role="roles/iam.serviceAccountUser" \
   --project="${PROJECT_ID}"
 ```
 
-#### 3. Dedicated Deployment & Catalog Import Identity (`onix-catalog-deployer`)
+#### 3. Dedicated Catalog Import Identity (`gecx-shop-catalog`)
 
 Catalog ingestion via `scripts/importToGcpRetail.sh` performs bulk product imports into branch 0 (`products:import`) and writes staging files to Google Cloud Storage. This requires write access to the catalog and storage bucket, which must be kept on a separate deployment/CI identity:
 
 ```bash
-# Create dedicated catalog deployer service account for CI / admin ingestion
-gcloud iam service-accounts create onix-catalog-deployer \
-  --display-name="ONIX Retail Catalog Deployer" \
+# Create dedicated catalog import service account for CI / admin ingestion
+gcloud iam service-accounts create gecx-shop-catalog \
+  --display-name="GECX shopping agent demo catalog import" \
   --description="Deployment identity for catalog schema and product import pipeline" \
   --project="${PROJECT_ID}"
 
-DEPLOYER_SA="onix-catalog-deployer@${PROJECT_ID}.iam.gserviceaccount.com"
+CATALOG_SA="gecx-shop-catalog@${PROJECT_ID}.iam.gserviceaccount.com"
 
 # Grant Retail Editor for catalog import & branch management
 gcloud projects add-iam-policy-binding "${PROJECT_ID}" \
-  --member="serviceAccount:${DEPLOYER_SA}" \
+  --member="serviceAccount:${CATALOG_SA}" \
   --role="roles/retail.editor"
 
-# Grant Storage Object Admin on the staging bucket
-gcloud storage buckets add-iam-policy-binding "gs://${PROJECT_ID}-retail-catalog-staging" \
-  --member="serviceAccount:${DEPLOYER_SA}" \
-  --role="roles/storage.objectAdmin"
 ```
+
+The staging bucket (`gs://${PROJECT_ID}-retail-catalog-staging`) and the catalog identity's `roles/storage.objectAdmin` grant on that bucket alone are managed by OpenTofu, in `infra/live/dev/us-central1/catalog-staging` and `infra/live/dev/global/iam-catalog`. Apply the bucket leaf first: `scripts/importToGcpRetail.sh` no longer creates the bucket and exits with an error if it is missing. Do not create the bucket or grant storage roles by hand, and do not grant the account a project-wide storage role.
 
 ### 2.3 Secrets Management (Google Secret Manager)
 
@@ -243,49 +235,23 @@ gcloud retail products import \
 
 ## 4. Cloud Run Deployment
 
-### Option A: 1-Click Automated Cloud Build (Recommended)
+The service is named `gecx-shopping-agent-demo`. It was previously called `onix-apparel`, and the old service's URL will stop working once that service is retired. The old service is still running at the time of writing and is retired separately, after the new one has served a real release.
 
-Submit the build using the `cloudbuild.yaml` at the repository root:
+### Standard path: the release workflow
 
-```bash
-gcloud builds submit --config=cloudbuild.yaml --project="YOUR_PROJECT_ID"
-```
+Deployment is not done by hand. Merging the standing release pull request cuts a `v*` tag, and the release workflow builds the image once, pushes it to Artifact Registry and applies the service with OpenTofu by digest. The infrastructure lives in `infra/`; see its README and the Deployment section of the main README for the model. The release-workflow deploy step is added after the first apply, because it authenticates through Workload Identity Federation, which does not exist until then. Until it lands, the break-glass path below is the only way to deploy.
 
-> **Prerequisites for Cloud Build**: Before submitting `cloudbuild.yaml`, ensure you have completed Section 2.2:
->
-> 1. Created the runtime service account `onix-storefront-runtime`.
-> 2. Granted `roles/iam.serviceAccountUser` on `onix-storefront-runtime` to the Cloud Build service account (`${PROJECT_NUMBER}@cloudbuild.gserviceaccount.com` or compute runner identity).
->    If these steps are skipped, Cloud Build's deploy step (`gcloud run deploy --service-account`) will fail with a permission error.
+### Break-glass: manual source deploy
 
-> **These two options are manual stopgaps, and both are outdated. Flagged for review rather than removed.**
->
-> `cloudbuild.yaml` is unused: nothing in the repository references it, it has never
-> run here, and it is scheduled for deletion with the deploy work. Option A submits it
-> anyway.
->
-> Both options deploy a service named `onix-apparel`, which is the name from the
-> repository this code came from. The service will be named `gecx-shopping-agent-demo`.
->
-> Neither matches how this will actually ship: GitHub Actions builds the image once per
-> release, Artifact Registry stores it, and OpenTofu applies it by digest, with prod
-> promoted from the same digest rather than rebuilt. See the Deployment section of the
-> README.
->
-> Until that pipeline exists these commands are the only way to get the app onto Cloud
-> Run by hand, so they are kept. Expect to substitute the service name, and do not
-> take Option A as evidence that Cloud Build is part of the design.
-
-### Option B: Direct Source Deploy via gcloud CLI
-
-Deploy directly from the local repository directory:
+Use this only when the pipeline is unavailable and the service must be redeployed immediately. It deploys outside OpenTofu state, so the next `tofu plan` will report drift that has to be reconciled afterwards.
 
 ```bash
-gcloud run deploy onix-apparel \
+gcloud run deploy gecx-shopping-agent-demo \
   --source . \
   --region us-central1 \
   --platform managed \
   --allow-unauthenticated \
-  --service-account "onix-storefront-runtime@YOUR_PROJECT_ID.iam.gserviceaccount.com" \
+  --service-account "gecx-shop-run@YOUR_PROJECT_ID.iam.gserviceaccount.com" \
   --port 8080 \
   --set-env-vars GCP_PROJECT_ID=YOUR_PROJECT_ID,GCP_LOCATION=global,GCP_CATALOG_ID=default_catalog,GCP_SERVING_CONFIG_ID=default_search
 ```
@@ -293,13 +259,13 @@ gcloud run deploy onix-apparel \
 > **Security Note**: Never deploy public-facing Cloud Run containers without an explicit `--service-account`. Omitting it causes Cloud Run to run as the project's default Compute Engine service account. Also never include `.env` or credential files when deploying; if secrets are needed at runtime, bind them directly from Secret Manager:
 >
 > ```bash
-> gcloud run deploy onix-apparel \
+> gcloud run deploy gecx-shopping-agent-demo \
 >   ... \
 >   --set-secrets="API_SECRET_KEY=my-secret:latest"
 > ```
 
 Once deployment completes, Cloud Run will output your live HTTPS service URL:
-`https://onix-apparel-xxxxxx-uc.a.run.app`
+`https://gecx-shopping-agent-demo-xxxxxx-uc.a.run.app`
 
 ---
 
@@ -528,7 +494,7 @@ window.addEventListener('onix:cart-updated', (event) => {
 1. Perform search queries in the storefront UI.
 2. Verify events in the Cloud Run container logs:
    ```bash
-   gcloud beta run services logs read onix-apparel --region=us-central1 --limit=30
+   gcloud beta run services logs read gecx-shopping-agent-demo --region=us-central1 --limit=30
    ```
    You should observe telemetry logs:
    `📊 [Vertex AI Event] DETAIL-PAGE-VIEW | Visitor: anon-xxxxx | Product: Mens Cotton Jacket`
@@ -544,10 +510,10 @@ If an update needs to be reverted:
 
 ```bash
 # List revisions
-gcloud run revisions list --service=onix-apparel --region=us-central1
+gcloud run revisions list --service=gecx-shopping-agent-demo --region=us-central1
 
 # Direct 100% traffic to previous stable revision
-gcloud run services update-traffic onix-apparel \
+gcloud run services update-traffic gecx-shopping-agent-demo \
   --to-revisions=PREVIOUS_REVISION_NAME=100 \
   --region=us-central1
 ```

@@ -48,7 +48,7 @@ A modern, high-performance apparel e-commerce store built with **React**, **Type
 gecx-shopping-agent-demo/
 ├── .env.example                  # Environment configuration template for Google Cloud
 ├── Dockerfile                    # Multi-stage build; the runner stage is what Cloud Run runs
-├── cloudbuild.yaml               # Unused. See Deployment below before touching it
+├── infra/                        # OpenTofu modules and Terragrunt live config for the dev project
 ├── .tool-versions                # Pinned toolchain versions (Node, OpenTofu, Terragrunt)
 ├── Makefile                      # Single entry point for every quality gate
 ├── lefthook.yml                  # pre-commit and commit-msg hooks
@@ -236,29 +236,24 @@ Prefer the `make` targets above for anything in the gate; these are what they ca
 
 ## 🚢 Deployment
 
-**Nothing in this repository deploys yet.** There is no pipeline, no registry and
-no Cloud Run service. What exists today is the release machinery that a deploy
-will hang off, and this section records the shape it will take so that the next
-person does not have to reconstruct it.
+The service is named `gecx-shopping-agent-demo`. It was previously called
+`onix-apparel`, the name from the repository this code came from, so a URL
+containing that name belongs to the old service. The old service is still running
+and is retired separately, after the new one has served a real release.
 
-`cloudbuild.yaml` is **vestigial** and has never run here. It arrived with the
-code from a personal repository, and nothing _executes_ it: no trigger, no
-workflow, no Make target, no npm script. It builds an image in Cloud Build and
-deploys a service still named `onix-apparel`, referenced by tag rather than by
-digest, so what runs is whatever that tag points at when the deploy happens.
+Deployment is OpenTofu applied through Terragrunt, and everything it manages lives
+in [`infra/`](infra/README.md): the service accounts, the custom runtime role, the
+Artifact Registry repository, Workload Identity Federation for GitHub Actions and
+the Cloud Run service. The `infra-ci` workflow validates that code on every pull
+request that touches `infra/`. Cloud Build is not used, and the former
+`cloudbuild.yaml` has been removed.
 
-It is scheduled for deletion with the deploy work rather than kept as a second,
-divergent path. Do not wire it up.
+Nothing is applied yet. The workflow that plans on pull requests and the dev
+deploy step in the release workflow both authenticate through Workload Identity
+Federation, which does not exist until the first apply, so they are added in a
+follow-up change after it.
 
-Two tests hold it in place and will fail the moment it is removed, so deleting it
-is not a one-line change: `tests/fde_agent_readiness.test.ts` asserts the file
-exists and contains specific Cloud Run flags, and `tests/shell_import_script.test.ts`
-asserts it contains a `bash -n` step — under a test name claiming that is how CI
-checks shell scripts, which stopped being true when `make lint-shell` took over
-with ShellCheck. Both tests encode the belief this section corrects, and both have
-to go with the file.
-
-### The intended model
+### The deploy model
 
 Build in GitHub Actions, store in Artifact Registry, apply with OpenTofu through
 Terragrunt. Cloud Build is not used.

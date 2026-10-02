@@ -35,23 +35,19 @@ if [ ! -f "${CATALOG_FILE}" ]; then
   exit 1
 fi
 
-# 1. Enable Vertex AI Retail API
-echo ""
-echo "⚙️  1. Ensuring Retail API is enabled..."
-gcloud services enable retail.googleapis.com --project="${PROJECT_ID}"
+# 1. The Retail API is enabled by infra/live/dev/global/project-services, which
+# owns API enablement. The catalog identity cannot enable services.
 
-# 2. Check or create Cloud Storage staging bucket
-BUCKET_LOCATION="${LOCATION}"
-if [ "${BUCKET_LOCATION}" = "global" ]; then
-  BUCKET_LOCATION="us-central1"
-fi
-
+# 2. Verify the Cloud Storage staging bucket exists
+# The bucket is managed by OpenTofu, not created here, so its access settings
+# and the catalog identity's bucket-scoped grant stay under review.
 BUCKET_NAME="gs://${PROJECT_ID}-retail-catalog-staging"
 echo ""
 echo "📦 2. Verifying staging GCS bucket: ${BUCKET_NAME}..."
 if ! gcloud storage buckets describe "${BUCKET_NAME}" >/dev/null 2>&1; then
-  echo "   Creating bucket ${BUCKET_NAME} in location ${BUCKET_LOCATION}..."
-  gcloud storage buckets create "${BUCKET_NAME}" --project="${PROJECT_ID}" --location="${BUCKET_LOCATION}"
+  echo "❌ Staging bucket ${BUCKET_NAME} does not exist or is not readable." >&2
+  echo "   It is managed in infra/live/dev/us-central1/catalog-staging and must be applied first." >&2
+  exit 1
 fi
 
 # 3. Upload catalog JSONL to GCS

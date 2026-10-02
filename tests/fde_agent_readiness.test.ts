@@ -103,26 +103,6 @@ describe('Google Forward Deployment Engineer & Gemini Enterprise Readiness', () 
       assert.ok(dockerfile.includes('shared/'), 'runner stage must copy shared/');
     });
 
-    it('should have cloudbuild.yaml configured for Cloud Run deployment', () => {
-      const cbPath = path.resolve(rootDir, 'cloudbuild.yaml');
-      assert.ok(fs.existsSync(cbPath), 'cloudbuild.yaml must exist');
-
-      const cb = fs.readFileSync(cbPath, 'utf-8');
-      assert.ok(cb.includes('gcr.io/google.com/cloudsdktool/cloud-sdk'));
-      assert.ok(cb.includes('run'));
-      assert.ok(cb.includes('deploy'));
-      assert.ok(cb.includes('--port=8080'));
-      assert.ok(cb.includes('--allow-unauthenticated'));
-      assert.ok(
-        cb.includes('--service-account='),
-        'cloudbuild.yaml must specify dedicated --service-account',
-      );
-      assert.ok(
-        cb.includes('_SERVICE_ACCOUNT: onix-storefront-runtime'),
-        'cloudbuild.yaml must declare dedicated user-managed runtime service account substitution',
-      );
-    });
-
     it('should enforce least privilege and separation of duties for IAM service accounts in runbook', () => {
       const runbookPath = path.resolve(rootDir, 'docs', 'FDE_INTEGRATION_RUNBOOK.md');
       assert.ok(fs.existsSync(runbookPath), 'FDE_INTEGRATION_RUNBOOK.md must exist');
@@ -155,18 +135,18 @@ describe('Google Forward Deployment Engineer & Gemini Enterprise Readiness', () 
         'Runbook must not reference unset ${YOUR_PROJECT_ID} shell variable',
       );
 
-      // Must document dedicated runtime service account with viewer role
+      // Must document dedicated runtime service account holding a custom role
       assert.ok(
-        runbook.includes('onix-storefront-runtime'),
-        'Runbook must specify onix-storefront-runtime service account',
-      );
-      assert.ok(
-        runbook.includes('roles/retail.viewer'),
-        'Runbook must grant roles/retail.viewer for runtime search queries',
+        runbook.includes('gecx-shop-run'),
+        'Runbook must specify gecx-shop-run service account',
       );
       assert.ok(
         runbook.includes('retail.servingConfigs.search'),
-        'Runbook must explain that roles/retail.viewer covers retail.servingConfigs.search',
+        'Runbook must name retail.servingConfigs.search, which the runtime role grants for search queries',
+      );
+      assert.ok(
+        runbook.includes('retail.userEvents.create'),
+        'Runbook must name retail.userEvents.create, which the runtime role grants for event ingestion',
       );
 
       // Must document roles/iam.serviceAccountUser authorization for Cloud Build
@@ -177,16 +157,16 @@ describe('Google Forward Deployment Engineer & Gemini Enterprise Readiness', () 
 
       // Must separate deployment catalog import identity
       assert.ok(
-        runbook.includes('onix-catalog-deployer'),
+        runbook.includes('gecx-shop-catalog'),
         'Runbook must separate catalog import to dedicated deployer service account',
       );
 
-      // Must configure --service-account in Option B deployment example
+      // Must configure --service-account in the break-glass deployment example
       assert.ok(
         runbook.includes(
-          '--service-account "onix-storefront-runtime@YOUR_PROJECT_ID.iam.gserviceaccount.com"',
+          '--service-account "gecx-shop-run@YOUR_PROJECT_ID.iam.gserviceaccount.com"',
         ),
-        'Runbook Option B must specify dedicated --service-account',
+        'Runbook break-glass deploy must specify dedicated --service-account',
       );
     });
 
@@ -226,8 +206,8 @@ describe('Google Forward Deployment Engineer & Gemini Enterprise Readiness', () 
 
       // 4. Verify search and userEvents endpoints have corresponding IAM roles in runbook
       assert.ok(
-        proxyCode.includes(':search') && runbook.includes('roles/retail.viewer'),
-        'Runbook must document roles/retail.viewer for runtime :search endpoint in proxy.mjs',
+        proxyCode.includes(':search') && runbook.includes('retail.servingConfigs.search'),
+        'Runbook must document retail.servingConfigs.search for runtime :search endpoint in proxy.mjs',
       );
       assert.ok(
         proxyCode.includes('userEvents:write') && runbook.includes('retail.userEvents.create'),

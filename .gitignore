@@ -37,3 +37,14 @@ gcp-key*.json
 
 # Test coverage output
 coverage/
+
+# Terragrunt generates these into each leaf at run time
+infra/**/.terragrunt-cache/
+infra/**/backend.tf
+infra/**/provider.tf
+infra/**/versions.tf
+# Modules commit their own versions.tf (tflint requires one); only leaves generate it
+!infra/modules/**/versions.tf
+infra/**/.terraform/
+# Leaf lock files are generated per run; only modules commit one
+infra/live/**/.terraform.lock.hcl

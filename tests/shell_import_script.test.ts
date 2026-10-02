@@ -47,11 +47,11 @@ describe('Shell Script Quality & GCP Retail Ingestion Invariants', () => {
       'Must not contain JavaScript ternary operator',
     );
 
-    // Must contain bash conditional for location
-    assert.ok(
-      content.includes('if [ "${BUCKET_LOCATION}" = "global" ]') ||
-        content.includes('if [ "$BUCKET_LOCATION" = "global" ]'),
-      'Must contain standard Bash conditional mapping global to us-central1',
+    // The script no longer creates the bucket, so it no longer picks a bucket location
+    assert.equal(
+      content.includes('BUCKET_LOCATION'),
+      false,
+      'Bucket location belongs to the catalog-staging OpenTofu leaf, not the script',
     );
   });
 
@@ -78,9 +78,14 @@ describe('Shell Script Quality & GCP Retail Ingestion Invariants', () => {
       content.includes('gcloud storage buckets describe'),
       'Must use gcloud storage buckets describe',
     );
-    assert.ok(
+    assert.equal(
       content.includes('gcloud storage buckets create'),
-      'Must use gcloud storage buckets create',
+      false,
+      'Must not create the staging bucket; it is managed in infra/live/dev/us-central1/catalog-staging',
+    );
+    assert.ok(
+      content.includes('infra/live/dev/us-central1/catalog-staging'),
+      'Must point operators at the OpenTofu leaf that manages the staging bucket',
     );
     assert.ok(content.includes('gcloud storage cp'), 'Must use gcloud storage cp');
   });
@@ -101,10 +106,6 @@ describe('Shell Script Quality & GCP Retail Ingestion Invariants', () => {
   });
 
   it('CI configurations must include shell script syntax check', () => {
-    const cbPath = path.resolve(rootDir, 'cloudbuild.yaml');
-    const cbContent = fs.readFileSync(cbPath, 'utf-8');
-    assert.ok(cbContent.includes('bash -n'), 'cloudbuild.yaml must include bash -n syntax check');
-
     const ghPath = path.resolve(rootDir, '.github', 'workflows', 'ci.yml');
     assert.ok(fs.existsSync(ghPath), '.github/workflows/ci.yml must exist');
     const ghContent = fs.readFileSync(ghPath, 'utf-8');
