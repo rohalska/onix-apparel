@@ -15,8 +15,9 @@ Public access is opt-in. `allow_public_access = true` adds `allUsers` to
 one member without touching other invokers.
 
 The defaults for CPU, memory, max instances, ingress, startup CPU boost and
-container port (8080) match the service this module replaces, so adopting it
-changes the name and identity and nothing about how the app runs.
+container port (8080) were taken from the `onix-apparel` service this one
+replaced, so the first apply changed the name and the identity and nothing
+about how the app runs.
 
 ## Inputs
 

@@ -20,9 +20,10 @@ dependency "staging_bucket" {
 
 # Catalog import needs roles/retail.editor, which carries product deletion and
 # model tuning. The identity the public storefront runs as must never hold it,
-# so the import duty gets its own account. Nothing in CI uses this one: it is
-# for a human or a batch job running an import, which is why it is deliberately
-# absent from the wif-github leaf's service_account_emails.
+# so the import duty gets its own account. The catalog-import workflow assumes
+# it, and the wif-github leaf pins it to refs/heads/main, so an import cannot be
+# run from a modified copy on a branch. It is not in service_account_emails,
+# which is the repository-wide list.
 inputs = {
   account_id   = "gecx-shop-catalog"
   display_name = "GECX shopping agent demo catalog importer"

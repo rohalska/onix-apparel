@@ -1,8 +1,12 @@
 # Google Forward Deployment Engineer (FDE) Integration Runbook
 
-**Target Platform**: Google Cloud Run + Vertex AI Search for Retail + Gemini Enterprise Shopping Agent  
-**Application**: ONIX Apparel Luxury Showcase  
-**Architecture Mode**: Single-Container Managed Serverless (Unified Vite SPA + Node.js Proxy)
+How the ONIX Apparel storefront (`gecx-shopping-agent-demo`) is set up on Cloud
+Run, wired to Vertex AI Search for Retail, and registered as a Gemini
+Enterprise shopping agent. It ships as one container: a Vite SPA served by the
+same Node process that proxies the Retail API.
+
+Dev lives in project `onx-dev-int-shop-demo-qes8` (number `835936341567`),
+region `us-central1`. The service is public and currently serves `v0.2.1`.
 
 ---
 
@@ -42,32 +46,48 @@
 
 ### 2.1 Enable Google Cloud APIs
 
-Ensure the following APIs are enabled in your target Google Cloud Project:
+In the dev project, API enablement belongs to
+`infra/live/dev/global/project-services`. The commands below are for a project
+that is not managed with OpenTofu:
 
 ```bash
 gcloud services enable \
   run.googleapis.com \
   artifactregistry.googleapis.com \
   retail.googleapis.com \
-  aiplatform.googleapis.com \
   --project="YOUR_PROJECT_ID"
 ```
 
+`aiplatform.googleapis.com` is not needed. Search goes to
+`retail.googleapis.com`, and nothing in the container calls Vertex AI.
+
 ### 2.2 Configure IAM & Service Accounts (Least Privilege & Separation of Duties)
 
-The storefront separates identities by duty. Four service accounts exist in the dev project, all managed by the OpenTofu code under `infra/`:
+The storefront separates identities by duty. Four service accounts exist in the
+dev project, all managed by the OpenTofu code under `infra/`. None of them can
+do another's job, and none has a JSON key.
 
-| Service account     | Duty                                                        |
-| ------------------- | ----------------------------------------------------------- |
-| `gecx-shop-run`     | Runtime: the identity the Cloud Run container executes as   |
-| `gecx-shop-deploy`  | CI deploy: applies the service from the release workflow    |
-| `gecx-shop-plan`    | CI plan: read-only, used for plan runs on untrusted PR code |
-| `gecx-shop-catalog` | Catalog import: runs `scripts/importToGcpRetail.sh`         |
+| Service account     | Duty                                                  | Impersonable from                      |
+| ------------------- | ----------------------------------------------------- | -------------------------------------- |
+| `gecx-shop-run`     | Runtime: the identity the Cloud Run container runs as | nothing; it is attached to the service |
+| `gecx-shop-deploy`  | CI deploy: applies the service from `release.yml`     | `refs/heads/main` only                 |
+| `gecx-shop-plan`    | CI plan: read-only, runs plans on pull request code   | any ref in the repository              |
+| `gecx-shop-catalog` | Catalog import: runs `scripts/importToGcpRetail.sh`   | `refs/heads/main` only                 |
 
-The `gcloud` commands below show what each identity needs and are kept for reference and for projects that are not managed with OpenTofu. In the dev project, do not run them: `infra/` owns these accounts and their bindings.
+GitHub Actions reaches all three CI identities through Workload Identity
+Federation, pool and provider `github`. The provider only accepts a token whose
+`assertion.repository` is `onix-net/gecx-shopping-agent-demo` and whose
+`assertion.repository_id` is `1388249424`. The planner's binding covers the
+whole repository, which is why it holds nothing that can write: a plan runs
+contributor code. The deployer and the catalog importer are pinned to
+`refs/heads/main`, so a workflow edited on a branch cannot assume either.
+
+The `gcloud` commands below show what each identity needs. They are reference
+material for a project that is not managed with OpenTofu. In the dev project, do
+not run them: `infra/` owns these accounts and their bindings.
 
 > [!WARNING]
-> **Never use the default Compute Engine service account (`${PROJECT_NUMBER}-compute@developer.gserviceaccount.com`)** for Cloud Run or grant it `roles/retail.editor`. The default account often carries broad legacy project permissions, and pairing it with catalog write privileges on a public-facing web service violates the principle of least privilege.
+> **Never use the default Compute Engine service account (`${PROJECT_NUMBER}-compute@developer.gserviceaccount.com`)** for Cloud Run or grant it `roles/retail.editor`. The default account often carries broad legacy project permissions, and pairing it with catalog write privileges on a public-facing web service violates the principle of least privilege. The `cloud-run-service` module rejects it at plan time.
 > Never store service-account JSON keys or credentials in the repository.
 
 Define your project variables for the commands below:
@@ -90,12 +110,16 @@ gcloud iam service-accounts create gecx-shop-run \
 RUNTIME_SA="gecx-shop-run@${PROJECT_ID}.iam.gserviceaccount.com"
 ```
 
-The runtime holds a **custom role**, not a predefined one. It grants exactly two permissions, the two that `server/proxy.mjs` needs:
+The runtime holds a **custom role**, not a predefined one. It grants exactly two
+permissions, the two that `server/proxy.mjs` needs:
 
 - `retail.servingConfigs.search` for Search and Browse queries
 - `retail.userEvents.create` for `userEvents:write` ingestion
 
-A predefined role was not used because none fits. `roles/retail.viewer` covers search but omits `retail.userEvents.create`, so event ingestion would fail with a permission error. `roles/retail.editor` has both, but it additionally grants product deletion, catalog import and model tuning, which a public-facing container must not hold.
+No predefined role fits. `roles/retail.viewer` covers search but omits
+`retail.userEvents.create`, so event ingestion would fail with a permission
+error. `roles/retail.editor` has both and also grants product deletion, catalog
+import and model tuning, which a public-facing container must not hold.
 
 ```bash
 gcloud iam roles create gecxShoppingAgentRuntime \
@@ -122,13 +146,18 @@ The storefront container (`server/proxy.mjs`) calls only the following external 
 
 **Other Google Cloud APIs Not Invoked at Runtime**:
 
-- **Vertex AI (`aiplatform.googleapis.com`)**: Storefront search is powered directly by Google Cloud Retail API (`retail.googleapis.com`). The container does not call `aiplatform.googleapis.com` or include `@google-cloud/vertexai`. No Vertex AI roles (`roles/aiplatform.user`) are required for the runtime account.
-- **Cloud Storage (`storage.googleapis.com`)**: Catalog schema upload and staging is strictly an admin deployment task handled by `scripts/importToGcpRetail.sh`, bound to `gecx-shop-catalog`. The runtime container does not read or write GCS buckets.
-- **Secret Manager (`secretmanager.googleapis.com`)**: Cloud Run receives configuration via environment variables set on the Cloud Run service by OpenTofu. If you choose to mount sensitive secrets into Cloud Run from Secret Manager, grant `roles/secretmanager.secretAccessor` to `gecx-shop-run` as documented in §2.3.
+- **Vertex AI (`aiplatform.googleapis.com`)**: storefront search goes to the Retail API. The container does not call `aiplatform.googleapis.com` or include `@google-cloud/vertexai`, so the runtime account needs no Vertex AI role.
+- **Cloud Storage (`storage.googleapis.com`)**: catalog staging is an operator task handled by `scripts/importToGcpRetail.sh` under `gecx-shop-catalog`. The runtime container reads and writes no bucket.
+- **Secret Manager (`secretmanager.googleapis.com`)**: Cloud Run gets its configuration from environment variables set on the service by OpenTofu. If you mount secrets instead, grant `roles/secretmanager.secretAccessor` to `gecx-shop-run` as described in §2.3.
 
 #### 2. Authorize the Deploy Identity (`roles/iam.serviceAccountUser`)
 
-When a service is deployed with an explicit runtime service account, Google Cloud requires that the deploying identity has permission to act as that account (`roles/iam.serviceAccountUser`). Without it, the deploy fails with a permission error. In this repository the deploying identity is `gecx-shop-deploy`, and the binding is scoped to the runtime account only, not granted project-wide.
+Cloud Run will not start a service under an explicit runtime account unless the
+deploying identity can act as that account. Without
+`roles/iam.serviceAccountUser` the deploy fails with a permission error. Here
+the deploying identity is `gecx-shop-deploy`, and the grant is scoped to the
+runtime account alone, not project-wide, so the deployer cannot impersonate the
+catalog importer.
 
 ```bash
 DEPLOY_SA="gecx-shop-deploy@${PROJECT_ID}.iam.gserviceaccount.com"
@@ -138,9 +167,17 @@ gcloud iam service-accounts add-iam-policy-binding "${RUNTIME_SA}" \
   --project="${PROJECT_ID}"
 ```
 
+The deployer's other grants are `roles/run.admin`,
+`roles/serviceusage.serviceUsageConsumer`, `roles/storage.objectAdmin` on the
+state bucket only, and `artifactregistry.writer` on the one repository it
+pushes to.
+
 #### 3. Dedicated Catalog Import Identity (`gecx-shop-catalog`)
 
-Catalog ingestion via `scripts/importToGcpRetail.sh` performs bulk product imports into branch 0 (`products:import`) and writes staging files to Google Cloud Storage. This requires write access to the catalog and storage bucket, which must be kept on a separate deployment/CI identity:
+`scripts/importToGcpRetail.sh` bulk-imports products into branch 0
+(`products:import`) and stages the feed in Cloud Storage first. That needs write
+access to the catalog, which the public storefront's identity must never hold,
+so the import duty gets its own account:
 
 ```bash
 # Create dedicated catalog import service account for CI / admin ingestion
@@ -155,10 +192,19 @@ CATALOG_SA="gecx-shop-catalog@${PROJECT_ID}.iam.gserviceaccount.com"
 gcloud projects add-iam-policy-binding "${PROJECT_ID}" \
   --member="serviceAccount:${CATALOG_SA}" \
   --role="roles/retail.editor"
-
 ```
 
-The staging bucket (`gs://${PROJECT_ID}-retail-catalog-staging`) and the catalog identity's `roles/storage.objectAdmin` grant on that bucket alone are managed by OpenTofu, in `infra/live/dev/us-central1/catalog-staging` and `infra/live/dev/global/iam-catalog`. Apply the bucket leaf first: `scripts/importToGcpRetail.sh` no longer creates the bucket and exits with an error if it is missing. Do not create the bucket or grant storage roles by hand, and do not grant the account a project-wide storage role.
+The staging bucket is `gs://${PROJECT_ID}-retail-catalog-staging`. The account's
+grants on it are `roles/storage.objectAdmin`, because the script uploads the
+feed and reads it back, and `roles/storage.legacyBucketReader`, because
+`objectAdmin` carries no `storage.buckets.*` permission and the script's guard
+runs `gcloud storage buckets describe`. Both are bucket-scoped. Do not grant
+this account a project-wide storage role.
+
+The bucket and those grants are managed in
+`infra/live/dev/us-central1/catalog-staging` and
+`infra/live/dev/global/iam-catalog`. Apply the bucket leaf first: the script no
+longer creates the bucket and exits with an error if it is missing.
 
 ### 2.3 Secrets Management (Google Secret Manager)
 
@@ -176,9 +222,15 @@ gcloud projects add-iam-policy-binding "${PROJECT_ID}" \
 
 ### 2.4 Edge Rate Limiting & Distributed Quota Enforcement (Google Cloud Armor)
 
-The application proxy (`server/proxy.mjs`) implements a defense-in-depth sliding window rate limiter (120 req/min/IP) backed by an in-memory bounded LRU map (`MAX_TRACKED_IPS = 5000`) and derives the client IP from the trusted proxy hop (`X-Forwarded-For`).
+`server/proxy.mjs` carries a sliding window rate limiter (120 req/min/IP) over a
+bounded LRU map (`MAX_TRACKED_IPS = 5000`), and derives the client IP from the
+trusted proxy hop (`X-Forwarded-For`).
 
-Because Cloud Run instances scale dynamically under traffic, in-process state is per-instance—scaling out instances multiplies the aggregate allowance. For production distributed environments, enforce global rate limits and DDoS mitigation at the edge using **Google Cloud Armor** with an External HTTP(S) Load Balancer:
+That state is per-instance. Cloud Run scales out under load, so the aggregate
+allowance multiplies by the instance count. For a production deployment,
+enforce the global limit at the edge with Cloud Armor behind an external
+HTTP(S) load balancer. Nothing below is deployed in the dev project; the names
+are placeholders:
 
 ```bash
 # 1. Create a Cloud Armor security policy
@@ -202,21 +254,40 @@ gcloud compute backend-services update onix-backend-service \
   --global
 ```
 
-Alternatively, front the deployment with **Google Cloud API Gateway** or a centralized shared cache (e.g., **Google Cloud Memorystore for Redis**) to synchronize rate limit buckets across all active container instances.
+API Gateway in front of the service, or a shared cache such as Memorystore for
+Redis, would also synchronise the buckets across instances.
 
 ---
 
 ## 3. Product Catalog Ingestion
 
-ONIX Apparel provides a pre-formatted catalog file matching Google Retail API Product Schema: `vertex-retail-catalog.jsonl`.
+`vertex-retail-catalog.jsonl` holds 14 products in Retail API Product schema.
+`npm run export:vertex` regenerates it from the app's catalog data.
 
-Execute the automated ingestion script:
+### The dev path: the `catalog-import` workflow
+
+`.github/workflows/catalog-import.yml` is how the dev catalog gets imported. It
+is `workflow_dispatch` only, because the import replaces catalog contents, and
+it takes a `confirm` input that must be the literal string `import`. Dispatch it
+from `main`: `gecx-shop-catalog` is pinned to `refs/heads/main`, so a dispatch
+from any other ref fails at the Workload Identity binding rather than running
+with a modified copy of the workflow. The job runs
+`scripts/importToGcpRetail.sh` and then reports how many products the catalog
+returns.
+
+### Running the script directly
+
+Against a project you own:
 
 ```bash
 ./scripts/importToGcpRetail.sh YOUR_PROJECT_ID global default_catalog default_branch
 ```
 
-Alternatively, run manually via Google Cloud CLI:
+Only the project ID is required; the rest default to those values. The script
+checks the staging bucket exists, uploads the feed, starts the import and polls
+the operation.
+
+### By hand
 
 ```bash
 # Upload catalog to staging bucket
@@ -231,19 +302,45 @@ gcloud retail products import \
   --reconciliation-mode="INCREMENTAL"
 ```
 
+### After an import
+
+`products.list` reports the imported products straight away, but search does
+not. Retail builds its first index over a period of hours, and until it lands a
+`:search` call returns HTTP 200 with an empty result set. Dev is in exactly that
+state: 14 products listed, searches reaching the API and returning nothing. An
+empty result set alone is not evidence of a misconfigured serving config.
+
 ---
 
 ## 4. Cloud Run Deployment
 
-The service is named `gecx-shopping-agent-demo`. It was previously called `onix-apparel`, and the old service's URL will stop working once that service is retired. The old service is still running at the time of writing and is retired separately, after the new one has served a real release.
+The service is named `gecx-shopping-agent-demo`. It was previously called
+`onix-apparel`. The old service still exists in the project, is not managed by
+`infra/`, and is retired separately.
 
-### Standard path: the release workflow
+### The normal path: merge the release pull request
 
-Deployment is not done by hand. Merging the standing release pull request cuts a `v*` tag, and the release workflow builds the image once, pushes it to Artifact Registry and applies the service with OpenTofu by digest. The infrastructure lives in `infra/`; see its README and the Deployment section of the main README for the model. The release-workflow deploy step is added after the first apply, because it authenticates through Workload Identity Federation, which does not exist until then. Until it lands, the break-glass path below is the only way to deploy.
+Nobody deploys by hand. Merging a feature pull request into `main` does not
+deploy anything; it opens or updates release-please's standing release pull
+request. Merging **that** pull request cuts a `v*` tag, and the `deploy-dev` job
+in `.github/workflows/release.yml` does the rest:
+
+1. Checks out the tag, never pull request code.
+2. Builds the image once, pushes it to Artifact Registry under the version tag,
+   and reads the digest back from the push.
+3. Applies `infra/live/dev/us-central1/cloud-run` with that digest as
+   `IMAGE_DIGEST`, so the Cloud Run resource is pinned by digest.
+4. Reads the deployed image back and fails if it is not the digest it built.
+
+The job authenticates as `gecx-shop-deploy` through Workload Identity
+Federation and is the only job that can reach that identity. `v0.2.1` went out
+this way.
 
 ### Break-glass: manual source deploy
 
-Use this only when the pipeline is unavailable and the service must be redeployed immediately. It deploys outside OpenTofu state, so the next `tofu plan` will report drift that has to be reconciled afterwards.
+Use this only when the pipeline is unavailable and the service must be
+redeployed immediately. It deploys outside OpenTofu state, so the next
+`tofu plan` will report drift that has to be reconciled afterwards.
 
 ```bash
 gcloud run deploy gecx-shopping-agent-demo \
@@ -264,8 +361,8 @@ gcloud run deploy gecx-shopping-agent-demo \
 >   --set-secrets="API_SECRET_KEY=my-secret:latest"
 > ```
 
-Once deployment completes, Cloud Run will output your live HTTPS service URL:
-`https://gecx-shopping-agent-demo-xxxxxx-uc.a.run.app`
+The deploy prints the service URL. Dev is
+`https://gecx-shopping-agent-demo-as77tzr44a-uc.a.run.app`.
 
 ---
 
@@ -273,7 +370,7 @@ Once deployment completes, Cloud Run will output your live HTTPS service URL:
 
 ### 5.1 A2A Agent Card Endpoint
 
-ONIX Apparel automatically publishes an Agent-to-Agent (A2A) protocol card at:
+The storefront serves an Agent-to-Agent (A2A) protocol card at:
 `https://<YOUR-CLOUD-RUN-URL>/.well-known/agent-card.json`
 
 Verify the endpoint returns HTTP 200 with JSON metadata:
@@ -295,7 +392,7 @@ In the Gemini Enterprise Admin Console or using the Agent Registry CLI:
 agents-cli publish gemini-enterprise \
   --agent-card="https://<YOUR-CLOUD-RUN-URL>/.well-known/agent-card.json" \
   --name="ONIX Apparel Concierge" \
-  --environment="production"
+  --environment="dev"
 ```
 
 ---
@@ -356,10 +453,10 @@ The split is declared as `CART_OWNED_ACTIONS` in `src/services/agentActionBus.ts
 and `tests/contracts/agentActions.test.ts` asserts that each declared action is
 handled by the subscriber that owns it.
 
-An action dispatch emits an outcome envelope on `onix:agent-action-outcome`,
-whichever subscriber handled it or declined it. Callers can supply an optional
-correlation `id` on the payload to correlate dispatches with outcomes when multiple
-actions are in flight:
+Each dispatch emits exactly one outcome envelope on
+`onix:agent-action-outcome`, whichever subscriber handled or declined it. Put an
+optional `id` on the payload to match outcomes to dispatches when several are in
+flight:
 
 ```js
 window.onixStore.dispatch({
@@ -370,8 +467,6 @@ window.onixStore.dispatch({
   quantity: 1,
 });
 ```
-
-Every dispatch emits exactly one outcome envelope:
 
 ```ts
 interface AgentActionOutcome {
@@ -384,13 +479,22 @@ interface AgentActionOutcome {
 }
 ```
 
-The client action bus guarantees one outcome envelope for each dispatch (correlated by the dispatch's `id` and `action`). It tracks active dispatches on an execution stack, isolates nested dispatches, and deduplicates secondary events (for example, if a handler applies state and subsequently throws, the initial applied outcome is preserved and the secondary error report is suppressed). If uncoordinated page code emits an outcome carrying an unrecognised foreign `id` during an in-flight dispatch, that stray event is broadcast independently and does not satisfy the active dispatch, which will report `UNHANDLED_ACTION` for its own `id`.
+The bus tracks active dispatches on a stack, isolates nested dispatches, and drops secondary events: if a handler applies state and then throws, the applied outcome stands and the error report is suppressed. An outcome carrying an `id` the bus does not recognise is broadcast on its own and does not satisfy the in-flight dispatch, which still reports `UNHANDLED_ACTION` under its own `id`.
 
-##### Multiple subscribers & asynchronous handler semantics
+##### Several subscribers, and handlers that go async
 
-- **First reported outcome wins**: When multiple subscribers listen to the action bus (for instance, `AppContent` and `CartContext`), each examines whether the action belongs to its domain. The first subscriber to report an outcome (whether applied, rejected, or thrown via `HANDLER_THREW`) satisfies the dispatch context. Any subsequent outcome reported during that same dispatch is suppressed by the single-outcome deduplicator. Because `applied` is omitted on `HANDLER_THREW`, consumers should not rely on `applied` being absent as definitive proof that no state was modified if a handler crashed.
-- **Synchronous dispatch lifecycle**: Stack correlation and deduplication operate while `dispatchAgentAction` is on the call stack. Outcomes reported asynchronously after `dispatchAgentAction` finishes execution bypass the synchronous dispatch stack deduplication.
-- **Idempotent subscriptions**: All subscription teardown functions (`subscribeToAgentActions`, `subscribeToOutcomes`, `subscribeToActionRejections`) are idempotent; multiple invocations do not corrupt subscriber reference counts or cause spurious `NO_SUBSCRIBER` errors.
+**First outcome wins.** Each subscriber decides whether the action is its own.
+Whichever reports first, applied or rejected or `HANDLER_THREW`, satisfies the
+dispatch; anything reported afterwards is deduplicated away. `applied` is
+omitted on `HANDLER_THREW`, so its absence is not proof that no state changed.
+
+**Correlation is synchronous.** The stack correlation and the deduplication run
+while `dispatchAgentAction` is on the call stack. An outcome reported after it
+returns bypasses both.
+
+Teardown functions (`subscribeToAgentActions`, `subscribeToOutcomes`,
+`subscribeToActionRejections`) are idempotent; calling one twice does not
+corrupt the subscriber count or produce a spurious `NO_SUBSCRIBER`.
 
 An agent can subscribe via `window.onixStore.subscribeOutcomes` or `addEventListener('onix:agent-action-outcome')`:
 
@@ -407,9 +511,8 @@ window.onixStore.subscribeOutcomes((outcome) => {
 
 #### Disambiguating outcomes
 
-Previous versions only announced rejections, leaving silence ambiguous between
-applied, dropped because no subscriber was mounted, and thrown by a handler.
-The outcome envelope clearly separates these cases:
+An earlier version announced only rejections, so silence could mean applied,
+dropped for want of a subscriber, or thrown. The envelope separates the cases:
 
 - **Applied (`ok: true, applied: true`)**: The action was validated and applied to the storefront state.
 - **No subscriber mounted (`ok: false, applied: false, code: 'NO_SUBSCRIBER'`)**: Dispatched before the storefront or cart mounted.
@@ -455,7 +558,7 @@ else, which is why `help()`'s `ADD_TO_CART` example no longer names a colour.
 
 The discriminator is `action`, not `type`, and an item is named by `productId`
 alone. The storefront resolves that ID against its canonical catalog and ignores
-any `product` object in the payload — `product` and `productTitle` are still
+any `product` object in the payload. `product` and `productTitle` are still
 accepted by the type for backwards compatibility but are marked deprecated and
 untrusted.
 
@@ -464,7 +567,7 @@ so a payload that carried its own title, price and image could inject an item th
 does not exist or reprice one that does, and the cart total would follow it. An ID
 that has to resolve against the catalog cannot.
 
-Two consequences worth knowing before you test:
+Three consequences for testing:
 
 - An action naming an ID that is not in the catalog is **rejected** with code
   `PRODUCT_NOT_FOUND` or `INVALID_PRODUCT_OR_OPTIONS`, an outcome envelope is emitted,
@@ -491,22 +594,29 @@ window.addEventListener('onix:cart-updated', (event) => {
 
 ## 7. Verifying Telemetry & Search Quality Flywheel
 
-1. Perform search queries in the storefront UI.
-2. Verify events in the Cloud Run container logs:
+1. Run searches and interact with products in the storefront UI.
+2. Read the container logs:
    ```bash
    gcloud beta run services logs read gecx-shopping-agent-demo --region=us-central1 --limit=30
    ```
-   You should observe telemetry logs:
+   Telemetry lines look like this:
    `📊 [Vertex AI Event] DETAIL-PAGE-VIEW | Visitor: anon-xxxxx | Product: Mens Cotton Jacket`
    `📊 [Vertex AI Event] ADD-TO-CART | Visitor: anon-xxxxx | Product: White Gold Plated Princess`
-3. Inspect search events in the Google Cloud Console under:
-   **Vertex AI Search for Retail > Analytics & Event Quality**.
+3. Check **Vertex AI Search for Retail > Analytics & Event Quality** in the
+   console.
+
+Events are accepted before search results appear. While the first index is
+building, step 1 produces events and no results, which is the state dev is in.
 
 ---
 
 ## 8. Rollback & Maintenance
 
-If an update needs to be reverted:
+The supported rollback is a deploy of an earlier release through the pipeline,
+so OpenTofu state and the running service stay in agreement.
+
+A traffic split is faster and is break-glass: it moves the service away from
+what state says it runs, and the next apply moves it back.
 
 ```bash
 # List revisions

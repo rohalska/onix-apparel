@@ -31,12 +31,18 @@ locals {
 
   # The digest currently serving onix-apparel, copied into the new repository
   # during bootstrap. It is the fallback so a local plan is never empty-handed.
-  # The digest currently deployed. It is only a placeholder for read-only
-  # commands; `apply` requires IMAGE_DIGEST explicitly. Kept in step with the
-  # deployed image so a plain `terragrunt plan` does not propose reverting the
-  # service, and so manual drift shows up as a real diff rather than hiding
-  # behind a stale constant.
-  default_digest = "sha256:6edce977d51f2d702438c2a09aec82bdbc1f84e21944dcafcff681f3faa71f96"
+  # A placeholder so read-only commands can resolve. `apply` requires
+  # IMAGE_DIGEST and ignores this.
+  #
+  # It is deliberately not kept in step with what is deployed. Every release
+  # moves the live digest, so any value committed here is stale within minutes
+  # and chasing it would mean a commit per deploy. infra-plan.yml reads the live
+  # digest before planning, which is what keeps pull request plans honest.
+  #
+  # A local `terragrunt plan` without IMAGE_DIGEST will therefore propose
+  # changing the image. That is the placeholder showing through, not drift. Set
+  # IMAGE_DIGEST to the deployed digest if you want a clean local plan.
+  default_digest = "sha256:ada52f4754a4b605b2dcf1d4576bb89ad339d990e1377ac9bd0133f90af822f1"
 
   # The deploy job exports IMAGE_DIGEST for the image it just built. A leaf
   # input would otherwise win over any TF_VAR_, so the override has to be read

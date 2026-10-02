@@ -1,85 +1,90 @@
-# ONIX APPAREL - E-Commerce Store with Vertex AI Commerce Search
+# ONIX Apparel
 
-A modern, high-performance apparel e-commerce store built with **React**, **TypeScript**, **Vite**, and **Tailwind CSS**, integrated with **Google Cloud Vertex AI Search for Retail (Commerce Search)**.
+An apparel storefront built with React, TypeScript, Vite and Tailwind CSS, wired
+to Google Cloud Vertex AI Search for Retail. It runs as a demo of agent-driven
+commerce: a Gemini Enterprise agent can drive the UI over a typed action bus
+while the storefront's searches and user events go to the live Retail API.
 
----
+The dev deployment is `gecx-shopping-agent-demo` in project
+`onx-dev-int-shop-demo-qes8`, region `us-central1`, public, currently serving
+`v0.2.1`.
 
-## ✨ Features
+## Features
 
-### 🔍 Vertex AI Commerce Search & Discovery
+### Search and discovery
 
-- **Dual-Mode Architecture**:
-  - **Live Google Cloud Mode**: Connects directly to Google Cloud's Retail API (`retail.googleapis.com`) using OAuth2 / Application Default Credentials.
-  - **Local Simulation Mode**: Works out of the box with zero cloud setup, providing high-fidelity semantic search, query expansion, and facet calculation powered by the local catalog.
-- **Semantic & Vector Search**: Full-text and semantic matching across product titles, descriptions, categories, tags, and attributes.
-- **Query Autocorrection & Expansion**: Detects typos (e.g., `"jacet"` &rarr; `"jacket"`, `"dimond"` &rarr; `"diamond"`) and provides instant query adjustment in the UI.
-- **Dynamic Facets**: Real-time faceted filtering for sizes, colors, and hierarchical categories with dynamic counts.
-- **Retail ML Event Telemetry (Quality Flywheel)**:
-  - In Live Mode (`GCP_PROJECT_ID` configured), user interaction events are validated and ingested directly into the Google Cloud Retail API (`userEvents:write`), returning success only upon API acceptance.
-  - In Local Simulation Mode, events are validated against the Retail API schema and logged locally.
-  - Key event types:
-    - `detail-page-view`: Triggered when inspecting a product in the quick-view modal.
-    - `add-to-cart`: Triggered when adding items to the shopping bag.
-    - `purchase-complete`: Triggered upon checkout completion as a single consolidated order transaction covering all purchased items.
-  - Generates and reuses an anonymous persistent `visitorId` stored in `localStorage`.
-- **Google Cloud Retail API Catalog Exporter**:
-  - Exports products into strict Google Cloud `google.cloud.retail.v2.Product` format (`PRIMARY` type, hierarchical categories, custom attributes, price info, and validated CDN image URIs).
+- **Two modes.** With `GCP_PROJECT_ID` set, the proxy calls the Retail API
+  (`retail.googleapis.com`) using Application Default Credentials. Without it,
+  a local simulation serves semantic search, query expansion and facet counts
+  from the bundled catalog, so the app runs with no cloud setup at all.
+- **Semantic matching** across titles, descriptions, categories, tags and
+  attributes.
+- **Query autocorrection**: `"jacet"` becomes `"jacket"`, `"dimond"` becomes
+  `"diamond"`, and the UI shows what it changed.
+- **Faceted filtering** over sizes, colours and hierarchical categories, with
+  live counts.
+- **Event telemetry.** In live mode, user interactions are validated and
+  written to the Retail API (`userEvents:write`), and the call reports success
+  only when the API accepts it. In simulation mode they are validated against
+  the same schema and logged. The event types are `detail-page-view` (quick-view
+  modal), `add-to-cart`, and `purchase-complete`, which goes out once per order
+  covering every item in it. A persistent anonymous `visitorId` is generated and
+  reused from `localStorage`.
+- **Catalog export** into strict `google.cloud.retail.v2.Product` form: `PRIMARY`
+  type, hierarchical categories, custom attributes, price info, validated CDN
+  image URIs.
 
-### 🛍️ Modern E-Commerce Experience
+### Storefront
 
-- **Curated Fashion Catalog**:
-  - Menswear, womenswear, and fine jewelry accessories with high-resolution imagery and verified CDN links.
-- **Interactive Product Detail Modal**:
-  - Image showcase, apparel size selector (`XS` to `XXL`), color swatches, stock availability, and quantity picker.
-- **Slide-Over Shopping Bag (Cart)**:
-  - Slide-out drawer with free shipping progress bar (_"Add $X more for Free Express Shipping"_).
-  - Promo code discounts (supports `SAVE20`, `WELCOME10`, and `FREESHIP`).
-  - Automatic tax, shipping, and discount calculation with `localStorage` persistence.
-- **Wishlist & Favorites Drawer**:
-  - Heart toggle on every product card with persistent saved items and quick _"Move to Bag"_ action.
-- **Full Express Checkout Flow**:
-  - Multi-step checkout with delivery address form, dummy payment selection, and celebratory confetti confirmation receipt with generated Order IDs (`ONX-XXXXXX`).
+- Menswear, womenswear and jewellery, with CDN-hosted imagery.
+- Product detail modal: image showcase, size selector (`XS` to `XXL`), colour
+  swatches, stock state, quantity picker.
+- Slide-over bag with a free shipping progress bar, promo codes, and automatic
+  tax, shipping and discount maths, persisted to `localStorage`.
+- Wishlist drawer with a heart toggle on every card and a "Move to Bag" action.
+- Multi-step checkout with an address form, dummy payment selection and a
+  confirmation receipt carrying a generated order ID (`ONX-XXXXXX`).
 
----
-
-## 📁 Project Structure
+## Project structure
 
 ```
 gecx-shopping-agent-demo/
-├── .env.example                  # Environment configuration template for Google Cloud
-├── Dockerfile                    # Multi-stage build; the runner stage is what Cloud Run runs
-├── infra/                        # OpenTofu modules and Terragrunt live config for the dev project
+├── .env.example                  # Environment configuration template
+├── .github/workflows/            # ci, infra-ci, infra-plan, release, catalog-import
 ├── .tool-versions                # Pinned toolchain versions (Node, OpenTofu, Terragrunt)
+├── Dockerfile                    # Multi-stage build; the runner stage is what Cloud Run runs
 ├── Makefile                      # Single entry point for every quality gate
+├── docs/
+│   └── FDE_INTEGRATION_RUNBOOK.md  # GCP setup, deploy, agent registration, rollback
+├── infra/                        # OpenTofu modules and Terragrunt live config for dev
 ├── lefthook.yml                  # pre-commit and commit-msg hooks
 ├── openapi.yaml                  # Published API contract (mirrored in public/)
+├── public/.well-known/           # A2A agent card
 ├── scripts/
-│   ├── dev.mjs                   # Unified launcher for frontend & proxy server
-│   ├── exportVertexCatalog.mjs   # Script to export Vertex AI Retail JSONL catalog
-│   ├── importToGcpRetail.sh      # Uploads the exported catalog to the Retail API
+│   ├── dev.mjs                   # Unified launcher for frontend and proxy
+│   ├── exportVertexCatalog.mjs   # Regenerates the Retail catalog files
+│   ├── importToGcpRetail.sh      # Stages the catalog in GCS and imports it
 │   └── installHooks.mjs          # Guarded lefthook install, run by `npm ci`
 ├── server/
-│   └── proxy.mjs                 # Lightweight Node.js proxy for Vertex AI Retail API
+│   └── proxy.mjs                 # Node proxy for the Retail API, and the static server
 ├── shared/
 │   └── sortOptions.mjs           # Sort values shared by the UI, the proxy and the contract
-├── tests/                        # Vitest suites (services, proxy endpoints, components, contracts)
 ├── src/
-│   ├── components/               # React UI components (Navbar, FilterBar, Cart, Modals...)
-│   ├── context/                  # State management (CartContext, WishlistContext)
-│   ├── data/                     # Fallback & local catalog data
+│   ├── components/               # React UI (Navbar, FilterBar, Cart, modals)
+│   ├── context/                  # CartContext, WishlistContext
+│   ├── data/                     # Fallback and local catalog data
 │   ├── services/
-│   │   ├── api.ts                # Base catalog loader & image sanitization
-│   │   ├── vertexSearch.ts       # Frontend Vertex AI search client & event tracker
+│   │   ├── api.ts                # Base catalog loader and image sanitization
+│   │   ├── vertexSearch.ts       # Frontend search client and event tracker
 │   │   └── agentActionBus.ts     # Typed bus Gemini agents dispatch on
-│   ├── types/                    # TypeScript interfaces (Product, CartItem, Filters...)
+│   ├── types/                    # Product, CartItem, Filters
 │   └── utils/                    # agentActionValidator, filterSanitizer, fuzzySearch
-├── vertex-retail-catalog.jsonl   # Ready-to-import Google Cloud Retail API catalog
-└── vertex-retail-catalog.json    # Formatted JSON catalog for review
+├── tests/                        # Vitest suites (services, proxy, components, contracts)
+├── vertex-retail-catalog.jsonl   # Ready-to-import Retail catalog, 14 products
+└── vertex-retail-catalog.json    # The same catalog, formatted for review
 ```
 
----
-
-## 🚀 Getting Started
+## Getting started
 
 ### Prerequisites
 
@@ -90,15 +95,9 @@ gecx-shopping-agent-demo/
   - Debian / Ubuntu: `sudo apt install shellcheck`
 - **Docker** _(optional)_: only needed to build the container image locally. CI builds it on every pull request.
 
-### Quick Start (Local Development)
+### Local development
 
-1. Clone or navigate to the repository:
-
-   ```bash
-   cd clothing-store
-   ```
-
-2. Install dependencies and the git hooks:
+1. Install dependencies and the git hooks:
 
    ```bash
    make setup
@@ -109,28 +108,21 @@ gecx-shopping-agent-demo/
    have a global `core.hooksPath` pointing outside the repository, the hook install
    is skipped on purpose; see below for why, and for how to override it.
 
-3. Launch both the React frontend and Vertex AI proxy server:
+2. Launch the frontend and the proxy together:
 
    ```bash
    npm run dev
    ```
-   - **Frontend**: `http://localhost:5173`
-   - **Vertex AI Proxy**: `http://localhost:3001`
+   - Frontend: `http://localhost:5173`
+   - Proxy: `http://localhost:3001`
 
-4. Build for production:
+3. Run the full gate before pushing:
 
-   ```bash
-   npm run build
-   ```
-
-5. Run the full gate before pushing:
    ```bash
    make check
    ```
 
----
-
-## ✅ Quality Gate
+## Quality gate
 
 The `Makefile` is the single entry point for everything that validates the repo.
 CI calls the same targets a developer calls, so "green locally" and "green in CI"
@@ -140,7 +132,7 @@ mean the same run. `make` on its own lists the targets.
 | :------------------ | :--------------------------------------------------------------------------------- |
 | `make setup`        | Installs dependencies exactly as locked (`npm ci`) and installs the git hooks      |
 | `make hooks`        | Installs the git hooks deliberately; refuses if `core.hooksPath` leaves the repo   |
-| `make lint`         | ESLint across the tree, with a warning ratchet (`--max-warnings=18`)               |
+| `make lint`         | ESLint across the tree, with a warning ratchet (`--max-warnings=17`)               |
 | `make format`       | Rewrites files with Prettier                                                       |
 | `make format-check` | Fails if anything is unformatted                                                   |
 | `make typecheck`    | `tsc --noEmit`                                                                     |
@@ -161,7 +153,7 @@ container boots.
 thresholds and the production build. It exists so the pre-commit hook costs a few
 seconds rather than a wait long enough to make `--no-verify` tempting.
 
-### Git Hooks
+### Git hooks
 
 `make setup` installs [lefthook](https://github.com/evilmartians/lefthook) from
 `lefthook.yml`:
@@ -196,7 +188,7 @@ would be destroyed, and exits non-zero unless you say so a second time:
 LEFTHOOK_CLOBBER_GLOBAL_HOOKS=1 make hooks
 ```
 
-Two things worth knowing before you type that. **Back the directory up first.**
+Two things to know before you type that. **Back the directory up first.**
 lefthook renames a hook it displaces to `<hook>.old` beside it, but that backup
 only survives the first displacement: a forced install overwrites an existing
 `<hook>.old` as readily as it overwrites the hook, so a second run leaves no copy
@@ -209,17 +201,15 @@ None of this applies when `core.hooksPath` points inside the repository, say to
 `.githooks`. Nothing outside the checkout can be displaced, so `make hooks` just
 installs.
 
----
-
-## 🛠️ Available NPM Scripts
+## NPM scripts
 
 Prefer the `make` targets above for anything in the gate; these are what they call.
 
 | Command                 | Description                                                                                        |
 | :---------------------- | :------------------------------------------------------------------------------------------------- |
-| `npm run dev`           | Starts both the Vite frontend (`5173`) and the Vertex AI proxy server (`3001`) simultaneously      |
+| `npm run dev`           | Starts the Vite frontend (`5173`) and the proxy server (`3001`) together                           |
 | `npm run dev:frontend`  | Runs only the Vite frontend dev server                                                             |
-| `npm run dev:server`    | Runs only the Vertex AI backend proxy server                                                       |
+| `npm run dev:server`    | Runs only the backend proxy server                                                                 |
 | `npm run export:vertex` | Generates `vertex-retail-catalog.jsonl` and `vertex-retail-catalog.json`                           |
 | `npm run build`         | Compiles TypeScript and builds the production bundle                                               |
 | `npm run preview`       | Previews the production build locally                                                              |
@@ -232,62 +222,71 @@ Prefer the `make` targets above for anything in the gate; these are what they ca
 | `npm run prepare`       | Installs the lefthook git hooks, unless `core.hooksPath` points outside the repo; runs on `npm ci` |
 | `npm run hooks`         | What `make hooks` calls: installs deliberately, refusing a `core.hooksPath` outside the repo       |
 
----
+## Workflows
 
-## 🚢 Deployment
+| Workflow             | Trigger                                          | What it does                                                                            |
+| :------------------- | :----------------------------------------------- | :-------------------------------------------------------------------------------------- |
+| `ci.yml`             | pull requests, push to main                      | Pull request title check, `make check`, then a build of the runtime image               |
+| `infra-ci.yml`       | pull requests touching `infra/**`, push to main  | `fmt`, `validate`, `tflint`, `tofu test`. No cloud credentials                          |
+| `infra-plan.yml`     | pull requests touching `infra/**`                | Plans dev as `gecx-shop-plan` with `-lock=false`, comments the plan on the pull request |
+| `release.yml`        | push to main                                     | release-please, then `deploy-dev` when a release was cut                                |
+| `catalog-import.yml` | `workflow_dispatch` from main, `confirm: import` | Runs `scripts/importToGcpRetail.sh` as `gecx-shop-catalog`                              |
+
+## Deployment
+
+Merging a feature pull request into main **does not deploy**. It opens or
+updates release-please's standing release pull request. Merging that release
+pull request is what deploys:
+
+1. release-please cuts a `v*` tag on main.
+2. The `deploy-dev` job in `.github/workflows/release.yml` checks out the tag,
+   builds the image once, pushes it to Artifact Registry tagged with the
+   version, and reads the digest back from the push.
+3. It applies `infra/live/dev/us-central1/cloud-run` with that digest as
+   `IMAGE_DIGEST`, so the Cloud Run resource is pinned by digest and never by a
+   floating tag.
+4. It reads the deployed image back and fails if it is not the digest it built.
+
+That path has run for real; `v0.2.1` is what dev is serving.
 
 The service is named `gecx-shopping-agent-demo`. It was previously called
 `onix-apparel`, the name from the repository this code came from, so a URL
-containing that name belongs to the old service. The old service is still running
-and is retired separately, after the new one has served a real release.
+containing that name belongs to the old service. The old service still exists
+and is not managed by `infra/`. It is retired separately.
 
-Deployment is OpenTofu applied through Terragrunt, and everything it manages lives
-in [`infra/`](infra/README.md): the service accounts, the custom runtime role, the
-Artifact Registry repository, Workload Identity Federation for GitHub Actions and
-the Cloud Run service. The `infra-ci` workflow validates that code on every pull
-request that touches `infra/`. Cloud Build is not used, and the former
-`cloudbuild.yaml` has been removed.
+Everything the pipeline applies lives in [`infra/`](infra/README.md): the four
+service accounts, the custom runtime and plan-reader roles, the Artifact
+Registry repository, the catalog staging bucket, Workload Identity Federation
+for GitHub Actions, and the Cloud Run service. Cloud Build is not used and the
+former `cloudbuild.yaml` is gone.
 
-Nothing is applied yet. The workflow that plans on pull requests and the dev
-deploy step in the release workflow both authenticate through Workload Identity
-Federation, which does not exist until the first apply, so they are added in a
-follow-up change after it.
-
-### The deploy model
-
-Build in GitHub Actions, store in Artifact Registry, apply with OpenTofu through
-Terragrunt. Cloud Build is not used.
-
-1. Merging the standing release pull request cuts a `v*` tag.
-2. That same run builds the image **once**, pushes it to Artifact Registry tagged
-   with the version and the git SHA, and resolves it to a digest.
-3. Dev is applied with that digest as a Terragrunt input, never a floating tag,
-   so nothing can repoint what dev is running.
-4. Promotion to prod is a manual job: it checks the version is a real release,
-   creates `prd-v<version>` on that exact commit, and the deploy copies **the same
-   digest** into prod and applies it. No rebuild, so prod runs bit-for-bit what
-   dev ran.
-5. Rollback is promoting an older `v*`.
-
-### Why OpenTofu owns the image and not just the service
+### Why OpenTofu owns the image and not the service alone
 
 The digest is an input to the Cloud Run resource rather than something a deploy
-script pushes past it. That is what makes `tofu plan` on a promotion show the
-reviewer the actual image change before it is applied, which is the whole point of
-gating prod on a plan rather than on a version number. A deploy that ran
-`gcloud run deploy` outside state would leave that plan with nothing to say.
+script pushes past it. That is what lets `tofu plan` show a reviewer the actual
+image change before it is applied, and it is why `infra-plan.yml` reads the
+live digest before planning. A `gcloud run deploy` run outside state would
+leave that plan with nothing to say, and the next apply would revert it.
 
----
+Rolling back means deploying an older release. There is no prod environment and
+no promotion job yet; only `dev` exists in `infra/live`.
 
-## ☁️ Google Cloud Vertex AI Setup (Live Mode)
+### Break-glass
 
-By default, Onix Apparel runs in **Local Simulation Mode**, giving you full search, autocorrection, and facet functionality immediately.
+A manual `gcloud run deploy` is for when the pipeline is unavailable and the
+service has to come back now. It deploys outside OpenTofu state, so the next
+plan reports drift that has to be reconciled. The command is in
+[`docs/FDE_INTEGRATION_RUNBOOK.md`](docs/FDE_INTEGRATION_RUNBOOK.md).
 
-To switch to **Live Google Cloud Vertex AI Search for Retail**:
+## Live mode
 
-### 1. Configure Environment Variables
+By default the storefront runs in local simulation mode, with search,
+autocorrection and facets all working against the bundled catalog. To point it
+at Vertex AI Search for Retail:
 
-Copy `.env.example` to `.env` (or update existing `.env`):
+### 1. Configure environment variables
+
+Copy `.env.example` to `.env`:
 
 ```env
 PORT=3001
@@ -297,49 +296,50 @@ GCP_CATALOG_ID=default_catalog
 GCP_SERVING_CONFIG_ID=default_search
 ```
 
-### 2. Google Cloud Authentication
-
-Authenticate with your Google Cloud account:
+### 2. Authenticate
 
 ```bash
 gcloud auth application-default login
 ```
 
-_(Alternatively, provide the path to your service account key file in `GOOGLE_APPLICATION_CREDENTIALS`)_.
+### 3. Import the catalog
 
-### 3. Import Product Catalog
+For the dev project, dispatch the `catalog-import` workflow from the Actions
+tab. It is `workflow_dispatch` only, must be dispatched from `main`, and takes a
+`confirm` input that has to be the literal string `import`. It runs as
+`gecx-shop-catalog`, which is the only identity holding `roles/retail.editor`.
+Dispatching from any other ref fails at the Workload Identity binding.
 
-Upload the generated catalog to Google Cloud Storage and import it into Vertex AI Retail:
+Locally, against a project you own:
 
 ```bash
-# Upload catalog to your GCS bucket
-gcloud storage cp vertex-retail-catalog.jsonl gs://<YOUR-BUCKET-NAME>/
+scripts/importToGcpRetail.sh <PROJECT_ID>
 ```
 
-Then in the [Google Cloud Console](https://console.cloud.google.com/ai/retail):
+The script stages `vertex-retail-catalog.jsonl` in
+`gs://<PROJECT_ID>-retail-catalog-staging` and imports it into branch
+`default_branch` of `default_catalog`. It does not create the bucket; apply
+`infra/live/dev/us-central1/catalog-staging` first, or the script exits with an
+error.
 
-1. Navigate to **Vertex AI Search for Retail > Data > Products**.
-2. Click **Import Products**.
-3. Select **Cloud Storage (JSON Lines)** and provide `gs://<YOUR-BUCKET-NAME>/vertex-retail-catalog.jsonl`.
-4. Run the import.
+Dev currently holds 14 imported products. A freshly imported catalog answers
+searches with zero results until Retail finishes building its first index, which
+takes hours. An empty result set with a 200 response is the expected state in
+that window, not a misconfiguration.
 
-### 4. Restart Dev Server
+### 4. Restart
 
-Restart `npm run dev`. The store badge will now display:
-`🟢 Vertex AI Commerce Search (Live GCP)`
+Restart `npm run dev`. The store badge reads
+`🟢 Vertex AI Commerce Search (Live GCP)`.
 
----
+## Demo promo codes
 
-## 🏷️ Demo Promo Codes
+Try these in the bag drawer:
 
-Try entering these codes in the shopping bag drawer:
+- `SAVE20`: 20% off the subtotal
+- `WELCOME10`: 10% new customer discount
+- `FREESHIP`: free express delivery
 
-- `SAVE20` — 20% discount on order subtotal
-- `WELCOME10` — 10% new customer discount
-- `FREESHIP` — Free express delivery
-
----
-
-## 📄 License
+## License
 
 MIT

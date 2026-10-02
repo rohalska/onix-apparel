@@ -1,0 +1,61 @@
+name: catalog-import
+
+# Operator action only. The import replaces catalog contents, so it never
+# runs on a push or a merge.
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: Type "import" to run the catalog import
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  id-token: write
+
+env:
+  CLOUDSDK_CORE_PROJECT: onx-dev-int-shop-demo-qes8
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check confirmation
+        env:
+          CONFIRM: ${{ inputs.confirm }}
+        run: |
+          if [ "${CONFIRM}" != "import" ]; then
+            echo "confirm must be the literal string 'import', got '${CONFIRM}'" >&2
+            exit 1
+          fi
+
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3.0.0
+        with:
+          workload_identity_provider: projects/835936341567/locations/global/workloadIdentityPools/github/providers/github
+          service_account: gecx-shop-catalog@onx-dev-int-shop-demo-qes8.iam.gserviceaccount.com
+
+      - uses: google-github-actions/setup-gcloud@aa5489c8933f4cc7a4f7d45035b3b1440c9c10db # v3.0.1
+
+      - name: Import the catalog
+        run: scripts/importToGcpRetail.sh onx-dev-int-shop-demo-qes8
+
+      - name: Report catalog contents
+        continue-on-error: true
+        run: |
+          # x-goog-user-project is needed because this is a raw REST call rather
+          # than gcloud, so CLOUDSDK_CORE_PROJECT does not apply. Without it the
+          # request is billed against whatever quota project the credentials
+          # carry, which the importer may not be allowed to use.
+          resp="$(curl -fsS \
+            -H "Authorization: Bearer $(gcloud auth print-access-token)" \
+            -H "x-goog-user-project: onx-dev-int-shop-demo-qes8" \
+            "https://retail.googleapis.com/v2/projects/onx-dev-int-shop-demo-qes8/locations/global/catalogs/default_catalog/branches/default_branch/products?pageSize=1")"
+          echo "${resp}"
+          if echo "${resp}" | grep -q '"products"'; then
+            echo "Catalog returned at least one product."
+          else
+            echo "Catalog returned no products."
+          fi
