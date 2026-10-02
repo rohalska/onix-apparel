@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.3](https://github.com/onix-net/gecx-shopping-agent-demo/compare/v0.2.2...v0.2.3) (2026-10-02)
+
+
+### Bug Fixes
+
+* **search:** prevent blank page on missing facet values and eliminate external catalog CORS errors ([#43](https://github.com/onix-net/gecx-shopping-agent-demo/issues/43)) ([6ef1026](https://github.com/onix-net/gecx-shopping-agent-demo/commit/6ef1026c2a68968a17e34e5eee648071062fec9d))
+
 ## [0.2.2](https://github.com/onix-net/gecx-shopping-agent-demo/compare/v0.2.1...v0.2.2) (2026-10-02)
 
 
