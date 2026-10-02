@@ -3,8 +3,13 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { act, cleanup, waitFor } from '@testing-library/react';
 import AppContent from '../../src/AppContent';
 import { renderWithProviders } from '../setup.components';
-import { dispatchAgentAction, CART_OWNED_ACTIONS } from '../../src/services/agentActionBus';
-import type { AgentActionPayload } from '../../src/services/agentActionBus';
+import {
+  dispatchAgentAction,
+  subscribeToOutcomes,
+  CART_OWNED_ACTIONS,
+  type AgentActionPayload,
+  type AgentActionOutcome,
+} from '../../src/services/agentActionBus';
 
 /**
  * Asserts that each action on the bus produces an observable effect, by mounting
@@ -196,5 +201,126 @@ describe('rejections are visible', () => {
     await dispatch({ action: 'TOTALLY_BOGUS' } as never);
     await expectToast();
     expect(declined('TOTALLY_BOGUS')).toBe(true);
+  });
+});
+
+describe('outcome envelopes and correlation', () => {
+  it('emits an outcome envelope with matching id and applied: true for successful action', async () => {
+    const outcomes: AgentActionOutcome[] = [];
+    const unsub = subscribeToOutcomes((o) => outcomes.push(o));
+    try {
+      await dispatch({ id: 'add-123', action: 'ADD_TO_CART', productId: 16, size: 'M' });
+      expect(outcomes).toHaveLength(1);
+      expect(outcomes[0]).toEqual({
+        id: 'add-123',
+        action: 'ADD_TO_CART',
+        ok: true,
+        applied: true,
+      });
+    } finally {
+      unsub();
+    }
+  });
+
+  it('emits an outcome envelope with matching id, code, and applied: false for declined action', async () => {
+    const outcomes: AgentActionOutcome[] = [];
+    const unsub = subscribeToOutcomes((o) => outcomes.push(o));
+    try {
+      await dispatch({ id: 'search-456', action: 'SEARCH' });
+      expect(outcomes).toHaveLength(1);
+      expect(outcomes[0].id).toBe('search-456');
+      expect(outcomes[0].action).toBe('SEARCH');
+      expect(outcomes[0].ok).toBe(false);
+      expect(outcomes[0].applied).toBe(false);
+      expect(outcomes[0].code).toBe('INVALID_QUERY');
+    } finally {
+      unsub();
+    }
+  });
+
+  it('correlates multiple in-flight actions with different ids', async () => {
+    const outcomes: AgentActionOutcome[] = [];
+    const unsub = subscribeToOutcomes((o) => outcomes.push(o));
+    try {
+      await dispatch({ id: 'search-valid', action: 'SEARCH', query: 'jacket' });
+      await dispatch({ id: 'search-invalid', action: 'SEARCH' });
+      expect(outcomes).toHaveLength(2);
+      expect(outcomes.find((o) => o.id === 'search-valid')).toMatchObject({
+        id: 'search-valid',
+        action: 'SEARCH',
+        ok: true,
+        applied: true,
+      });
+      expect(outcomes.find((o) => o.id === 'search-invalid')).toMatchObject({
+        id: 'search-invalid',
+        action: 'SEARCH',
+        ok: false,
+        applied: false,
+        code: 'INVALID_QUERY',
+      });
+    } finally {
+      unsub();
+    }
+  });
+
+  it('emits stable machine-readable codes for each failure mode', async () => {
+    const outcomes: AgentActionOutcome[] = [];
+    const unsub = subscribeToOutcomes((o) => outcomes.push(o));
+    try {
+      await dispatch({ id: 'promo-none', action: 'APPLY_PROMO' });
+      await dispatch({ id: 'promo-bad', action: 'APPLY_PROMO', promoCode: 'FAKE' });
+      await dispatch({ id: 'nav-bad', action: 'NAVIGATE_COLLECTION' });
+      await dispatch({ id: 'open-bad', action: 'OPEN_PRODUCT', productId: 999999 });
+      await dispatch({ id: 'bogus-act', action: 'NON_EXISTENT' } as never);
+
+      expect(outcomes.find((o) => o.id === 'promo-none')?.code).toBe('MISSING_PROMO');
+      expect(outcomes.find((o) => o.id === 'promo-bad')?.code).toBe('INVALID_PROMO');
+      expect(outcomes.find((o) => o.id === 'nav-bad')?.code).toBe('MISSING_COLLECTION');
+      expect(outcomes.find((o) => o.id === 'open-bad')?.code).toBe('PRODUCT_NOT_FOUND');
+      expect(outcomes.find((o) => o.id === 'bogus-act')?.code).toBe('UNRECOGNIZED_ACTION');
+    } finally {
+      unsub();
+    }
+  });
+
+  it('yields exactly one successful outcome for every supported action success path', async () => {
+    const successDispatches: AgentActionPayload[] = [
+      { id: 'act-open-cart', action: 'OPEN_CART' },
+      { id: 'act-close-cart', action: 'CLOSE_CART' },
+      { id: 'act-apply-promo', action: 'APPLY_PROMO', promoCode: 'SAVE20' },
+      { id: 'act-add-to-cart', action: 'ADD_TO_CART', productId: 16, size: 'M' },
+      { id: 'act-open-product', action: 'OPEN_PRODUCT', productId: 16 },
+      { id: 'act-navigate-collection', action: 'NAVIGATE_COLLECTION', collection: 'men' },
+      { id: 'act-search', action: 'SEARCH', query: 'jacket' },
+      { id: 'act-clear-filters', action: 'CLEAR_FILTERS' },
+    ];
+
+    // Assert every entry in CART_OWNED_ACTIONS is covered
+    CART_OWNED_ACTIONS.forEach((actionName) => {
+      expect(
+        successDispatches.some((d) => d.action === actionName),
+        `CART_OWNED_ACTION ${actionName} must be covered in success test`,
+      ).toBe(true);
+    });
+
+    for (const actionPayload of successDispatches) {
+      const outcomes: AgentActionOutcome[] = [];
+      const unsub = subscribeToOutcomes((o) => outcomes.push(o));
+      try {
+        await dispatch(actionPayload);
+        expect(
+          outcomes,
+          `Action ${actionPayload.action} (${actionPayload.id}) must emit exactly one outcome`,
+        ).toHaveLength(1);
+        expect(outcomes[0]).toMatchObject({
+          id: actionPayload.id,
+          action: actionPayload.action,
+          ok: true,
+          applied: true,
+        });
+      } finally {
+        unsub();
+      }
+    }
   });
 });

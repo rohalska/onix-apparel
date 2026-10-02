@@ -4,6 +4,7 @@ import {
   notifyCartState,
   subscribeToAgentActions,
   reportActionRejected,
+  reportActionOutcome,
 } from '../services/agentActionBus';
 
 interface CartContextType {
@@ -200,19 +201,28 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     return subscribeToAgentActions((action) => {
       if (action.action === 'OPEN_CART') {
         setIsCartOpen(true);
+        reportActionOutcome({ id: action.id, action: action.action, ok: true, applied: true });
       } else if (action.action === 'CLOSE_CART') {
         setIsCartOpen(false);
+        reportActionOutcome({ id: action.id, action: action.action, ok: true, applied: true });
       } else if (action.action === 'APPLY_PROMO') {
         // applyPromoCode's result used to be discarded, which made a bad code look
         // identical to one that was accepted. Reporting on the bus rather than to
         // the console means the shopper sees it, since this provider renders no
         // toast of its own.
         if (typeof action.promoCode !== 'string' || !action.promoCode.trim()) {
-          reportActionRejected('APPLY_PROMO', 'No promo code was supplied');
+          reportActionRejected(
+            'APPLY_PROMO',
+            'No promo code was supplied',
+            action.id,
+            'MISSING_PROMO',
+          );
         } else {
           const result = applyPromoCode(action.promoCode);
           if (!result.success) {
-            reportActionRejected('APPLY_PROMO', result.message);
+            reportActionRejected('APPLY_PROMO', result.message, action.id, 'INVALID_PROMO');
+          } else {
+            reportActionOutcome({ id: action.id, action: action.action, ok: true, applied: true });
           }
         }
       }

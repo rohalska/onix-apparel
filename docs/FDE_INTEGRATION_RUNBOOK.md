@@ -390,26 +390,86 @@ The split is declared as `CART_OWNED_ACTIONS` in `src/services/agentActionBus.ts
 and `tests/contracts/agentActions.test.ts` asserts that each declared action is
 handled by the subscriber that owns it.
 
-An action that is received but not applied is reported on one channel, whichever
-subscriber declined it. `reportActionRejected` logs the reason and emits an
-`onix:agent-action-rejected` event carrying `{ action, reason }`; `AppContent`
-subscribes once and raises an informational toast. That covers an unresolvable
-product or variant, a `NAVIGATE_COLLECTION` with no collection, a `SEARCH` whose
-query is missing or not a string, an unrecognised action, and a missing or invalid
-promo code, even though the promo handler lives in `CartContext` and renders no
-toast of its own.
-
-An agent can listen for that event to observe the outcome of what it dispatched
-instead of inferring it from the cart not changing:
+An action dispatch emits an outcome envelope on `onix:agent-action-outcome`,
+whichever subscriber handled it or declined it. Callers can supply an optional
+correlation `id` on the payload to correlate dispatches with outcomes when multiple
+actions are in flight:
 
 ```js
-window.addEventListener('onix:agent-action-rejected', (e) =>
-  console.log(e.detail.action, e.detail.reason),
-);
+window.onixStore.dispatch({
+  id: 'dispatch-42',
+  action: 'ADD_TO_CART',
+  productId: 16,
+  size: 'M',
+  quantity: 1,
+});
 ```
 
-A successful action does not currently emit a matching event, so this channel
-reports rejections only.
+Every dispatch emits exactly one outcome envelope:
+
+```ts
+interface AgentActionOutcome {
+  id?: string;
+  action: AgentActionType | string;
+  ok: boolean;
+  applied?: boolean;
+  reason?: string;
+  code?: AgentActionOutcomeCode | string;
+}
+```
+
+The client action bus guarantees one outcome envelope for each dispatch (correlated by the dispatch's `id` and `action`). It tracks active dispatches on an execution stack, isolates nested dispatches, and deduplicates secondary events (for example, if a handler applies state and subsequently throws, the initial applied outcome is preserved and the secondary error report is suppressed). If uncoordinated page code emits an outcome carrying an unrecognised foreign `id` during an in-flight dispatch, that stray event is broadcast independently and does not satisfy the active dispatch, which will report `UNHANDLED_ACTION` for its own `id`.
+
+##### Multiple subscribers & asynchronous handler semantics
+
+- **First reported outcome wins**: When multiple subscribers listen to the action bus (for instance, `AppContent` and `CartContext`), each examines whether the action belongs to its domain. The first subscriber to report an outcome (whether applied, rejected, or thrown via `HANDLER_THREW`) satisfies the dispatch context. Any subsequent outcome reported during that same dispatch is suppressed by the single-outcome deduplicator. Because `applied` is omitted on `HANDLER_THREW`, consumers should not rely on `applied` being absent as definitive proof that no state was modified if a handler crashed.
+- **Synchronous dispatch lifecycle**: Stack correlation and deduplication operate while `dispatchAgentAction` is on the call stack. Outcomes reported asynchronously after `dispatchAgentAction` finishes execution bypass the synchronous dispatch stack deduplication.
+- **Idempotent subscriptions**: All subscription teardown functions (`subscribeToAgentActions`, `subscribeToOutcomes`, `subscribeToActionRejections`) are idempotent; multiple invocations do not corrupt subscriber reference counts or cause spurious `NO_SUBSCRIBER` errors.
+
+An agent can subscribe via `window.onixStore.subscribeOutcomes` or `addEventListener('onix:agent-action-outcome')`:
+
+```js
+window.onixStore.subscribeOutcomes((outcome) => {
+  console.log(
+    `Action ${outcome.action} (id: ${outcome.id}) ok=${outcome.ok} applied=${outcome.applied}`,
+  );
+  if (!outcome.ok) {
+    console.warn(`Declined code=${outcome.code}: ${outcome.reason}`);
+  }
+});
+```
+
+#### Disambiguating outcomes
+
+Previous versions only announced rejections, leaving silence ambiguous between
+applied, dropped because no subscriber was mounted, and thrown by a handler.
+The outcome envelope clearly separates these cases:
+
+- **Applied (`ok: true, applied: true`)**: The action was validated and applied to the storefront state.
+- **No subscriber mounted (`ok: false, applied: false, code: 'NO_SUBSCRIBER'`)**: Dispatched before the storefront or cart mounted.
+- **Handler threw (`ok: false, code: 'HANDLER_THREW'`)**: The storefront handler encountered an unhandled exception. `applied` is undefined (omitted) because state changes may have partially occurred; this prevents callers from retrying and inadvertently double-applying state mutations.
+- **Declined by validation (`ok: false, applied: false, code: '...'`)**: Action could not be applied.
+
+#### Machine-readable reason codes
+
+Alongside the human-readable `reason` string, outcomes carry stable codes allowing agents to branch programmatically:
+
+| Code                         | Cause                                                      |
+| ---------------------------- | ---------------------------------------------------------- |
+| `NO_SUBSCRIBER`              | No subscriber was mounted to receive the action            |
+| `HANDLER_THREW`              | The storefront handler threw an exception                  |
+| `UNHANDLED_ACTION`           | Subscriber was mounted but did not process the action      |
+| `UNRECOGNIZED_ACTION`        | Action is not part of the `AgentActionType` contract       |
+| `INVALID_PRODUCT_OR_OPTIONS` | `productId` not found or options invalid for `ADD_TO_CART` |
+| `PRODUCT_NOT_FOUND`          | `productId` not found for `OPEN_PRODUCT`                   |
+| `MISSING_COLLECTION`         | `collection` parameter omitted on `NAVIGATE_COLLECTION`    |
+| `INVALID_QUERY`              | `query` parameter omitted or not a string on `SEARCH`      |
+| `MISSING_PROMO`              | `promoCode` omitted or empty on `APPLY_PROMO`              |
+| `INVALID_PROMO`              | `promoCode` expired or unrecognized on `APPLY_PROMO`       |
+
+#### Backwards-compatible rejection channel
+
+For backwards compatibility, rejections continue to be dispatched on `onix:agent-action-rejected` carrying `{ id, action, reason, code }`. `AppContent` subscribes to this channel to surface user-facing toasts for rejected actions.
 
 #### The two catalogs disagree about variants
 
@@ -440,11 +500,9 @@ that has to resolve against the catalog cannot.
 
 Two consequences worth knowing before you test:
 
-- An action naming an ID that is not in the catalog is **rejected**, and the
-  reason is written to the browser console. Nothing else reports it: there is no
-  toast, no UI change and no server-side record, and the success path is the only
-  one that raises a toast. So from the operator's side a rejected action looks
-  like nothing happened — keep the console open while testing.
+- An action naming an ID that is not in the catalog is **rejected** with code
+  `PRODUCT_NOT_FOUND` or `INVALID_PRODUCT_OR_OPTIONS`, an outcome envelope is emitted,
+  a rejection toast is displayed, and the reason is logged to the console.
 - `quantity` is bounded. It is floored first, so `2.7` becomes `2`, then values
   above 10 are capped rather than rejected. Anything non-finite, or that floors
   below 1, is rejected.

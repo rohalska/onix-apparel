@@ -29,8 +29,10 @@ import {
   subscribeToAgentActions,
   subscribeToActionRejections,
   reportActionRejected,
+  reportActionOutcome,
   CART_OWNED_ACTIONS,
   type AgentActionPayload,
+  type AgentActionOutcomeCode,
 } from './services/agentActionBus';
 import {
   resolveValidatedAddToCart,
@@ -446,7 +448,10 @@ export const AppContent: React.FC = () => {
     // directly, so that rejections from CartContext's subscriber, which has no
     // toast surface, reach the shopper the same way these do. The toast itself is
     // raised by the single subscriber below.
-    const reject = (reason: string) => reportActionRejected(String(action.action), reason);
+    const reject = (reason: string, code: AgentActionOutcomeCode) =>
+      reportActionRejected(String(action.action), reason, action.id, code);
+    const apply = () =>
+      reportActionOutcome({ id: action.id, action: action.action, ok: true, applied: true });
 
     if (action.action === 'ADD_TO_CART') {
       const validated = resolveValidatedAddToCart(action, products, FALLBACK_PRODUCTS);
@@ -457,21 +462,27 @@ export const AppContent: React.FC = () => {
           'Added to Shopping Bag by Concierge',
           `${validated.product.title} (${validated.size}, ${validated.color})`,
         );
+        apply();
       } else {
-        reject('That item or its options could not be matched to the catalog');
+        reject(
+          'That item or its options could not be matched to the catalog',
+          'INVALID_PRODUCT_OR_OPTIONS',
+        );
       }
     } else if (action.action === 'OPEN_PRODUCT') {
       const prod = resolveValidatedOpenProduct(action, products, FALLBACK_PRODUCTS);
       if (prod) {
         setSelectedProduct(prod);
+        apply();
       } else {
-        reject('That product could not be matched to the catalog');
+        reject('That product could not be matched to the catalog', 'PRODUCT_NOT_FOUND');
       }
     } else if (action.action === 'NAVIGATE_COLLECTION') {
       if (action.collection) {
         handleSelectCollection(action.collection);
+        apply();
       } else {
-        reject('NAVIGATE_COLLECTION needs a collection');
+        reject('NAVIGATE_COLLECTION needs a collection', 'MISSING_COLLECTION');
       }
     } else if (action.action === 'SEARCH') {
       // Only a string is safe here: handleSearchChange calls .trim() on it, and an
@@ -479,15 +490,17 @@ export const AppContent: React.FC = () => {
       if (typeof action.query === 'string') {
         handleSearchChange(action.query);
         handleSearchSubmit();
+        apply();
       } else {
-        reject('SEARCH needs a query string');
+        reject('SEARCH needs a query string', 'INVALID_QUERY');
       }
     } else if (action.action === 'CLEAR_FILTERS') {
       handleResetFilters();
+      apply();
     } else if (!CART_OWNED_ACTIONS.includes(action.action)) {
       // Cart and promo actions belong to CartContext's subscriber, so they are
       // not unknown here. Anything else genuinely is.
-      reject(`Unrecognized action ${String(action.action)}`);
+      reject(`Unrecognized action ${String(action.action)}`, 'UNRECOGNIZED_ACTION');
     }
   };
 
