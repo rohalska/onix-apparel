@@ -4,7 +4,7 @@ import net from 'net';
 // rather than widen allowJs/checkJs project-wide for one test file.
 // @ts-expect-error -- '../../server/proxy.mjs' has no declaration file
 // prettier-ignore
-import { server, buildRetailUserEvent, validateRetailUserEvent, getClientIp, checkRateLimit, resetRateLimits, MAX_TRACKED_IPS, ipRequestCounts, getGcpAccessToken, resetGcpTokenCache, getCachedGcpToken } from '../../server/proxy.mjs';
+import { server, buildRetailUserEvent, validateRetailUserEvent, getClientIp, checkRateLimit, resetRateLimits, MAX_TRACKED_IPS, ipRequestCounts, getGcpAccessToken, resetGcpTokenCache, getCachedGcpToken, setCachedGcpTokenForTesting } from '../../server/proxy.mjs';
 
 // proxy.mjs derives live mode from GCP_PROJECT_ID at import time, so pin it
 // empty before that import runs, to keep a developer's .env from turning these
@@ -565,42 +565,216 @@ describe('getGcpAccessToken resolution, caching, and priority order', () => {
     process.env.NODE_ENV = originalNodeEnv;
   });
 
-  it('prioritizes GOOGLE_ACCESS_TOKEN environment variable above all other sources', async () => {
+  it('prioritizes GOOGLE_ACCESS_TOKEN environment variable in non-production environments', async () => {
     resetGcpTokenCache();
+    process.env.NODE_ENV = 'development';
     process.env.GOOGLE_ACCESS_TOKEN = 'test-explicit-ci-token';
     const token = await getGcpAccessToken();
     expect(token).toBe('test-explicit-ci-token');
   });
 
-  it('serves cached tokens on subsequent requests without re-resolving', async () => {
+  it('serves unexpired token directly from in-memory cache without hitting external resolvers', async () => {
     resetGcpTokenCache();
-    process.env.GOOGLE_ACCESS_TOKEN = 'test-cached-token-1';
-    const firstToken = await getGcpAccessToken();
-    expect(firstToken).toBe('test-cached-token-1');
-
-    // Switch env var to verify cache or override behavior
-    process.env.GOOGLE_ACCESS_TOKEN = 'test-cached-token-2';
-    const secondToken = await getGcpAccessToken();
-    expect(secondToken).toBe('test-cached-token-2');
-
-    // Remove env var and reset cache to verify clean state
     delete process.env.GOOGLE_ACCESS_TOKEN;
-    resetGcpTokenCache();
+    setCachedGcpTokenForTesting('cached-test-token-active', 60000);
+
+    // Call getGcpAccessToken and verify it returns cached token unconditionally
+    const token = await getGcpAccessToken();
+    expect(token).toBe('cached-test-token-active');
+    expect(getCachedGcpToken()).toBe('cached-test-token-active');
   });
 
-  it('flushes cached token when resetGcpTokenCache is called', async () => {
+  it('flushes cached token when resetGcpTokenCache is called', () => {
+    setCachedGcpTokenForTesting('token-to-flush', 60000);
+    expect(getCachedGcpToken()).toBe('token-to-flush');
+
+    resetGcpTokenCache();
+    expect(getCachedGcpToken()).toBeNull();
+  });
+
+  it('ignores expired cache entry and proceeds to next source', async () => {
+    resetGcpTokenCache();
+    process.env.NODE_ENV = 'production';
     delete process.env.GOOGLE_ACCESS_TOKEN;
-    resetGcpTokenCache();
-    expect(getCachedGcpToken()).toBeNull();
+    // Set a cache entry that expired in the past (-5 seconds)
+    setCachedGcpTokenForTesting('stale-expired-token', -5000);
 
-    // Resolving a token populates the cache
-    const token = await getGcpAccessToken();
-    if (token) {
-      expect(getCachedGcpToken()).toBe(token);
+    // Stub fetch to simulate a fresh token from metadata server deterministically (0ms)
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = vi.fn().mockImplementation((url: string | URL | Request) => {
+      const urlStr = typeof url === 'string' ? url : url.toString();
+      if (urlStr.includes('computeMetadata/v1/instance/service-accounts/default/token')) {
+        return Promise.resolve(
+          new Response(JSON.stringify({ access_token: 'fresh-resolved-token', expires_in: 3600 }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' },
+          }),
+        );
+      }
+      return Promise.reject(new Error('not found'));
+    });
+
+    try {
+      // getGcpAccessToken ignores the expired cache entry and resolves the fresh token
+      const token = await getGcpAccessToken();
+      expect(token).toBe('fresh-resolved-token');
+      expect(token).not.toBe('stale-expired-token');
+    } finally {
+      globalThis.fetch = originalFetch;
     }
+  });
 
-    // Resetting flushes the cache
+  it('does not cache short-lived tokens with 10s or less remaining', async () => {
     resetGcpTokenCache();
-    expect(getCachedGcpToken()).toBeNull();
+    process.env.NODE_ENV = 'production';
+    delete process.env.GOOGLE_ACCESS_TOKEN;
+
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = vi.fn().mockImplementation(() => {
+      return Promise.resolve(
+        new Response(JSON.stringify({ access_token: 'short-lived-token', expires_in: 5 }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        }),
+      );
+    });
+
+    try {
+      const token = await getGcpAccessToken();
+      expect(token).toBe('short-lived-token');
+      // Token was returned, but NOT cached to prevent serving an expired token
+      expect(getCachedGcpToken()).toBeNull();
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  it('treats presence of K_SERVICE environment variable as production', async () => {
+    resetGcpTokenCache();
+    delete process.env.NODE_ENV;
+    process.env.K_SERVICE = 'onix-apparel-service';
+    process.env.GOOGLE_ACCESS_TOKEN = 'stale-token';
+
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = vi.fn().mockImplementation(() => {
+      return Promise.resolve(
+        new Response(
+          JSON.stringify({ access_token: 'cloud-run-identity-token', expires_in: 3600 }),
+          {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' },
+          },
+        ),
+      );
+    });
+
+    try {
+      const token = await getGcpAccessToken();
+      expect(token).toBe('cloud-run-identity-token');
+      expect(token).not.toBe('stale-token');
+    } finally {
+      globalThis.fetch = originalFetch;
+      delete process.env.K_SERVICE;
+    }
+  });
+
+  it('prevents GOOGLE_ACCESS_TOKEN from silently overriding metadata server in production', async () => {
+    resetGcpTokenCache();
+    process.env.NODE_ENV = 'production';
+    process.env.GOOGLE_ACCESS_TOKEN = 'stale-static-prod-token';
+
+    // Mock fetch to simulate metadata server returning a fresh token
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = vi.fn().mockImplementation((url: string | URL | Request) => {
+      const urlStr = typeof url === 'string' ? url : url.toString();
+      if (urlStr.includes('computeMetadata/v1/instance/service-accounts/default/token')) {
+        return Promise.resolve(
+          new Response(JSON.stringify({ access_token: 'fresh-metadata-token', expires_in: 3600 }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' },
+          }),
+        );
+      }
+      return originalFetch(url);
+    });
+
+    try {
+      const token = await getGcpAccessToken();
+      expect(token).toBe('fresh-metadata-token');
+      expect(token).not.toBe('stale-static-prod-token');
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  it('falls back to GOOGLE_ACCESS_TOKEN in production without assuming static TTL, avoiding repeated timeouts via cooldown', async () => {
+    resetGcpTokenCache();
+    process.env.NODE_ENV = 'production';
+    process.env.GOOGLE_ACCESS_TOKEN = 'off-gcp-fallback-token';
+    const oldCreds = process.env.GOOGLE_APPLICATION_CREDENTIALS;
+    process.env.GOOGLE_APPLICATION_CREDENTIALS = '/nonexistent/credentials.json';
+
+    const originalFetch = globalThis.fetch;
+    const fetchSpy = vi.fn().mockRejectedValue(new Error('ECONNREFUSED'));
+    globalThis.fetch = fetchSpy;
+
+    try {
+      // First call fails metadata server & ADC, triggers cooldown, and returns live env token
+      const firstToken = await getGcpAccessToken();
+      expect(firstToken).toBe('off-gcp-fallback-token');
+      // Static env token is NOT cached with false TTL, allowing immediate rotation
+      expect(getCachedGcpToken()).toBeNull();
+      expect(fetchSpy).toHaveBeenCalledTimes(1);
+
+      // Rotating env token immediately reflects without stale cache
+      process.env.GOOGLE_ACCESS_TOKEN = 'rotated-env-token';
+
+      // Second call during cooldown returns new token immediately without re-calling metadata server
+      const secondToken = await getGcpAccessToken();
+      expect(secondToken).toBe('rotated-env-token');
+      expect(fetchSpy).toHaveBeenCalledTimes(1); // fetch was NOT called again due to cooldown!
+    } finally {
+      globalThis.fetch = originalFetch;
+      if (oldCreds !== undefined) {
+        process.env.GOOGLE_APPLICATION_CREDENTIALS = oldCreds;
+      } else {
+        delete process.env.GOOGLE_APPLICATION_CREDENTIALS;
+      }
+    }
+  });
+
+  it('handles 200 response without access_token by setting cooldown and proceeding to fallback', async () => {
+    resetGcpTokenCache();
+    process.env.NODE_ENV = 'production';
+    process.env.GOOGLE_ACCESS_TOKEN = 'fallback-after-empty-200';
+    const oldCreds = process.env.GOOGLE_APPLICATION_CREDENTIALS;
+    process.env.GOOGLE_APPLICATION_CREDENTIALS = '/nonexistent/credentials.json';
+
+    const originalFetch = globalThis.fetch;
+    const fetchSpy = vi.fn().mockResolvedValue(
+      new Response(JSON.stringify({}), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      }),
+    );
+    globalThis.fetch = fetchSpy;
+
+    try {
+      const token = await getGcpAccessToken();
+      expect(token).toBe('fallback-after-empty-200');
+      expect(fetchSpy).toHaveBeenCalledTimes(1);
+
+      // Second call does not re-fetch due to cooldown set by empty 200 payload
+      const token2 = await getGcpAccessToken();
+      expect(token2).toBe('fallback-after-empty-200');
+      expect(fetchSpy).toHaveBeenCalledTimes(1);
+    } finally {
+      globalThis.fetch = originalFetch;
+      if (oldCreds !== undefined) {
+        process.env.GOOGLE_APPLICATION_CREDENTIALS = oldCreds;
+      } else {
+        delete process.env.GOOGLE_APPLICATION_CREDENTIALS;
+      }
+    }
   });
 });

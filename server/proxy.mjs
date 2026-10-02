@@ -235,49 +235,30 @@ export function checkRateLimit(req) {
 // Google Cloud Access Token cache
 let cachedGcpToken = null;
 let cachedGcpTokenExpiresAt = 0;
-const TOKEN_CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
+let metadataServerUnavailableUntil = 0;
+const METADATA_COOLDOWN_MS = 15 * 1000; // 15-second cooldown: fast recovery from transient cold-start blips while preventing per-request timeout stalls
 
 export function resetGcpTokenCache() {
   cachedGcpToken = null;
   cachedGcpTokenExpiresAt = 0;
+  metadataServerUnavailableUntil = 0;
 }
 
 export function getCachedGcpToken() {
   return cachedGcpToken;
 }
 
-// Google Cloud Access Token acquisition with prioritized resolution:
-// 1. Explicit environment variable (CI, test pipelines, manual override)
-// 2. In-memory cache hit
-// 3. GoogleAuth library (if available / service account credentials)
-// 4. Native Compute Metadata Server ADC (Cloud Run, GKE, GCE)
-// 5. Non-production developer workstation fallback via async execFile('gcloud', ...) with timeout
-export async function getGcpAccessToken() {
-  // 1. Explicit environment variable always takes precedence (CI, tests)
-  if (process.env.GOOGLE_ACCESS_TOKEN) {
-    return process.env.GOOGLE_ACCESS_TOKEN;
+export function setCachedGcpTokenForTesting(token, ttlMs = 5000) {
+  cachedGcpToken = token;
+  cachedGcpTokenExpiresAt = Date.now() + ttlMs;
+}
+
+// Helper to query the Google Compute Metadata Server
+async function fetchMetadataServerToken(isProduction = false) {
+  if (Date.now() < metadataServerUnavailableUntil) {
+    return null;
   }
 
-  // 2. Return cached token if still valid
-  const now = Date.now();
-  if (cachedGcpToken && now < cachedGcpTokenExpiresAt) {
-    return cachedGcpToken;
-  }
-
-  // 3. Try google-auth-library if installed
-  try {
-    const { GoogleAuth } = await import('google-auth-library');
-    const auth = new GoogleAuth({ scopes: ['https://www.googleapis.com/auth/cloud-platform'] });
-    const client = await auth.getClient();
-    const tokenRes = await client.getAccessToken();
-    if (tokenRes?.token) {
-      cachedGcpToken = tokenRes.token;
-      cachedGcpTokenExpiresAt = now + TOKEN_CACHE_TTL_MS;
-      return cachedGcpToken;
-    }
-  } catch {}
-
-  // 4. Try native Google Cloud Metadata Server (Cloud Run, GKE, GCE native ADC)
   try {
     const metaRes = await fetch(
       'http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token',
@@ -289,19 +270,106 @@ export async function getGcpAccessToken() {
     if (metaRes.ok) {
       const data = await metaRes.json();
       if (data.access_token) {
-        cachedGcpToken = data.access_token;
-        const ttl =
-          typeof data.expires_in === 'number'
-            ? Math.max((data.expires_in - 300) * 1000, 60000)
-            : TOKEN_CACHE_TTL_MS;
-        cachedGcpTokenExpiresAt = now + ttl;
-        return cachedGcpToken;
+        const expiresIn = typeof data.expires_in === 'number' ? data.expires_in : 300;
+        return { token: data.access_token, expiresIn };
+      } else {
+        metadataServerUnavailableUntil = Date.now() + METADATA_COOLDOWN_MS;
+        if (isProduction && (process.env.K_SERVICE || GCP_PROJECT_ID)) {
+          console.warn(
+            '[Proxy Auth] Metadata server returned HTTP 200 OK but payload was missing access_token',
+          );
+        }
       }
+    } else {
+      metadataServerUnavailableUntil = Date.now() + METADATA_COOLDOWN_MS;
+      if (isProduction && (process.env.K_SERVICE || GCP_PROJECT_ID)) {
+        console.warn(
+          `[Proxy Auth] Metadata server returned HTTP ${metaRes.status}: ${metaRes.statusText}`,
+        );
+      }
+    }
+  } catch (err) {
+    metadataServerUnavailableUntil = Date.now() + METADATA_COOLDOWN_MS;
+    if (isProduction && (process.env.K_SERVICE || GCP_PROJECT_ID)) {
+      console.warn(
+        `[Proxy Auth] Failed to reach Google Cloud metadata server: ${err?.message || err}`,
+      );
+    }
+  }
+  return null;
+}
+
+// Google Cloud Access Token acquisition with prioritized resolution:
+// Non-production (CI / tests / local dev):
+//   1. Explicit process.env.GOOGLE_ACCESS_TOKEN (instant manual override)
+//   2. In-memory cache hit
+//   3. GoogleAuth library
+//   4. Native Compute Metadata Server
+//   5. Local developer workstation async execFile('gcloud', ...)
+// Production (Cloud Run / GKE / GCE):
+//   1. In-memory cache hit
+//   2. Native Compute Metadata Server (authoritative runtime identity)
+//   3. GoogleAuth library
+//   4. Explicit process.env.GOOGLE_ACCESS_TOKEN (cached fallback for off-GCP / hybrid runtimes)
+export async function getGcpAccessToken() {
+  const isProduction = process.env.NODE_ENV === 'production' || Boolean(process.env.K_SERVICE);
+
+  // 1. In non-production environments, explicit environment token takes immediate precedence
+  if (!isProduction && process.env.GOOGLE_ACCESS_TOKEN) {
+    return process.env.GOOGLE_ACCESS_TOKEN;
+  }
+
+  // 2. Return cached token if still valid
+  if (cachedGcpToken && Date.now() < cachedGcpTokenExpiresAt) {
+    return cachedGcpToken;
+  }
+
+  // Helper to record token into cache with safe expiration captured AFTER await.
+  // Never caches tokens with <= 10s lifetime remaining, and bounds TTL strictly below expiresInSeconds.
+  function cacheToken(token, expiresInSeconds = 300) {
+    if (expiresInSeconds <= 10) {
+      return token;
+    }
+    cachedGcpToken = token;
+    const safeBuffer = Math.min(60, Math.floor(expiresInSeconds / 2));
+    const ttlSeconds = Math.max(1, Math.min(expiresInSeconds - safeBuffer, 300));
+    cachedGcpTokenExpiresAt = Date.now() + ttlSeconds * 1000;
+    return token;
+  }
+
+  // 3. In production, query the authoritative Compute Metadata Server first
+  if (isProduction) {
+    const meta = await fetchMetadataServerToken(isProduction);
+    if (meta) {
+      return cacheToken(meta.token, meta.expiresIn);
+    }
+  }
+
+  // 4. Try google-auth-library if installed
+  try {
+    const { GoogleAuth } = await import('google-auth-library');
+    const auth = new GoogleAuth({ scopes: ['https://www.googleapis.com/auth/cloud-platform'] });
+    const client = await auth.getClient();
+    const tokenRes = await client.getAccessToken();
+    if (tokenRes?.token) {
+      const expiresIn =
+        typeof client.credentials?.expiry_date === 'number'
+          ? Math.max(0, Math.floor((client.credentials.expiry_date - Date.now()) / 1000))
+          : 300;
+      return cacheToken(tokenRes.token, expiresIn);
     }
   } catch {}
 
-  // 5. Development-only workstation fallback: async execFile with strict timeout
-  if (process.env.NODE_ENV !== 'production') {
+  // 5. If non-production, try Compute Metadata Server if available
+  if (!isProduction) {
+    const meta = await fetchMetadataServerToken(isProduction);
+    if (meta) {
+      return cacheToken(meta.token, meta.expiresIn);
+    }
+  }
+
+  // 6. Development-only workstation fallback: async execFile with strict timeout
+  if (!isProduction) {
     try {
       const { execFile } = await import('child_process');
       const token = await new Promise((resolve) => {
@@ -317,11 +385,16 @@ export async function getGcpAccessToken() {
         );
       });
       if (token) {
-        cachedGcpToken = token;
-        cachedGcpTokenExpiresAt = now + TOKEN_CACHE_TTL_MS;
-        return cachedGcpToken;
+        return cacheToken(token, 300);
       }
     } catch {}
+  }
+
+  // 7. Last-resort fallback in production if metadata server failed:
+  // Do not assume an arbitrary TTL for static env tokens, allowing immediate rotation.
+  // The metadata failure cooldown already prevents per-request timeout latency.
+  if (isProduction && process.env.GOOGLE_ACCESS_TOKEN) {
+    return process.env.GOOGLE_ACCESS_TOKEN;
   }
 
   return null;
