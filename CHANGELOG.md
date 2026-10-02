@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.1](https://github.com/onix-net/gecx-shopping-agent-demo/compare/v0.2.0...v0.2.1) (2026-10-02)
+
+
+### Bug Fixes
+
+* **ci:** read the pushed digest from docker, not from Artifact Registry ([#37](https://github.com/onix-net/gecx-shopping-agent-demo/issues/37)) ([f93c4ff](https://github.com/onix-net/gecx-shopping-agent-demo/commit/f93c4ffd0d8b913d36a695162c1e63c2ab9e1603))
+
 ## [0.2.0](https://github.com/onix-net/gecx-shopping-agent-demo/compare/v0.1.0...v0.2.0) (2026-10-02)
 
 
