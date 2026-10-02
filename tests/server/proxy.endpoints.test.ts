@@ -211,6 +211,17 @@ describe('POST /api/search input handling', () => {
     expect(body.products.length).toBeGreaterThan(0);
   });
 
+  it('guarantees that every facet group has an array of values', async () => {
+    const res = await postJson('/api/search', JSON.stringify({ query: 'jacket' }));
+    expect(res.status).toBe(200);
+    const body = await res.json();
+    expect(Array.isArray(body.facets)).toBe(true);
+    expect(body.facets.length).toBeGreaterThan(0);
+    for (const facet of body.facets) {
+      expect(Array.isArray(facet.values)).toBe(true);
+    }
+  });
+
   it('rejects a body over the 100 KB limit with 413, and the connection is still usable afterwards', async () => {
     const huge = JSON.stringify({ query: 'x'.repeat(200 * 1024) });
     const res = await postJson('/api/search', huge);

@@ -219,6 +219,19 @@ export async function searchVertexProducts(
     if (res.ok) {
       const data = await res.json();
       if (data && Array.isArray(data.products)) {
+        if (Array.isArray(data.facets)) {
+          data.facets = data.facets.map((f: Record<string, unknown>) => ({
+            key: typeof f?.key === 'string' ? f.key : '',
+            values: Array.isArray(f?.values)
+              ? f.values.map((v: Record<string, unknown>) => ({
+                  value: String(v?.value ?? ''),
+                  count: Number(v?.count ?? 0),
+                }))
+              : [],
+          }));
+        } else {
+          data.facets = [];
+        }
         return data as VertexSearchResponse;
       }
     }

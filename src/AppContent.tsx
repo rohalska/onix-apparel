@@ -351,7 +351,10 @@ export const AppContent: React.FC = () => {
   // Dynamic Facets computed in real time from matching items
   const computedFacets = useMemo<FacetGroup[]>(() => {
     if (facets.length > 0 && vertexHealth?.mode === 'live') {
-      return facets;
+      return facets.map((f) => ({
+        key: f.key,
+        values: Array.isArray(f.values) ? f.values : [],
+      }));
     }
     const sizeMap: Record<string, number> = {};
     const colorMap: Record<string, number> = {};
@@ -694,51 +697,68 @@ export const AppContent: React.FC = () => {
             )}
 
             {/* Dynamic Facet Chips (from Vertex AI) */}
-            {computedFacets.length > 0 &&
-              (searchQuery.trim() ||
-                category !== 'all' ||
-                selectedFacetSize ||
-                selectedFacetColor) && (
+            {(() => {
+              const sizeFacet = computedFacets.find(
+                (f) => f.key === 'sizes' || f.key === 'attributes.sizes',
+              );
+              const colorFacet = computedFacets.find(
+                (f) => f.key === 'colors' || f.key === 'attributes.colors',
+              );
+              const sizeValues = Array.isArray(sizeFacet?.values) ? sizeFacet.values : [];
+              const colorValues = Array.isArray(colorFacet?.values) ? colorFacet.values : [];
+              const hasFacetOptions =
+                sizeValues.length > 0 ||
+                colorValues.length > 0 ||
+                selectedFacetSize !== null ||
+                selectedFacetColor !== null;
+
+              if (
+                !hasFacetOptions ||
+                !(
+                  searchQuery.trim() ||
+                  category !== 'all' ||
+                  selectedFacetSize ||
+                  selectedFacetColor
+                )
+              ) {
+                return null;
+              }
+
+              return (
                 <div className="mb-6 flex flex-wrap items-center gap-2 p-3 bg-white border border-stone-200 rounded-2xl shadow-sm">
                   <span className="text-xs font-semibold text-stone-500 uppercase tracking-wider mr-1">
                     Refine by Facet:
                   </span>
-                  {computedFacets
-                    .find((f) => f.key === 'sizes' || f.key === 'attributes.sizes')
-                    ?.values.slice(0, 5)
-                    .map((v) => (
-                      <button
-                        key={v.value}
-                        onClick={() =>
-                          setSelectedFacetSize(selectedFacetSize === v.value ? null : v.value)
-                        }
-                        className={`px-3 py-1 text-xs rounded-full border transition-all ${
-                          selectedFacetSize === v.value
-                            ? 'bg-slate-900 text-white border-slate-900 shadow-sm'
-                            : 'bg-stone-50 text-stone-700 border-stone-200 hover:border-stone-400'
-                        }`}
-                      >
-                        Size {v.value} ({v.count})
-                      </button>
-                    ))}
-                  {computedFacets
-                    .find((f) => f.key === 'colors' || f.key === 'attributes.colors')
-                    ?.values.slice(0, 4)
-                    .map((v) => (
-                      <button
-                        key={v.value}
-                        onClick={() =>
-                          setSelectedFacetColor(selectedFacetColor === v.value ? null : v.value)
-                        }
-                        className={`px-3 py-1 text-xs rounded-full border transition-all ${
-                          selectedFacetColor === v.value
-                            ? 'bg-slate-900 text-white border-slate-900 shadow-sm'
-                            : 'bg-stone-50 text-stone-700 border-stone-200 hover:border-stone-400'
-                        }`}
-                      >
-                        {v.value} ({v.count})
-                      </button>
-                    ))}
+                  {sizeValues.slice(0, 5).map((v) => (
+                    <button
+                      key={v.value}
+                      onClick={() =>
+                        setSelectedFacetSize(selectedFacetSize === v.value ? null : v.value)
+                      }
+                      className={`px-3 py-1 text-xs rounded-full border transition-all ${
+                        selectedFacetSize === v.value
+                          ? 'bg-slate-900 text-white border-slate-900 shadow-sm'
+                          : 'bg-stone-50 text-stone-700 border-stone-200 hover:border-stone-400'
+                      }`}
+                    >
+                      Size {v.value} ({v.count})
+                    </button>
+                  ))}
+                  {colorValues.slice(0, 4).map((v) => (
+                    <button
+                      key={v.value}
+                      onClick={() =>
+                        setSelectedFacetColor(selectedFacetColor === v.value ? null : v.value)
+                      }
+                      className={`px-3 py-1 text-xs rounded-full border transition-all ${
+                        selectedFacetColor === v.value
+                          ? 'bg-slate-900 text-white border-slate-900 shadow-sm'
+                          : 'bg-stone-50 text-stone-700 border-stone-200 hover:border-stone-400'
+                      }`}
+                    >
+                      {v.value} ({v.count})
+                    </button>
+                  ))}
                   {(selectedFacetSize || selectedFacetColor) && (
                     <button
                       onClick={() => {
@@ -751,7 +771,8 @@ export const AppContent: React.FC = () => {
                     </button>
                   )}
                 </div>
-              )}
+              );
+            })()}
 
             {/* Loading Skeleton */}
             {loading ? (

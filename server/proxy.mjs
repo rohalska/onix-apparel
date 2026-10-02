@@ -789,7 +789,15 @@ const server = http.createServer(async (req, res) => {
                   appliedSort,
                   totalSize: data.totalSize || results.length,
                   correctedQuery: data.correctedQuery || null,
-                  facets: data.facets || [],
+                  facets: (data.facets || []).map((f) => ({
+                    key: f.key,
+                    values: Array.isArray(f.values)
+                      ? f.values.map((v) => ({
+                          value: String(v.value ?? ''),
+                          count: Number(v.count ?? 0),
+                        }))
+                      : [],
+                  })),
                   products: results,
                 },
                 req,

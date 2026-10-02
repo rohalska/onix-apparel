@@ -1,6 +1,6 @@
-import { describe, it } from 'vitest';
+import { describe, it, vi } from 'vitest';
 import assert from 'node:assert/strict';
-import { simulateClientSearch } from '../src/services/vertexSearch';
+import { simulateClientSearch, searchVertexProducts } from '../src/services/vertexSearch';
 import { FALLBACK_PRODUCTS } from '../src/data/fallbackProducts';
 
 describe('Vertex AI & Local Search Simulation Suite', () => {
@@ -146,5 +146,30 @@ describe('Vertex AI & Local Search Simulation Suite', () => {
     );
     // If strict category filter is applied, it will return 0 results even though the store has the item!
     console.log(`Cross-category search count: ${res.products.length}`);
+  });
+
+  it('searchVertexProducts normalizes live search response facets with missing values', async () => {
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({
+        source: 'vertex-ai-live',
+        totalSize: 0,
+        correctedQuery: null,
+        facets: [{ key: 'categories' }, { key: 'attributes.sizes' }, { key: 'attributes.colors' }],
+        products: [],
+      }),
+    });
+
+    try {
+      const res = await searchVertexProducts({ query: 'jacket' });
+      assert.equal(res.facets.length, 3);
+      for (const facet of res.facets) {
+        assert.ok(Array.isArray(facet.values), `Facet ${facet.key} must have values array`);
+        assert.equal(facet.values.length, 0);
+      }
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
   });
 });
