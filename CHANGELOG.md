@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.0](https://github.com/onix-net/gecx-shopping-agent-demo/compare/v0.2.3...v0.3.0) (2026-10-05)
+
+
+### Features
+
+* run catalog import from CI and align the documentation with the deployed stack ([#41](https://github.com/onix-net/gecx-shopping-agent-demo/issues/41)) ([2879389](https://github.com/onix-net/gecx-shopping-agent-demo/commit/2879389ce167e53f5633607434e66971657a0bb8))
+
+
+### Bug Fixes
+
+* **search:** hydrate live Retail results from the catalog ([#46](https://github.com/onix-net/gecx-shopping-agent-demo/issues/46)) ([0b7bfe4](https://github.com/onix-net/gecx-shopping-agent-demo/commit/0b7bfe49579a95c5e9e136e911046489028a47ea))
+
 ## [0.2.3](https://github.com/onix-net/gecx-shopping-agent-demo/compare/v0.2.2...v0.2.3) (2026-10-02)
 
 
