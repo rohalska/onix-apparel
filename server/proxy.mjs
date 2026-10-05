@@ -778,9 +778,26 @@ const server = http.createServer(async (req, res) => {
               upstreamStatus = 'ok';
               fallbackReason = null;
               const data = await apiResponse.json();
-              const results = (data.results || []).map((r) =>
-                mapVertexProductToFrontend(r.product),
-              );
+
+              // Retail search returns identifiers, not product detail. Each
+              // result carries `id` and a `product` holding only `name`, even
+              // when a field mask asks for more, so the catalog has to supply
+              // the rest. Reading `r.product` gave every card an empty title
+              // and image, and `parseInt('') || 1` turned every id into 1, so
+              // the grid rendered blank duplicates.
+              const rawResults = data.results || [];
+              const byId = new Map(localCatalog.map((item) => [item.id, item]));
+              const hydrated = rawResults.map((r) => byId.get(r.id)).filter(Boolean);
+
+              if (hydrated.length !== rawResults.length) {
+                const missing = rawResults.filter((r) => !byId.has(r.id)).map((r) => r.id);
+                console.warn(
+                  `[search] ${missing.length} result(s) absent from the local catalog: ${missing.join(', ')}. ` +
+                    'The Retail catalog and vertex-retail-catalog.json have diverged; re-run the import.',
+                );
+              }
+
+              const results = hydrated.map(mapVertexProductToFrontend);
               return sendJson(
                 res,
                 200,
