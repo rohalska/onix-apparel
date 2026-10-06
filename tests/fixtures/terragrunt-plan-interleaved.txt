@@ -1,0 +1,17 @@
+# `terragrunt run --all` walks the dependency graph and prints each unit's
+# output as that unit finishes, so the order is not the directory order and the
+# appliable stack is not necessarily last. This fixture puts a changed stack
+# after us-central1/cloud-run on purpose: an expression that reads the last
+# Plan: line rather than the appliable stack's would report 1,0,0 here instead
+# of cloud-run's 0,1,0, and the apply would compare the wrong numbers.
+20:53:03.707 STDOUT [global/project-services] tofu: No changes. Your infrastructure matches the configuration.
+20:53:09.342 STDOUT [us-central1/catalog-staging] tofu: No changes. Your infrastructure matches the configuration.
+20:53:09.502 STDOUT [global/iam-custom-role] tofu: No changes. Your infrastructure matches the configuration.
+20:53:09.577 STDOUT [global/iam-plan-reader] tofu: No changes. Your infrastructure matches the configuration.
+20:53:11.100 STDOUT [us-central1/cloud-run] tofu: Plan: 0 to add, 1 to change, 0 to destroy.
+20:53:12.300 STDOUT [global/iam-deployer] tofu: No changes. Your infrastructure matches the configuration.
+20:53:13.400 STDOUT [global/iam-runtime] tofu: No changes. Your infrastructure matches the configuration.
+20:53:14.500 STDOUT [global/iam-catalog] tofu: No changes. Your infrastructure matches the configuration.
+20:53:15.600 STDOUT [us-central1/artifact-registry] tofu: Plan: 0 to add, 0 to change, 0 to destroy.
+20:53:16.700 STDOUT [global/iam-planner] tofu: No changes. Your infrastructure matches the configuration.
+20:53:20.974 STDOUT [global/wif-github] tofu: Plan: 1 to add, 0 to change, 0 to destroy.

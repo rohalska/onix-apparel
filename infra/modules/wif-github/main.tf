@@ -48,3 +48,30 @@ resource "google_service_account_iam_member" "wif_ref" {
   role               = "roles/iam.workloadIdentityUser"
   member             = "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.github.name}/attribute.repo_ref/${var.repository}:${each.value}"
 }
+
+# Impersonable only from a job that declared a GitHub Environment, which is what
+# a ref pin cannot express: every job on the pinned branch satisfies a ref pin,
+# gated or not, so an account bound that way can be reached by any workflow on
+# that branch without an approval being spent.
+#
+# This binds the OIDC subject rather than a mapped attribute, because
+# google.subject is already mapped to assertion.sub and so nothing about the
+# provider changes and no existing binding is touched. Mapping a new attribute
+# from assertion.environment would mean a CEL expression over a claim that is
+# absent for every job without an environment, on the provider shared with every
+# other identity here.
+#
+# The subject is NOT repo:<owner>/<repo>:environment:<name> unless the repository
+# uses the default subject claim. With immutable subject claims the prefix
+# carries numeric owner and repository ids instead, so it is taken as
+# var.subject_prefix and read from GitHub rather than composed here. See that
+# variable for the command.
+#
+# principal:// and not principalSet://: a subject is one identity, not a set.
+resource "google_service_account_iam_member" "wif_environment" {
+  for_each = var.service_account_environments
+
+  service_account_id = "projects/${var.project_id}/serviceAccounts/${each.key}"
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "principal://iam.googleapis.com/${google_iam_workload_identity_pool.github.name}/subject/${var.subject_prefix}:environment:${each.value}"
+}

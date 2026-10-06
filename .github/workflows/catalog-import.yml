@@ -1,10 +1,34 @@
 name: catalog-import
+run-name: Import the ${{ inputs.environment }} catalog
 
 # Operator action only. The import replaces catalog contents, so it never
 # runs on a push or a merge.
+#
+# Must be dispatched from main, though what enforces that differs by
+# environment and the difference matters here: an import replaces production
+# catalog data.
+#
+# For dev, gecx-shop-catalog is pinned to refs/heads/main in its Workload
+# Identity binding, so IAM refuses a token minted from a branch.
+#
+# For prd it is bound to the subject of a job that declared the prd
+# environment, and that subject carries no ref, so IAM does not check the
+# branch. The guard in the check job below is workflow code and a branch runs
+# its own copy of this file, so it can be edited out. Whether a modified copy
+# can import into prd is decided by the prd GitHub Environment: its deployment
+# branch policy allows main only, and its reviewers must approve. See
+# docs/promotion.md.
 on:
   workflow_dispatch:
     inputs:
+      environment:
+        description: Environment whose catalog to import
+        required: true
+        type: choice
+        default: dev
+        options:
+          - dev
+          - prd
       confirm:
         description: Type "import" to run the catalog import
         required: true
@@ -14,13 +38,36 @@ permissions:
   contents: read
   id-token: write
 
-env:
-  CLOUDSDK_CORE_PROJECT: onx-dev-int-shop-demo-qes8
+concurrency:
+  group: catalog-import-${{ inputs.environment }}
+  cancel-in-progress: false
 
 jobs:
-  import:
+  # Ungated, so a mistyped confirmation fails here rather than after somebody
+  # has approved a production import.
+  check:
     runs-on: ubuntu-latest
     steps:
+      # Same guard as promote.yml, and an early failure rather than the access
+      # control. Without it a dispatch from a branch passes here, waits on the
+      # target environment's reviewers, and for dev fails at the token exchange
+      # only after somebody approved an import that could never have run.
+      #
+      # It does not constrain prd, whose catalog importer is bound to an
+      # environment subject with no ref in it, and a branch can remove this
+      # step anyway. The literal matches the ref dev's binding uses, in
+      # infra/live/_envcommon/wif-github.hcl.
+      - name: Refuse a dispatch from anywhere but main
+        env:
+          REF: ${{ github.ref }}
+          DEPLOY_REF: refs/heads/main
+        run: |
+          set -euo pipefail
+          if [ "$REF" != "$DEPLOY_REF" ]; then
+            echo "::error::catalog-import must be dispatched from ${DEPLOY_REF}, not ${REF}. gecx-shop-catalog is pinned to that ref, so an import from a branch cannot authenticate."
+            exit 1
+          fi
+
       - name: Check confirmation
         env:
           CONFIRM: ${{ inputs.confirm }}
@@ -30,20 +77,46 @@ jobs:
             exit 1
           fi
 
+  import:
+    needs: check
+    runs-on: ubuntu-latest
+    # The import replaces catalog contents, so it is gated by the target
+    # environment exactly as a deploy is. The ref pin on gecx-shop-catalog
+    # restricts which workflow code can run; it says nothing about who may run
+    # it, and this is what does. An environment with no protection rules (dev)
+    # gates nothing, which is the intended difference.
+    environment: ${{ inputs.environment }}
+    steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      # The project, the importer's address and the Workload Identity provider
+      # come from the environment's own env.hcl rather than being spelled here,
+      # so this workflow cannot import into one project while Terragrunt manages
+      # another.
+      - name: Read the environment's facts
+        id: facts
+        env:
+          ENVIRONMENT: ${{ inputs.environment }}
+        run: infra/scripts/env-facts.sh "$ENVIRONMENT" >> "$GITHUB_OUTPUT"
 
       - uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3.0.0
         with:
-          workload_identity_provider: projects/835936341567/locations/global/workloadIdentityPools/github/providers/github
-          service_account: gecx-shop-catalog@onx-dev-int-shop-demo-qes8.iam.gserviceaccount.com
+          workload_identity_provider: ${{ steps.facts.outputs.wif_provider }}
+          service_account: ${{ steps.facts.outputs.catalog_sa }}
 
       - uses: google-github-actions/setup-gcloud@aa5489c8933f4cc7a4f7d45035b3b1440c9c10db # v3.0.1
 
       - name: Import the catalog
-        run: scripts/importToGcpRetail.sh onx-dev-int-shop-demo-qes8
+        env:
+          CLOUDSDK_CORE_PROJECT: ${{ steps.facts.outputs.project_id }}
+          PROJECT_ID: ${{ steps.facts.outputs.project_id }}
+        run: scripts/importToGcpRetail.sh "$PROJECT_ID"
 
       - name: Report catalog contents
         continue-on-error: true
+        env:
+          CLOUDSDK_CORE_PROJECT: ${{ steps.facts.outputs.project_id }}
+          PROJECT_ID: ${{ steps.facts.outputs.project_id }}
         run: |
           # x-goog-user-project is needed because this is a raw REST call rather
           # than gcloud, so CLOUDSDK_CORE_PROJECT does not apply. Without it the
@@ -51,8 +124,8 @@ jobs:
           # carry, which the importer may not be allowed to use.
           resp="$(curl -fsS \
             -H "Authorization: Bearer $(gcloud auth print-access-token)" \
-            -H "x-goog-user-project: onx-dev-int-shop-demo-qes8" \
-            "https://retail.googleapis.com/v2/projects/onx-dev-int-shop-demo-qes8/locations/global/catalogs/default_catalog/branches/default_branch/products?pageSize=1")"
+            -H "x-goog-user-project: ${PROJECT_ID}" \
+            "https://retail.googleapis.com/v2/projects/${PROJECT_ID}/locations/global/catalogs/default_catalog/branches/default_branch/products?pageSize=1")"
           echo "${resp}"
           if echo "${resp}" | grep -q '"products"'; then
             echo "Catalog returned at least one product."

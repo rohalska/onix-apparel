@@ -1,0 +1,16 @@
+# Real output from 'terragrunt run --all plan' (Terragrunt 1.1.6, OpenTofu
+# 1.12.6) with --working-dir infra/live/prd, against cold state. Kept so the
+# sed expressions in deploy-env.yml are tested against the shape Terragrunt
+# actually prints, including the [unit] prefix being relative to the working
+# directory. Trimmed to the summary lines.
+19:30:24.236 STDOUT [global/project-services] tofu: Plan: 7 to add, 0 to change, 0 to destroy.
+19:30:26.868 STDOUT [global/iam-deployer] tofu: Plan: 4 to add, 0 to change, 0 to destroy.
+19:30:27.440 STDOUT [global/iam-plan-reader] tofu: Plan: 1 to add, 0 to change, 0 to destroy.
+19:30:27.458 STDOUT [global/iam-custom-role] tofu: Plan: 1 to add, 0 to change, 0 to destroy.
+19:30:27.460 STDOUT [us-central1/catalog-staging] tofu: Plan: 1 to add, 0 to change, 0 to destroy.
+19:30:29.708 STDOUT [us-central1/artifact-registry] tofu: Plan: 2 to add, 0 to change, 0 to destroy.
+19:30:30.390 STDOUT [global/iam-planner] tofu: Plan: 6 to add, 0 to change, 0 to destroy.
+19:30:30.515 STDOUT [global/iam-runtime] tofu: Plan: 3 to add, 0 to change, 0 to destroy.
+19:30:30.516 STDOUT [global/iam-catalog] tofu: Plan: 4 to add, 0 to change, 0 to destroy.
+19:30:33.988 STDOUT [global/wif-github] tofu: Plan: 5 to add, 0 to change, 0 to destroy.
+19:30:34.027 STDOUT [us-central1/cloud-run] tofu: Plan: 2 to add, 0 to change, 0 to destroy.

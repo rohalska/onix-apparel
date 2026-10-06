@@ -1,0 +1,16 @@
+# The shape a promotion sees in steady state: every stack unchanged except
+# Cloud Run, whose image digest moved. 'No changes.' lines are real output
+# from the infra-plan job on this pull request; the cloud-run Plan: line is
+# real output from a prd plan. An output-only 'Plan: 0 to add' line is
+# included because tofu prints that for a difference that changes nothing.
+20:53:09.342 STDOUT [global/project-services] tofu: No changes. Your infrastructure matches the configuration.
+20:53:09.342 STDOUT [global/iam-custom-role] tofu: No changes. Your infrastructure matches the configuration.
+20:53:09.342 STDOUT [global/iam-plan-reader] tofu: No changes. Your infrastructure matches the configuration.
+20:53:09.342 STDOUT [global/iam-deployer] tofu: No changes. Your infrastructure matches the configuration.
+20:53:09.342 STDOUT [global/iam-planner] tofu: No changes. Your infrastructure matches the configuration.
+20:53:09.342 STDOUT [global/iam-runtime] tofu: No changes. Your infrastructure matches the configuration.
+20:53:09.342 STDOUT [global/iam-catalog] tofu: No changes. Your infrastructure matches the configuration.
+20:53:09.342 STDOUT [us-central1/catalog-staging] tofu: No changes. Your infrastructure matches the configuration.
+20:53:20.974 STDOUT [us-central1/artifact-registry] tofu: Plan: 0 to add, 0 to change, 0 to destroy.
+20:53:21.100 STDOUT [global/wif-github] tofu: No changes. Your infrastructure matches the configuration.
+20:53:22.500 STDOUT [us-central1/cloud-run] tofu: Plan: 0 to add, 1 to change, 0 to destroy.

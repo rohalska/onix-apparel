@@ -269,9 +269,13 @@ Redis, would also synchronise the buckets across instances.
 `.github/workflows/catalog-import.yml` is how the dev catalog gets imported. It
 is `workflow_dispatch` only, because the import replaces catalog contents, and
 it takes a `confirm` input that must be the literal string `import`. Dispatch it
-from `main`: `gecx-shop-catalog` is pinned to `refs/heads/main`, so a dispatch
-from any other ref fails at the Workload Identity binding rather than running
-with a modified copy of the workflow. The job runs
+from `main`. For dev that is enforced in the cloud: `gecx-shop-catalog` is
+pinned to `refs/heads/main`, so a dispatch from any other ref fails at the
+Workload Identity binding rather than running with a modified copy of the
+workflow. For an environment behind an approval, such as prd, the importer is
+bound to a job that declared that environment instead, which carries no ref, so
+the branch is held by the environment's own deployment branch policy. See
+[promotion.md](promotion.md). The job runs
 `scripts/importToGcpRetail.sh` and then reports how many products the catalog
 returns.
 

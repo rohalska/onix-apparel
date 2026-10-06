@@ -81,11 +81,11 @@ describe('Shell Script Quality & GCP Retail Ingestion Invariants', () => {
     assert.equal(
       content.includes('gcloud storage buckets create'),
       false,
-      'Must not create the staging bucket; it is managed in infra/live/dev/us-central1/catalog-staging',
+      'Must not create the staging bucket; it is managed in infra/live/<env>/us-central1/catalog-staging',
     );
     assert.ok(
-      content.includes('infra/live/dev/us-central1/catalog-staging'),
-      'Must point operators at the OpenTofu leaf that manages the staging bucket',
+      content.includes('infra/live/<env>/us-central1/catalog-staging'),
+      'Must point operators at the OpenTofu stack that manages the staging bucket, for whichever environment they are importing',
     );
     assert.ok(content.includes('gcloud storage cp'), 'Must use gcloud storage cp');
   });

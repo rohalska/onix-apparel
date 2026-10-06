@@ -1,0 +1,717 @@
+# Deploy one released version to one gated environment: resolve what was
+# promoted, plan the whole environment so an approver can read it, then apply
+# behind the environment gate.
+#
+# ENTERED BY promote.yml (workflow_call). There is no dispatch entry and no tag
+# trigger: a promotion and its deploy are one run, so a promotion tag can never
+# exist for a deploy that did not run.
+#
+# WHAT IT DEPLOYS. The image is the one the release built, moved by digest and
+# never rebuilt. release.yml pushes <source registry>/app:<version> when it cuts
+# the release; this copies that exact digest into the target environment's own
+# registry and pins Cloud Run to it. Rebuilding from the tag would produce a
+# different image from the one that was tested in dev, which is the whole point
+# of promoting rather than redeploying.
+#
+# WHAT IT APPLIES. The target deployer holds roles/run.admin, writer on its
+# registry, and object admin on its state bucket, and nothing else. It cannot
+# create service accounts, Workload Identity pools, or enable APIs, so it cannot
+# apply the IAM and project-level stacks. Those are bootstrap: they are applied
+# out of band by a human with elevated rights and then change rarely.
+#
+# So the plan covers the whole environment and the apply covers the Cloud Run
+# stack. If the plan finds changes in any other stack, this fails BEFORE the
+# gate rather than asking somebody to approve an apply that would only half
+# happen. The message names the stacks and what to do about them.
+#
+# Widening this to apply the whole environment is a deliberate decision, not an
+# oversight: it means giving a CI identity service account and Workload Identity
+# administration on a production project. See docs/promotion.md.
+name: Deploy environment
+run-name: Deploy ${{ inputs.version }} -> ${{ inputs.environment }}
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        description: Target environment, matching a directory under infra/live and a GitHub Environment of the same name.
+        required: true
+        type: string
+      version:
+        description: Released version to deploy, e.g. v0.3.0.
+        required: true
+        type: string
+      source_environment:
+        description: Environment whose registry holds the released image. Releases are built and pushed in dev.
+        required: false
+        type: string
+        default: dev
+      acknowledge_traffic_pin:
+        description: Proceed even though traffic is pinned to a named revision, returning it to the promoted version. Required when somebody has rolled this service back by hand.
+        required: false
+        type: boolean
+        default: false
+
+concurrency:
+  group: deploy-${{ inputs.environment }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  # crane copies a manifest between registries without pulling or re-pushing the
+  # layers, so the digest is preserved by construction. Pinned with the checksum
+  # published alongside the release.
+  CRANE_VERSION: '0.22.1'
+  CRANE_SHA256: '0ab7a1d6932a213aed964ce97666c3077fe691c8606413674a8b3e0b9ec4cda0'
+
+  # The one stack the deployer is allowed to apply. Declared here because both
+  # the plan job's guard and the apply job's working directory need it, and two
+  # copies could drift into comparing one stack against another.
+  APPLIABLE: us-central1/cloud-run
+
+jobs:
+  resolve:
+    name: Resolve ${{ inputs.version }}
+    runs-on: ubuntu-latest
+    outputs:
+      deploy_ref: ${{ steps.derive.outputs.deploy_ref }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Derive and check the ref to deploy
+        id: derive
+        env:
+          ENVIRONMENT: ${{ inputs.environment }}
+          VERSION: ${{ inputs.version }}
+          # The branch the Workload Identity bindings pin CI to, spelled the
+          # same way here and in infra/live/_envcommon/wif-github.hcl. Asking
+          # GitHub for the default branch would let a rename silently diverge
+          # from what the bindings actually trust.
+          DEPLOY_BRANCH: main
+          REF: ${{ github.ref }}
+        run: |
+          set -euo pipefail
+
+          # The branch, checked here as well as in promote.yml, because this is
+          # a reusable workflow and another caller would not inherit that guard.
+          #
+          # It matters more than it looks. A gated environment's deployer is
+          # bound to the OIDC subject of a job that declared the environment,
+          # and GitHub's subject carries one context segment: an
+          # environment-scoped sub has no ref component, so IAM is not checking
+          # the branch at all. GitHub's deployment branch policy is, and that
+          # lives in repository settings this branch cannot edit. This is the
+          # part of the branch constraint that lives in the repository.
+          if [ "$REF" != "refs/heads/${DEPLOY_BRANCH}" ]; then
+            echo "::error::deploys must run from refs/heads/${DEPLOY_BRANCH}, not ${REF}."
+            exit 1
+          fi
+
+          if [[ ! "$VERSION" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::version '$VERSION' is not a release tag (expected vMAJOR.MINOR.PATCH)"
+            exit 1
+          fi
+          if [[ ! "$ENVIRONMENT" =~ ^[a-z][a-z0-9-]*$ ]]; then
+            echo "::error::environment '$ENVIRONMENT' is not a usable environment name"
+            exit 1
+          fi
+          if ! git rev-parse -q --verify "refs/tags/${VERSION}^{commit}" >/dev/null; then
+            echo "::error::release tag '${VERSION}' does not exist"
+            exit 1
+          fi
+
+          # Pin the commit the release tag resolves to NOW, and have every later
+          # job check that out by SHA. A tag moved mid-run then cannot make the
+          # apply deploy a different commit than the one resolved here.
+          deploy_ref="$(git rev-parse "${VERSION}^{commit}")"
+
+          # Fail closed on the provenance tag. A deploy is promotion-driven by
+          # contract, so one carrying only the mutable release tag must not
+          # proceed, and a release tag that has moved since promote.yml checked
+          # it must not either.
+          if ! promo_sha="$(git rev-parse -q --verify "refs/tags/${ENVIRONMENT}-${VERSION}^{commit}")"; then
+            echo "::error::promotion tag ${ENVIRONMENT}-${VERSION} does not exist. Deploys are promotion-driven; run promote.yml rather than deploying a release tag directly."
+            exit 1
+          fi
+          if [ "$promo_sha" != "$deploy_ref" ]; then
+            echo "::error::release tag ${VERSION} (${deploy_ref}) no longer matches promotion tag ${ENVIRONMENT}-${VERSION} (${promo_sha}); refusing to deploy a moved tag."
+            exit 1
+          fi
+
+          # The commit must be on main. Nothing protects the tag namespace in
+          # this repository, so anyone who can push a tag could point v9.9.9 at
+          # an unmerged branch commit. Later jobs check that commit out and run
+          # its env-facts.sh and its Terragrunt configuration, and Terragrunt can
+          # run arbitrary commands through run_cmd, in jobs holding this
+          # environment's planner and deployer credentials. Pinning the deployer
+          # to refs/heads/main does not catch it: the OIDC ref claim comes from
+          # the ref the promotion was dispatched from, not from what is checked
+          # out. An ancestor check does catch it, and it means the code that runs
+          # here has been through the pull request that protects main.
+          # Fetch the branch by name rather than trusting a remote-tracking ref
+          # to be present, so the check cannot pass by accident on a shallow or
+          # differently configured checkout.
+          git fetch -q --no-tags origin "+refs/heads/${DEPLOY_BRANCH}:refs/remotes/origin/${DEPLOY_BRANCH}"
+          if ! git merge-base --is-ancestor "$deploy_ref" "refs/remotes/origin/${DEPLOY_BRANCH}"; then
+            echo "::error::${VERSION} (${deploy_ref}) is not an ancestor of ${DEPLOY_BRANCH}. Only a released commit that has been merged may be deployed; refusing to run code from an unmerged tag."
+            exit 1
+          fi
+
+          # The environment has to exist in the code being deployed, not just on
+          # main. Promoting a version cut before the environment was added would
+          # otherwise plan an empty directory and report success.
+          if ! git cat-file -e "${deploy_ref}:infra/live/${ENVIRONMENT}/env.hcl" 2>/dev/null; then
+            echo "::error::${VERSION} has no infra/live/${ENVIRONMENT}/env.hcl, so it predates the '${ENVIRONMENT}' environment. Promote a version released after that environment was added."
+            exit 1
+          fi
+
+          echo "Deploying ${VERSION} (${deploy_ref}) to ${ENVIRONMENT}"
+          echo "deploy_ref=${deploy_ref}" >> "$GITHUB_OUTPUT"
+
+  plan:
+    name: Plan ${{ inputs.environment }}
+    needs: resolve
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    outputs:
+      digest: ${{ steps.digest.outputs.digest }}
+      plan_sha256: ${{ steps.saved.outputs.sha256 }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ needs.resolve.outputs.deploy_ref }}
+
+      - name: Read the environment's facts
+        id: facts
+        env:
+          ENVIRONMENT: ${{ inputs.environment }}
+          SOURCE_ENVIRONMENT: ${{ inputs.source_environment }}
+        run: |
+          set -euo pipefail
+          infra/scripts/env-facts.sh "$ENVIRONMENT" >> "$GITHUB_OUTPUT"
+          infra/scripts/env-facts.sh "$SOURCE_ENVIRONMENT" | sed 's/^/source_/' >> "$GITHUB_OUTPUT"
+
+      # The planner, not the deployer. It is read-only and impersonable from any
+      # branch, which is why the plan can run before the gate.
+      - uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3.0.0
+        with:
+          workload_identity_provider: ${{ steps.facts.outputs.wif_provider }}
+          service_account: ${{ steps.facts.outputs.planner_sa }}
+
+      - uses: google-github-actions/setup-gcloud@aa5489c8933f4cc7a4f7d45035b3b1440c9c10db # v3.0.1
+
+      - name: Install crane
+        run: |
+          set -euo pipefail
+          url="https://github.com/google/go-containerregistry/releases/download/v${CRANE_VERSION}/go-containerregistry_Linux_x86_64.tar.gz"
+          curl -fsSL -o crane.tar.gz "$url"
+          echo "${CRANE_SHA256}  crane.tar.gz" | sha256sum -c -
+          tar -xzf crane.tar.gz crane
+          sudo install -m 0755 crane /usr/local/bin/crane
+          rm -f crane.tar.gz crane
+          crane version
+
+      - name: Resolve the digest the release built
+        id: digest
+        env:
+          SOURCE_REPO: ${{ steps.facts.outputs.source_image_repo }}
+          VERSION: ${{ inputs.version }}
+        run: |
+          set -euo pipefail
+          gcloud auth configure-docker "$(echo "$SOURCE_REPO" | cut -d/ -f1)" --quiet
+
+          # The release tag in the source registry names exactly one image. Read
+          # its digest rather than trusting the tag downstream, so everything
+          # after this point is digest-addressed.
+          if ! digest="$(crane digest "${SOURCE_REPO}:${VERSION}")"; then
+            echo "::error::${SOURCE_REPO}:${VERSION} could not be read. release.yml pushes that tag when it cuts a release, so either the version was never released or the image has been removed."
+            exit 1
+          fi
+          case "$digest" in
+            sha256:*) ;;
+            *) echo "::error::unexpected digest '${digest}'"; exit 1 ;;
+          esac
+          echo "Released image: ${SOURCE_REPO}@${digest}"
+          echo "digest=${digest}" >> "$GITHUB_OUTPUT"
+
+      - uses: opentofu/setup-opentofu@a1320f892987e89d278cc92dc5adc984fb93aca4 # v2.0.2
+        with:
+          tofu_version_file: infra/.opentofu-version
+
+      - name: Install Terragrunt at the committed pin
+        run: |
+          set -euo pipefail
+          tg="$(tr -d '[:space:]' < infra/.terragrunt-version)"
+          base="https://github.com/gruntwork-io/terragrunt/releases/download/v${tg}"
+          curl -fsSL -o terragrunt_linux_amd64 "${base}/terragrunt_linux_amd64"
+          curl -fsSL -o SHA256SUMS "${base}/SHA256SUMS"
+          grep ' terragrunt_linux_amd64$' SHA256SUMS | sha256sum -c -
+          sudo install -m 0755 terragrunt_linux_amd64 /usr/local/bin/terragrunt
+          rm -f terragrunt_linux_amd64 SHA256SUMS
+          terragrunt --version
+
+      - name: Plan the whole environment
+        env:
+          ENVIRONMENT: ${{ inputs.environment }}
+          # Plan the image the apply will actually deploy, so the plan an
+          # approver reads is the change that is about to happen.
+          IMAGE_DIGEST: ${{ steps.digest.outputs.digest }}
+        run: |
+          set -uo pipefail
+          # -lock=false is required, not an optimisation: taking the state lock
+          # writes an object and the planner has read-only access to the state
+          # bucket. A plan does not write state, so skipping the lock is safe.
+          terragrunt run --all --non-interactive --no-color \
+            --working-dir "infra/live/${ENVIRONMENT}" -- plan -lock=false \
+            > plan.txt 2>&1
+          rc=$?
+          # Read the status before anything else touches $?. A pipe here would
+          # report the last command in the pipeline instead.
+          if [ "$rc" -ne 0 ]; then
+            echo "::error::plan failed"
+            tail -80 plan.txt
+            exit "$rc"
+          fi
+          grep -E 'tofu: (Plan:|No changes)' plan.txt || true
+
+      - name: Publish the plan and check what it would change
+        env:
+          ENVIRONMENT: ${{ inputs.environment }}
+          VERSION: ${{ inputs.version }}
+          DIGEST: ${{ steps.digest.outputs.digest }}
+          SOURCE_ENVIRONMENT: ${{ inputs.source_environment }}
+        run: |
+          set -uo pipefail
+
+          # Each unit's output is prefixed with its path, so a Plan: line names
+          # the stack it belongs to. Sum the three counts rather than treating
+          # any Plan: line as a change: tofu prints "Plan: 0 to add, 0 to
+          # change, 0 to destroy." for an output-only difference, which would
+          # otherwise block a promotion that changes nothing.
+          changed="$(sed -n 's/.*\[\([^]]*\)\] tofu: Plan: \([0-9]*\) to add, \([0-9]*\) to change, \([0-9]*\) to destroy\..*/\1 \2 \3 \4/p' plan.txt \
+            | awk '$2 + $3 + $4 > 0 { print $1 }' | sort -u)"
+
+          # FAIL CLOSED. The line above is the only thing standing between a
+          # promotion and an apply of a stack this job cannot finish, and it
+          # recognises one textual summary format. If Terragrunt or OpenTofu ever
+          # changes that format, or a unit reports something else entirely, the
+          # match returns nothing and silence would read as "nothing to do".
+          #
+          # So account for every unit: each one must have printed either a Plan:
+          # line or "No changes.". Anything less means the output was not
+          # understood and the plan cannot be trusted to say what would change.
+          # Counted from git, not from the filesystem: the plan that just ran
+          # left a .terragrunt-cache in every unit, each holding a copy of
+          # terragrunt.hcl, so a find would count every stack twice and this
+          # check would refuse every promotion.
+          units="$(git ls-files "infra/live/${ENVIRONMENT}/**/terragrunt.hcl" | wc -l)"
+          summarised="$(sed -n 's/.*\[\([^]]*\)\] tofu: \(Plan: [0-9].*\|No changes\..*\)/\1/p' plan.txt | sort -u | grep -c . || true)"
+          # A zero unit count has to refuse too. Otherwise "summarised is not
+          # less than units" is satisfied by 0 and 0, and the guard that exists
+          # to notice an unreadable plan passes having accounted for nothing.
+          if [ "$units" -le 0 ] || [ "$summarised" -lt "$units" ]; then
+            echo "::error::the plan produced a summary for ${summarised} of ${units} stacks, so its output was not understood and cannot be used to decide what this deploy would change. Refusing to continue. A zero unit count means infra/live/${ENVIRONMENT} matched no stacks, which is itself the problem; otherwise check whether the Terragrunt or OpenTofu output format changed."
+            exit 1
+          fi
+          echo "Accounted for all ${units} stacks."
+
+          {
+            echo "## Deploy ${VERSION} to ${ENVIRONMENT}"
+            echo
+            echo "Image \`${DIGEST}\`, copied from the ${SOURCE_ENVIRONMENT} registry without rebuilding."
+            echo
+            echo '```'
+            sed -n 's/.*tofu: \(Plan: .*\|No changes\..*\)/\1/p' plan.txt | sort | uniq -c
+            echo '```'
+            echo
+            echo "<details><summary>Plan, last 400 lines</summary>"
+            echo
+            echo '```'
+            sed 's/^[0-9:.]* STDOUT //' plan.txt | tail -400
+            echo '```'
+            echo
+            echo "</details>"
+            echo
+            echo "The whole plan is attached to this run as the \`plan-${ENVIRONMENT}\` artifact."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          unexpected="$(echo "$changed" | grep -v -x "$APPLIABLE" | grep -v '^$' || true)"
+          if [ -n "$unexpected" ]; then
+            echo "::error::the plan changes stacks this deploy cannot apply. The ${ENVIRONMENT} deployer may only apply ${APPLIABLE}; everything else is bootstrap and needs an apply by someone with elevated rights. Stacks with pending changes:"
+            while IFS= read -r stack; do echo "  - ${stack}"; done <<< "$unexpected"
+            echo "Apply them out of band (see docs/promotion.md), then promote again."
+            exit 1
+          fi
+
+          if [ -z "$changed" ]; then
+            echo "No stack has pending changes. The apply will be a no-op and will still verify the running image."
+          else
+            echo "Will apply: ${changed}"
+          fi
+
+      # The plan the approver is about to read, saved so the apply executes this
+      # exact plan rather than recomputing one after the wait. OpenTofu refuses
+      # a saved plan whose state has moved since ("Saved plan is stale"), which
+      # is what binds the approval to the change that was reviewed.
+      - name: Save the plan the apply will execute
+        id: saved
+        env:
+          ENVIRONMENT: ${{ inputs.environment }}
+          IMAGE_DIGEST: ${{ steps.digest.outputs.digest }}
+          PLAN_FILE: ${{ github.workspace }}/appliable.tfplan
+        run: |
+          set -euo pipefail
+          # -lock=false for the same reason as the plan above: the planner
+          # cannot write the state lock object.
+          terragrunt plan --working-dir "infra/live/${ENVIRONMENT}/${APPLIABLE}" \
+            --non-interactive --no-color -lock=false -out="$PLAN_FILE"
+
+          sum="$(sha256sum "$PLAN_FILE" | cut -d' ' -f1)"
+          echo "Saved $(stat -c%s "$PLAN_FILE") bytes, sha256 ${sum}"
+          echo "sha256=${sum}" >> "$GITHUB_OUTPUT"
+
+          # Render the saved plan and publish that, so the plan an approver
+          # reads is the plan that will execute. plan.txt above is a different
+          # computation: the whole environment, run earlier in this job, which
+          # is what the unexpected-stack guard needs. The checksum only proves
+          # this file was not altered after it was saved; it cannot prove the
+          # file matches something else that was shown.
+          terragrunt show --working-dir "infra/live/${ENVIRONMENT}/${APPLIABLE}" \
+            --non-interactive --no-color "$PLAN_FILE" 2>&1 \
+            | sed 's/^[0-9:.]* STDOUT *//' > appliable.txt
+          {
+            echo "## The plan this deploy will apply"
+            echo
+            echo "\`${APPLIABLE}\`, sha256 \`${sum}\`. This is the saved plan the apply executes, not a recomputation of it."
+            echo
+            echo '```text'
+            tail -300 appliable.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Attach the plan to read
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: plan-${{ inputs.environment }}
+          path: |
+            plan.txt
+            appliable.txt
+          if-no-files-found: warn
+          retention-days: 30
+
+      # Separate from the readable plan above, and kept for as short a time as
+      # the handover needs. A binary plan is not the same kind of thing as
+      # plan.txt: it carries the unit's full prior state, and anything a
+      # provider marks sensitive sits in it in the clear. The Cloud Run module
+      # takes plain env values and has no Secret Manager plumbing today, which
+      # tests/promotion_pipeline.test.ts holds in place, so there is nothing
+      # secret in it now. Adding any would mean revisiting this.
+      #
+      # It exists only to hand the approved plan to the apply job in the same
+      # run, so it does not need the thirty days the audit copy gets.
+      - name: Hand the approved plan to the apply
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: approved-plan-${{ inputs.environment }}
+          path: appliable.tfplan
+          if-no-files-found: error
+          retention-days: 1
+
+  apply:
+    name: Apply ${{ inputs.environment }}
+    needs: [resolve, plan]
+    runs-on: ubuntu-latest
+    # THE GATE. Required reviewers on this GitHub Environment are what stand
+    # between a promotion and production. It sits here, after the plan, so an
+    # approver can read the plan in the run summary before approving.
+    environment: ${{ inputs.environment }}
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ needs.resolve.outputs.deploy_ref }}
+
+      - name: Read the environment's facts
+        id: facts
+        env:
+          ENVIRONMENT: ${{ inputs.environment }}
+          SOURCE_ENVIRONMENT: ${{ inputs.source_environment }}
+        run: |
+          set -euo pipefail
+          infra/scripts/env-facts.sh "$ENVIRONMENT" >> "$GITHUB_OUTPUT"
+          infra/scripts/env-facts.sh "$SOURCE_ENVIRONMENT" | sed 's/^/source_/' >> "$GITHUB_OUTPUT"
+
+      - uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3.0.0
+        with:
+          workload_identity_provider: ${{ steps.facts.outputs.wif_provider }}
+          service_account: ${{ steps.facts.outputs.deployer_sa }}
+
+      - uses: google-github-actions/setup-gcloud@aa5489c8933f4cc7a4f7d45035b3b1440c9c10db # v3.0.1
+
+      - name: Install crane
+        run: |
+          set -euo pipefail
+          url="https://github.com/google/go-containerregistry/releases/download/v${CRANE_VERSION}/go-containerregistry_Linux_x86_64.tar.gz"
+          curl -fsSL -o crane.tar.gz "$url"
+          echo "${CRANE_SHA256}  crane.tar.gz" | sha256sum -c -
+          tar -xzf crane.tar.gz crane
+          sudo install -m 0755 crane /usr/local/bin/crane
+          rm -f crane.tar.gz crane
+          crane version
+
+      - name: Copy the released image into this environment's registry
+        env:
+          SOURCE_REPO: ${{ steps.facts.outputs.source_image_repo }}
+          TARGET_REPO: ${{ steps.facts.outputs.image_repo }}
+          VERSION: ${{ inputs.version }}
+          WANT_DIGEST: ${{ needs.plan.outputs.digest }}
+        run: |
+          set -euo pipefail
+          gcloud auth configure-docker "$(echo "$TARGET_REPO" | cut -d/ -f1)" --quiet
+
+          # The approval wait above is unbounded and the source tag is mutable,
+          # so anyone who can write to the source registry could repoint
+          # :VERSION at a different image between the plan an approver read and
+          # this apply. Re-resolve it and refuse if it moved: what gets deployed
+          # must be what was planned and approved.
+          if ! now="$(crane digest "${SOURCE_REPO}:${VERSION}")"; then
+            echo "::error::${SOURCE_REPO}:${VERSION} could not be read while re-checking it after the approval. Nothing has been deployed; re-run the promotion."
+            exit 1
+          fi
+          if [ "$now" != "$WANT_DIGEST" ]; then
+            echo "::error::${SOURCE_REPO}:${VERSION} resolved to ${WANT_DIGEST} when the plan ran and to ${now} now. The source tag moved after the plan was approved; refusing to deploy an image nobody reviewed."
+            exit 1
+          fi
+
+          # Both registries are the same host, so one token covers the read on
+          # the source and the write on the target. The source environment
+          # grants this account reader on its repository through
+          # env_inputs.registry_readers.
+          echo "Copying ${SOURCE_REPO}@${WANT_DIGEST} -> ${TARGET_REPO}:${VERSION}"
+          crane copy "${SOURCE_REPO}@${WANT_DIGEST}" "${TARGET_REPO}:${VERSION}"
+
+          # crane copies the manifest, so the digest must survive. Check it
+          # rather than assume it: everything downstream is pinned to this value.
+          got="$(crane digest "${TARGET_REPO}:${VERSION}")"
+          if [ "$got" != "$WANT_DIGEST" ]; then
+            echo "::error::copied image has digest ${got}, expected ${WANT_DIGEST}"
+            exit 1
+          fi
+          echo "In ${TARGET_REPO} at ${got}"
+
+      - uses: opentofu/setup-opentofu@a1320f892987e89d278cc92dc5adc984fb93aca4 # v2.0.2
+        with:
+          tofu_version_file: infra/.opentofu-version
+
+      - name: Install Terragrunt at the committed pin
+        run: |
+          set -euo pipefail
+          tg="$(tr -d '[:space:]' < infra/.terragrunt-version)"
+          base="https://github.com/gruntwork-io/terragrunt/releases/download/v${tg}"
+          curl -fsSL -o terragrunt_linux_amd64 "${base}/terragrunt_linux_amd64"
+          curl -fsSL -o SHA256SUMS "${base}/SHA256SUMS"
+          grep ' terragrunt_linux_amd64$' SHA256SUMS | sha256sum -c -
+          sudo install -m 0755 terragrunt_linux_amd64 /usr/local/bin/terragrunt
+          rm -f terragrunt_linux_amd64 SHA256SUMS
+          terragrunt --version
+
+      # Check the live service before overwriting it, and refuse a pinned
+      # rollback nobody acknowledged.
+      #
+      # The saved plan does NOT protect against this. OpenTofu's stale-plan
+      # check compares the plan's prior-state lineage and serial against the
+      # backend state, so it catches another Terraform operation on the same
+      # state. A hand-made change never touches that state, the serial does not
+      # move, and the saved plan applies cleanly. Its recorded `after` for the
+      # service carries traffic = TRAFFIC_TARGET_ALLOCATION_TYPE_LATEST, so
+      # applying it sends that, which silently reverts a pinned rollback.
+      #
+      # The traffic pin is the one such change this can detect reliably, and it
+      # is the one docs/promotion.md tells people to make, so it fails closed.
+      # acknowledge_traffic_pin is how you say "yes, return traffic to the
+      # version I am promoting", which is what ending an incident looks like.
+      #
+      # A failed read warns and proceeds rather than aborting: by this point an
+      # approval is spent and crane copy has pushed the image, so a service that
+      # does not exist yet must not leave the promotion half done. Only a
+      # confirmed pin refuses.
+      - name: Check what this apply will overwrite
+        env:
+          PROJECT_ID: ${{ steps.facts.outputs.project_id }}
+          REGION: ${{ steps.facts.outputs.region }}
+          SERVICE: ${{ steps.facts.outputs.service_name }}
+          ACKNOWLEDGED: ${{ inputs.acknowledge_traffic_pin }}
+        run: |
+          set -uo pipefail
+
+          # Whether the service exists is decided by exit status, not by
+          # matching error text. `describe` says "Cannot find service [x]" when
+          # it is absent, which no sensible pattern for "not found" matches,
+          # while some access failures do say "not found" and would read as
+          # absent. `list --filter` separates the two cleanly: status 0 with no
+          # output means the API answered and the service is not there, status 0
+          # with a name means it is, and non-zero means the question could not be
+          # asked at all.
+          exists=unknown
+          for attempt in 1 2 3; do
+            if names="$(gcloud run services list \
+                          --region "$REGION" --project "$PROJECT_ID" \
+                          --filter="metadata.name=${SERVICE}" \
+                          --format='value(metadata.name)' 2>err.txt)"; then
+              if [ -z "${names//[[:space:]]/}" ]; then exists=no; else exists=yes; fi
+              break
+            fi
+            echo "Attempt ${attempt} could not list services:"
+            sed 's/^/  /' err.txt
+            [ "$attempt" -lt 3 ] && sleep 10
+          done
+
+          if [ "$exists" = no ]; then
+            echo "The service does not exist yet, so there is nothing to overwrite. This is a first deploy."
+            exit 0
+          fi
+          if [ "$exists" != yes ]; then
+            echo "::error::Could not reach Cloud Run in ${PROJECT_ID}/${REGION} after three attempts, so this run cannot tell whether traffic has been moved off the latest revision. Applying could silently undo a rollback, so it is refusing. Nothing has been applied; the image is already in this environment's registry and the service was not touched, so re-running the promotion costs another approval and nothing else."
+            sed 's/^/  /' err.txt
+            exit 1
+          fi
+
+          for attempt in 1 2 3; do
+            if svc="$(gcloud run services describe "$SERVICE" \
+                        --region "$REGION" --project "$PROJECT_ID" \
+                        --format='json(status.traffic, spec.template.spec.containers[0].image)' \
+                        2>err.txt)"; then
+              break
+            fi
+            svc=""
+            echo "Attempt ${attempt} could not describe the service:"
+            sed 's/^/  /' err.txt
+            [ "$attempt" -lt 3 ] && sleep 10
+          done
+          if [ -z "$svc" ]; then
+            echo "::error::${SERVICE} exists but could not be read after three attempts, so this run cannot tell what it is about to overwrite. Refusing. Nothing has been applied."
+            exit 1
+          fi
+
+          # A parse failure is fatal and acknowledgement does not override it.
+          # An unreadable response must never become a pass, acknowledged or
+          # otherwise: that would be deciding the split is fine because nothing
+          # could be learned about it.
+          if ! traffic="$(jq -ce 'if (.status.traffic | type) == "array" then .status.traffic else error("traffic is not an array") end' <<<"$svc")"; then
+            echo "::error::Could not read a traffic split out of the Cloud Run response, so this run cannot tell what it is about to overwrite. The response shape may have changed. Refusing; nothing has been applied."
+            while IFS= read -r line; do echo "  ${line}"; done <<<"$svc"
+            exit 1
+          fi
+          running="$(jq -r '.spec.template.spec.containers[0].image // "unknown"' <<<"$svc")"
+          echo "Currently serving: ${running}"
+          echo "Traffic:           ${traffic}"
+
+          # The stack serves one target, TRAFFIC_TARGET_ALLOCATION_TYPE_LATEST at
+          # 100. Anything else means somebody changed the split by hand, and that
+          # includes a partial split: a 90/10 canary or a zero-percent latest
+          # entry both still mention latestRevision, so matching on that alone
+          # would let a rollback be wiped without anyone acknowledging it.
+          if echo "$traffic" | jq -e 'length == 1 and .[0].latestRevision == true and .[0].percent == 100' >/dev/null; then
+            exit 0
+          fi
+
+          {
+            echo "### Traffic is not all on the latest revision"
+            echo
+            echo "Somebody changed this service's traffic split by hand. Applying returns all traffic to the promoted version."
+            echo
+            echo '```json'
+            echo "${traffic}" | jq .
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          if [ "$ACKNOWLEDGED" != "true" ]; then
+            echo "::error::This service's traffic is not all on its latest revision, so the split was changed by hand, and applying would return all of it to the version being promoted without that being an explicit decision. Nothing has been applied. If returning traffic is what you want, promote again with acknowledge_traffic_pin set. If not, leave the split in place and promote the version that should serve."
+            exit 1
+          fi
+          echo "::warning::Traffic was not all on the latest revision and the promotion acknowledged it; returning all traffic to the promoted version."
+
+      - name: Fetch the approved plan
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: approved-plan-${{ inputs.environment }}
+          path: approved
+
+      - name: Check it is the plan that was approved
+        env:
+          WANT_SHA: ${{ needs.plan.outputs.plan_sha256 }}
+        run: |
+          set -euo pipefail
+          if [ -z "$WANT_SHA" ]; then
+            echo "::error::the plan job published no checksum, so the plan cannot be shown to be the approved one. Refusing to apply."
+            exit 1
+          fi
+          got="$(sha256sum approved/appliable.tfplan | cut -d' ' -f1)"
+          if [ "$got" != "$WANT_SHA" ]; then
+            echo "::error::the plan file is ${got}, the plan job saved ${WANT_SHA}. Refusing to apply a plan that is not the one that was approved."
+            exit 1
+          fi
+          echo "Plan checksum matches: ${got}"
+
+      # Apply the saved plan, not a fresh one. OpenTofu refuses it if the state
+      # has moved since it was made, so anything that changed the service during
+      # the approval wait stops the deploy instead of being reverted unreviewed.
+      - name: Apply the approved plan
+        env:
+          ENVIRONMENT: ${{ inputs.environment }}
+          # Still required: Terragrunt parses the HCL with command "apply", and
+          # the Cloud Run stack demands IMAGE_DIGEST there. The saved plan is
+          # what decides the change; this only has to resolve.
+          IMAGE_DIGEST: ${{ needs.plan.outputs.digest }}
+        run: |
+          set -uo pipefail
+          terragrunt apply --working-dir "infra/live/${ENVIRONMENT}/${APPLIABLE}" \
+            --non-interactive --no-color \
+            "${GITHUB_WORKSPACE}/approved/appliable.tfplan" > apply.txt 2>&1
+          rc=$?
+          cat apply.txt
+          if [ "$rc" -ne 0 ]; then
+            if grep -q "Saved plan is stale" apply.txt; then
+              echo "::error::the approved plan is stale: the state changed after the plan was made and before this apply, so what was approved is no longer what would happen. Nothing has been applied. Re-run the promotion to plan and approve the current state."
+            fi
+            exit "$rc"
+          fi
+
+      - name: Verify the running image is the one that was promoted
+        env:
+          PROJECT_ID: ${{ steps.facts.outputs.project_id }}
+          REGION: ${{ steps.facts.outputs.region }}
+          SERVICE: ${{ steps.facts.outputs.service_name }}
+          TARGET_REPO: ${{ steps.facts.outputs.image_repo }}
+          WANT_DIGEST: ${{ needs.plan.outputs.digest }}
+          ENVIRONMENT: ${{ inputs.environment }}
+          VERSION: ${{ inputs.version }}
+        run: |
+          set -euo pipefail
+          deployed="$(gcloud run services describe "$SERVICE" \
+            --region "$REGION" --project "$PROJECT_ID" \
+            --format='value(spec.template.spec.containers[0].image)')"
+          echo "Deployed image: ${deployed}"
+          echo "Promoted digest: ${WANT_DIGEST}"
+          if [ "$deployed" != "${TARGET_REPO}@${WANT_DIGEST}" ]; then
+            echo "::error::the running service is not the promoted image"
+            exit 1
+          fi
+
+          url="$(gcloud run services describe "$SERVICE" \
+            --region "$REGION" --project "$PROJECT_ID" --format='value(status.url)')"
+          {
+            echo "### ${ENVIRONMENT} is running ${VERSION}"
+            echo
+            echo "${url}"
+          } >> "$GITHUB_STEP_SUMMARY"

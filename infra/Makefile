@@ -3,7 +3,7 @@ TOFU := tofu
 LIVE := live
 MODULES := $(wildcard modules/*)
 
-.PHONY: fmt fmt-check validate lint test check
+.PHONY: fmt fmt-check validate lint test test-scripts check
 
 fmt:
 	@if [ -d modules ]; then $(TOFU) fmt -recursive modules; fi
@@ -24,4 +24,9 @@ test:
 	  if [ -d "$$m/tests" ]; then echo "== $$m"; (cd $$m && $(TOFU) init -backend=false -input=false >/dev/null && $(TOFU) test) || exit 1; fi; \
 	done
 
-check: fmt-check validate lint test
+# Only the offline script tests. tests/test-bootstrap-state.sh talks to GCP and
+# takes a project argument, so it is run by hand, not here.
+test-scripts:
+	scripts/tests/test-env-facts.sh
+
+check: fmt-check validate lint test test-scripts

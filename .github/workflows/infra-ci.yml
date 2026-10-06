@@ -41,5 +41,5 @@ jobs:
         with:
           tflint_version: v0.64.0
 
-      - name: Format, lint and unit-test the modules
-        run: make -C infra fmt-check lint test
+      - name: Format, lint and unit-test the modules and scripts
+        run: make -C infra fmt-check lint test test-scripts

@@ -2,19 +2,6 @@ include "root" {
   path = find_in_parent_folders("root.hcl")
 }
 
-
-terraform {
-  source = "${dirname(find_in_parent_folders("root.hcl"))}/../modules/project-services"
-}
-
-inputs = {
-  services = [
-    "run.googleapis.com",
-    "artifactregistry.googleapis.com",
-    "retail.googleapis.com",
-    "iamcredentials.googleapis.com",
-    "sts.googleapis.com",
-    "iam.googleapis.com",
-    "cloudresourcemanager.googleapis.com",
-  ]
+include "envcommon" {
+  path = "${dirname(find_in_parent_folders("root.hcl"))}/_envcommon/project-services.hcl"
 }

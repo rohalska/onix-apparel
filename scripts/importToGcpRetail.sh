@@ -35,7 +35,7 @@ if [ ! -f "${CATALOG_FILE}" ]; then
   exit 1
 fi
 
-# 1. The Retail API is enabled by infra/live/dev/global/project-services, which
+# 1. The Retail API is enabled by infra/live/<env>/global/project-services, which
 # owns API enablement. The catalog identity cannot enable services.
 
 # 2. Verify the Cloud Storage staging bucket exists
@@ -46,7 +46,7 @@ echo ""
 echo "📦 2. Verifying staging GCS bucket: ${BUCKET_NAME}..."
 if ! gcloud storage buckets describe "${BUCKET_NAME}" >/dev/null 2>&1; then
   echo "❌ Staging bucket ${BUCKET_NAME} does not exist or is not readable." >&2
-  echo "   It is managed in infra/live/dev/us-central1/catalog-staging and must be applied first." >&2
+  echo "   It is managed in infra/live/<env>/us-central1/catalog-staging and must be applied first." >&2
   exit 1
 fi
 

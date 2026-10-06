@@ -169,3 +169,126 @@ run "rejects_an_account_in_both_lists" {
 
   expect_failures = [var.service_account_refs]
 }
+
+run "binds_an_account_to_a_github_environment_subject" {
+  command = plan
+
+  variables {
+    service_account_emails       = []
+    subject_prefix               = "repo:onix-net@144174065/gecx-shopping-agent-demo@1388249424"
+    service_account_environments = { "gecx-shop-deploy@test-project.iam.gserviceaccount.com" = "prd" }
+  }
+
+  override_resource {
+    target = google_iam_workload_identity_pool.github
+    values = {
+      name = "projects/835936341567/locations/global/workloadIdentityPools/github"
+    }
+  }
+
+  # google.subject is mapped to assertion.sub, so binding the subject reaches the
+  # account only from a job that declared the environment. A ref pin cannot
+  # express that: every job on the branch satisfies it.
+  #
+  # The prefix is the one this repository actually uses. Immutable subject claims
+  # are on, so it carries the numeric owner and repository ids; a binding built
+  # from the plain repo:<owner>/<repo> form would never match and the deploy
+  # would fail at the token exchange.
+  assert {
+    condition     = google_service_account_iam_member.wif_environment["gecx-shop-deploy@test-project.iam.gserviceaccount.com"].member == "principal://iam.googleapis.com/projects/835936341567/locations/global/workloadIdentityPools/github/subject/repo:onix-net@144174065/gecx-shopping-agent-demo@1388249424:environment:prd"
+    error_message = "environment binding must be a principal on subject/<subject_prefix>:environment:<name>, got '${google_service_account_iam_member.wif_environment["gecx-shop-deploy@test-project.iam.gserviceaccount.com"].member}'"
+  }
+
+  assert {
+    condition     = strcontains(google_service_account_iam_member.wif_environment["gecx-shop-deploy@test-project.iam.gserviceaccount.com"].member, "@1388249424:environment:prd")
+    error_message = "the binding must use the immutable subject prefix this repository is configured for, not the plain repo:<owner>/<repo> form"
+  }
+
+  # principal, not principalSet: a subject names one identity. principalSet on a
+  # subject is rejected by IAM, so getting this wrong fails at apply.
+  assert {
+    condition     = startswith(google_service_account_iam_member.wif_environment["gecx-shop-deploy@test-project.iam.gserviceaccount.com"].member, "principal://")
+    error_message = "a subject binding must use principal://, not principalSet://"
+  }
+}
+
+run "grants_no_environment_bindings_by_default" {
+  command = plan
+
+  override_resource {
+    target = google_iam_workload_identity_pool.github
+    values = {
+      name = "projects/835936341567/locations/global/workloadIdentityPools/github"
+    }
+  }
+
+  assert {
+    condition     = length(google_service_account_iam_member.wif_environment) == 0
+    error_message = "no environment binding should exist unless one is asked for"
+  }
+}
+
+run "rejects_an_account_bound_both_by_environment_and_by_ref" {
+  command = plan
+
+  variables {
+    service_account_emails       = []
+    service_account_refs         = { "gecx-shop-deploy@test-project.iam.gserviceaccount.com" = "refs/heads/main" }
+    subject_prefix               = "repo:onix-net@144174065/gecx-shopping-agent-demo@1388249424"
+    service_account_environments = { "gecx-shop-deploy@test-project.iam.gserviceaccount.com" = "prd" }
+  }
+
+  # The ref binding would let any job on main reach the account without the
+  # gate, which is exactly what the environment binding is for.
+  expect_failures = [var.service_account_environments]
+}
+
+run "rejects_an_account_bound_both_by_environment_and_repository_wide" {
+  command = plan
+
+  variables {
+    service_account_emails       = ["gecx-shop-deploy@test-project.iam.gserviceaccount.com"]
+    subject_prefix               = "repo:onix-net@144174065/gecx-shopping-agent-demo@1388249424"
+    service_account_environments = { "gecx-shop-deploy@test-project.iam.gserviceaccount.com" = "prd" }
+  }
+
+  expect_failures = [var.service_account_environments]
+}
+
+run "rejects_an_environment_name_that_is_not_a_plain_name" {
+  command = plan
+
+  variables {
+    service_account_emails       = []
+    subject_prefix               = "repo:onix-net@144174065/gecx-shopping-agent-demo@1388249424"
+    service_account_environments = { "gecx-shop-deploy@test-project.iam.gserviceaccount.com" = "refs/heads/main" }
+  }
+
+  expect_failures = [var.service_account_environments]
+}
+
+run "refuses_an_environment_binding_without_a_subject_prefix" {
+  command = plan
+
+  variables {
+    service_account_emails       = []
+    service_account_environments = { "gecx-shop-deploy@test-project.iam.gserviceaccount.com" = "prd" }
+  }
+
+  # Without the prefix the member would be composed from a null and never match
+  # anything, so the gate would look configured and grant nobody.
+  expect_failures = [var.service_account_environments]
+}
+
+run "rejects_a_subject_prefix_that_is_not_a_repo_prefix" {
+  command = plan
+
+  variables {
+    service_account_emails = []
+    subject_prefix         = "repo:onix-net/gecx-shopping-agent-demo:environment:prd"
+  }
+
+  # The environment part is appended by the module; a prefix that already
+  # carries one would compose a member with two.
+  expect_failures = [var.subject_prefix]
+}

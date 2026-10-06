@@ -55,8 +55,9 @@ gecx-shopping-agent-demo/
 ├── Dockerfile                    # Multi-stage build; the runner stage is what Cloud Run runs
 ├── Makefile                      # Single entry point for every quality gate
 ├── docs/
-│   └── FDE_INTEGRATION_RUNBOOK.md  # GCP setup, deploy, agent registration, rollback
-├── infra/                        # OpenTofu modules and Terragrunt live config for dev
+│   ├── FDE_INTEGRATION_RUNBOOK.md  # GCP setup, deploy, agent registration, rollback
+│   └── promotion.md              # How a released version reaches prd
+├── infra/                        # OpenTofu modules and Terragrunt live config for dev and prd
 ├── lefthook.yml                  # pre-commit and commit-msg hooks
 ├── openapi.yaml                  # Published API contract (mirrored in public/)
 ├── public/.well-known/           # A2A agent card
@@ -230,6 +231,8 @@ Prefer the `make` targets above for anything in the gate; these are what they ca
 | `infra-ci.yml`       | pull requests touching `infra/**`, push to main  | `fmt`, `validate`, `tflint`, `tofu test`. No cloud credentials                          |
 | `infra-plan.yml`     | pull requests touching `infra/**`                | Plans dev as `gecx-shop-plan` with `-lock=false`, comments the plan on the pull request |
 | `release.yml`        | push to main                                     | release-please, then `deploy-dev` when a release was cut                                |
+| `promote.yml`        | `workflow_dispatch` from main                    | Tags `<env>-<version>` and calls `deploy-env.yml` to deploy that version                |
+| `deploy-env.yml`     | called by `promote.yml`                          | Plans the environment, waits for its reviewers, then copies the digest and applies      |
 | `catalog-import.yml` | `workflow_dispatch` from main, `confirm: import` | Runs `scripts/importToGcpRetail.sh` as `gecx-shop-catalog`                              |
 
 ## Deployment
@@ -247,7 +250,14 @@ pull request is what deploys:
    floating tag.
 4. It reads the deployed image back and fails if it is not the digest it built.
 
-That path has run for real; `v0.2.1` is what dev is serving.
+That path has run for real.
+
+Prd is deployed by promoting a version that is already running in dev. Run the
+**Promote** workflow from main with the version and the target environment; it
+cuts a `prd-v*` provenance tag, plans the environment, waits on the required
+reviewers, then copies the released digest into the prd registry and applies.
+Nothing is rebuilt, so prd runs the image dev ran. See
+[docs/promotion.md](docs/promotion.md).
 
 The service is named `gecx-shopping-agent-demo`. It was previously called
 `onix-apparel`, the name from the repository this code came from, so a URL
@@ -268,10 +278,55 @@ image change before it is applied, and it is why `infra-plan.yml` reads the
 live digest before planning. A `gcloud run deploy` run outside state would
 leave that plan with nothing to say, and the next apply would revert it.
 
-Rolling back means deploying an older release. There is no prod environment and
-no promotion job yet; only `dev` exists in `infra/live`.
+Rolling back prd means promoting an older release, and that works only when
+nothing but the image has moved since. The deploy plans the whole environment as
+the older tag defines it, so if any stack other than Cloud Run differs from what
+is applied, an IAM change, a service enablement, a new `env_inputs` value, the
+plan reports changes in a stack the deployer cannot apply and the run stops
+before the gate. A rollback is therefore refused in the case where the release
+also changed infrastructure, which is often the case where it is most wanted.
+Clearing it needs an elevated apply out of band. Versions cut before
+`infra/live/prd/env.hcl` existed are refused too.
+
+For an incident, do not wait on that. Shift traffic to the previous revision and
+sort the state out afterwards; see Break-glass below.
+
+In dev, cut a revert commit and let the next release deploy it.
 
 ### Break-glass
+
+The fastest way out of a bad release is to move traffic off it. It needs no
+build and no apply:
+
+```bash
+# Newest first, with readiness and the digest each revision runs. Without
+# --sort-by the order is not guaranteed, and a revision that never served can
+# sit between two releases.
+gcloud run revisions list --service gecx-shopping-agent-demo \
+  --region us-central1 --project <project-id> \
+  --sort-by='~metadata.creationTimestamp' \
+  --format='table(metadata.name, metadata.creationTimestamp, status.conditions[0].status, spec.containers[0].image)'
+
+# What is serving now, before changing it.
+gcloud run services describe gecx-shopping-agent-demo \
+  --region us-central1 --project <project-id> --format='value(status.traffic)'
+
+# Pick a revision whose STATUS is True and whose digest you recognise.
+gcloud run services update-traffic gecx-shopping-agent-demo \
+  --region us-central1 --project <project-id> \
+  --to-revisions <previous-revision>=100
+
+# Confirm it took, then check the service actually answers.
+gcloud run services describe gecx-shopping-agent-demo \
+  --region us-central1 --project <project-id> --format='value(status.traffic)'
+curl -fsS -o /dev/null -w '%{http_code}\n' "$(gcloud run services describe gecx-shopping-agent-demo \
+  --region us-central1 --project <project-id> --format='value(status.url)')"
+```
+
+The module serves `TRAFFIC_TARGET_ALLOCATION_TYPE_LATEST` at 100, so pinning a
+revision is drift and the next apply moves traffic back to the newest revision.
+Promote the older version properly once the incident is over, or the next
+unrelated apply will undo the rollback.
 
 A manual `gcloud run deploy` is for when the pipeline is unavailable and the
 service has to come back now. It deploys outside OpenTofu state, so the next

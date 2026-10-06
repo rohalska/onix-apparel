@@ -1,0 +1,184 @@
+# Promote a released version to an environment: cut the provenance tag, then
+# call deploy-env.yml to plan and apply behind that environment's gate.
+#
+# THE CALL IS THE TRIGGER. deploy-env.yml is a reusable workflow this one calls
+# directly, so a promotion and its deploy are one run and cannot drift apart. No
+# workflow triggers on the tag, so a tag that exists is never a deploy that
+# quietly did not happen.
+#
+# THE TAG IS PROVENANCE. prd-v0.3.0 records that v0.3.0 was promoted to prd, and
+# always points at the commit the release tag points at. Nothing reads it to
+# decide what to deploy; deploy-env.yml requires it to exist and to agree with
+# the release tag, and refuses otherwise.
+#
+# IDEMPOTENT. Re-promoting the same version re-runs the deploy and moves no tag,
+# which is how a failed deploy is retried. It fails only when the tag already
+# exists at a different commit than the version now resolves to, because that
+# means the release tag was moved underneath it and the provenance no longer
+# describes what would be deployed.
+#
+# ONLY FROM main, but read where that is enforced before relying on it. A
+# dispatch carries the ref it was started from, and so does the OIDC token.
+#
+# For an environment whose deployer is pinned to a ref, such as dev, IAM refuses
+# the token and the branch is enforced in the cloud.
+#
+# For a gated environment such as prd it is not. Its deployer is bound to the
+# subject of a job that declared the environment, and that subject carries no
+# ref, so IAM does not check the branch at all. The guard below and the one in
+# deploy-env.yml's resolve are workflow code, and a dispatch from a branch runs
+# that branch's copy, which can delete them. What actually holds for prd is the
+# prd GitHub Environment: its deployment branch policy allows main only, and its
+# required reviewers have to approve. Both are repository settings that no pull
+# request can change, and docs/promotion.md has the commands to check them.
+#
+# This workflow does not gate on the environment. The gate sits on
+# deploy-env.yml's apply job, after the plan, so an approver sees what they are
+# approving.
+name: Promote
+run-name: Promote ${{ inputs.version }} -> ${{ inputs.environment }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Released version to promote, e.g. v0.3.0
+        required: true
+        type: string
+      environment:
+        description: Target environment
+        required: true
+        type: choice
+        options:
+          - prd
+      acknowledge_traffic_pin:
+        description: Traffic is pinned to a named revision and returning it to this version is intended (an incident rollback being promoted out of)
+        required: false
+        type: boolean
+        default: false
+
+# Serialise promotions to the same environment. deploy-env.yml serialises again
+# on its own group, so this one is named for promotion to avoid a caller/callee
+# collision. Never cancel a promotion that is already running.
+concurrency:
+  group: promote-${{ inputs.environment }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  tag:
+    name: Tag ${{ inputs.version }} -> ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+    permissions:
+      # Push the promotion tag. No ruleset protects tags in this repository, so
+      # GITHUB_TOKEN is enough and no App token is needed here.
+      contents: write
+    steps:
+      # Fail before anything happens. Without this, a dispatch from a branch
+      # gets all the way through: this job pushes the provenance tag with
+      # contents: write, resolve and plan run, and reviewers are asked to
+      # approve.
+      #
+      # This is an early failure, not the access control. A branch runs its own
+      # copy of this file and can remove this step. For dev the deployer's ref
+      # pin refuses the token; for a gated environment the prd Environment's
+      # deployment branch policy and required reviewers are what hold.
+      #
+      # A step rather than a job-level `if`, because a skipped job reports the
+      # run as green and an operator who dispatched from the wrong branch should
+      # see it fail.
+      - name: Refuse a dispatch from anywhere but main
+        env:
+          REF: ${{ github.ref }}
+          # The literal ref the Workload Identity bindings carry, not whatever
+          # GitHub reports as the default branch. The two must agree: if this
+          # guard trusted a renamed default branch it would pass, cut the tag,
+          # run the plan and spend an approval, and only then fail at the token
+          # exchange. Renaming the branch means editing this and
+          # infra/live/_envcommon/wif-github.hcl together, and re-applying it.
+          DEPLOY_REF: refs/heads/main
+        run: |
+          set -euo pipefail
+          if [ "$REF" != "$DEPLOY_REF" ]; then
+            echo "::error::Promote must be dispatched from ${DEPLOY_REF}, not ${REF}. Every environment's deployer is pinned to that ref, so a promotion from a branch cannot deploy; it would only cut a tag and wait on reviewers before failing."
+            exit 1
+          fi
+
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Cut the provenance tag
+        # Dispatch inputs reach the shell through the environment, never inlined
+        # into the script.
+        env:
+          VERSION: ${{ inputs.version }}
+          ENVIRONMENT: ${{ inputs.environment }}
+        run: |
+          set -euo pipefail
+
+          if [[ ! "$VERSION" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::version '$VERSION' is not a release tag (expected vMAJOR.MINOR.PATCH)"
+            exit 1
+          fi
+
+          # dev is deployed by release.yml when a release is cut, so it is
+          # deliberately not a promotion target.
+          if [[ ! "$ENVIRONMENT" =~ ^(prd)$ ]]; then
+            echo "::error::environment '$ENVIRONMENT' is not promotable (expected prd)"
+            exit 1
+          fi
+
+          if ! git rev-parse -q --verify "refs/tags/${VERSION}" >/dev/null; then
+            echo "::error::release tag '${VERSION}' does not exist. Promote a version release-please has cut."
+            exit 1
+          fi
+
+          # The tag prefix is the environment name verbatim, so the prefix and
+          # the GitHub Environment are always the same string and there is no
+          # mapping table to drift.
+          promo_tag="${ENVIRONMENT}-${VERSION}"
+          target_sha="$(git rev-parse "refs/tags/${VERSION}^{commit}")"
+
+          # The same ancestry check deploy-env.yml's resolve job makes, done
+          # here so a tag is never written for a commit that cannot be deployed.
+          # The tag namespace is unprotected, so v9.9.9 could point at an
+          # unmerged branch commit; without this, promoting it would push
+          # prd-v9.9.9 at that commit and only then be refused, leaving the tag
+          # behind as a record of something that was never eligible.
+          git fetch -q --no-tags origin "+refs/heads/main:refs/remotes/origin/main"
+          if ! git merge-base --is-ancestor "$target_sha" refs/remotes/origin/main; then
+            echo "::error::${VERSION} (${target_sha}) is not an ancestor of main, so it cannot be deployed and will not be tagged. Promote a released commit that has been merged."
+            exit 1
+          fi
+
+          if existing_sha="$(git rev-parse -q --verify "refs/tags/${promo_tag}^{commit}")"; then
+            if [ "$existing_sha" != "$target_sha" ]; then
+              echo "::error::promotion tag '${promo_tag}' already exists at ${existing_sha}, but ${VERSION} now resolves to ${target_sha}. The release tag was moved; refusing to promote."
+              exit 1
+            fi
+            echo "Promotion tag '${promo_tag}' is already at ${target_sha}; re-running the deploy."
+          else
+            echo "Promoting ${VERSION} (${target_sha}) -> ${promo_tag}"
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git tag -a "${promo_tag}" "${target_sha}" -m "Promote ${VERSION} to ${ENVIRONMENT}"
+            git push origin "refs/tags/${promo_tag}"
+            echo "Pushed '${promo_tag}'."
+          fi
+
+  deploy:
+    name: Deploy ${{ inputs.version }} -> ${{ inputs.environment }}
+    needs: tag
+    permissions:
+      contents: read
+      # Ceiling for the called workflow's Workload Identity exchange.
+      id-token: write
+    uses: ./.github/workflows/deploy-env.yml
+    with:
+      environment: ${{ inputs.environment }}
+      version: ${{ inputs.version }}
+      acknowledge_traffic_pin: ${{ inputs.acknowledge_traffic_pin }}

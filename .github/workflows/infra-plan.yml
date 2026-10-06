@@ -17,17 +17,41 @@ concurrency:
   group: infra-plan-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
+# DEV ONLY, deliberately. A pull request plan executes the pull request's own
+# Terragrunt configuration, and Terragrunt can run arbitrary commands through
+# run_cmd, so whichever environment is planned here has its planner credentials
+# and its state handed to unreviewed code.
+#
+# This file being on dev is not what keeps prd out of reach. A pull_request run
+# uses the workflow file from the pull request's own branch, so anyone who can
+# push a branch could edit this line. What enforces it is prd's Workload
+# Identity binding: prd's planner is pinned to refs/heads/main through
+# env_inputs.planner_ref, so a pull request cannot assume it whatever this file
+# says. Dev's planner is repository-wide, which is what lets the plan below run
+# at all.
+#
+# live/_envcommon is shared, so a change to a stack reaches every environment and
+# a dev plan exercises the same file prd will use. What a dev plan cannot show is
+# prd's own state, and deploy-env.yml covers that: a promotion plans the whole
+# target environment and publishes it before the approval gate, which is the
+# moment it matters.
 jobs:
   plan:
     runs-on: ubuntu-latest
+    env:
+      ENVIRONMENT: dev
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Read the environment's facts
+        id: facts
+        run: infra/scripts/env-facts.sh "$ENVIRONMENT" >> "$GITHUB_OUTPUT"
 
       # The planner is read-only and bound repository-wide. Never the deployer.
       - uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3.0.0
         with:
-          workload_identity_provider: projects/835936341567/locations/global/workloadIdentityPools/github/providers/github
-          service_account: gecx-shop-plan@onx-dev-int-shop-demo-qes8.iam.gserviceaccount.com
+          workload_identity_provider: ${{ steps.facts.outputs.wif_provider }}
+          service_account: ${{ steps.facts.outputs.planner_sa }}
 
       - uses: opentofu/setup-opentofu@a1320f892987e89d278cc92dc5adc984fb93aca4 # v2.0.2
         with:
@@ -45,16 +69,20 @@ jobs:
           terragrunt --version
 
       # Plan against the digest that is actually deployed. Without this the plan
-      # compares the live service to the leaf's committed placeholder and proposes
-      # reverting the image on every pull request, which is noise that would train
-      # readers to ignore the plan. roles/viewer includes run.services.get, so the
-      # planner can read it.
+      # compares the live service to the stack's committed placeholder and
+      # proposes reverting the image on every pull request, which is noise that
+      # would train readers to ignore the plan. roles/viewer includes
+      # run.services.get, so the planner can read it.
       - name: Read the deployed image digest
         id: deployed
+        env:
+          PROJECT_ID: ${{ steps.facts.outputs.project_id }}
+          REGION: ${{ steps.facts.outputs.region }}
+          SERVICE: ${{ steps.facts.outputs.service_name }}
         run: |
           set -euo pipefail
-          img=$(gcloud run services describe gecx-shopping-agent-demo \
-            --region us-central1 --project onx-dev-int-shop-demo-qes8 \
+          img=$(gcloud run services describe "$SERVICE" \
+            --region "$REGION" --project "$PROJECT_ID" \
             --format='value(spec.template.spec.containers[0].image)' || true)
           digest="${img##*@}"
           if [ -n "$digest" ] && [ "$digest" != "$img" ]; then
@@ -62,20 +90,20 @@ jobs:
             echo "Planning against deployed digest $digest"
           else
             echo "digest=" >> "$GITHUB_OUTPUT"
-            echo "No deployed digest found; the leaf placeholder will be used."
+            echo "No deployed digest found; the stack placeholder will be used."
           fi
 
       # -lock=false is required: the planner cannot write the state lock object.
-      - name: Plan dev
+      - name: Plan ${{ env.ENVIRONMENT }}
         id: plan
         continue-on-error: true
         env:
-          # Empty when nothing is deployed yet, in which case the leaf falls back
-          # to its committed placeholder, which is the correct behaviour for a
-          # first-ever plan.
+          # Empty when nothing is deployed yet, in which case the stack falls
+          # back to its committed placeholder, which is the correct behaviour
+          # for a first-ever plan.
           IMAGE_DIGEST: ${{ steps.deployed.outputs.digest }}
         run: |
-          terragrunt run --all --non-interactive --no-color --working-dir infra/live/dev -- plan -lock=false 2>&1 | tee "$RUNNER_TEMP/plan.txt"
+          terragrunt run --all --non-interactive --no-color --working-dir "infra/live/${ENVIRONMENT}" -- plan -lock=false 2>&1 | tee "$RUNNER_TEMP/plan.txt"
 
       - name: Comment the plan
         if: always()
@@ -99,7 +127,7 @@ jobs:
             const fence = '`'.repeat(Math.max(3, ...(out.match(/`+/g) || []).map(m => m.length + 1)));
             const status = process.env.PLAN_OUTCOME === 'success' ? 'succeeded' : 'FAILED';
             const body = [
-              `### infra plan (dev): ${status}`,
+              `### infra plan (${process.env.ENVIRONMENT}): ${status}`,
               note,
               '<details><summary>Plan output</summary>',
               '',
