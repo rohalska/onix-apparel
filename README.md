@@ -5,9 +5,15 @@ to Google Cloud Vertex AI Search for Retail. It runs as a demo of agent-driven
 commerce: a Gemini Enterprise agent can drive the UI over a typed action bus
 while the storefront's searches and user events go to the live Retail API.
 
-The dev deployment is `gecx-shopping-agent-demo` in project
-`onx-dev-int-shop-demo-qes8`, region `us-central1`, public, currently serving
-`v0.2.1`.
+It runs in two GCP projects, both in `us-central1`, both public:
+
+| Environment | Project                       | URL                                                      |
+| ----------- | ----------------------------- | -------------------------------------------------------- |
+| `dev`       | `onx-dev-int-shop-demo-qes8`  | https://gecx-shopping-agent-demo-as77tzr44a-uc.a.run.app |
+| `prd`       | `onx-prod-int-shop-demo-gml8` | https://gecx-shopping-agent-demo-6lcz6sarwa-uc.a.run.app |
+
+Dev deploys on every release. Prd is promoted from a version already running in
+dev, behind an approval. Both run the same image digest.
 
 ## Features
 
@@ -37,7 +43,7 @@ The dev deployment is `gecx-shopping-agent-demo` in project
 ### Storefront
 
 - Menswear, womenswear and jewellery, with CDN-hosted imagery.
-- Product detail modal: image showcase, size selector (`XS` to `XXL`), colour
+- Product detail modal: image gallery, size selector (`XS` to `XXL`), colour
   swatches, stock state, quantity picker.
 - Slide-over bag with a free shipping progress bar, promo codes, and automatic
   tax, shipping and discount maths, persisted to `localStorage`.
@@ -50,7 +56,7 @@ The dev deployment is `gecx-shopping-agent-demo` in project
 ```
 gecx-shopping-agent-demo/
 ├── .env.example                  # Environment configuration template
-├── .github/workflows/            # ci, infra-ci, infra-plan, release, catalog-import
+├── .github/workflows/            # ci, infra-ci, infra-plan, release, promote, deploy-env, catalog-import
 ├── .tool-versions                # Pinned toolchain versions (Node, OpenTofu, Terragrunt)
 ├── Dockerfile                    # Multi-stage build; the runner stage is what Cloud Run runs
 ├── Makefile                      # Single entry point for every quality gate
@@ -359,11 +365,11 @@ gcloud auth application-default login
 
 ### 3. Import the catalog
 
-For the dev project, dispatch the `catalog-import` workflow from the Actions
-tab. It is `workflow_dispatch` only, must be dispatched from `main`, and takes a
-`confirm` input that has to be the literal string `import`. It runs as
-`gecx-shop-catalog`, which is the only identity holding `roles/retail.editor`.
-Dispatching from any other ref fails at the Workload Identity binding.
+Dispatch the `catalog-import` workflow from the Actions tab. It takes an
+`environment` (`dev` or `prd`) and a `confirm` input that has to be the literal
+string `import`, and must be dispatched from `main`. It runs as
+`gecx-shop-catalog`, the only identity holding `roles/retail.editor`. Importing
+into prd waits on that environment's reviewers.
 
 Locally, against a project you own:
 
@@ -374,10 +380,10 @@ scripts/importToGcpRetail.sh <PROJECT_ID>
 The script stages `vertex-retail-catalog.jsonl` in
 `gs://<PROJECT_ID>-retail-catalog-staging` and imports it into branch
 `default_branch` of `default_catalog`. It does not create the bucket; apply
-`infra/live/dev/us-central1/catalog-staging` first, or the script exits with an
-error.
+`infra/live/<env>/us-central1/catalog-staging` first, or the script exits with
+an error.
 
-Dev currently holds 14 imported products. A freshly imported catalog answers
+Each environment holds 14 imported products. A freshly imported catalog answers
 searches with zero results until Retail finishes building its first index, which
 takes hours. An empty result set with a 200 response is the expected state in
 that window, not a misconfiguration.
@@ -397,4 +403,6 @@ Try these in the bag drawer:
 
 ## License
 
-MIT
+Internal to Onix. There is no `LICENSE` file and `package.json` declares no
+license, so nothing here is published under open source terms. If this is ever
+meant to be MIT, add the file rather than the claim.

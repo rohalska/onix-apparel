@@ -29,10 +29,10 @@ Run the **Promote** workflow from `main`, with the released version and the
 target environment:
 
 ```bash
-gh workflow run promote.yml -f version=v0.3.0 -f environment=prd
+gh workflow run promote.yml -f version=v0.4.0 -f environment=prd
 ```
 
-It cuts the `prd-v0.3.0` tag and calls the deploy in the same run. Watch it:
+It cuts the `prd-v0.4.0` tag and calls the deploy in the same run. Watch it:
 
 ```bash
 gh run list --workflow=promote.yml --limit 1
@@ -60,12 +60,12 @@ below for what does.
 The deploy checks out the release tag and plans the environment as that tag
 defines it. A version cut before `infra/live/prd/` was added has no prd
 environment to plan, so the deploy refuses it by name rather than planning an
-empty directory and reporting success. The first promotable version is the first
-release cut after this landed.
+empty directory and reporting success. `v0.4.0` was the first promotable
+version and is what prd runs.
 
 ## What the tag is for
 
-`prd-v0.3.0` is provenance. It records that `v0.3.0` was dispatched at prd, and
+`prd-v0.4.0` is provenance. It records that `v0.4.0` was dispatched at prd, and
 it always points at the same commit the release tag points at.
 
 It is cut before the plan, the approval and the apply, so it records an attempt,
@@ -293,8 +293,8 @@ across a release that also changed IAM, enabled a service, or moved an
 band. A version cut before `infra/live/prd/env.hcl` existed is refused as well.
 
 A rollback also restores that release's configuration, not only its image. Both
-the plan and the apply check out the release commit, so promoting v0.3.0 after
-v0.5.0 also restores v0.3.0's environment variables, scaling limits and module
+the plan and the apply check out the release commit, so promoting v0.4.0 after
+v0.6.0 also restores v0.4.0's environment variables, scaling limits and module
 code. An image and the configuration it expects belong together, so that is
 deliberate, but it means a promotion is never image-only.
 
@@ -337,30 +337,47 @@ good version once there is time.
    [onix-internal-infra](https://github.com/onix-net/onix-internal-infra/tree/main/gcp/onixnet.com/hierarchy/shopping-agent-demo)
    and let that apply.
 2. Create the state bucket: `infra/scripts/bootstrap-state.sh <project-id>`.
-3. Add `infra/live/<env>/env.hcl` with the project id, the project number and
+3. Accept the Retail data use terms for the project, at
+   `https://console.cloud.google.com/ai/retail/start?project=<project-id>`.
+   Enabling `retail.googleapis.com` is not enough on its own and there is no API
+   or Terraform resource for the terms, so this is a console click. Until it is
+   done every Retail call returns `FAILED_PRECONDITION` and the storefront falls
+   back to its bundled catalog. Acceptance takes up to a minute to reach the
+   API, and the console may show a stale error in the meantime; confirm with
+   `gcloud` rather than the page:
+
+   ```bash
+   curl -sS -H "Authorization: Bearer $(gcloud auth print-access-token)" \
+     -H "x-goog-user-project: <project-id>" \
+     "https://retail.googleapis.com/v2/projects/<project-id>/locations/global/catalogs"
+   ```
+
+4. Add `infra/live/<env>/env.hcl` with the project id, the project number and
    the `env_inputs`, and `infra/live/<env>/<region>/region.hcl`. Set
    `planner_ref` to `refs/heads/main` for anything that is not continuously
-   deployed, so its planner cannot be reached from a pull request.
-4. Add the stacks. Each is an include of the matching file in
+   deployed, so its planner cannot be reached from a pull request, and set
+   `gated_environment` to the environment's own name so its deployer and catalog
+   importer are bound to the gate rather than to a branch.
+5. Add the stacks. Each is an include of the matching file in
    `infra/live/_envcommon`, with no body of its own.
 
 The remaining steps have to happen in this order, because each one creates
 something the next needs. All of them want credentials that can create service
 accounts and Workload Identity pools; CI holds none of that, by design.
 
-5. Apply every stack of the new environment **except Cloud Run**, in dependency
+6. Apply every stack of the new environment **except Cloud Run**, in dependency
    order: `global/project-services`, then `<region>/catalog-staging`, then
    `global/iam-custom-role` and `global/iam-plan-reader`, then
    `global/iam-deployer`, then `global/iam-planner` and `global/iam-catalog`,
    then `global/iam-runtime`, then `global/wif-github`, then
    `<region>/artifact-registry`. This is what creates the environment's service
    accounts.
-6. Add the new environment's deployer and planner to
+7. Add the new environment's deployer and planner to
    `infra/live/dev/env.hcl` under `env_inputs.registry_readers`, and apply
-   `infra/live/dev/us-central1/artifact-registry`. This has to come after step 5:
+   `infra/live/dev/us-central1/artifact-registry`. This has to come after step 6:
    an Artifact Registry IAM member naming a service account that does not exist
    yet fails at apply.
-7. Copy an image into the new environment's registry, because the Cloud Run
+8. Copy an image into the new environment's registry, because the Cloud Run
    stack refuses to apply without `IMAGE_DIGEST` and the digest has to be one
    that registry already holds:
 
@@ -370,14 +387,14 @@ accounts and Workload Identity pools; CI holds none of that, by design.
      <region>-docker.pkg.dev/<project-id>/gecx-shopping-agent-demo/app:<version>
    ```
 
-8. Apply `<region>/cloud-run` with `IMAGE_DIGEST` set to that digest.
-9. Create a GitHub Environment with the same name as the directory, with the
-   demo team as a required reviewer. The name has to match: `deploy-env.yml`
-   uses the environment input for both the Terragrunt directory and the
-   `environment:` gate, so there is no mapping table to drift.
-10. Add the environment to `promote.yml`'s `environment` choice list.
+9. Apply `<region>/cloud-run` with `IMAGE_DIGEST` set to that digest.
+10. Create a GitHub Environment with the same name as the directory, with the
+    demo team as a required reviewer. The name has to match: `deploy-env.yml`
+    uses the environment input for both the Terragrunt directory and the
+    `environment:` gate, so there is no mapping table to drift.
+11. Add the environment to `promote.yml`'s `environment` choice list.
 
-After that a promotion can run on its own, and steps 5 to 8 are not needed
+After that a promotion can run on its own, and steps 6 to 9 are not needed
 again: a release-to-release promotion only re-applies Cloud Run.
 
 No workflow carries a project id, a project number or a service account

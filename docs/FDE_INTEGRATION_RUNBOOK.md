@@ -5,8 +5,14 @@ Run, wired to Vertex AI Search for Retail, and registered as a Gemini
 Enterprise shopping agent. It ships as one container: a Vite SPA served by the
 same Node process that proxies the Retail API.
 
-Dev lives in project `onx-dev-int-shop-demo-qes8` (number `835936341567`),
-region `us-central1`. The service is public and currently serves `v0.2.1`.
+It runs in two projects, both `us-central1`, both public:
+
+| Environment | Project                       | Number         | URL                                                      |
+| ----------- | ----------------------------- | -------------- | -------------------------------------------------------- |
+| `dev`       | `onx-dev-int-shop-demo-qes8`  | `835936341567` | https://gecx-shopping-agent-demo-as77tzr44a-uc.a.run.app |
+| `prd`       | `onx-prod-int-shop-demo-gml8` | `210812903728` | https://gecx-shopping-agent-demo-6lcz6sarwa-uc.a.run.app |
+
+Give the prd URL to anyone demonstrating the storefront.
 
 ---
 
@@ -63,28 +69,36 @@ gcloud services enable \
 
 ### 2.2 Configure IAM & Service Accounts (Least Privilege & Separation of Duties)
 
-The storefront separates identities by duty. Four service accounts exist in the
-dev project, all managed by the OpenTofu code under `infra/`. None of them can
-do another's job, and none has a JSON key.
+The storefront separates identities by duty. Each environment has its own four
+service accounts in its own project, all managed by the OpenTofu code under
+`infra/`. None of them can do another's job, and none has a JSON key.
 
-| Service account     | Duty                                                  | Impersonable from                      |
-| ------------------- | ----------------------------------------------------- | -------------------------------------- |
-| `gecx-shop-run`     | Runtime: the identity the Cloud Run container runs as | nothing; it is attached to the service |
-| `gecx-shop-deploy`  | CI deploy: applies the service from `release.yml`     | `refs/heads/main` only                 |
-| `gecx-shop-plan`    | CI plan: read-only, runs plans on pull request code   | any ref in the repository              |
-| `gecx-shop-catalog` | Catalog import: runs `scripts/importToGcpRetail.sh`   | `refs/heads/main` only                 |
+| Service account     | Duty                                                  | Impersonable from                                  |
+| ------------------- | ----------------------------------------------------- | -------------------------------------------------- |
+| `gecx-shop-run`     | Runtime: the identity the Cloud Run container runs as | nothing; it is attached to the service             |
+| `gecx-shop-deploy`  | CI deploy: applies the Cloud Run service              | dev: `refs/heads/main`. prd: a job declaring `prd` |
+| `gecx-shop-plan`    | CI plan: read-only, runs plans on pull request code   | dev: any ref. prd: `refs/heads/main`               |
+| `gecx-shop-catalog` | Catalog import: runs `scripts/importToGcpRetail.sh`   | dev: `refs/heads/main`. prd: a job declaring `prd` |
 
-GitHub Actions reaches all three CI identities through Workload Identity
+GitHub Actions reaches the three CI identities through Workload Identity
 Federation, pool and provider `github`. The provider only accepts a token whose
 `assertion.repository` is `onix-net/gecx-shopping-agent-demo` and whose
-`assertion.repository_id` is `1388249424`. The planner's binding covers the
-whole repository, which is why it holds nothing that can write: a plan runs
-contributor code. The deployer and the catalog importer are pinned to
-`refs/heads/main`, so a workflow edited on a branch cannot assume either.
+`assertion.repository_id` is `1388249424`.
+
+Dev's planner is bound repository-wide, which is why it holds nothing that can
+write: a plan runs contributor code. Dev's deployer and catalog importer are
+pinned to `refs/heads/main`, so a workflow edited on a branch cannot assume
+either.
+
+Prd's deployer and catalog importer are bound instead to the OIDC subject of a
+job that declared the `prd` environment, because a ref pin cannot express that
+an approval was given. That subject carries no ref, so the branch is restricted
+by the `prd` Environment's deployment branch policy rather than by IAM. See
+[promotion.md](promotion.md).
 
 The `gcloud` commands below show what each identity needs. They are reference
-material for a project that is not managed with OpenTofu. In the dev project, do
-not run them: `infra/` owns these accounts and their bindings.
+material for a project that is not managed with OpenTofu. Do not run them
+against dev or prd: `infra/` owns these accounts and their bindings.
 
 > [!WARNING]
 > **Never use the default Compute Engine service account (`${PROJECT_NUMBER}-compute@developer.gserviceaccount.com`)** for Cloud Run or grant it `roles/retail.editor`. The default account often carries broad legacy project permissions, and pairing it with catalog write privileges on a public-facing web service violates the principle of least privilege. The `cloud-run-service` module rejects it at plan time.
@@ -264,12 +278,13 @@ Redis, would also synchronise the buckets across instances.
 `vertex-retail-catalog.jsonl` holds 14 products in Retail API Product schema.
 `npm run export:vertex` regenerates it from the app's catalog data.
 
-### The dev path: the `catalog-import` workflow
+### The normal path: the `catalog-import` workflow
 
-`.github/workflows/catalog-import.yml` is how the dev catalog gets imported. It
-is `workflow_dispatch` only, because the import replaces catalog contents, and
-it takes a `confirm` input that must be the literal string `import`. Dispatch it
-from `main`. For dev that is enforced in the cloud: `gecx-shop-catalog` is
+`.github/workflows/catalog-import.yml` is how a catalog gets imported. It is
+`workflow_dispatch` only, because the import replaces catalog contents, and it
+takes an `environment` (`dev` or `prd`) and a `confirm` input that must be the
+literal string `import`. Importing into prd waits on that environment's
+reviewers. Dispatch it from `main`. For dev that is enforced in the cloud: `gecx-shop-catalog` is
 pinned to `refs/heads/main`, so a dispatch from any other ref fails at the
 Workload Identity binding rather than running with a modified copy of the
 workflow. For an environment behind an approval, such as prd, the importer is
@@ -337,8 +352,11 @@ in `.github/workflows/release.yml` does the rest:
 4. Reads the deployed image back and fails if it is not the digest it built.
 
 The job authenticates as `gecx-shop-deploy` through Workload Identity
-Federation and is the only job that can reach that identity. `v0.2.1` went out
-this way.
+Federation and is the only job that can reach that identity.
+
+That covers dev. Prd is deployed by promoting a version already running in dev,
+which copies the released digest across and applies behind an approval. See
+[promotion.md](promotion.md).
 
 ### Break-glass: manual source deploy
 
