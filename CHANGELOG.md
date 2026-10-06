@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.0](https://github.com/onix-net/gecx-shopping-agent-demo/compare/v0.3.0...v0.4.0) (2026-10-06)
+
+
+### Features
+
+* **infra:** add the prd environment and a promotion pipeline ([#47](https://github.com/onix-net/gecx-shopping-agent-demo/issues/47)) ([fbefe54](https://github.com/onix-net/gecx-shopping-agent-demo/commit/fbefe54f6f488196a13e331a4e248b1ca011eb8a))
+
 ## [0.3.0](https://github.com/onix-net/gecx-shopping-agent-demo/compare/v0.2.3...v0.3.0) (2026-10-05)
 
 
