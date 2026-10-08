@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.0](https://github.com/onix-net/gecx-shopping-agent-demo/compare/v0.4.0...v0.5.0) (2026-10-08)
+
+
+### Features
+
+* **storefront:** update Onix Apparel to Onix Wares department store with shopping agent slot ([#52](https://github.com/onix-net/gecx-shopping-agent-demo/issues/52)) ([b6e60f0](https://github.com/onix-net/gecx-shopping-agent-demo/commit/b6e60f04fbcbe69c6a8631a32f2ffac943ac8b0a))
+
+
+### Documentation
+
+* correct what the documentation claims against what is deployed ([#49](https://github.com/onix-net/gecx-shopping-agent-demo/issues/49)) ([8b60378](https://github.com/onix-net/gecx-shopping-agent-demo/commit/8b603783e96d62bd2f784770a151510a6af7244e))
+
 ## [0.4.0](https://github.com/onix-net/gecx-shopping-agent-demo/compare/v0.3.0...v0.4.0) (2026-10-06)
 
 
