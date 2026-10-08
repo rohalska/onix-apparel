@@ -10,6 +10,7 @@ import {
   type AgentActionPayload,
   type AgentActionOutcome,
 } from '../../src/services/agentActionBus';
+import { FALLBACK_PRODUCTS } from '../../src/data/fallbackProducts';
 
 /**
  * Asserts that each action on the bus produces an observable effect, by mounting
@@ -48,7 +49,7 @@ beforeEach(async () => {
   vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('offline')));
   warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
   view = renderWithProviders(<AppContent />);
-  await waitFor(() => expect(itemCount()).toBe('14'));
+  await waitFor(() => expect(itemCount()).toBe(String(FALLBACK_PRODUCTS.length)));
 });
 
 afterEach(() => {
@@ -117,7 +118,7 @@ describe('actions owned by AppContent', () => {
 
   it('NAVIGATE_COLLECTION changes the visible collection', async () => {
     await dispatch({ action: 'NAVIGATE_COLLECTION', collection: 'new' });
-    await waitFor(() => expect(itemCount()).not.toBe('14'));
+    await waitFor(() => expect(itemCount()).not.toBe(String(FALLBACK_PRODUCTS.length)));
   });
 
   it('SEARCH filters the catalog', async () => {
@@ -129,7 +130,7 @@ describe('actions owned by AppContent', () => {
     await dispatch({ action: 'SEARCH', query: 'jacket' });
     await waitFor(() => expect(itemCount()).toBe('4'));
     await dispatch({ action: 'CLEAR_FILTERS' });
-    await waitFor(() => expect(itemCount()).toBe('14'));
+    await waitFor(() => expect(itemCount()).toBe(String(FALLBACK_PRODUCTS.length)));
   });
 });
 

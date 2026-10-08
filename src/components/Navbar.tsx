@@ -56,10 +56,15 @@ export const Navbar: React.FC<NavbarProps> = ({
   const matchingPreview = searchResults && searchQuery.trim() ? searchResults.slice(0, 4) : [];
 
   const categories: { label: string; value: Category }[] = [
-    { label: 'All Collections', value: 'all' },
+    { label: 'All Products', value: 'all' },
+    { label: 'Electronics', value: 'electronics' },
+    { label: 'Home & Living', value: 'furniture' },
+    { label: 'Fragrances', value: 'fragrances' },
+    { label: 'Beauty', value: 'beauty' },
     { label: "Women's", value: "women's clothing" },
     { label: "Men's", value: "men's clothing" },
-    { label: 'Jewelry & Acc', value: 'jewelery' },
+    { label: 'Jewelry', value: 'jewelery' },
+    { label: 'Pantry', value: 'groceries' },
   ];
 
   return (
@@ -68,8 +73,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className="bg-slate-900 text-stone-200 text-xs py-2 px-4 text-center font-medium tracking-wider flex items-center justify-center gap-2">
         <Sparkles className="w-3.5 h-3.5 text-amber-400" />
         <span>
-          SUMMER CAPSULE: USE CODE <span className="font-bold text-amber-300">SAVE20</span> FOR 20%
-          OFF • COMPLIMENTARY SHIPPING OVER $75
+          ONIX WARES: COMPLIMENTARY EXPEDITED SHIPPING ON ORDERS OVER $75 • ALL PRICES IN USD ($)
         </span>
       </div>
 
@@ -95,7 +99,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               ONIX
             </span>
             <span className="text-[10px] tracking-widest font-semibold uppercase px-2 py-0.5 rounded bg-stone-100 text-stone-600 border border-stone-200 hidden sm:inline-block">
-              Apparel
+              Wares
             </span>
           </div>
 

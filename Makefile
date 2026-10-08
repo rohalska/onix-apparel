@@ -16,7 +16,10 @@ setup: ## Install dependencies exactly as locked
 hooks: ## Install the lefthook git hooks (refuses a core.hooksPath outside the repo)
 	npm run hooks
 
-lint: ## Lint
+lint-openapi: ## Ensure root openapi.yaml and public/openapi.yaml remain byte-identical
+	@cmp -s openapi.yaml public/openapi.yaml || (echo "ERROR: openapi.yaml and public/openapi.yaml are out of sync" >&2 && exit 1)
+
+lint: lint-openapi ## Lint
 	npm run lint
 
 format: ## Rewrite files with Prettier
@@ -43,7 +46,15 @@ build: ## Production build
 # extension that BSD xargs, which is what macOS ships, need not accept, and null
 # separation also survives paths with spaces and tracked-but-deleted files.
 lint-shell: ## Lint shell scripts
-	@files=$$(git ls-files '*.sh'); \
+	@if ! command -v shellcheck >/dev/null 2>&1; then \
+		if [ "$${CI:-}" = "true" ] || [ -n "$${GITHUB_ACTIONS:-}" ]; then \
+			echo "ERROR: shellcheck is required in CI environments but was not found" >&2; \
+			exit 1; \
+		fi; \
+		echo "shellcheck not found; skipping shell linting locally (install via 'brew install shellcheck')"; \
+		exit 0; \
+	fi; \
+	files=$$(git ls-files '*.sh'); \
 	if [ -z "$$files" ]; then echo "no shell scripts"; exit 0; fi; \
 	git ls-files -z '*.sh' | xargs -0 shellcheck
 

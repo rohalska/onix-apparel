@@ -28,32 +28,32 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
           <div className="lg:col-span-7 space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 border border-stone-300 text-slate-800 text-xs font-semibold tracking-wider uppercase backdrop-blur-sm">
               <Sparkles className="w-3.5 h-3.5 text-amber-600" />
-              New Season 2026 Ready-to-Wear
+              Curated Goods &bull; Modern Living
             </div>
 
             <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 leading-[1.15]">
-              Effortless Elegance. <br />
-              <span className="italic font-normal text-slate-700">Tailored for Every Day.</span>
+              Curated Goods. <br />
+              <span className="italic font-normal text-slate-700">Crafted for Daily Living.</span>
             </h1>
 
             <p className="text-base sm:text-lg text-stone-600 max-w-xl leading-relaxed">
-              Discover timeless silhouettes and meticulously crafted wardrobe staples. Sourced with
-              premium sustainable fabrics designed to endure beyond transient seasons.
+              Discover premium audio & electronics, handcrafted home furnishings, artisanal
+              fragrances, fine jewelry, and wardrobe essentials curated for modern living.
             </p>
 
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <button
-                onClick={() => onSelectCategory("women's clothing")}
+                onClick={() => onSelectCategory('all')}
                 className="px-6 py-3.5 bg-slate-900 text-white text-sm font-semibold rounded-full hover:bg-slate-800 transition-all flex items-center gap-2 shadow-sm hover:translate-y-[-1px]"
               >
-                Shop Women's
+                Explore All Products
                 <ArrowRight className="w-4 h-4" />
               </button>
               <button
-                onClick={() => onSelectCategory("men's clothing")}
+                onClick={() => onSelectCategory('electronics')}
                 className="px-6 py-3.5 bg-white text-slate-900 text-sm font-semibold rounded-full hover:bg-stone-100 transition-all border border-stone-300 shadow-sm hover:translate-y-[-1px]"
               >
-                Shop Men's
+                Shop Tech & Living
               </button>
             </div>
           </div>

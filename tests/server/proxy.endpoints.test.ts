@@ -4,7 +4,7 @@ import net from 'net';
 // rather than widen allowJs/checkJs project-wide for one test file.
 // @ts-expect-error -- '../../server/proxy.mjs' has no declaration file
 // prettier-ignore
-import { server, buildRetailUserEvent, validateRetailUserEvent, getClientIp, checkRateLimit, resetRateLimits, MAX_TRACKED_IPS, ipRequestCounts, getGcpAccessToken, resetGcpTokenCache, getCachedGcpToken, setCachedGcpTokenForTesting } from '../../server/proxy.mjs';
+import { server, mapVertexProductToFrontend, buildRetailUserEvent, validateRetailUserEvent, getClientIp, checkRateLimit, resetRateLimits, MAX_TRACKED_IPS, ipRequestCounts, getGcpAccessToken, resetGcpTokenCache, getCachedGcpToken, setCachedGcpTokenForTesting } from '../../server/proxy.mjs';
 
 // proxy.mjs derives live mode from GCP_PROJECT_ID at import time, so pin it
 // empty before that import runs, to keep a developer's .env from turning these
@@ -200,6 +200,173 @@ describe('POST /api/search input handling', () => {
     expect(res.status).toBe(200);
     const body = await res.json();
     expect(body.products.length).toBeGreaterThan(0);
+  });
+
+  it('correctly filters products by new department categories', async () => {
+    const res = await postJson(
+      '/api/search',
+      JSON.stringify({
+        category: 'electronics',
+      }),
+    );
+    expect(res.status).toBe(200);
+    const body = await res.json();
+    expect(body.products.length).toBeGreaterThan(0);
+    for (const p of body.products) {
+      expect(p.category).toBe('electronics');
+    }
+  });
+
+  it('correctly discriminates coffee products between furniture and groceries', async () => {
+    const furnRes = await postJson(
+      '/api/search',
+      JSON.stringify({
+        query: 'coffee',
+        category: 'furniture',
+      }),
+    );
+    expect(furnRes.status).toBe(200);
+    const furnBody = await furnRes.json();
+    expect(furnBody.products.length).toBeGreaterThan(0);
+    for (const p of furnBody.products) {
+      expect(p.category).toBe('furniture');
+    }
+
+    const grocRes = await postJson(
+      '/api/search',
+      JSON.stringify({
+        query: 'coffee',
+        category: 'groceries',
+      }),
+    );
+    expect(grocRes.status).toBe(200);
+    const grocBody = await grocRes.json();
+    expect(grocBody.products.length).toBeGreaterThan(0);
+    for (const p of grocBody.products) {
+      expect(p.category).toBe('groceries');
+    }
+  });
+
+  it('correctly discriminates skincare/beauty from fragrances without overlap in /api/search', async () => {
+    const beautyRes = await postJson(
+      '/api/search',
+      JSON.stringify({
+        category: 'beauty',
+      }),
+    );
+    expect(beautyRes.status).toBe(200);
+    const beautyBody = await beautyRes.json();
+    expect(beautyBody.products.length).toBeGreaterThan(0);
+    for (const p of beautyBody.products) {
+      expect(p.category).toBe('beauty');
+    }
+
+    const fragRes = await postJson(
+      '/api/search',
+      JSON.stringify({
+        category: 'fragrances',
+      }),
+    );
+    expect(fragRes.status).toBe(200);
+    const fragBody = await fragRes.json();
+    expect(fragBody.products.length).toBeGreaterThan(0);
+    for (const p of fragBody.products) {
+      expect(p.category).toBe('fragrances');
+    }
+
+    const beautyIds = new Set(beautyBody.products.map((p: { id: number }) => p.id));
+    const fragranceIds = fragBody.products.map((p: { id: number }) => p.id);
+    expect(fragranceIds.every((id: number) => !beautyIds.has(id))).toBe(true);
+  });
+
+  it("strictly separates men's clothing and women's clothing in simulation mode search", async () => {
+    const menRes = await postJson('/api/search', JSON.stringify({ category: "men's clothing" }));
+    expect(menRes.status).toBe(200);
+    const menBody = await menRes.json();
+    expect(menBody.products.length).toBeGreaterThan(0);
+    for (const p of menBody.products) {
+      expect(p.category).toBe("men's clothing");
+    }
+
+    const womenRes = await postJson(
+      '/api/search',
+      JSON.stringify({ category: "women's clothing" }),
+    );
+    expect(womenRes.status).toBe(200);
+    const womenBody = await womenRes.json();
+    expect(womenBody.products.length).toBeGreaterThan(0);
+    for (const p of womenBody.products) {
+      expect(p.category).toBe("women's clothing");
+    }
+
+    // Result sets must be completely disjoint: men's search must not contain any women's items
+    const menIds = new Set(menBody.products.map((p: { id: number }) => p.id));
+    const womenIds = womenBody.products.map((p: { id: number }) => p.id);
+    expect(womenIds.every((id: number) => !menIds.has(id))).toBe(true);
+  });
+
+  it('handles unknown category gracefully by falling through to unfiltered catalog matching live mode', async () => {
+    const allRes = await postJson('/api/search', JSON.stringify({ category: 'all' }));
+    expect(allRes.status).toBe(200);
+    const allBody = await allRes.json();
+
+    const unknownRes = await postJson(
+      '/api/search',
+      JSON.stringify({ category: 'nonexistent-department' }),
+    );
+    expect(unknownRes.status).toBe(200);
+    const unknownBody = await unknownRes.json();
+    expect(unknownBody.products.length).toBe(allBody.products.length);
+  });
+
+  it('maps tech accessories under Electronics to electronics and never jewelery', () => {
+    const product = mapVertexProductToFrontend({
+      id: 'onx-999',
+      title: 'Wireless Fast Charger Stand',
+      categories: ['Electronics', 'Electronics > Accessories'],
+      attributes: {
+        department: { text: ['Electronics'] },
+      },
+    });
+    expect(product.category).toBe('electronics');
+    expect(product.category).not.toBe('jewelery');
+  });
+
+  it('maps categories case-insensitively across all departments', () => {
+    const testCases: [string[], string][] = [
+      [["apparel > women's clothing"], "women's clothing"],
+      [["APPAREL > MEN'S CLOTHING"], "men's clothing"],
+      [['electronics > audio & visual'], 'electronics'],
+      [['home & living > kitchen & tabletop'], 'furniture'],
+      [['FURNITURE'], 'furniture'],
+      [['beauty & fragrance > skincare'], 'beauty'],
+      [['beauty & fragrance > fragrances'], 'fragrances'],
+      [['gourmet pantry > specialty coffee'], 'groceries'],
+      [['accessories > fine jewelry'], 'jewelery'],
+      [['accessories'], 'jewelery'],
+      [['accessories > watches & bags'], 'jewelery'],
+    ];
+
+    for (const [categories, expected] of testCases) {
+      const product = mapVertexProductToFrontend({
+        id: 'onx-test',
+        title: 'Test Product',
+        categories,
+      });
+      expect(product.category).toBe(expected);
+    }
+  });
+
+  it('maps unrecognised category hierarchies to the neutral Category union member "all"', () => {
+    const product = mapVertexProductToFrontend({
+      id: 'onx-cam',
+      title: 'HD Webcam',
+      categories: ['Hardware > Office Equipment'],
+    });
+    // Fall back to the neutral Category enum member ("all") to avoid misclassifying
+    // new departments into specific departments like "men's clothing" while strictly
+    // adhering to the Category union and OpenAPI enum contract.
+    expect(product.category).toBe('all');
   });
 
   it('treats an explicit null query and sortBy as absent, not invalid', async () => {
@@ -437,6 +604,10 @@ describe('GET /api/health', () => {
     // catches a pin that did not take. Accepting 'live' here would let the whole
     // suite make real Vertex calls and still pass.
     expect(body.mode).toBe('mock');
+    expect(typeof body.catalogItemCount).toBe('number');
+    expect(typeof body.itemCount).toBe('number');
+    expect(body.catalogItemCount).toBe(body.itemCount);
+    expect(body.itemCount).toBeGreaterThan(0);
   });
 });
 

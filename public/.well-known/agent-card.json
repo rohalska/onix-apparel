@@ -1,13 +1,13 @@
 {
   "$schema": "https://raw.githubusercontent.com/google/agent-to-agent/main/schemas/agent-card.json",
-  "name": "Onix Apparel Shopping Concierge",
-  "description": "Enterprise-grade shopping and styling assistant for Onix Apparel. Capable of semantic catalog search, real-time facet filtering, client cart manipulation, and brand policy grounding (shipping, returns, sizing).",
+  "name": "Onix Wares AI Shopping Agent",
+  "description": "Enterprise-grade shopping assistant for Onix Wares department store. Capable of semantic catalog search, real-time facet filtering, client cart manipulation, and brand policy grounding (shipping, returns, sizing).",
   "version": "1.0.0",
   "protocol": "a2a/v1",
   "provider": {
-    "name": "Onix Apparel",
-    "url": "https://onixapparel.com",
-    "contactEmail": "concierge@onixapparel.com"
+    "name": "Onix Wares",
+    "url": "https://onixwares.com",
+    "contactEmail": "agent@onixwares.com"
   },
   "capabilities": {
     "streaming": true,
@@ -23,17 +23,27 @@
   "tools": [
     {
       "name": "search_catalog",
-      "description": "Search clothing and fine jewelry catalog with semantic query matching, category filters, and price ranges.",
+      "description": "Search department catalog with semantic query matching, category filters, and price ranges.",
       "parameters": {
         "type": "object",
         "properties": {
           "query": {
             "type": "string",
-            "description": "Free text query, e.g. 'black leather jacket' or 'gold ring'"
+            "description": "Free text query, e.g. 'wireless headphones' or 'coffee'"
           },
           "category": {
             "type": "string",
-            "enum": ["all", "men's clothing", "women's clothing", "jewelery"],
+            "enum": [
+              "all",
+              "men's clothing",
+              "women's clothing",
+              "jewelery",
+              "electronics",
+              "furniture",
+              "fragrances",
+              "beauty",
+              "groceries"
+            ],
             "description": "Target collection"
           },
           "maxPrice": { "type": "number", "description": "Maximum price in USD" },

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ==============================================================================
-# ONIX APPAREL - Vertex AI Search for Retail Catalog Ingestion Script
+# ONIX WARES - Vertex AI Search for Retail Catalog Ingestion Script
 # For Google Forward Deployment Engineers (FDEs) & DevOps
 # ==============================================================================
 
@@ -14,7 +14,7 @@ BRANCH_ID="${4:-default_branch}"
 CATALOG_FILE="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/vertex-retail-catalog.jsonl"
 
 echo "============================================================"
-echo "🛍️  ONIX APPAREL - Vertex AI Retail Catalog Ingestion"
+echo "🛍️  ONIX WARES - Vertex AI Retail Catalog Ingestion"
 echo "============================================================"
 echo "Project ID:       ${PROJECT_ID}"
 echo "Location:         ${LOCATION}"

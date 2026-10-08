@@ -432,7 +432,7 @@ if (typeof window !== 'undefined') {
     version: '1.1.0',
     help: () => {
       console.log(`
-🤖 Onix Apparel - Gemini Enterprise Client Action Bus:
+🤖 Onix Wares - Gemini Enterprise Client Action Bus:
   - window.onixStore.dispatch({ action: 'ADD_TO_CART', productId: 16, size: 'M', quantity: 1 })
   - window.onixStore.dispatch({ action: 'OPEN_PRODUCT', productId: 16 })
   - window.onixStore.dispatch({ action: 'NAVIGATE_COLLECTION', collection: 'sale' })
@@ -447,4 +447,9 @@ Correlation & Outcomes:
       `);
     },
   };
+  try {
+    window.dispatchEvent(new CustomEvent('onix:store-ready'));
+  } catch {
+    // Ignore in non-browser test environments without full CustomEvent support
+  }
 }

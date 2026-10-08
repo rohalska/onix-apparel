@@ -1,14 +1,14 @@
 openapi: 3.0.3
 info:
-  title: Onix Apparel Commerce & Agent API
+  title: Onix Wares Commerce & Agent API
   version: 1.0.0
   description: >
-    OpenAPI specification for Onix Apparel's Google Cloud Vertex AI Commerce Search
-    and Gemini Enterprise Shopping Concierge integration.
+    OpenAPI specification for Onix Wares' Google Cloud Vertex AI Commerce Search
+    and Google Cloud AI Shopping Agent integration.
 servers:
   - url: http://localhost:3001
     description: Local Development Proxy
-  - url: https://api.onixapparel.com
+  - url: https://api.onixwares.com
     description: Production Google Cloud Run Service
 
 paths:
@@ -76,7 +76,18 @@ components:
           example: 'black moto jacket'
         category:
           type: string
-          enum: ['all', "men's clothing", "women's clothing", 'jewelery']
+          enum:
+            [
+              'all',
+              "men's clothing",
+              "women's clothing",
+              'jewelery',
+              'electronics',
+              'furniture',
+              'fragrances',
+              'beauty',
+              'groceries',
+            ]
         minPrice:
           type: number
           example: 20.0
@@ -240,6 +251,8 @@ components:
         location:
           type: string
         catalogItemCount:
+          type: integer
+        itemCount:
           type: integer
         timestamp:
           type: string

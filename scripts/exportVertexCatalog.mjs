@@ -1,12 +1,12 @@
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
+import { fileURLToPath, pathToFileURL } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
 
-// Curated catalog based on Onix Apparel products with normalized CDN images
+// Curated catalog based on Onix Wares products with normalized CDN images
 const ONIX_PRODUCTS = [
   {
     id: 1,
@@ -324,6 +324,218 @@ const ONIX_PRODUCTS = [
     subcategory: 'Tops & Tees',
     gender: 'Women',
   },
+  {
+    id: 101,
+    title: 'Onix Pulse Wireless ANC Headphones',
+    price: 199.99,
+    originalPrice: 249.99,
+    description:
+      'Premium over-ear noise-canceling headphones with 40mm dynamic drivers, 45-hour battery life, and crystal-clear voice pickup for work and travel.',
+    category: 'electronics',
+    subcategory: 'Audio & Visual',
+    gender: 'Unisex',
+    image:
+      'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.8, count: 340 },
+    sizes: ['One Size'],
+    colors: [
+      { name: 'Matte Black', hex: '#18181b' },
+      { name: 'Silver Mist', hex: '#e2e8f0' },
+    ],
+    inStock: true,
+    availableQuantity: 80,
+    featured: true,
+    isNewArrival: true,
+  },
+  {
+    id: 102,
+    title: 'ProStream 4K Ultra HD Webcam',
+    price: 129.5,
+    originalPrice: 149.99,
+    description:
+      'Studio-grade 4K video webcam with dual noise-reduction microphones, HDR auto-light correction, and magnetic privacy shutter.',
+    category: 'electronics',
+    subcategory: 'Peripherals & Video',
+    gender: 'Unisex',
+    image:
+      'https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.7, count: 185 },
+    sizes: ['One Size'],
+    colors: [{ name: 'Graphite', hex: '#334155' }],
+    inStock: true,
+    availableQuantity: 65,
+    featured: false,
+    isNewArrival: false,
+  },
+  {
+    id: 103,
+    title: 'Aura Smart Ambient Soundbar',
+    price: 279.0,
+    originalPrice: 329.0,
+    description:
+      'Immersive 3.1 channel Dolby Atmos soundbar with wireless subwoofer and integrated voice assistant control.',
+    category: 'electronics',
+    subcategory: 'Audio & Visual',
+    gender: 'Unisex',
+    image:
+      'https://images.unsplash.com/photo-1545454675-3531b543be5d?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.9, count: 210 },
+    sizes: ['One Size'],
+    colors: [{ name: 'Onyx Black', hex: '#0f172a' }],
+    inStock: true,
+    availableQuantity: 40,
+    featured: true,
+    isNewArrival: true,
+  },
+  {
+    id: 104,
+    title: 'Nordic Minimalist Oak Coffee Table',
+    price: 349.0,
+    originalPrice: 420.0,
+    description:
+      'Handcrafted solid white oak coffee table with clean Scandinavian silhouettes, soft beveled edges, and durable matte finish.',
+    category: 'furniture',
+    subcategory: 'Living Room Furniture',
+    gender: 'Unisex',
+    image:
+      'https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.9, count: 98 },
+    sizes: ['Standard (48" x 24")'],
+    colors: [
+      { name: 'Natural Oak', hex: '#d4b996' },
+      { name: 'Smoked Walnut', hex: '#5c4033' },
+    ],
+    inStock: true,
+    availableQuantity: 25,
+    featured: true,
+    isNewArrival: false,
+  },
+  {
+    id: 105,
+    title: 'ErgoPro Mesh Executive Chair',
+    price: 399.0,
+    originalPrice: 499.0,
+    description:
+      'High-back ergonomic office chair featuring dynamic lumbar support, 4D adjustable armrests, and breathable cooling mesh.',
+    category: 'furniture',
+    subcategory: 'Office & Workspace',
+    gender: 'Unisex',
+    image:
+      'https://images.unsplash.com/photo-1580481077195-c3f9904229ea?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.8, count: 142 },
+    sizes: ['Adjustable'],
+    colors: [
+      { name: 'Carbon Black', hex: '#1e293b' },
+      { name: 'Slate Grey', hex: '#64748b' },
+    ],
+    inStock: true,
+    availableQuantity: 30,
+    featured: false,
+    isNewArrival: false,
+  },
+  {
+    id: 106,
+    title: 'Artisan Ceramic Pour-Over Coffee Set',
+    price: 54.99,
+    originalPrice: 65.0,
+    description:
+      'Hand-glazed ceramic dripper with heat-resistant borosilicate glass carafe and precision stainless steel reusable mesh filter.',
+    category: 'furniture',
+    subcategory: 'Kitchen & Tabletop',
+    gender: 'Unisex',
+    image:
+      'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.7, count: 88 },
+    sizes: ['600ml / 4 Cup'],
+    colors: [
+      { name: 'Speckled Clay', hex: '#e7e5e4' },
+      { name: 'Terracotta', hex: '#c2410c' },
+    ],
+    inStock: true,
+    availableQuantity: 75,
+    featured: false,
+    isNewArrival: false,
+  },
+  {
+    id: 107,
+    title: 'Luxe Santal & Amber Eau de Parfum',
+    price: 115.0,
+    originalPrice: 135.0,
+    description:
+      'An exquisite unisex fragrance blending rich Mysore sandalwood, cardamom, warm golden amber resin, and velvety iris notes.',
+    category: 'fragrances',
+    subcategory: 'Eau de Parfum',
+    gender: 'Unisex',
+    image:
+      'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.9, count: 310 },
+    sizes: ['50ml', '100ml'],
+    colors: [{ name: 'Amber Glass', hex: '#d97706' }],
+    inStock: true,
+    availableQuantity: 50,
+    featured: true,
+    isNewArrival: true,
+  },
+  {
+    id: 108,
+    title: 'Radiance Botanical Vitamin C Serum',
+    price: 48.0,
+    originalPrice: 60.0,
+    description:
+      'Triple-antioxidant brightening facial serum enriched with 15% pure L-ascorbic acid, hyaluronic acid, and kakadu plum extract.',
+    category: 'beauty',
+    subcategory: 'Facial Skincare',
+    gender: 'Unisex',
+    image:
+      'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.8, count: 420 },
+    sizes: ['30ml'],
+    colors: [{ name: 'Amber Dropper', hex: '#b45309' }],
+    inStock: true,
+    availableQuantity: 110,
+    featured: false,
+    isNewArrival: false,
+  },
+  {
+    id: 110,
+    title: 'Single-Origin Ethiopian Yirgacheffe Coffee Beans',
+    price: 24.5,
+    originalPrice: 28.0,
+    description:
+      'Washed process whole bean coffee with delicate floral jasmine notes, bergamot citrus brightness, and honey sweetness. 12oz bag.',
+    category: 'groceries',
+    subcategory: 'Specialty Coffee',
+    gender: 'Unisex',
+    image:
+      'https://images.unsplash.com/photo-1587734195503-904fca47e0e9?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.9, count: 180 },
+    sizes: ['12 oz Whole Bean', '2 lb Whole Bean'],
+    colors: [{ name: 'Kraft Bag', hex: '#a8a29e' }],
+    inStock: true,
+    availableQuantity: 150,
+    featured: false,
+    isNewArrival: true,
+  },
+  {
+    id: 111,
+    title: 'Cold-Pressed Sicilian Extra Virgin Olive Oil',
+    price: 32.0,
+    originalPrice: 38.0,
+    description:
+      'First cold-pressed Nocellara del Belice olives from certified organic groves in western Sicily. Notes of fresh cut grass, artichoke, and green almond.',
+    category: 'groceries',
+    subcategory: 'Gourmet Pantry',
+    gender: 'Unisex',
+    image:
+      'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.8, count: 125 },
+    sizes: ['500ml', '750ml'],
+    colors: [{ name: 'Dark Emerald Bottle', hex: '#064e3b' }],
+    inStock: true,
+    availableQuantity: 100,
+    featured: false,
+    isNewArrival: false,
+  },
 ];
 
 // Helper to build category hierarchies required by Vertex AI Search for Retail
@@ -349,7 +561,43 @@ function getCategoryHierarchy(category, subcategory) {
       subcategory ? `Accessories > Fine Jewelry > ${subcategory}` : 'Accessories > Fine Jewelry',
     ];
   }
-  return ['Apparel'];
+  if (category === 'electronics') {
+    return [
+      'Electronics',
+      subcategory ? `Electronics > ${subcategory}` : 'Electronics > Audio & Visual',
+    ];
+  }
+  if (category === 'furniture') {
+    return [
+      'Home & Living',
+      subcategory ? `Home & Living > ${subcategory}` : 'Home & Living > Furniture',
+    ];
+  }
+  if (category === 'fragrances') {
+    return [
+      'Beauty & Fragrance',
+      'Beauty & Fragrance > Fragrances',
+      subcategory
+        ? `Beauty & Fragrance > Fragrances > ${subcategory}`
+        : 'Beauty & Fragrance > Fragrances',
+    ];
+  }
+  if (category === 'beauty') {
+    return [
+      'Beauty & Fragrance',
+      'Beauty & Fragrance > Skincare',
+      subcategory
+        ? `Beauty & Fragrance > Skincare > ${subcategory}`
+        : 'Beauty & Fragrance > Skincare',
+    ];
+  }
+  if (category === 'groceries') {
+    return [
+      'Gourmet Pantry',
+      subcategory ? `Gourmet Pantry > ${subcategory}` : 'Gourmet Pantry > Specialty Foods',
+    ];
+  }
+  return ['General Merchandise'];
 }
 
 // Convert product to Google Cloud Vertex AI Search for Retail Product resource schema
@@ -371,8 +619,8 @@ function transformToVertexProduct(item) {
     title: item.title,
     description: item.description,
     categories: categories,
-    brands: ['ONIX APPAREL'],
-    uri: `https://onixapparel.com/products/${item.id}`,
+    brands: ['ONIX WARES'],
+    uri: `https://onixwares.com/products/${item.id}`,
     images: [
       {
         uri: item.image,
@@ -441,4 +689,6 @@ export function generateVertexCatalog() {
 }
 
 // Execute when run directly
-generateVertexCatalog();
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  generateVertexCatalog();
+}

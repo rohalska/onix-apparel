@@ -14,7 +14,7 @@ export const PrivacyPolicy: React.FC = () => {
           Privacy Policy, Terms & AI Transparency
         </h1>
         <p className="text-xs sm:text-sm text-stone-600 leading-relaxed max-w-3xl">
-          ONIX Apparel is committed to safeguarding customer data, upholding strict responsible AI
+          ONIX Wares is committed to safeguarding customer data, upholding strict responsible AI
           governance standards, and providing complete clarity regarding data usage within our
           Google Cloud-powered commerce ecosystem.
         </p>
@@ -42,11 +42,12 @@ export const PrivacyPolicy: React.FC = () => {
             <Sparkles className="w-4 h-4 text-amber-600" />
           </div>
           <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900">
-            Gemini Concierge Transparency
+            AI Shopping Agent Transparency
           </h3>
           <p className="text-xs text-stone-600 leading-relaxed">
-            Our AI Concierge is powered by Google Gemini Enterprise. Dialogue is processed strictly
-            to assist with catalog discovery, sizing consultation, and autonomous bag actions.
+            Our AI Shopping Agent is powered by Google Gemini Enterprise. Dialogue is processed
+            strictly to assist with catalog discovery, department consultation, and autonomous bag
+            actions.
           </p>
         </div>
 
@@ -115,8 +116,8 @@ export const PrivacyPolicy: React.FC = () => {
               AI Assistant Disclosure
             </div>
             <p>
-              The ONIX AI Concierge is an automated conversational system powered by Google Gemini
-              large language models. It provides styling guidance, product recommendations, and cart
+              The ONIX AI Shopping Agent is an automated system powered by Google Gemini large
+              language models. It provides department product guidance, recommendations, and cart
               automation. Outputs are generated probabilistically and should be verified prior to
               completing any order.
             </p>
@@ -127,7 +128,8 @@ export const PrivacyPolicy: React.FC = () => {
               without explicit enterprise consent.
             </li>
             <li>
-              The Concierge does not make autonomous contractual or binding financial commitments.
+              The AI Shopping Agent does not make autonomous contractual or binding financial
+              commitments.
             </li>
           </ul>
         </section>
@@ -136,7 +138,7 @@ export const PrivacyPolicy: React.FC = () => {
           <h2 className="font-serif text-lg font-bold text-slate-900 flex items-center gap-2">
             3. Simulated Commerce Disclaimer & Terms of Use
           </h2>
-          <p>By accessing or interacting with ONIX Apparel, you acknowledge and agree that:</p>
+          <p>By accessing or interacting with ONIX Wares, you acknowledge and agree that:</p>
           <ul className="list-disc pl-5 space-y-1.5 text-stone-600">
             <li>
               <strong className="text-stone-800">Demonstration Showcase:</strong> This web

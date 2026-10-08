@@ -1,6 +1,6 @@
-# ONIX Apparel
+# ONIX Wares
 
-An apparel storefront built with React, TypeScript, Vite and Tailwind CSS, wired
+A modern department storefront built with React, TypeScript, Vite and Tailwind CSS, wired
 to Google Cloud Vertex AI Search for Retail. It runs as a demo of agent-driven
 commerce: a Gemini Enterprise agent can drive the UI over a typed action bus
 while the storefront's searches and user events go to the live Retail API.

@@ -1,5 +1,5 @@
 /**
- * Fuzzy search and spell correction utilities for Onix Apparel & Vertex AI simulation.
+ * Fuzzy search and spell correction utilities for Onix Wares & Vertex AI simulation.
  * Calculates edit distances to autocorrect misspelled queries (e.g., "jacktet" -> "jacket").
  */
 

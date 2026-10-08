@@ -122,4 +122,10 @@ describe('Shell Script Quality & GCP Retail Ingestion Invariants', () => {
     );
     assert.match(mkContent, /^lint-shell:/m, 'the Makefile must define lint-shell');
   });
+
+  it('scripts/exportVertexCatalog.mjs exports generateVertexCatalog without executing on import', async () => {
+    // @ts-expect-error -- dynamic import of .mjs script
+    const catalogModule = await import('../scripts/exportVertexCatalog.mjs');
+    assert.equal(typeof catalogModule.generateVertexCatalog, 'function');
+  });
 });

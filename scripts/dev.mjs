@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
 
-console.log('🚀 Starting Onix Apparel Full Stack Development Environment...');
+console.log('🚀 Starting Onix Wares Full Stack Development Environment...');
 console.log('   1. Vertex AI Commerce Search Proxy (Port 3001)');
 console.log('   2. Vite React Frontend (Port 5173)');
 console.log('------------------------------------------------------------\n');
@@ -27,7 +27,7 @@ const vite = spawn(viteBin, ['--host', '--port', '5173'], {
 });
 
 function cleanup() {
-  console.log('\n🛑 Shutting down Onix Apparel dev processes...');
+  console.log('\n🛑 Shutting down Onix Wares dev processes...');
   try {
     proxy.kill('SIGTERM');
   } catch {}

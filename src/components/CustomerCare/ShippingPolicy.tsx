@@ -12,7 +12,7 @@ export const ShippingPolicy: React.FC = () => {
           Complimentary Shipping Policy
         </h1>
         <p className="text-sm text-stone-600 mt-2 leading-relaxed">
-          At Onix Apparel, every piece is handled with meticulous care and dispatched from our
+          At Onix Wares, every piece is handled with meticulous care and dispatched from our
           temperature-controlled atelier in sustainable, signature packaging.
         </p>
       </div>

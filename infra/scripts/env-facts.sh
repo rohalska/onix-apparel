@@ -59,7 +59,10 @@ project_number="$REPLY"
 # The region comes from the one region.hcl under the environment rather than
 # being spelled again here. More than one means this script needs a region
 # argument, so say so instead of picking one.
-mapfile -t region_files < <(find "$LIVE/${ENV_NAME}" -mindepth 2 -maxdepth 2 -name region.hcl | sort)
+region_files=()
+while IFS= read -r f; do
+  [ -n "$f" ] && region_files+=("$f")
+done < <(find "$LIVE/${ENV_NAME}" -mindepth 2 -maxdepth 2 -name region.hcl | sort)
 if [ "${#region_files[@]}" -ne 1 ]; then
   echo "expected exactly one region.hcl under live/${ENV_NAME}, found ${#region_files[@]}" >&2
   exit 1

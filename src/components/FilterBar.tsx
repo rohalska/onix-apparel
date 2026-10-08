@@ -27,9 +27,14 @@ export const FilterBar: React.FC<FilterBarProps> = ({
 }) => {
   const categories: { label: string; value: Category }[] = [
     { label: 'All Items', value: 'all' },
+    { label: 'Electronics', value: 'electronics' },
+    { label: 'Home & Living', value: 'furniture' },
+    { label: 'Fragrances', value: 'fragrances' },
+    { label: 'Beauty', value: 'beauty' },
     { label: "Women's Collection", value: "women's clothing" },
     { label: "Men's Collection", value: "men's clothing" },
     { label: 'Fine Jewelry', value: 'jewelery' },
+    { label: 'Gourmet Pantry', value: 'groceries' },
   ];
 
   return (

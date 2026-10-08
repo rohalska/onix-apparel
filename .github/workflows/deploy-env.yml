@@ -312,7 +312,7 @@ jobs:
           # terragrunt.hcl, so a find would count every stack twice and this
           # check would refuse every promotion.
           units="$(git ls-files "infra/live/${ENVIRONMENT}/**/terragrunt.hcl" | wc -l)"
-          summarised="$(sed -n 's/.*\[\([^]]*\)\] tofu: \(Plan: [0-9].*\|No changes\..*\)/\1/p' plan.txt | sort -u | grep -c . || true)"
+          summarised="$(sed -n -e 's/.*\[\([^]]*\)\] tofu: Plan: [0-9].*/\1/p' -e 's/.*\[\([^]]*\)\] tofu: No changes\..*/\1/p' plan.txt | sort -u | grep -c . || true)"
           # A zero unit count has to refuse too. Otherwise "summarised is not
           # less than units" is satisfied by 0 and 0, and the guard that exists
           # to notice an unreadable plan passes having accounted for nothing.

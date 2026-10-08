@@ -198,7 +198,7 @@ export const FALLBACK_PRODUCTS: Product[] = [
   },
   {
     id: 5,
-    title: "John Hardy Men's Legends Naga Gold & Silver Dragon Station Chain Bracelet",
+    title: "John Hardy Women's Legends Naga Gold & Silver Dragon Station Chain Bracelet",
     price: 695,
     description:
       "From our Legends Collection, the Naga was inspired by the mythical water dragon that protects the ocean's pearl. Wear facing inward to be bestowed with love and abundance, or outward for protection.",
@@ -265,5 +265,180 @@ export const FALLBACK_PRODUCTS: Product[] = [
     onSale: true,
     originalPrice: 18.0,
     discountPercent: 39,
+  },
+  {
+    id: 101,
+    title: 'Onix Pulse Wireless ANC Headphones',
+    price: 199.99,
+    description:
+      'Premium over-ear noise-canceling headphones with 40mm dynamic drivers, 45-hour battery life, and crystal-clear voice pickup for work and travel.',
+    category: 'electronics',
+    image:
+      'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.8, count: 340 },
+    sizes: ['One Size'],
+    colors: [
+      { name: 'Matte Black', hex: '#18181b' },
+      { name: 'Silver Mist', hex: '#e2e8f0' },
+    ],
+    inStock: true,
+    featured: true,
+    isNewArrival: true,
+  },
+  {
+    id: 102,
+    title: 'ProStream 4K Ultra HD Webcam',
+    price: 129.5,
+    description:
+      'Studio-grade 4K video webcam with dual noise-reduction microphones, HDR auto-light correction, and magnetic privacy shutter.',
+    category: 'electronics',
+    image:
+      'https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.7, count: 185 },
+    sizes: ['One Size'],
+    colors: [{ name: 'Graphite', hex: '#334155' }],
+    inStock: true,
+    featured: false,
+    isNewArrival: false,
+  },
+  {
+    id: 103,
+    title: 'Aura Smart Ambient Soundbar',
+    price: 279.0,
+    description:
+      'Immersive 3.1 channel Dolby Atmos soundbar with wireless subwoofer and integrated voice assistant control.',
+    category: 'electronics',
+    image:
+      'https://images.unsplash.com/photo-1545454675-3531b543be5d?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.9, count: 210 },
+    sizes: ['One Size'],
+    colors: [{ name: 'Onyx Black', hex: '#0f172a' }],
+    inStock: true,
+    featured: true,
+    isNewArrival: true,
+  },
+  {
+    id: 104,
+    title: 'Nordic Minimalist Oak Coffee Table',
+    price: 349.0,
+    description:
+      'Handcrafted solid white oak coffee table with clean Scandinavian silhouettes, soft beveled edges, and durable matte finish.',
+    category: 'furniture',
+    image:
+      'https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.9, count: 98 },
+    sizes: ['Standard (48" x 24")'],
+    colors: [
+      { name: 'Natural Oak', hex: '#d4b996' },
+      { name: 'Smoked Walnut', hex: '#5c4033' },
+    ],
+    inStock: true,
+    featured: true,
+    isNewArrival: false,
+  },
+  {
+    id: 105,
+    title: 'ErgoPro Mesh Executive Chair',
+    price: 399.0,
+    description:
+      'High-back ergonomic office chair featuring dynamic lumbar support, 4D adjustable armrests, and breathable cooling mesh.',
+    category: 'furniture',
+    image:
+      'https://images.unsplash.com/photo-1580481077195-c3f9904229ea?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.8, count: 142 },
+    sizes: ['Adjustable'],
+    colors: [
+      { name: 'Carbon Black', hex: '#1e293b' },
+      { name: 'Slate Grey', hex: '#64748b' },
+    ],
+    inStock: true,
+    featured: false,
+    isNewArrival: false,
+    onSale: true,
+    originalPrice: 499.0,
+    discountPercent: 20,
+  },
+  {
+    id: 106,
+    title: 'Artisan Ceramic Pour-Over Coffee Set',
+    price: 54.99,
+    description:
+      'Hand-glazed ceramic dripper with heat-resistant borosilicate glass carafe and precision stainless steel reusable mesh filter.',
+    category: 'furniture',
+    image:
+      'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.7, count: 88 },
+    sizes: ['600ml / 4 Cup'],
+    colors: [
+      { name: 'Speckled Clay', hex: '#e7e5e4' },
+      { name: 'Terracotta', hex: '#c2410c' },
+    ],
+    inStock: true,
+    featured: false,
+    isNewArrival: false,
+  },
+  {
+    id: 107,
+    title: 'Luxe Santal & Amber Eau de Parfum',
+    price: 115.0,
+    description:
+      'An exquisite unisex fragrance blending rich Mysore sandalwood, cardamom, warm golden amber resin, and velvety iris notes.',
+    category: 'fragrances',
+    image:
+      'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.9, count: 310 },
+    sizes: ['50ml', '100ml'],
+    colors: [{ name: 'Amber Glass', hex: '#d97706' }],
+    inStock: true,
+    featured: true,
+    isNewArrival: true,
+  },
+  {
+    id: 108,
+    title: 'Radiance Botanical Vitamin C Serum',
+    price: 48.0,
+    description:
+      'Triple-antioxidant brightening facial serum enriched with 15% pure L-ascorbic acid, hyaluronic acid, and kakadu plum extract.',
+    category: 'beauty',
+    image:
+      'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.8, count: 420 },
+    sizes: ['30ml'],
+    colors: [{ name: 'Amber Dropper', hex: '#b45309' }],
+    inStock: true,
+    featured: false,
+    isNewArrival: false,
+  },
+  {
+    id: 110,
+    title: 'Single-Origin Ethiopian Yirgacheffe Coffee Beans',
+    price: 24.5,
+    description:
+      'Washed process whole bean coffee with delicate floral jasmine notes, bergamot citrus brightness, and honey sweetness. 12oz bag.',
+    category: 'groceries',
+    image:
+      'https://images.unsplash.com/photo-1587734195503-904fca47e0e9?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.9, count: 180 },
+    sizes: ['12 oz Whole Bean', '2 lb Whole Bean'],
+    colors: [{ name: 'Kraft Bag', hex: '#a8a29e' }],
+    inStock: true,
+    featured: false,
+    isNewArrival: true,
+  },
+  {
+    id: 111,
+    title: 'Cold-Pressed Sicilian Extra Virgin Olive Oil',
+    price: 32.0,
+    description:
+      'First cold-pressed Nocellara del Belice olives from certified organic groves in western Sicily. Notes of fresh cut grass, artichoke, and green almond.',
+    category: 'groceries',
+    image:
+      'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.8, count: 125 },
+    sizes: ['500ml', '750ml'],
+    colors: [{ name: 'Dark Emerald Bottle', hex: '#064e3b' }],
+    inStock: true,
+    featured: false,
+    isNewArrival: false,
   },
 ];

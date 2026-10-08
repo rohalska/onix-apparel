@@ -72,6 +72,44 @@ describe('Google Forward Deployment Engineer & Gemini Enterprise Readiness', () 
       assert.ok(content.includes('SearchRequest'));
       assert.ok(content.includes('Product'));
     });
+
+    it('should keep openapi.yaml and public/openapi.yaml byte-identical', () => {
+      const rootYaml = fs.readFileSync(path.resolve(rootDir, 'openapi.yaml'), 'utf-8');
+      const publicYaml = fs.readFileSync(path.resolve(rootDir, 'public', 'openapi.yaml'), 'utf-8');
+      assert.equal(
+        rootYaml,
+        publicYaml,
+        'openapi.yaml and public/openapi.yaml must be byte-identical',
+      );
+    });
+
+    it('should declare all nine categories in SearchRequest enum matching agent-card.json', () => {
+      const yamlContent = fs.readFileSync(path.resolve(rootDir, 'openapi.yaml'), 'utf-8');
+      const agentCard = JSON.parse(
+        fs.readFileSync(path.resolve(rootDir, 'public', '.well-known', 'agent-card.json'), 'utf-8'),
+      );
+      interface AgentTool {
+        name: string;
+        parameters?: {
+          properties?: {
+            category?: {
+              enum?: string[];
+            };
+          };
+        };
+      }
+      const agentCategories: string[] =
+        (agentCard.tools as AgentTool[]).find((t) => t.name === 'search_catalog')?.parameters
+          ?.properties?.category?.enum ?? [];
+
+      assert.equal(agentCategories.length, 9, 'agent-card.json must declare 9 categories');
+      for (const cat of agentCategories) {
+        assert.ok(
+          yamlContent.includes(`'${cat}'`) || yamlContent.includes(`"${cat}"`),
+          `openapi.yaml SearchRequest.category enum must include "${cat}"`,
+        );
+      }
+    });
   });
 
   describe('Content Security Policy (CSP) in index.html', () => {

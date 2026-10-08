@@ -32,7 +32,16 @@ export interface CartItem {
   selectedColor: string;
 }
 
-export type Category = 'all' | "men's clothing" | "women's clothing" | 'jewelery';
+export type Category =
+  | 'all'
+  | "men's clothing"
+  | "women's clothing"
+  | 'jewelery'
+  | 'electronics'
+  | 'furniture'
+  | 'fragrances'
+  | 'beauty'
+  | 'groceries';
 
 export type SortOption = (typeof SORT_VALUES)[number];
 

@@ -1,5 +1,5 @@
 # ==============================================================================
-# ONIX APPAREL - Production Dockerfile for Google Cloud Run
+# ONIX WARES - Production Dockerfile for Google Cloud Run
 # Multi-stage container build with Vite SPA builder and minimal Node.js runtime.
 # ==============================================================================
 

@@ -29,16 +29,16 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCollection, onSelectCust
             <div className="flex items-center gap-2">
               <span className="font-serif text-2xl font-bold tracking-tight text-white">ONIX</span>
               <span className="text-[10px] tracking-widest font-semibold uppercase px-2 py-0.5 rounded bg-stone-800 text-stone-300 border border-stone-700">
-                Apparel
+                Wares
               </span>
             </div>
             <p className="text-xs text-stone-400 max-w-sm leading-relaxed">
-              Curated clothing & timeless silhouettes created for thoughtful modern living. Powered
-              by Google Cloud Vertex AI Search.
+              Curated goods, electronics, home furnishings, fine jewelry & apparel for modern
+              living. Google Cloud AI Commerce Search enabled.
             </p>
             <div className="flex items-center gap-2 text-xs text-stone-400">
               <ShieldCheck className="w-4 h-4 text-emerald-400" />
-              <span>Certified 100% Ethical & Sustainable Sourcing</span>
+              <span>Certified 100% Quality & Sustainable Sourcing</span>
             </div>
           </div>
 
@@ -267,13 +267,13 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCollection, onSelectCust
         {/* Bottom bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-stone-500">
           <div>
-            © {new Date().getFullYear()} ONIX Apparel Inc. Designed with care. Powered by Fake Store
-            API.
+            © {new Date().getFullYear()} ONIX Wares Inc. Curated goods & modern living. All prices
+            in USD ($).
           </div>
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1">
               Crafted with <Heart className="w-3 h-3 text-rose-500 fill-rose-500" /> for modern
-              fashion
+              living
             </span>
             <span>•</span>
             <a

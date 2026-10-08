@@ -133,4 +133,31 @@ describe('live Retail search hydrates results from the catalog', () => {
     expect(typeof p.price).toBe('number');
     expect(p.price).toBeGreaterThan(0);
   });
+
+  it('aligns live category filter conditions with mock synonyms', async () => {
+    let capturedFilter = '';
+    globalThis.fetch = vi.fn(async (url: string | URL | Request, init?: RequestInit) => {
+      const href = String(url);
+      if (href.includes('retail.googleapis.com')) {
+        const body = JSON.parse(String(init?.body || '{}'));
+        capturedFilter = body.filter || '';
+        return new Response(JSON.stringify({ results: [], totalSize: 0 }), {
+          status: 200,
+          headers: { 'content-type': 'application/json' },
+        });
+      }
+      throw new Error(`unexpected outbound fetch: ${href}`);
+    }) as unknown as typeof fetch;
+
+    await search({ category: 'furniture' });
+    expect(capturedFilter).toBe('(categories: ANY("Home & Living", "Furniture"))');
+
+    await search({ category: 'beauty' });
+    expect(capturedFilter).toBe('(categories: ANY("Beauty & Fragrance > Skincare", "Skincare"))');
+
+    await search({ category: 'jewelery' });
+    expect(capturedFilter).toBe(
+      '(categories: ANY("Accessories > Fine Jewelry", "Accessories", "Jewelry", "Jewelery"))',
+    );
+  });
 });

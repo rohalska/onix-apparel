@@ -69,7 +69,7 @@ function getFallback(category?: Category): Product[] {
 }
 
 export async function fetchProducts(category?: Category): Promise<Product[]> {
-  // Return the curated Onix apparel catalog directly to eliminate cross-origin CORS errors
+  // Return the curated Onix Wares catalog directly to eliminate cross-origin CORS errors
   // on deployed domains and ensure parity with Vertex AI Search catalog.
   return getFallback(category);
 }

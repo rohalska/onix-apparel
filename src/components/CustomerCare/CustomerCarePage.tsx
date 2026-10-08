@@ -126,20 +126,20 @@ export const CustomerCarePage: React.FC<CustomerCarePageProps> = ({
               })}
             </div>
 
-            {/* Concierge Help Box */}
+            {/* Client Care Help Box */}
             <div className="p-4 rounded-xl bg-amber-50 border border-amber-200/80 mt-6 space-y-2">
               <h4 className="text-xs font-bold text-amber-950 font-serif">
                 Need Personal Assistance?
               </h4>
               <p className="text-[11px] text-amber-800 leading-relaxed">
-                Our client concierge team is on hand 7 days a week for immediate styling & order
-                support.
+                Our client care team is on hand 7 days a week for immediate department product &
+                order support.
               </p>
               <button
                 onClick={() => onNavigate('contact')}
                 className="text-xs font-bold text-amber-900 underline underline-offset-2 hover:text-amber-950 block pt-1"
               >
-                Connect with Concierge &rarr;
+                Contact Client Care &rarr;
               </button>
             </div>
           </aside>

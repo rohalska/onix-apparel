@@ -1,6 +1,6 @@
 # Google Forward Deployment Engineer (FDE) Integration Runbook
 
-How the ONIX Apparel storefront (`gecx-shopping-agent-demo`) is set up on Cloud
+How the ONIX Wares storefront (`gecx-shopping-agent-demo`) is set up on Cloud
 Run, wired to Vertex AI Search for Retail, and registered as a Gemini
 Enterprise shopping agent. It ships as one container: a Vite SPA served by the
 same Node process that proxies the Retail API.
@@ -249,7 +249,7 @@ are placeholders:
 ```bash
 # 1. Create a Cloud Armor security policy
 gcloud compute security-policies create onix-edge-rate-limit \
-  --description="Global edge rate limiting for ONIX Apparel Cloud Run backend"
+  --description="Global edge rate limiting for ONIX Wares Cloud Run backend"
 
 # 2. Add rate limiting rule (120 requests per minute per client IP)
 gcloud compute security-policies rules create 1000 \
@@ -413,7 +413,7 @@ In the Gemini Enterprise Admin Console or using the Agent Registry CLI:
 ```bash
 agents-cli publish gemini-enterprise \
   --agent-card="https://<YOUR-CLOUD-RUN-URL>/.well-known/agent-card.json" \
-  --name="ONIX Apparel Concierge" \
+  --name="ONIX Wares AI Shopping Agent" \
   --environment="dev"
 ```
 

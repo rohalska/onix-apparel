@@ -12,7 +12,7 @@ export const ReturnsPolicy: React.FC = () => {
           30-Day Easy Returns & Exchanges
         </h1>
         <p className="text-sm text-stone-600 mt-2 leading-relaxed">
-          We want you to love everything you purchase from Onix Apparel. If a piece does not fit or
+          We want you to love everything you purchase from Onix Wares. If a piece does not fit or
           meet your expectations, we gladly accept returns and exchanges within 30 days of receipt.
         </p>
       </div>

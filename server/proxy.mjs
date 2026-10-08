@@ -49,7 +49,7 @@ let upstreamStatus = 'unknown'; // 'unknown', 'ok', 'error'
 let fallbackReason = null; // string | null
 
 console.log(`\n==============================================`);
-console.log(`🚀 ONIX APPAREL - Vertex AI Commerce Search Proxy`);
+console.log(`🚀 ONIX WARES - Vertex AI Commerce Search Proxy`);
 console.log(`   Mode: ${isLiveMode ? 'LIVE (Google Cloud Vertex AI)' : 'LOCAL SIMULATION / MOCK'}`);
 if (isLiveMode) {
   console.log(`   GCP Project: ${GCP_PROJECT_ID}`);
@@ -80,13 +80,49 @@ function mapVertexProductToFrontend(vertexProduct) {
   const idStr = String(vertexProduct.id || '').replace(/^onx-/, '');
   const idNum = parseInt(idStr, 10) || 1;
 
-  let rawCategory = "men's clothing";
+  let rawCategory = 'all';
   const catHierarchy = vertexProduct.categories || [];
-  const fullCatString = catHierarchy.join(' ').toLowerCase();
-  if (fullCatString.includes("women's clothing")) {
+  const fullCatString = catHierarchy.join(' | ');
+  const lowerCat = fullCatString.toLowerCase();
+
+  if (lowerCat.includes("apparel > women's clothing") || lowerCat.includes("women's clothing")) {
     rawCategory = "women's clothing";
-  } else if (fullCatString.includes('jewelry') || fullCatString.includes('accessories')) {
+  } else if (
+    !lowerCat.includes("women's clothing") &&
+    (lowerCat.includes("apparel > men's clothing") || /\bmen's clothing/i.test(lowerCat))
+  ) {
+    rawCategory = "men's clothing";
+  } else if (lowerCat.includes('electronics')) {
+    rawCategory = 'electronics';
+  } else if (lowerCat.includes('home & living') || lowerCat.includes('furniture')) {
+    rawCategory = 'furniture';
+  } else if (lowerCat.includes('skincare') || lowerCat.includes('beauty & fragrance > skincare')) {
+    // Beauty/Skincare check MUST run BEFORE Fragrances check because
+    // "Beauty & Fragrance > Skincare" contains the substring "Fragrance".
+    rawCategory = 'beauty';
+  } else if (
+    lowerCat.includes('beauty & fragrance > fragrances') ||
+    lowerCat.includes('fragrance') ||
+    lowerCat.includes('perfume')
+  ) {
+    rawCategory = 'fragrances';
+  } else if (
+    lowerCat.includes('gourmet pantry') ||
+    lowerCat.includes('groceries') ||
+    lowerCat.includes('grocery') ||
+    lowerCat.includes('pantry')
+  ) {
+    rawCategory = 'groceries';
+  } else if (
+    lowerCat.includes('accessories') ||
+    lowerCat.includes('jewelry') ||
+    lowerCat.includes('jewelery')
+  ) {
     rawCategory = 'jewelery';
+  } else if (fullCatString.trim().length > 0) {
+    console.warn(
+      `[mapVertexProductToFrontend] Unrecognised category hierarchy "${fullCatString}" for product "${vertexProduct.id || vertexProduct.title}". Defaulting to neutral category "all".`,
+    );
   }
 
   const sizes = vertexProduct.attributes?.sizes?.text || ['S', 'M', 'L', 'XL'];
@@ -640,6 +676,7 @@ const server = http.createServer(async (req, res) => {
           gcpProjectId: GCP_PROJECT_ID || null,
           location: GCP_LOCATION,
           catalogItemCount: localCatalog.length,
+          itemCount: localCatalog.length,
           timestamp: new Date().toISOString(),
         },
         req,
@@ -729,11 +766,31 @@ const server = http.createServer(async (req, res) => {
             const filterConditions = [];
             if (category && category !== 'all') {
               if (category === "men's clothing") {
-                filterConditions.push('(categories: ANY("Apparel > Men\'s Clothing"))');
+                filterConditions.push(
+                  '(categories: ANY("Apparel > Men\'s Clothing", "Men\'s Clothing"))',
+                );
               } else if (category === "women's clothing") {
-                filterConditions.push('(categories: ANY("Apparel > Women\'s Clothing"))');
+                filterConditions.push(
+                  '(categories: ANY("Apparel > Women\'s Clothing", "Women\'s Clothing"))',
+                );
               } else if (category === 'jewelery') {
-                filterConditions.push('(categories: ANY("Accessories > Fine Jewelry"))');
+                filterConditions.push(
+                  '(categories: ANY("Accessories > Fine Jewelry", "Accessories", "Jewelry", "Jewelery"))',
+                );
+              } else if (category === 'electronics') {
+                filterConditions.push('(categories: ANY("Electronics"))');
+              } else if (category === 'furniture') {
+                filterConditions.push('(categories: ANY("Home & Living", "Furniture"))');
+              } else if (category === 'fragrances') {
+                filterConditions.push(
+                  '(categories: ANY("Beauty & Fragrance > Fragrances", "Fragrances", "Fragrance", "Perfume"))',
+                );
+              } else if (category === 'beauty') {
+                filterConditions.push(
+                  '(categories: ANY("Beauty & Fragrance > Skincare", "Skincare"))',
+                );
+              } else if (category === 'groceries') {
+                filterConditions.push('(categories: ANY("Gourmet Pantry", "Groceries", "Pantry"))');
               }
             }
             const numMinPrice =
@@ -846,11 +903,56 @@ const server = http.createServer(async (req, res) => {
       // Category filter
       if (category && category !== 'all') {
         filtered = filtered.filter((p) => {
-          const hierarchy = (p.categories || []).join(' ').toLowerCase();
-          if (category === "men's clothing") return hierarchy.includes("men's clothing");
-          if (category === "women's clothing") return hierarchy.includes("women's clothing");
-          if (category === 'jewelery')
-            return hierarchy.includes('jewelry') || hierarchy.includes('accessories');
+          const hierarchy = (p.categories || []).join(' | ');
+          const lowerHierarchy = hierarchy.toLowerCase();
+          if (category === "men's clothing") {
+            // "men's clothing" is a substring of "women's clothing", so explicitly exclude women's items
+            if (lowerHierarchy.includes("women's clothing")) return false;
+            return (
+              lowerHierarchy.includes("apparel > men's clothing") ||
+              /\bmen's clothing/i.test(lowerHierarchy)
+            );
+          }
+          if (category === "women's clothing")
+            return (
+              lowerHierarchy.includes("apparel > women's clothing") ||
+              lowerHierarchy.includes("women's clothing")
+            );
+          if (category === 'electronics') return lowerHierarchy.includes('electronics');
+          if (category === 'furniture')
+            return lowerHierarchy.includes('home & living') || lowerHierarchy.includes('furniture');
+          if (category === 'jewelery') {
+            if (lowerHierarchy.includes('electronics')) return false;
+            return (
+              lowerHierarchy.includes('accessories') ||
+              lowerHierarchy.includes('jewelry') ||
+              lowerHierarchy.includes('jewelery')
+            );
+          }
+          if (category === 'beauty') {
+            return (
+              lowerHierarchy.includes('skincare') ||
+              lowerHierarchy.includes('beauty & fragrance > skincare')
+            );
+          }
+          if (category === 'fragrances') {
+            // "Beauty & Fragrance > Skincare" contains "Fragrance" in the parent path; exclude skincare items
+            if (lowerHierarchy.includes('skincare')) return false;
+            return (
+              lowerHierarchy.includes('beauty & fragrance > fragrances') ||
+              lowerHierarchy.includes('fragrance') ||
+              lowerHierarchy.includes('perfume')
+            );
+          }
+          if (category === 'groceries')
+            return (
+              lowerHierarchy.includes('gourmet pantry') ||
+              lowerHierarchy.includes('groceries') ||
+              lowerHierarchy.includes('grocery') ||
+              lowerHierarchy.includes('pantry')
+            );
+          // For an unknown category, apply no category filter (fall through to true),
+          // matching Live mode behavior which leaves filterConditions empty for unknown categories.
           return true;
         });
       }
@@ -1165,7 +1267,7 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-export { server };
+export { server, mapVertexProductToFrontend };
 
 const isTesting =
   process.env.NODE_ENV === 'test' ||

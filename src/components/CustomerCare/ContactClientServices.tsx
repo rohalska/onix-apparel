@@ -20,14 +20,14 @@ export const ContactClientServices: React.FC = () => {
     <div className="space-y-8 animate-fade-in text-slate-800">
       <div>
         <span className="text-[11px] font-bold uppercase tracking-widest text-slate-900 bg-stone-100 px-2.5 py-1 rounded-full border border-stone-200">
-          Client Care & Concierge
+          Client Care & Services
         </span>
         <h1 className="text-3xl font-serif font-bold text-slate-900 mt-3 tracking-tight">
           Contact Client Services
         </h1>
         <p className="text-sm text-stone-600 mt-2 leading-relaxed">
-          Our dedicated client advisors are here to assist with styling consultations, order
-          tracking, bespoke inquiries, and aftercare.
+          Our dedicated client advisors are here to assist with product inquiries, order tracking,
+          department consultations, and aftercare.
         </p>
       </div>
 
@@ -39,13 +39,13 @@ export const ContactClientServices: React.FC = () => {
             <Mail className="w-4 h-4" />
           </div>
           <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
-            Email Concierge
+            Email Client Care
           </h4>
           <a
-            href="mailto:concierge@onixapparel.com"
+            href="mailto:support@onixwares.com"
             className="text-xs font-semibold text-slate-900 hover:text-amber-800 transition-colors block"
           >
-            concierge@onixapparel.com
+            support@onixwares.com
           </a>
           <p className="text-[11px] text-stone-500">Response within 4 hours</p>
         </div>
