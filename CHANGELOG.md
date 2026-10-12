@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.6.0](https://github.com/onix-net/gecx-shopping-agent-demo/compare/v0.5.0...v0.6.0) (2026-10-12)
+
+
+### Features
+
+* **storefront:** expand catalog to 75 items across 8 departments and fix department navigation ([#54](https://github.com/onix-net/gecx-shopping-agent-demo/issues/54)) ([3c311ae](https://github.com/onix-net/gecx-shopping-agent-demo/commit/3c311ae7fb2105bf958415acd825abec5e13726e))
+
 ## [0.5.0](https://github.com/onix-net/gecx-shopping-agent-demo/compare/v0.4.0...v0.5.0) (2026-10-08)
 
 
