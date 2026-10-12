@@ -86,7 +86,7 @@ export const FALLBACK_PRODUCTS: Product[] = [
   },
   {
     id: 15,
-    title: "BIYLACLESEN Women's 3-in-1 Snowboard Jacket Winter Coats",
+    title: "BIYLACLESEN Women's 3-in-1 Snowboard Jacket Winter Coat",
     price: 56.99,
     description:
       'Note: The Jackets is US standard size, Please choose size as your usual wear. Material: 100% Polyester; Detachable Liner Fabric: Warm Fleece. Stand collar, liner with front full zip closure and side zipped pockets.',
@@ -164,7 +164,7 @@ export const FALLBACK_PRODUCTS: Product[] = [
   },
   {
     id: 19,
-    title: "Opna Women's Short Sleeve Moisture",
+    title: "Opna Women's Short Sleeve Moisture Wicking Athletic T-Shirt",
     price: 7.95,
     description:
       '100% Polyester, Machine wash, 100% cationic polyester interlock, Machine Wash & Pre Shrunk for a Great Fit, Lightweight, roomy and highly breathable with moisture wicking fabric which helps to keep moisture away.',
@@ -183,7 +183,7 @@ export const FALLBACK_PRODUCTS: Product[] = [
   },
   {
     id: 20,
-    title: 'DANVOUY Womens T Shirt Casual Cotton Short',
+    title: 'DANVOUY Womens Casual V Neck Pleated Casual Tee T-Shirt',
     price: 12.99,
     description:
       '95%Cotton,5%Spandex, Features: Casual, Short Sleeve, Letter Print,V-Neck,Fashion Tees, The fabric is soft and has some stretch., Occasion: Casual/Office/Beach/School/Home/Street. Season: Spring,Summer,Autumn,Winter.',
@@ -213,7 +213,7 @@ export const FALLBACK_PRODUCTS: Product[] = [
   },
   {
     id: 6,
-    title: 'Solid Gold Petite Micropave',
+    title: 'Solid Gold Petite Micropave Diamond Ring',
     price: 168,
     description:
       'Satisfaction Guaranteed. Return or exchange any order within 30 days. Designed and handcrafted in fine gold with glistening pavé stones for subtle everyday brilliance.',
@@ -232,7 +232,7 @@ export const FALLBACK_PRODUCTS: Product[] = [
   },
   {
     id: 7,
-    title: 'White Gold Plated Princess',
+    title: 'White Gold Plated Princess Solitaire Diamond Engagement Ring',
     price: 9.99,
     description:
       "Classic Created Wedding Engagement Solitaire Diamond Promise Ring for Her. Gifts to spoil your love more for Engagement, Wedding, Anniversary, Valentine's Day...",
@@ -250,7 +250,7 @@ export const FALLBACK_PRODUCTS: Product[] = [
   },
   {
     id: 8,
-    title: 'Pierced Owl Rose Gold Plated Stainless Steel Double',
+    title: 'Pierced Owl Rose Gold Plated Stainless Steel Flared Tunnel Plug Earrings',
     price: 10.99,
     description:
       'Rose Gold Plated Flared Tunnel Plug Earrings. Made of 316L Surgical Grade Stainless Steel, polished smooth for comfortable daily wear.',
@@ -440,5 +440,914 @@ export const FALLBACK_PRODUCTS: Product[] = [
     inStock: true,
     featured: false,
     isNewArrival: false,
+  },
+  {
+    id: 21,
+    title: "Men's Tailored Italian Wool Blend Blazer",
+    price: 189.0,
+    description:
+      'Structured two-button blazer crafted from a breathable Italian wool blend. Features notch lapels, interior jet pockets, and double back vents for modern formal and smart-casual styling.',
+    category: "men's clothing",
+    image:
+      'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.8, count: 142 },
+    sizes: ['38R', '40R', '42R', '44R'],
+    colors: [
+      { name: 'Navy Melange', hex: '#1e293b' },
+      { name: 'Charcoal', hex: '#334155' },
+    ],
+    inStock: true,
+    featured: true,
+    isNewArrival: true,
+  },
+  {
+    id: 22,
+    title: "Men's Slim-Fit Stretch Chino Trousers",
+    price: 68.0,
+    description:
+      'Modern tapered chinos tailored in durable stretch organic cotton twill. Pre-washed for a soft handfeel with angled side pockets and horn buttons.',
+    category: "men's clothing",
+    image:
+      'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.6, count: 210 },
+    sizes: ['30x32', '32x32', '34x32', '36x32'],
+    colors: [
+      { name: 'British Khaki', hex: '#d4b996' },
+      { name: 'Olive Drab', hex: '#4d533c' },
+    ],
+    inStock: true,
+    featured: false,
+    isNewArrival: false,
+  },
+  {
+    id: 23,
+    title: "Men's Crisp Poplin Button-Down Dress Shirt",
+    price: 54.0,
+    description:
+      'Classic long-sleeve dress shirt woven from 100% two-ply Egyptian cotton poplin. Features a semi-spread collar, mother-of-pearl buttons, and wrinkle-resistant finish.',
+    category: "men's clothing",
+    image:
+      'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.7, count: 185 },
+    sizes: ['S', 'M', 'L', 'XL'],
+    colors: [
+      { name: 'Optic White', hex: '#f8fafc' },
+      { name: 'French Blue', hex: '#60a5fa' },
+    ],
+    inStock: true,
+    featured: false,
+    isNewArrival: true,
+  },
+  {
+    id: 24,
+    title: "Men's Handcrafted Italian Leather Oxford Shoes",
+    price: 165.0,
+    description:
+      'Formal cap-toe oxfords artisanally crafted from hand-burnished calfskin leather. Built with Goodyear welted leather soles and cushioned memory foam footbeds.',
+    category: "men's clothing",
+    image:
+      'https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.9, count: 96 },
+    sizes: ['8', '9', '10', '11', '12'],
+    colors: [
+      { name: 'Cognac Brown', hex: '#78350f' },
+      { name: 'Polished Black', hex: '#0f172a' },
+    ],
+    inStock: true,
+    featured: true,
+    isNewArrival: false,
+  },
+  {
+    id: 25,
+    title: "Men's Minimalist Low-Top White Leather Sneakers",
+    price: 110.0,
+    description:
+      'Sleek court sneakers made from smooth Italian nappa leather with durable margom rubber soles. Perfect pairing for casual trousers or relaxed suiting.',
+    category: "men's clothing",
+    image:
+      'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.8, count: 320 },
+    sizes: ['8', '9', '10', '11', '12'],
+    colors: [{ name: 'Chalk White', hex: '#f1f5f9' }],
+    inStock: true,
+    featured: false,
+    isNewArrival: false,
+  },
+  {
+    id: 26,
+    title: "Men's Merino Wool Ribbed Crewneck Sweater",
+    price: 88.0,
+    description:
+      'Extra-fine 19.5-micron Australian merino wool knit sweater. Lightweight thermal regulation, naturally odor-resistant, with ribbed cuffs and hem.',
+    category: "men's clothing",
+    image:
+      'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.7, count: 148 },
+    sizes: ['S', 'M', 'L', 'XL'],
+    colors: [
+      { name: 'Oatmeal Heather', hex: '#e2e8f0' },
+      { name: 'Forest Green', hex: '#14532d' },
+    ],
+    inStock: true,
+    featured: false,
+    isNewArrival: true,
+  },
+  {
+    id: 27,
+    title: "Women's Silk Satin Midi Slip Dress",
+    price: 145.0,
+    description:
+      'Lustrous 19mm mulberry silk satin slip dress cut on the bias for a graceful liquid drape. Adjustable delicate straps and soft cowl neckline.',
+    category: "women's clothing",
+    image:
+      'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.9, count: 175 },
+    sizes: ['XS', 'S', 'M', 'L'],
+    colors: [
+      { name: 'Champagne Gold', hex: '#fef08a' },
+      { name: 'Midnight Noir', hex: '#09090b' },
+    ],
+    inStock: true,
+    featured: true,
+    isNewArrival: true,
+  },
+  {
+    id: 28,
+    title: "Women's Relaxed Double-Breasted Linen Blazer",
+    price: 135.0,
+    description:
+      'Tailored from breathable 100% European flax linen. Effortless slightly oversized silhouette with horn-effect buttons and light shoulder pad structure.',
+    category: "women's clothing",
+    image:
+      'https://images.unsplash.com/photo-1584273143981-41c073dfe8f8?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.8, count: 130 },
+    sizes: ['XS', 'S', 'M', 'L'],
+    colors: [
+      { name: 'Natural Ecru', hex: '#f5f5f4' },
+      { name: 'Terracotta', hex: '#9a3412' },
+    ],
+    inStock: true,
+    featured: false,
+    isNewArrival: true,
+  },
+  {
+    id: 29,
+    title: "Women's High-Waisted Wide-Leg Tailored Trousers",
+    price: 92.0,
+    description:
+      'Fluid wide-leg trousers featuring front pleats, slant pockets, and a clean hook-and-bar closure. Woven from wrinkle-resistant stretch crepe.',
+    category: "women's clothing",
+    image:
+      'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.7, count: 190 },
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    colors: [
+      { name: 'Sand Taupe', hex: '#d6d3d1' },
+      { name: 'Jet Black', hex: '#18181b' },
+    ],
+    inStock: true,
+    featured: false,
+    isNewArrival: false,
+  },
+  {
+    id: 30,
+    title: "Women's Silk Crepe de Chine Button-Up Blouse",
+    price: 85.0,
+    description:
+      'Pure silk crepe de chine shirt with a fluid matte finish. Tailored with French seams, mother-of-pearl buttons, and rounded convertible cuffs.',
+    category: "women's clothing",
+    image:
+      'https://images.unsplash.com/photo-1608256246200-53e635b5b65f?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.6, count: 145 },
+    sizes: ['XS', 'S', 'M', 'L'],
+    colors: [
+      { name: 'Ivory Pearl', hex: '#fafaf9' },
+      { name: 'Dusty Rose', hex: '#fda4af' },
+    ],
+    inStock: true,
+    featured: false,
+    isNewArrival: false,
+  },
+  {
+    id: 31,
+    title: "Women's Pointed-Toe Leather Mule Pumps",
+    price: 128.0,
+    description:
+      'Sculptural 65mm flared kitten heel mules crafted in butter-soft Italian lambskin leather. Padded leather insole provides day-to-night comfort.',
+    category: "women's clothing",
+    image:
+      'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.8, count: 112 },
+    sizes: ['6', '7', '8', '9', '10'],
+    colors: [
+      { name: 'Caramel Leather', hex: '#92400e' },
+      { name: 'Onyx Black', hex: '#171717' },
+    ],
+    inStock: true,
+    featured: true,
+    isNewArrival: true,
+  },
+  {
+    id: 32,
+    title: "Women's Pleated Georgette A-Line Midi Skirt",
+    price: 78.0,
+    description:
+      'Sunburst accordion pleats bring elegant kinetic movement to this lightweight georgette midi skirt. Fitted with an elasticized grosgrain waistband.',
+    category: "women's clothing",
+    image:
+      'https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.7, count: 98 },
+    sizes: ['XS', 'S', 'M', 'L'],
+    colors: [
+      { name: 'Sage Green', hex: '#84a98c' },
+      { name: 'Soft Cream', hex: '#fffbeb' },
+    ],
+    inStock: true,
+    featured: false,
+    isNewArrival: false,
+  },
+  {
+    id: 33,
+    title: 'Classic Full-Grain Leather Dress Belt',
+    price: 48.0,
+    description:
+      'Vegetable-tanned full-grain bridle leather belt with beveled edge detailing and a brushed solid brass buckle. An essential styling anchor for trousers and suits.',
+    category: 'jewelery',
+    image:
+      'https://images.unsplash.com/photo-1624222247344-550fb60583dc?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.8, count: 240 },
+    sizes: ['32', '34', '36', '38'],
+    colors: [
+      { name: 'Saddle Tan', hex: '#78350f' },
+      { name: 'Black Brass', hex: '#09090b' },
+    ],
+    inStock: true,
+    featured: false,
+    isNewArrival: false,
+  },
+  {
+    id: 34,
+    title: 'Structured Italian Leather Crossbody Bag',
+    price: 155.0,
+    description:
+      'Geometric saddle-shaped crossbody handbag in smooth Tuscan box calf leather. Features magnetic flap closure, gold-plated hardware, and suede lining.',
+    category: 'jewelery',
+    image:
+      'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.9, count: 165 },
+    sizes: ['One Size'],
+    colors: [
+      { name: 'Chestnut Brown', hex: '#854d0e' },
+      { name: 'Noir', hex: '#18181b' },
+    ],
+    inStock: true,
+    featured: true,
+    isNewArrival: true,
+  },
+  {
+    id: 35,
+    title: 'Chronograph Minimalist Sapphire Watch',
+    price: 210.0,
+    description:
+      'Swiss quartz movement chronograph with a scratch-resistant anti-reflective sapphire crystal face, brushed 316L stainless steel case, and quick-release strap.',
+    category: 'jewelery',
+    image:
+      'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.9, count: 180 },
+    sizes: ['40mm Case'],
+    colors: [
+      { name: 'Silver Mesh', hex: '#94a3b8' },
+      { name: 'Rose Gold Leather', hex: '#fb7185' },
+    ],
+    inStock: true,
+    featured: true,
+    isNewArrival: true,
+  },
+  {
+    id: 36,
+    title: 'Hammered 14k Gold Chunky Hoop Earrings',
+    price: 85.0,
+    description:
+      'Statement hollow-tube hoop earrings hand-crafted in 14k gold vermeil over 925 sterling silver with an artisanal light-catching hammered texture.',
+    category: 'jewelery',
+    image:
+      'https://images.unsplash.com/photo-1630019852942-f89202989a59?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.8, count: 215 },
+    sizes: ['20mm Diameter'],
+    colors: [{ name: '14k Yellow Gold', hex: '#eab308' }],
+    inStock: true,
+    featured: false,
+    isNewArrival: false,
+  },
+  {
+    id: 37,
+    title: 'Vetiver & Cedarwood Cologne',
+    price: 88.0,
+    description:
+      'Earthy and warm botanical cologne featuring Haitian vetiver, smoked Virginian cedarwood, pink peppercorn, and bright bergamot top notes.',
+    category: 'fragrances',
+    image:
+      'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.8, count: 170 },
+    sizes: ['50ml', '100ml'],
+    colors: [{ name: 'Smoky Flacon', hex: '#44403c' }],
+    inStock: true,
+    featured: false,
+    isNewArrival: true,
+  },
+  {
+    id: 38,
+    title: 'Velvet Rose & Bergamot Eau de Parfum',
+    price: 95.0,
+    description:
+      'Romantic floral bouquet combining Damascena rose petals, crisp Italian bergamot, creamy amber, and white musk. Long-lasting artisanal sillage.',
+    category: 'fragrances',
+    image:
+      'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.9, count: 205 },
+    sizes: ['50ml', '100ml'],
+    colors: [{ name: 'Frosted Blush Bottle', hex: '#f43f5e' }],
+    inStock: true,
+    featured: true,
+    isNewArrival: false,
+  },
+  {
+    id: 39,
+    title: 'Gentle Hydrating Amino Acid Facial Cleanser',
+    price: 28.0,
+    description:
+      'Sulfate-free pH-balanced foaming cleanser enriched with 11 essential amino acids, green tea extract, and soothing chamomile water to cleanse without stripping moisture.',
+    category: 'beauty',
+    image:
+      'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.7, count: 290 },
+    sizes: ['150ml'],
+    colors: [{ name: 'Frosted Glass Pump', hex: '#e2e8f0' }],
+    inStock: true,
+    featured: false,
+    isNewArrival: false,
+  },
+  {
+    id: 40,
+    title: 'Deep Moisture Peptide Recovery Night Cream',
+    price: 46.0,
+    description:
+      'Overnight restorative barrier cream infused with copper peptides, ceramides NP/AP/EOP, and squalane for intense hydration and firming elasticity.',
+    category: 'beauty',
+    image:
+      'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.8, count: 185 },
+    sizes: ['50ml Jar'],
+    colors: [{ name: 'Opalescent Jar', hex: '#f8fafc' }],
+    inStock: true,
+    featured: false,
+    isNewArrival: true,
+  },
+  {
+    id: 41,
+    title: 'Hydrating Rosehip Lip Oil & Treatment',
+    price: 18.0,
+    description:
+      'Non-sticky nourishing lip elixir formulated with cold-pressed rosehip seed oil, vitamin E, and hyaluronic filling spheres for high-shine hydration.',
+    category: 'beauty',
+    image:
+      'https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.9, count: 340 },
+    sizes: ['10ml Tube'],
+    colors: [{ name: 'Sheer Rosé', hex: '#fb7185' }],
+    inStock: true,
+    featured: false,
+    isNewArrival: false,
+  },
+  {
+    id: 42,
+    title: 'Wireless Compact Mechanical Keyboard',
+    price: 129.0,
+    description:
+      'Precision tactile 75% layout keyboard with CNC aluminum frame, hot-swappable switches, sound-dampening silicone gaskets, and tri-mode Bluetooth/2.4G/USB-C connectivity.',
+    category: 'electronics',
+    image:
+      'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.8, count: 270 },
+    sizes: ['75% Layout'],
+    colors: [
+      { name: 'Space Gray Aluminum', hex: '#475569' },
+      { name: 'Chalk White', hex: '#f8fafc' },
+    ],
+    inStock: true,
+    featured: true,
+    isNewArrival: true,
+  },
+  {
+    id: 43,
+    title: 'Temperature Control Ceramic Smart Mug',
+    price: 98.0,
+    description:
+      'App-controlled smart heated mug that maintains your beverage at your preferred temperature (120°F - 145°F) for up to 90 minutes or all day on the charging coaster.',
+    category: 'electronics',
+    image:
+      'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.7, count: 195 },
+    sizes: ['10 oz', '14 oz'],
+    colors: [
+      { name: 'Matte Charcoal', hex: '#1e293b' },
+      { name: 'Stone White', hex: '#f1f5f9' },
+    ],
+    inStock: true,
+    featured: false,
+    isNewArrival: false,
+  },
+  {
+    id: 44,
+    title: 'Minimalist Dimmable LED Desk Lamp',
+    price: 75.0,
+    description:
+      'Architectural task lamp crafted in solid aluminum and steel with smooth rotary dimming, 5 color temperature settings, and flicker-free circadian optical diffusion.',
+    category: 'furniture',
+    image:
+      'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.8, count: 160 },
+    sizes: ['Standard'],
+    colors: [
+      { name: 'Brushed Brass', hex: '#ca8a04' },
+      { name: 'Matte Black', hex: '#0f172a' },
+    ],
+    inStock: true,
+    featured: false,
+    isNewArrival: true,
+  },
+  {
+    id: 45,
+    title: 'Top-Grain Leather Desk Mat & Organizer',
+    price: 52.0,
+    description:
+      'Waterproof vegetable-tanned top-grain leather blotter mat with non-slip natural felt backing and an integrated magnetic cable management groove.',
+    category: 'furniture',
+    image:
+      'https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.9, count: 230 },
+    sizes: ['Medium 31x15"', 'Large 36x18"'],
+    colors: [
+      { name: 'Saddle Brown', hex: '#78350f' },
+      { name: 'Midnight Navy', hex: '#0f172a' },
+    ],
+    inStock: true,
+    featured: false,
+    isNewArrival: false,
+  },
+  {
+    id: 46,
+    title: 'Artisanal Organic Jasmine Green Tea Reserve',
+    price: 22.0,
+    description:
+      'High-mountain spring harvest green tea naturally scented seven times with fresh organic night-blooming jasmine blossoms. Delicate floral aromatics and smooth finish.',
+    category: 'groceries',
+    image:
+      'https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.9, count: 155 },
+    sizes: ['100g Loose Leaf Tin'],
+    colors: [{ name: 'Embossed Gold Tin', hex: '#d97706' }],
+    inStock: true,
+    featured: false,
+    isNewArrival: true,
+  },
+  {
+    id: 47,
+    title: "Men's Water-Resistant Classic Trench Coat",
+    price: 220.0,
+    description:
+      'Double-breasted weatherproof cotton-gabardine trench coat with storm flap, belted waist, and horn buttons. Perfect topcoat over tailored suits and blazers.',
+    category: "men's clothing",
+    image:
+      'https://images.unsplash.com/photo-1544441893-675973e31985?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.8, count: 110 },
+    sizes: ['38R', '40R', '42R', '44R'],
+    colors: [
+      { name: 'Classic Khaki', hex: '#c2a68c' },
+      { name: 'Midnight Navy', hex: '#0f172a' },
+    ],
+    inStock: true,
+    featured: true,
+    isNewArrival: true,
+  },
+  {
+    id: 48,
+    title: "Men's Heavyweight Organic Cotton French Terry Hoodie",
+    price: 82.0,
+    description:
+      'Dense 450gsm custom-milled organic French terry sweatshirt with double-lined hood and rib-knit cuffs for elevated casual layering.',
+    category: "men's clothing",
+    image:
+      'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.7, count: 195 },
+    sizes: ['S', 'M', 'L', 'XL'],
+    colors: [
+      { name: 'Heather Gray', hex: '#94a3b8' },
+      { name: 'Washed Black', hex: '#27272a' },
+    ],
+    inStock: true,
+    featured: false,
+    isNewArrival: false,
+  },
+  {
+    id: 49,
+    title: "Men's Selvedge Raw Indigo Denim Jeans",
+    price: 125.0,
+    description:
+      '13.5oz Japanese shuttle-loom selvedge denim in a clean straight tapered fit. Features copper rivets, chainstitched hem, and button fly.',
+    category: "men's clothing",
+    image:
+      'https://images.unsplash.com/photo-1542272604-780c96856592?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.9, count: 140 },
+    sizes: ['30x32', '32x32', '34x32', '36x32'],
+    colors: [{ name: 'Raw Indigo', hex: '#1e1b4b' }],
+    inStock: true,
+    featured: false,
+    isNewArrival: true,
+  },
+  {
+    id: 50,
+    title: "Men's Suede Chelsea Boots",
+    price: 155.0,
+    description:
+      'Hand-crafted calf suede boots with elastic side gussets, pull tabs, and crepe rubber soles for timeless smart-casual stepping.',
+    category: "men's clothing",
+    image:
+      'https://images.unsplash.com/photo-1638247025967-b4e38f787b76?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.8, count: 125 },
+    sizes: ['8', '9', '10', '11', '12'],
+    colors: [
+      { name: 'Tobacco Suede', hex: '#78350f' },
+      { name: 'Charcoal Suede', hex: '#374151' },
+    ],
+    inStock: true,
+    featured: true,
+    isNewArrival: false,
+  },
+  {
+    id: 51,
+    title: "Women's 100% Cashmere Turtleneck Sweater",
+    price: 165.0,
+    description:
+      'Luxuriously soft Grade-A Mongolian cashmere knitted with a relaxed rollneck collar and ribbed trims for effortless cool-weather luxury.',
+    category: "women's clothing",
+    image:
+      'https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.9, count: 180 },
+    sizes: ['XS', 'S', 'M', 'L'],
+    colors: [
+      { name: 'Camel Tan', hex: '#b45309' },
+      { name: 'Alabaster White', hex: '#f8fafc' },
+    ],
+    inStock: true,
+    featured: true,
+    isNewArrival: true,
+  },
+  {
+    id: 52,
+    title: "Women's Tailored Wool Wrap Overcoat",
+    price: 240.0,
+    description:
+      'Architectural wrap coat made from double-faced virgin wool with exaggerated lapels, tie belt, and deep welt pockets.',
+    category: "women's clothing",
+    image:
+      'https://images.unsplash.com/photo-1539533018447-63fcce667883?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.8, count: 115 },
+    sizes: ['XS', 'S', 'M', 'L'],
+    colors: [
+      { name: 'Warm Camel', hex: '#92400e' },
+      { name: 'Noir', hex: '#0a0a0a' },
+    ],
+    inStock: true,
+    featured: true,
+    isNewArrival: false,
+  },
+  {
+    id: 53,
+    title: "Women's Block-Heel Ankle Boots",
+    price: 148.0,
+    description:
+      'Polished calfskin leather ankle boots featuring a steady 55mm architectural block heel, side zipper, and cushioned insoles.',
+    category: "women's clothing",
+    image:
+      'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.7, count: 135 },
+    sizes: ['6', '7', '8', '9', '10'],
+    colors: [
+      { name: 'Cognac Leather', hex: '#854d0e' },
+      { name: 'Black Calfskin', hex: '#18181b' },
+    ],
+    inStock: true,
+    featured: false,
+    isNewArrival: true,
+  },
+  {
+    id: 54,
+    title: "Women's High-Rise Straight Ankle Jeans",
+    price: 88.0,
+    description:
+      'Vintage-inspired 100% organic cotton high-rise straight-leg jeans with clean finished hems and classic 5-pocket construction.',
+    category: "women's clothing",
+    image:
+      'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.6, count: 210 },
+    sizes: ['25', '26', '27', '28', '29', '30'],
+    colors: [
+      { name: 'Medium Vintage Wash', hex: '#3b82f6' },
+      { name: 'Washed Black', hex: '#27272a' },
+    ],
+    inStock: true,
+    featured: false,
+    isNewArrival: false,
+  },
+  {
+    id: 55,
+    title: '14k Gold Herringbone Chain Necklace',
+    price: 115.0,
+    description:
+      'Sleek liquid-metal herringbone flat snake chain in 14k gold vermeil. Sits smoothly along the collarbone for everyday elegance.',
+    category: 'jewelery',
+    image:
+      'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.9, count: 165 },
+    sizes: ['16 inch', '18 inch'],
+    colors: [{ name: '14k Yellow Gold', hex: '#eab308' }],
+    inStock: true,
+    featured: true,
+    isNewArrival: true,
+  },
+  {
+    id: 56,
+    title: 'Handcrafted Pebble Leather Commuter Tote',
+    price: 175.0,
+    description:
+      'Spacious everyday shoulder tote crafted in supple pebbled Italian leather with reinforced straps, magnetic snap, and padded laptop slip.',
+    category: 'jewelery',
+    image:
+      'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.8, count: 190 },
+    sizes: ['One Size'],
+    colors: [
+      { name: 'Caramel Suede', hex: '#9a3412' },
+      { name: 'Onyx Black', hex: '#0f172a' },
+    ],
+    inStock: true,
+    featured: true,
+    isNewArrival: false,
+  },
+  {
+    id: 57,
+    title: 'Polarized Acetate Square Sunglasses',
+    price: 95.0,
+    description:
+      'Hand-polished Italian cellulose acetate frames with 100% UV400 polarized mineral glass lenses and durable five-barrel hinges.',
+    category: 'jewelery',
+    image:
+      'https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.7, count: 145 },
+    sizes: ['One Size'],
+    colors: [
+      { name: 'Tortoiseshell', hex: '#713f12' },
+      { name: 'Gloss Black', hex: '#18181b' },
+    ],
+    inStock: true,
+    featured: false,
+    isNewArrival: true,
+  },
+  {
+    id: 58,
+    title: 'Unisex Cashmere Fringe Scarf',
+    price: 65.0,
+    description:
+      'Woven from pure featherlight Himalayan cashmere with delicate fringed ends. Generously sized for styling as a scarf or travel wrap.',
+    category: 'jewelery',
+    image:
+      'https://images.unsplash.com/photo-1608256246200-53e635b5b65f?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.8, count: 220 },
+    sizes: ['70x200cm'],
+    colors: [
+      { name: 'Oatmeal Heather', hex: '#e2e8f0' },
+      { name: 'Charcoal Melange', hex: '#334155' },
+    ],
+    inStock: true,
+    featured: false,
+    isNewArrival: false,
+  },
+  {
+    id: 59,
+    title: 'Noise-Cancelling Over-Ear Wireless Headphones',
+    price: 199.0,
+    description:
+      'Studio-grade dynamic drivers with hybrid active noise cancellation, transparency mode, and 35-hour battery life wrapped in memory foam cushions.',
+    category: 'electronics',
+    image:
+      'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.9, count: 310 },
+    sizes: ['Over-Ear'],
+    colors: [
+      { name: 'Matte Silver', hex: '#94a3b8' },
+      { name: 'Midnight Black', hex: '#09090b' },
+    ],
+    inStock: true,
+    featured: true,
+    isNewArrival: true,
+  },
+  {
+    id: 60,
+    title: 'Fast Wireless Charging Stand & Dock',
+    price: 45.0,
+    description:
+      '3-in-1 weighted aluminum charging station supporting simultaneous fast Qi wireless charging for smartphone, smartwatch, and earbuds.',
+    category: 'electronics',
+    image:
+      'https://images.unsplash.com/photo-1586816879360-004f5b0c51e5?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.6, count: 180 },
+    sizes: ['Standard'],
+    colors: [{ name: 'Space Gray', hex: '#334155' }],
+    inStock: true,
+    featured: false,
+    isNewArrival: false,
+  },
+  {
+    id: 61,
+    title: 'Portable High-Fidelity Bluetooth Speaker',
+    price: 89.0,
+    description:
+      'Compact 360-degree acoustic speaker with dual passive radiators, IPX7 waterproof casing, and 16 hours of continuous playtime.',
+    category: 'electronics',
+    image:
+      'https://images.unsplash.com/photo-1545454675-3531b543be5d?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.8, count: 240 },
+    sizes: ['Portable'],
+    colors: [
+      { name: 'Forest Green', hex: '#14532d' },
+      { name: 'Graphite', hex: '#1e293b' },
+    ],
+    inStock: true,
+    featured: false,
+    isNewArrival: true,
+  },
+  {
+    id: 62,
+    title: 'French Flax Washed Linen Duvet Cover Set',
+    price: 178.0,
+    description:
+      'Pre-washed European flax linen duvet set featuring coconut shell button closures and matching pillow shams. Breathable and temperature-regulating.',
+    category: 'furniture',
+    image:
+      'https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.9, count: 160 },
+    sizes: ['Queen', 'King'],
+    colors: [
+      { name: 'Clay Sand', hex: '#d6d3d1' },
+      { name: 'Misty Blue', hex: '#93c5fd' },
+    ],
+    inStock: true,
+    featured: true,
+    isNewArrival: true,
+  },
+  {
+    id: 63,
+    title: 'Hand-Poured Soy Wax Scented Candle',
+    price: 34.0,
+    description:
+      'Artisanal slow-burning soy wax candle with notes of smoked amber, santal, and wild patchouli housed in a reusable ceramic vessel.',
+    category: 'furniture',
+    image:
+      'https://images.unsplash.com/photo-1603006905003-be475563bc59?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.8, count: 275 },
+    sizes: ['11 oz'],
+    colors: [{ name: 'Matte Terra Cotta', hex: '#9a3412' }],
+    inStock: true,
+    featured: false,
+    isNewArrival: false,
+  },
+  {
+    id: 64,
+    title: 'Solid Oak Ergonomic Footrest & Stool',
+    price: 65.0,
+    description:
+      'Sculpted solid white oak footrest designed to promote active ergonomic posture at desk setups with non-scratch silicone floor pads.',
+    category: 'furniture',
+    image:
+      'https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.7, count: 130 },
+    sizes: ['Standard'],
+    colors: [{ name: 'Natural White Oak', hex: '#d4b996' }],
+    inStock: true,
+    featured: false,
+    isNewArrival: true,
+  },
+  {
+    id: 65,
+    title: 'Citrus & Basil Neroli Eau de Parfum',
+    price: 92.0,
+    description:
+      'Vibrant Mediterranean morning fragrance with sun-drenched Calabrian bergamot, crisp crushed basil, and sparkling neroli blossoms.',
+    category: 'fragrances',
+    image:
+      'https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.8, count: 185 },
+    sizes: ['50ml', '100ml'],
+    colors: [{ name: 'Clear Flacon', hex: '#fef08a' }],
+    inStock: true,
+    featured: true,
+    isNewArrival: true,
+  },
+  {
+    id: 66,
+    title: 'Sandalwood & Cardamom Solid Fragrance',
+    price: 42.0,
+    description:
+      'Travel-friendly concentrated solid cologne formulated with beeswax, jojoba oil, Mysore sandalwood, and spicy crushed green cardamom.',
+    category: 'fragrances',
+    image:
+      'https://images.unsplash.com/photo-1616949755610-8c9bbc08f138?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.7, count: 140 },
+    sizes: ['15g Compact'],
+    colors: [{ name: 'Brushed Brass Compact', hex: '#ca8a04' }],
+    inStock: true,
+    featured: false,
+    isNewArrival: false,
+  },
+  {
+    id: 67,
+    title: 'Antioxidant Vitamin C Brightening Serum',
+    price: 44.0,
+    description:
+      'Potent 15% ethylated L-ascorbic acid serum with ferulic acid and Kakadu plum to visibly brighten dark spots and protect against oxidative stress.',
+    category: 'beauty',
+    image:
+      'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.9, count: 320 },
+    sizes: ['30ml Dropper'],
+    colors: [{ name: 'Amber Glass Bottle', hex: '#78350f' }],
+    inStock: true,
+    featured: true,
+    isNewArrival: true,
+  },
+  {
+    id: 68,
+    title: 'Botanical Nourishing Body Oil',
+    price: 38.0,
+    description:
+      'Fast-absorbing dry body oil blend of golden jojoba, marula, and meadowfoam seed oils scented with subtle white jasmine and cedar.',
+    category: 'beauty',
+    image:
+      'https://images.unsplash.com/photo-1608248597359-2169b1424d8b?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.8, count: 195 },
+    sizes: ['100ml'],
+    colors: [{ name: 'Golden Elixir', hex: '#f59e0b' }],
+    inStock: true,
+    featured: false,
+    isNewArrival: false,
+  },
+  {
+    id: 69,
+    title: 'Single-Origin Raw Wildflower Honey',
+    price: 19.0,
+    description:
+      'Unfiltered raw wildflower honey harvested from coastal apiaries. Rich floral complexity with natural enzyme potency.',
+    category: 'groceries',
+    image:
+      'https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.9, count: 260 },
+    sizes: ['350g Jar'],
+    colors: [{ name: 'Golden Amber Jar', hex: '#d97706' }],
+    inStock: true,
+    featured: false,
+    isNewArrival: true,
+  },
+  {
+    id: 70,
+    title: 'Aged Modena Balsamic Vinegar 12-Year',
+    price: 36.0,
+    description:
+      'Traditional dense IGP balsamic vinegar aged in seasoned oak and chestnut barrels. Decadent pairing with Sicilian Olive Oil.',
+    category: 'groceries',
+    image:
+      'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.9, count: 175 },
+    sizes: ['250ml Bottle'],
+    colors: [{ name: 'Dark Flacon', hex: '#0f172a' }],
+    inStock: true,
+    featured: true,
+    isNewArrival: false,
+  },
+  {
+    id: 71,
+    title: 'Artisanal Single-Estate Matcha Powder',
+    price: 29.0,
+    description:
+      'Ceremonial grade stone-ground Uji matcha from first-harvest shade-grown tencha leaves. Vibrant jade color with sweet umami notes.',
+    category: 'groceries',
+    image:
+      'https://images.unsplash.com/photo-1536256263959-770b48d82b0a?w=600&auto=format&fit=crop&q=80',
+    rating: { rate: 4.8, count: 210 },
+    sizes: ['30g Tin'],
+    colors: [{ name: 'Matte Black Tin', hex: '#18181b' }],
+    inStock: true,
+    featured: false,
+    isNewArrival: true,
   },
 ];

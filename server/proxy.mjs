@@ -76,7 +76,7 @@ function loadLocalCatalog() {
 loadLocalCatalog();
 
 // Convert a Vertex AI product schema item back to our frontend Product format
-function mapVertexProductToFrontend(vertexProduct) {
+export function mapVertexProductToFrontend(vertexProduct) {
   const idStr = String(vertexProduct.id || '').replace(/^onx-/, '');
   const idNum = parseInt(idStr, 10) || 1;
 
@@ -156,6 +156,63 @@ function mapVertexProductToFrontend(vertexProduct) {
     featured,
     isNewArrival,
   };
+}
+
+export function filterCatalogByCategory(catalog, category) {
+  if (!category || category === 'all') return catalog;
+  return catalog.filter((p) => {
+    const hierarchy = (p.categories || []).join(' | ');
+    const lowerHierarchy = hierarchy.toLowerCase();
+    if (category === "men's clothing") {
+      // "men's clothing" is a substring of "women's clothing", so explicitly exclude women's items
+      if (lowerHierarchy.includes("women's clothing")) return false;
+      return (
+        lowerHierarchy.includes("apparel > men's clothing") ||
+        /\bmen's clothing/i.test(lowerHierarchy)
+      );
+    }
+    if (category === "women's clothing")
+      return (
+        lowerHierarchy.includes("apparel > women's clothing") ||
+        lowerHierarchy.includes("women's clothing")
+      );
+    if (category === 'electronics') return lowerHierarchy.includes('electronics');
+    if (category === 'furniture')
+      return lowerHierarchy.includes('home & living') || lowerHierarchy.includes('furniture');
+    if (category === 'jewelery') {
+      if (lowerHierarchy.includes('electronics')) return false;
+      return (
+        lowerHierarchy.includes('accessories') ||
+        lowerHierarchy.includes('jewelry') ||
+        lowerHierarchy.includes('jewelery')
+      );
+    }
+    if (category === 'beauty') {
+      return (
+        lowerHierarchy.includes('skincare') ||
+        lowerHierarchy.includes('beauty & fragrance > skincare')
+      );
+    }
+    if (category === 'fragrances') {
+      // "Beauty & Fragrance > Skincare" contains "Fragrance" in the parent path; exclude skincare items
+      if (lowerHierarchy.includes('skincare')) return false;
+      return (
+        lowerHierarchy.includes('beauty & fragrance > fragrances') ||
+        lowerHierarchy.includes('fragrance') ||
+        lowerHierarchy.includes('perfume')
+      );
+    }
+    if (category === 'groceries')
+      return (
+        lowerHierarchy.includes('gourmet pantry') ||
+        lowerHierarchy.includes('groceries') ||
+        lowerHierarchy.includes('grocery') ||
+        lowerHierarchy.includes('pantry')
+      );
+    // For an unknown category, apply no category filter (fall through to true),
+    // matching Live mode behavior which leaves filterConditions empty for unknown categories.
+    return true;
+  });
 }
 
 // Configurable CORS origins (default to * for local dev, restrictable via ALLOWED_ORIGIN)
@@ -844,7 +901,7 @@ const server = http.createServer(async (req, res) => {
               // the grid rendered blank duplicates.
               const rawResults = data.results || [];
               const byId = new Map(localCatalog.map((item) => [item.id, item]));
-              const hydrated = rawResults.map((r) => byId.get(r.id)).filter(Boolean);
+              let hydrated = rawResults.map((r) => byId.get(r.id)).filter(Boolean);
 
               if (hydrated.length !== rawResults.length) {
                 const missing = rawResults.filter((r) => !byId.has(r.id)).map((r) => r.id);
@@ -852,6 +909,13 @@ const server = http.createServer(async (req, res) => {
                   `[search] ${missing.length} result(s) absent from the local catalog: ${missing.join(', ')}. ` +
                     'The Retail catalog and vertex-retail-catalog.json have diverged; re-run the import.',
                 );
+              }
+
+              // If live Retail search returned 0 items for category browsing (empty search query)
+              // because newly added categories have not yet been indexed in the live GCP Retail API,
+              // seamlessly fall back to the local catalog filtered by that category.
+              if (hydrated.length === 0 && !query.trim() && category && category !== 'all') {
+                hydrated = filterCatalogByCategory(localCatalog, category);
               }
 
               const results = hydrated.map(mapVertexProductToFrontend);
@@ -902,59 +966,7 @@ const server = http.createServer(async (req, res) => {
 
       // Category filter
       if (category && category !== 'all') {
-        filtered = filtered.filter((p) => {
-          const hierarchy = (p.categories || []).join(' | ');
-          const lowerHierarchy = hierarchy.toLowerCase();
-          if (category === "men's clothing") {
-            // "men's clothing" is a substring of "women's clothing", so explicitly exclude women's items
-            if (lowerHierarchy.includes("women's clothing")) return false;
-            return (
-              lowerHierarchy.includes("apparel > men's clothing") ||
-              /\bmen's clothing/i.test(lowerHierarchy)
-            );
-          }
-          if (category === "women's clothing")
-            return (
-              lowerHierarchy.includes("apparel > women's clothing") ||
-              lowerHierarchy.includes("women's clothing")
-            );
-          if (category === 'electronics') return lowerHierarchy.includes('electronics');
-          if (category === 'furniture')
-            return lowerHierarchy.includes('home & living') || lowerHierarchy.includes('furniture');
-          if (category === 'jewelery') {
-            if (lowerHierarchy.includes('electronics')) return false;
-            return (
-              lowerHierarchy.includes('accessories') ||
-              lowerHierarchy.includes('jewelry') ||
-              lowerHierarchy.includes('jewelery')
-            );
-          }
-          if (category === 'beauty') {
-            return (
-              lowerHierarchy.includes('skincare') ||
-              lowerHierarchy.includes('beauty & fragrance > skincare')
-            );
-          }
-          if (category === 'fragrances') {
-            // "Beauty & Fragrance > Skincare" contains "Fragrance" in the parent path; exclude skincare items
-            if (lowerHierarchy.includes('skincare')) return false;
-            return (
-              lowerHierarchy.includes('beauty & fragrance > fragrances') ||
-              lowerHierarchy.includes('fragrance') ||
-              lowerHierarchy.includes('perfume')
-            );
-          }
-          if (category === 'groceries')
-            return (
-              lowerHierarchy.includes('gourmet pantry') ||
-              lowerHierarchy.includes('groceries') ||
-              lowerHierarchy.includes('grocery') ||
-              lowerHierarchy.includes('pantry')
-            );
-          // For an unknown category, apply no category filter (fall through to true),
-          // matching Live mode behavior which leaves filterConditions empty for unknown categories.
-          return true;
-        });
+        filtered = filterCatalogByCategory(filtered, category);
       }
 
       // Price filter

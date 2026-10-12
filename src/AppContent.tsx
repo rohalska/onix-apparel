@@ -386,7 +386,11 @@ export const AppContent: React.FC = () => {
 
   // If Live GCP returned server results, use them; otherwise use instant filtered list
   const displayedProducts =
-    vertexHealth?.mode === 'live' && vertexResults !== null ? vertexResults : filteredProducts;
+    vertexHealth?.mode === 'live' &&
+    vertexResults !== null &&
+    (vertexResults.length > 0 || searchQuery.trim().length > 0)
+      ? vertexResults
+      : filteredProducts;
 
   const hasActiveFilters =
     searchQuery !== '' ||
@@ -608,12 +612,24 @@ export const AppContent: React.FC = () => {
                       : specialCollection === 'sale'
                         ? 'End of Season Sale — Exclusive Markdowns'
                         : category === 'all'
-                          ? 'Curated Wardrobe Collection'
+                          ? 'Curated Department Collection'
                           : category === "men's clothing"
                             ? "Men's Apparel & Outerwear"
                             : category === "women's clothing"
                               ? "Women's Collection & Tops"
-                              : 'Fine Jewelry & Accessories'}
+                              : category === 'jewelery'
+                                ? 'Fine Jewelry & Accessories'
+                                : category === 'electronics'
+                                  ? 'Consumer Electronics & Audio'
+                                  : category === 'furniture'
+                                    ? 'Home & Living Essentials'
+                                    : category === 'fragrances'
+                                      ? 'Luxury Fragrances & Perfume'
+                                      : category === 'beauty'
+                                        ? 'Beauty & Botanical Skincare'
+                                        : category === 'groceries'
+                                          ? 'Gourmet Pantry & Provisions'
+                                          : 'Curated Collection'}
                 </h2>
                 <p className="text-xs text-stone-500 mt-0.5">
                   {searchQuery.trim()
@@ -622,7 +638,25 @@ export const AppContent: React.FC = () => {
                       ? `Showing ${displayedProducts.length} new seasonal arrivals fresh off the runway.`
                       : specialCollection === 'sale'
                         ? `Limited-time archive pricing and seasonal reductions. Up to 50% off select styles.`
-                        : 'Refined tailoring, premium sustainable staples, and effortless styling.'}
+                        : category === 'all'
+                          ? 'Refined tailoring, modern electronics, artisanal scents, and curated goods across all departments.'
+                          : category === "men's clothing"
+                            ? 'Refined tailoring, premium sustainable staples, and effortless styling.'
+                            : category === "women's clothing"
+                              ? 'Contemporary silhouettes, elegant dresses, and everyday luxury.'
+                              : category === 'jewelery'
+                                ? 'Artisanal gold, sterling silver, statement rings, and luxury accessories.'
+                                : category === 'electronics'
+                                  ? 'High-fidelity audio, streaming accessories, and modern workstation gear.'
+                                  : category === 'furniture'
+                                    ? 'Curated ergonomic furniture, minimalist oak tables, and artisanal accents.'
+                                    : category === 'fragrances'
+                                      ? 'Sophisticated eau de parfums, artisanal santal scents, and unisex colognes.'
+                                      : category === 'beauty'
+                                        ? 'Clean botanical serums, nourishing treatments, and daily skincare rituals.'
+                                        : category === 'groceries'
+                                          ? 'Single-origin specialty coffees, cold-pressed oils, and fine culinary goods.'
+                                          : 'Refined craftsmanship, premium staples, and effortless styling.'}
                 </p>
               </div>
 
