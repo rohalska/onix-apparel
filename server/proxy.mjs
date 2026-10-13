@@ -1299,7 +1299,7 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-export { server, mapVertexProductToFrontend };
+export { server };
 
 const isTesting =
   process.env.NODE_ENV === 'test' ||
