@@ -8,6 +8,25 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
 
+function normalizePort(value, fallback = 3001) {
+  const raw = String(value ?? '').trim();
+
+  if (!/^\d+$/.test(raw)) {
+    console.warn(`[server] Invalid PORT value "${value}". Falling back to ${fallback}.`);
+    return fallback;
+  }
+
+  const port = Number(raw);
+  if (!Number.isInteger(port) || port < 0 || port > 65535) {
+    console.warn(
+      `[server] PORT value "${value}" is outside the valid TCP range. Falling back to ${fallback}.`,
+    );
+    return fallback;
+  }
+
+  return port;
+}
+
 // Load environment variables (.env) using Node's built-in or manual parser
 const envPath = path.resolve(rootDir, '.env');
 if (fs.existsSync(envPath)) {
@@ -33,7 +52,8 @@ if (fs.existsSync(envPath)) {
   }
 }
 
-const PORT = parseInt(process.env.PORT || '3001', 10);
+// Validate PORT strictly: must be an integer in the TCP port range (1-65535).
+const PORT = normalizePort(process.env.PORT, 8080);
 const GCP_PROJECT_ID = process.env.GCP_PROJECT_ID?.trim() || '';
 const GCP_LOCATION = process.env.GCP_LOCATION?.trim() || 'global';
 const GCP_CATALOG_ID = process.env.GCP_CATALOG_ID?.trim() || 'default_catalog';
@@ -1288,8 +1308,8 @@ const isTesting =
   process.env.NODE_TEST_CONTEXT !== undefined;
 
 if (!isTesting) {
-  server.listen(PORT, () => {
-    console.log(`🌐 Vertex AI Proxy running at http://127.0.0.1:${PORT}`);
+  server.listen(PORT, '0.0.0.0', () => {
+    console.log(`🌐 Vertex AI Proxy running at http://0.0.0.0:${PORT}`);
 
     // Background ping to determine initial upstream status
     if (isLiveMode) {
