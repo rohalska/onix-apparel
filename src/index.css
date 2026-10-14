@@ -31,3 +31,20 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #a8a29e;
 }
+
+/* Consent banner, themed to the storefront's stone and slate palette. */
+#cc-main {
+  --cc-font-family: inherit;
+  --cc-modal-border-radius: 1rem;
+  --cc-btn-border-radius: 0.75rem;
+  --cc-btn-primary-bg: #1e293b;
+  --cc-btn-primary-border-color: #1e293b;
+  --cc-btn-primary-hover-bg: #0f172a;
+  --cc-btn-primary-hover-border-color: #0f172a;
+  --cc-btn-secondary-bg: #f5f5f4;
+  --cc-btn-secondary-border-color: #e7e5e4;
+  --cc-btn-secondary-hover-bg: #e7e5e4;
+  --cc-btn-secondary-hover-border-color: #d6d3d1;
+  --cc-toggle-on-bg: #1e293b;
+  --cc-link-color: #1e293b;
+}

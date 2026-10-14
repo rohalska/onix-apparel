@@ -393,6 +393,58 @@ that window, not a misconfiguration.
 Restart `npm run dev`. The store badge reads
 `🟢 Vertex AI Commerce Search (Live GCP)`.
 
+## Session capture
+
+Dev and prd record sessions to FullStory (org `o-25B85Y-na1`). Both
+environments share the org, and every page carries an `environment` page
+property (`dev` or `prd`) so they can be segmented.
+
+The org id is set at runtime, not at build time, because one image is built and
+then promoted from dev to prd. `infra/live/_envcommon/cloud-run.hcl` sets
+`FULLSTORY_ORG_ID` and `FULLSTORY_ENVIRONMENT` on the service, and
+`server/proxy.mjs` writes them into `index.html` as `window.__FULLSTORY__` when
+it serves the page. `src/services/fullstory.ts` reads that and starts the
+`@fullstory/browser` SDK with capture held back. With no org id set nothing is injected and nothing is
+recorded, which covers `npm run dev` too, since Vite serves `index.html` itself.
+
+### Consent
+
+Nothing is recorded until the visitor agrees. `src/services/consent.ts` runs a
+[vanilla-cookieconsent](https://cookieconsent.orestbida.com/) banner with one
+optional category, session replay. Accepting it calls FullStory's `start`;
+declining, or ignoring the banner, records nothing. Accept and Decline carry
+equal weight. The choice is kept in the first-party `onix_consent` cookie.
+
+Visitors are asked again over time:
+
+- A choice lasts `CONSENT_TTL_DAYS` (30 days), then the banner returns.
+- Raising `CONSENT_REVISION` voids every stored choice, so everyone is asked
+  again on their next visit. Raise it when what is recorded changes.
+- The footer's "Cookie preferences" link reopens the choice at any time.
+  Withdrawing calls FullStory's `shutdown` and clears its `fs_*` cookies.
+
+The banner is hidden from bots by default (the library's `hideFromBots`), so
+crawlers and uptime checks never consent and never use up sessions. That
+includes automated browsers that set `navigator.webdriver`, which is worth
+knowing before writing a browser test against it.
+
+### Exclusions
+
+Form inputs that take personal details carry `fs-exclude`: checkout address and
+payment, contact, track order and the newsletter signup. So do the name, email
+and address the checkout's confirmation screen repeats. Anything typed into
+those fields that surfaces elsewhere on the page can still be recorded.
+Concierge chat text is captured on purpose.
+
+The server logs whether capture is on when it starts, and says so when it
+refused a value. Removing `FULLSTORY_ORG_ID` from the service turns capture off
+without a new image.
+
+FullStory only accepts sessions from domains the org allows. A session from a
+host it does not know is refused with `Org blocks origin domain`, so a new
+service URL has to be added in FullStory under Settings > Data Capture before it
+will record.
+
 ## Demo promo codes
 
 Try these in the bag drawer:

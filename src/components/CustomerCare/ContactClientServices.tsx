@@ -103,9 +103,10 @@ export const ContactClientServices: React.FC = () => {
               Inquiry Received with Distinction
             </h3>
             <p className="text-xs text-stone-600 max-w-md mx-auto">
-              Thank you, {formData.name}. An Onix client advisor has received your message regarding
-              "{formData.subject}" and will respond to{' '}
-              <span className="font-semibold text-slate-900">{formData.email}</span> shortly.
+              Thank you, <span className="fs-exclude">{formData.name}</span>. An Onix client advisor
+              has received your message regarding "{formData.subject}" and will respond to{' '}
+              <span className="fs-exclude font-semibold text-slate-900">{formData.email}</span>{' '}
+              shortly.
             </p>
             <button
               onClick={() => {
@@ -139,7 +140,7 @@ export const ContactClientServices: React.FC = () => {
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   placeholder="Tiffany Valentina"
-                  className="w-full px-3.5 py-2.5 text-xs bg-stone-50 border border-stone-300 rounded-lg outline-none focus:border-slate-900 focus:bg-white text-slate-900"
+                  className="fs-exclude w-full px-3.5 py-2.5 text-xs bg-stone-50 border border-stone-300 rounded-lg outline-none focus:border-slate-900 focus:bg-white text-slate-900"
                 />
               </div>
 
@@ -153,7 +154,7 @@ export const ContactClientServices: React.FC = () => {
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   placeholder="you@example.com"
-                  className="w-full px-3.5 py-2.5 text-xs bg-stone-50 border border-stone-300 rounded-lg outline-none focus:border-slate-900 focus:bg-white text-slate-900"
+                  className="fs-exclude w-full px-3.5 py-2.5 text-xs bg-stone-50 border border-stone-300 rounded-lg outline-none focus:border-slate-900 focus:bg-white text-slate-900"
                 />
               </div>
             </div>
@@ -193,7 +194,7 @@ export const ContactClientServices: React.FC = () => {
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 placeholder="How may our advisors assist you today?"
-                className="w-full px-3.5 py-2.5 text-xs bg-stone-50 border border-stone-300 rounded-lg outline-none focus:border-slate-900 focus:bg-white text-slate-900 resize-none"
+                className="fs-exclude w-full px-3.5 py-2.5 text-xs bg-stone-50 border border-stone-300 rounded-lg outline-none focus:border-slate-900 focus:bg-white text-slate-900 resize-none"
               />
             </div>
 

@@ -156,7 +156,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose })
                     name="fullName"
                     value={formData.fullName}
                     onChange={handleInputChange}
-                    className="w-full px-3.5 py-2.5 text-sm bg-stone-50 border border-stone-300 rounded-xl outline-none focus:border-slate-800"
+                    className="fs-exclude w-full px-3.5 py-2.5 text-sm bg-stone-50 border border-stone-300 rounded-xl outline-none focus:border-slate-800"
                   />
                 </div>
                 <div>
@@ -169,7 +169,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose })
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="w-full px-3.5 py-2.5 text-sm bg-stone-50 border border-stone-300 rounded-xl outline-none focus:border-slate-800"
+                    className="fs-exclude w-full px-3.5 py-2.5 text-sm bg-stone-50 border border-stone-300 rounded-xl outline-none focus:border-slate-800"
                   />
                 </div>
               </div>
@@ -184,7 +184,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose })
                   name="address"
                   value={formData.address}
                   onChange={handleInputChange}
-                  className="w-full px-3.5 py-2.5 text-sm bg-stone-50 border border-stone-300 rounded-xl outline-none focus:border-slate-800"
+                  className="fs-exclude w-full px-3.5 py-2.5 text-sm bg-stone-50 border border-stone-300 rounded-xl outline-none focus:border-slate-800"
                 />
               </div>
 
@@ -199,7 +199,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose })
                     name="city"
                     value={formData.city}
                     onChange={handleInputChange}
-                    className="w-full px-3.5 py-2.5 text-sm bg-stone-50 border border-stone-300 rounded-xl outline-none focus:border-slate-800"
+                    className="fs-exclude w-full px-3.5 py-2.5 text-sm bg-stone-50 border border-stone-300 rounded-xl outline-none focus:border-slate-800"
                   />
                 </div>
                 <div className="col-span-1">
@@ -212,7 +212,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose })
                     name="postalCode"
                     value={formData.postalCode}
                     onChange={handleInputChange}
-                    className="w-full px-3.5 py-2.5 text-sm bg-stone-50 border border-stone-300 rounded-xl outline-none focus:border-slate-800"
+                    className="fs-exclude w-full px-3.5 py-2.5 text-sm bg-stone-50 border border-stone-300 rounded-xl outline-none focus:border-slate-800"
                   />
                 </div>
                 <div className="col-span-1">
@@ -225,7 +225,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose })
                     name="country"
                     value={formData.country}
                     onChange={handleInputChange}
-                    className="w-full px-3.5 py-2.5 text-sm bg-stone-50 border border-stone-300 rounded-xl outline-none focus:border-slate-800"
+                    className="fs-exclude w-full px-3.5 py-2.5 text-sm bg-stone-50 border border-stone-300 rounded-xl outline-none focus:border-slate-800"
                   />
                 </div>
               </div>
@@ -302,7 +302,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose })
                       readOnly
                       value="•••• •••• •••• 4242 (Demo Test Card)"
                       aria-label="Simulated test card number"
-                      className="w-full pl-10 pr-3.5 py-2.5 text-sm bg-stone-100 border border-stone-300 rounded-xl font-mono text-stone-700 cursor-not-allowed select-none"
+                      className="fs-exclude w-full pl-10 pr-3.5 py-2.5 text-sm bg-stone-100 border border-stone-300 rounded-xl font-mono text-stone-700 cursor-not-allowed select-none"
                     />
                   </div>
                 </div>
@@ -315,7 +315,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose })
                       readOnly
                       value="12/28 (Sandbox)"
                       aria-label="Simulated expiration date"
-                      className="w-full px-3.5 py-2.5 text-sm bg-stone-100 border border-stone-300 rounded-xl text-center text-stone-700 cursor-not-allowed select-none"
+                      className="fs-exclude w-full px-3.5 py-2.5 text-sm bg-stone-100 border border-stone-300 rounded-xl text-center text-stone-700 cursor-not-allowed select-none"
                     />
                   </div>
                   <div>
@@ -327,7 +327,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose })
                         readOnly
                         value="123"
                         aria-label="Simulated card verification code"
-                        className="w-full px-3.5 py-2.5 text-sm bg-stone-100 border border-stone-300 rounded-xl text-center text-stone-700 cursor-not-allowed select-none"
+                        className="fs-exclude w-full px-3.5 py-2.5 text-sm bg-stone-100 border border-stone-300 rounded-xl text-center text-stone-700 cursor-not-allowed select-none"
                       />
                     </div>
                   </div>
@@ -391,12 +391,12 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose })
                 <span className="text-xs font-semibold uppercase tracking-widest text-emerald-600">
                   Order Successfully Placed
                 </span>
-                <h3 className="text-2xl font-serif font-bold text-slate-900 mt-1">
+                <h3 className="fs-exclude text-2xl font-serif font-bold text-slate-900 mt-1">
                   Thank you, {completedOrder.customer.fullName.split(' ')[0]}!
                 </h3>
                 <p className="text-xs text-stone-500 mt-1">
                   Confirmation receipt has been sent to{' '}
-                  <span className="font-semibold text-slate-800">
+                  <span className="fs-exclude font-semibold text-slate-800">
                     {completedOrder.customer.email}
                   </span>
                 </p>
@@ -425,7 +425,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose })
                   <span className="text-[11px] text-stone-400 uppercase tracking-wider font-semibold">
                     Shipping Address
                   </span>
-                  <p className="text-xs text-slate-800 font-medium mt-0.5">
+                  <p className="fs-exclude text-xs text-slate-800 font-medium mt-0.5">
                     {completedOrder.customer.address}, {completedOrder.customer.city},{' '}
                     {completedOrder.customer.postalCode}, {completedOrder.customer.country}
                   </p>

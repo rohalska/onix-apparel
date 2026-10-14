@@ -64,5 +64,11 @@ inputs = {
     GCP_LOCATION          = "global"
     GCP_CATALOG_ID        = "default_catalog"
     GCP_SERVING_CONFIG_ID = "default_search"
+
+    # Session capture. Dev and prd share one FullStory org; the environment is
+    # set as a page property on every page so the two can be segmented.
+    # The org id is public by design, since it ships in the page source.
+    FULLSTORY_ORG_ID      = "o-25B85Y-na1"
+    FULLSTORY_ENVIRONMENT = local.env_vars.locals.env
   }
 }

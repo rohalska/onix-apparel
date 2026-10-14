@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowRight, Check, Heart, Mail, ShieldCheck } from 'lucide-react';
+import { isConsentManaged, openConsentPreferences } from '../services/consent';
 
 export interface FooterProps {
   onSelectCollection?: (collectionKey: 'women' | 'men' | 'accessories' | 'new' | 'sale') => void;
@@ -233,7 +234,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCollection, onSelectCust
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email"
-                    className="w-full pl-9 pr-9 py-2 text-xs bg-stone-800 border border-stone-700 rounded-lg text-white placeholder-stone-500 outline-none focus:border-stone-400"
+                    className="fs-exclude w-full pl-9 pr-9 py-2 text-xs bg-stone-800 border border-stone-700 rounded-lg text-white placeholder-stone-500 outline-none focus:border-stone-400"
                   />
                   <button
                     type="submit"
@@ -288,6 +289,18 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCollection, onSelectCust
             >
               Privacy & AI Governance
             </a>
+            {isConsentManaged() && (
+              <>
+                <span>•</span>
+                <button
+                  type="button"
+                  onClick={openConsentPreferences}
+                  className="text-stone-400 hover:text-stone-300 underline transition-colors cursor-pointer"
+                >
+                  Cookie preferences
+                </button>
+              </>
+            )}
             <span>•</span>
             <span className="text-stone-400">Dummy Retail Demo</span>
           </div>

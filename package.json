@@ -20,11 +20,13 @@
     "format:check": "prettier --check ."
   },
   "dependencies": {
+    "@fullstory/browser": "^2.1.2",
     "canvas-confetti": "^1.9.4",
     "google-auth-library": "^11.1.0",
     "lucide-react": "^1.16.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "vanilla-cookieconsent": "^3.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",

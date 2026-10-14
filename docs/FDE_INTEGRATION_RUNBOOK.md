@@ -372,7 +372,7 @@ gcloud run deploy gecx-shopping-agent-demo \
   --allow-unauthenticated \
   --service-account "gecx-shop-run@YOUR_PROJECT_ID.iam.gserviceaccount.com" \
   --port 8080 \
-  --set-env-vars GCP_PROJECT_ID=YOUR_PROJECT_ID,GCP_LOCATION=global,GCP_CATALOG_ID=default_catalog,GCP_SERVING_CONFIG_ID=default_search
+  --set-env-vars GCP_PROJECT_ID=YOUR_PROJECT_ID,GCP_LOCATION=global,GCP_CATALOG_ID=default_catalog,GCP_SERVING_CONFIG_ID=default_search,FULLSTORY_ORG_ID=o-25B85Y-na1,FULLSTORY_ENVIRONMENT=dev
 ```
 
 > **Security Note**: Never deploy public-facing Cloud Run containers without an explicit `--service-account`. Omitting it causes Cloud Run to run as the project's default Compute Engine service account. Also never include `.env` or credential files when deploying; if secrets are needed at runtime, bind them directly from Secret Manager:

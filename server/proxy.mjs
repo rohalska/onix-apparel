@@ -534,6 +534,39 @@ const MIME_TYPES = {
   '.txt': 'text/plain; charset=UTF-8',
 };
 
+// FullStory org ids look like o-25B85Y-na1. Both values are written into an
+// inline script, so anything not shaped like that is refused rather than
+// escaped. A bad org id turns capture off; a bad environment only drops the tag.
+const FULLSTORY_ORG_ID_PATTERN = /^o-[A-Za-z0-9]+-[a-z0-9]+$/;
+const FULLSTORY_ENVIRONMENT_PATTERN = /^[a-z0-9-]{1,32}$/;
+
+export function injectFullStoryConfig(html, env = process.env) {
+  const orgId = env.FULLSTORY_ORG_ID;
+  if (!orgId || !FULLSTORY_ORG_ID_PATTERN.test(orgId)) return html;
+
+  const config = { orgId };
+  const environment = env.FULLSTORY_ENVIRONMENT;
+  if (environment && FULLSTORY_ENVIRONMENT_PATTERN.test(environment)) {
+    config.environment = environment;
+  }
+  const script = `<script>window.__FULLSTORY__=${JSON.stringify(config)}</script>`;
+  return html.replace('</head>', `${script}</head>`);
+}
+
+export function describeFullStoryConfig(env = process.env) {
+  const orgId = env.FULLSTORY_ORG_ID;
+  if (!orgId) return 'FullStory capture off: FULLSTORY_ORG_ID is not set';
+  if (!FULLSTORY_ORG_ID_PATTERN.test(orgId)) {
+    return 'FullStory capture off: FULLSTORY_ORG_ID is not a valid org id';
+  }
+  const environment = env.FULLSTORY_ENVIRONMENT;
+  if (!environment) return `FullStory capture on: org ${orgId}, no environment tag`;
+  if (!FULLSTORY_ENVIRONMENT_PATTERN.test(environment)) {
+    return `FullStory capture on: org ${orgId}, environment refused (${environment})`;
+  }
+  return `FullStory capture on: org ${orgId}, environment ${environment}`;
+}
+
 export function serveStatic(req, res, pathname) {
   if (!fs.existsSync(distDir)) return false;
 
@@ -562,7 +595,8 @@ export function serveStatic(req, res, pathname) {
   if (fs.existsSync(resolved) && fs.statSync(resolved).isFile()) {
     const ext = path.extname(resolved).toLowerCase();
     const contentType = MIME_TYPES[ext] || 'application/octet-stream';
-    const content = fs.readFileSync(resolved);
+    let content = fs.readFileSync(resolved);
+    if (ext === '.html') content = injectFullStoryConfig(content.toString('utf-8'));
     res.writeHead(200, {
       'Content-Type': contentType,
       'Access-Control-Allow-Origin': getCorsOrigin(req),
@@ -1310,6 +1344,7 @@ const isTesting =
 if (!isTesting) {
   server.listen(PORT, '0.0.0.0', () => {
     console.log(`🌐 Vertex AI Proxy running at http://0.0.0.0:${PORT}`);
+    console.log(`   ${describeFullStoryConfig()}`);
 
     // Background ping to determine initial upstream status
     if (isLiveMode) {

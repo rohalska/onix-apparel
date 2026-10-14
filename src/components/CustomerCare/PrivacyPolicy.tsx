@@ -99,6 +99,13 @@ export const PrivacyPolicy: React.FC = () => {
               <strong className="text-stone-800">No Third-Party Ad Trackers:</strong> We do not
               deploy third-party advertising cookies, cross-site pixels, or data-broker trackers.
             </li>
+            <li>
+              <strong className="text-stone-800">Session Replay:</strong> With your consent, visits
+              are recorded with FullStory to see how the storefront is used. We ask again every 30
+              days, and you can change your choice any time from Cookie preferences in the footer.
+              Fields that take your name, email, address or payment details are excluded from
+              recording.
+            </li>
           </ul>
         </section>
 

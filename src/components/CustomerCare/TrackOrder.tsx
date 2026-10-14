@@ -119,7 +119,7 @@ export const TrackOrder: React.FC = () => {
                 value={orderNumber}
                 onChange={(e) => setOrderNumber(e.target.value)}
                 placeholder="e.g. ONX-84920"
-                className="w-full px-3.5 py-2.5 text-xs bg-stone-50 border border-stone-300 rounded-lg outline-none focus:border-slate-900 focus:bg-white text-slate-900 font-mono"
+                className="fs-exclude w-full px-3.5 py-2.5 text-xs bg-stone-50 border border-stone-300 rounded-lg outline-none focus:border-slate-900 focus:bg-white text-slate-900 font-mono"
               />
             </div>
             <div>
@@ -132,7 +132,7 @@ export const TrackOrder: React.FC = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                className="w-full px-3.5 py-2.5 text-xs bg-stone-50 border border-stone-300 rounded-lg outline-none focus:border-slate-900 focus:bg-white text-slate-900"
+                className="fs-exclude w-full px-3.5 py-2.5 text-xs bg-stone-50 border border-stone-300 rounded-lg outline-none focus:border-slate-900 focus:bg-white text-slate-900"
               />
             </div>
           </div>
