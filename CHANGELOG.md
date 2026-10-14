@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.7.0](https://github.com/onix-net/gecx-shopping-agent-demo/compare/v0.6.0...v0.7.0) (2026-10-14)
+
+
+### Features
+
+* improve PORT validation and server binding ([#56](https://github.com/onix-net/gecx-shopping-agent-demo/issues/56)) ([271dc2d](https://github.com/onix-net/gecx-shopping-agent-demo/commit/271dc2db11356eda9861d447d8e00b2f623b6b27))
+* record dev and prd sessions in FullStory ([#59](https://github.com/onix-net/gecx-shopping-agent-demo/issues/59)) ([4005144](https://github.com/onix-net/gecx-shopping-agent-demo/commit/40051443e0f8595f6dc9f109f752a397e0400d67))
+
+
+### Bug Fixes
+
+* **server:** drop the duplicate export that stops the container starting ([#58](https://github.com/onix-net/gecx-shopping-agent-demo/issues/58)) ([b03adce](https://github.com/onix-net/gecx-shopping-agent-demo/commit/b03adcecc16e61e5fec20e65123be84092c2ed05))
+
 ## [0.6.0](https://github.com/onix-net/gecx-shopping-agent-demo/compare/v0.5.0...v0.6.0) (2026-10-12)
 
 
