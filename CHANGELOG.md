@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.7.1](https://github.com/onix-net/gecx-shopping-agent-demo/compare/v0.7.0...v0.7.1) (2026-10-14)
+
+
+### Bug Fixes
+
+* standardise on the project-number Cloud Run URL ([#60](https://github.com/onix-net/gecx-shopping-agent-demo/issues/60)) ([6786839](https://github.com/onix-net/gecx-shopping-agent-demo/commit/6786839a803e9c50556f1362f49f6086d654a40b))
+
 ## [0.7.0](https://github.com/onix-net/gecx-shopping-agent-demo/compare/v0.6.0...v0.7.0) (2026-10-14)
 
 
