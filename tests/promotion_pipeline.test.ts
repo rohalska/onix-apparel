@@ -855,3 +855,19 @@ describe('Promotion pipeline invariants', () => {
     );
   });
 });
+
+describe('the public URL a deploy reports', () => {
+  // Cloud Run's status.url is the legacy hashed *.a.run.app URL, which the
+  // server redirects away from. The summary has to name the URL people are
+  // meant to use, and check that it answers.
+  it('reports and probes PUBLIC_URL rather than status.url', () => {
+    const verify = stepBlock(jobBlock(deployEnvYml, 'apply'), 'Verify the running image');
+    assert.doesNotMatch(verify, /status\.url/, 'status.url is the legacy URL');
+    assert.match(
+      verify,
+      /PUBLIC_URL/,
+      'the summary must name the PUBLIC_URL the service runs with',
+    );
+    assert.match(verify, /curl[^\n]*\/api\/health/, 'the public URL must be probed');
+  });
+});

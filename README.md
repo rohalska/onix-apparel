@@ -7,10 +7,22 @@ while the storefront's searches and user events go to the live Retail API.
 
 It runs in two GCP projects, both in `us-central1`, both public:
 
-| Environment | Project                       | URL                                                      |
-| ----------- | ----------------------------- | -------------------------------------------------------- |
-| `dev`       | `onx-dev-int-shop-demo-qes8`  | https://gecx-shopping-agent-demo-as77tzr44a-uc.a.run.app |
-| `prd`       | `onx-prod-int-shop-demo-gml8` | https://gecx-shopping-agent-demo-6lcz6sarwa-uc.a.run.app |
+| Environment | Project                       | URL                                                               |
+| ----------- | ----------------------------- | ----------------------------------------------------------------- |
+| `dev`       | `onx-dev-int-shop-demo-qes8`  | https://gecx-shopping-agent-demo-835936341567.us-central1.run.app |
+| `prd`       | `onx-prod-int-shop-demo-gml8` | https://gecx-shopping-agent-demo-210812903728.us-central1.run.app |
+
+Cloud Run also answers on an older `*.a.run.app` address for each service. Page
+loads there are redirected to the addresses above (`server/canonicalUrl.mjs`),
+which are the only ones FullStory records and the ones to share. The API,
+`/.well-known` and anything that names a file, such as `/openapi.yaml`, still
+answer on both, so nothing that holds an old address breaks.
+
+The two addresses are separate origins to the browser. Someone who used the old
+address before the redirect existed arrives at the new one with an empty bag,
+an empty wishlist, a new `onix_visitor_id` (so Retail sees a new visitor) and
+the consent banner again, because all of that lives in per-origin storage. That
+is a one-off cost for anyone who bookmarked the old address.
 
 Dev deploys on every release. Prd is promoted from a version already running in
 dev, behind an approval. Both run the same image digest.
@@ -325,8 +337,8 @@ gcloud run services update-traffic gecx-shopping-agent-demo \
 # Confirm it took, then check the service actually answers.
 gcloud run services describe gecx-shopping-agent-demo \
   --region us-central1 --project <project-id> --format='value(status.traffic)'
-curl -fsS -o /dev/null -w '%{http_code}\n' "$(gcloud run services describe gecx-shopping-agent-demo \
-  --region us-central1 --project <project-id> --format='value(status.url)')"
+curl -fsS -o /dev/null -w '%{http_code}\n' \
+  https://gecx-shopping-agent-demo-<project-number>.us-central1.run.app/api/health
 ```
 
 The module serves `TRAFFIC_TARGET_ALLOCATION_TYPE_LATEST` at 100, so pinning a
@@ -440,10 +452,12 @@ The server logs whether capture is on when it starts, and says so when it
 refused a value. Removing `FULLSTORY_ORG_ID` from the service turns capture off
 without a new image.
 
-FullStory only accepts sessions from domains the org allows. A session from a
-host it does not know is refused with `Org blocks origin domain`, so a new
-service URL has to be added in FullStory under Settings > Data Capture before it
-will record.
+FullStory only accepts sessions from domains the org allows. The org allows the
+two project-number addresses in the table at the top, not the older
+`*.a.run.app` ones, which is one reason the server redirects page loads away
+from those. A session from a host FullStory does not know is refused with
+`Org blocks origin domain`, so a new environment's address has to be added in
+FullStory under Settings > Data Capture before it will record.
 
 ## Demo promo codes
 

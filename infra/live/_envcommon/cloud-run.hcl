@@ -47,11 +47,20 @@ locals {
   # command takes the placeholder, so a read-only command never fails for a
   # missing deploy-time variable.
   image_digest = contains(["apply"], get_terraform_command()) ? get_env("IMAGE_DIGEST") : get_env("IMAGE_DIGEST", local.default_digest)
+
+  service_name = "gecx-shopping-agent-demo"
+
+  # The URL people are given. Cloud Run also answers on an older hashed
+  # *.a.run.app URL; the server redirects page loads from there to this one, so
+  # FullStory's domain allowlist and the consent cookie only ever see this host.
+  # The project-number form is deterministic, so it is built here rather than
+  # read back from the service after it exists.
+  public_url = "https://${local.service_name}-${local.env_vars.locals.project_number}.${local.region_vars.locals.region}.run.app"
 }
 
 inputs = {
   region                = local.region_vars.locals.region
-  name                  = "gecx-shopping-agent-demo"
+  name                  = local.service_name
   image                 = "${dependency.registry.outputs.repository_url}/app@${local.image_digest}"
   service_account_email = dependency.runtime_sa.outputs.email
   allow_public_access   = true
@@ -64,6 +73,7 @@ inputs = {
     GCP_LOCATION          = "global"
     GCP_CATALOG_ID        = "default_catalog"
     GCP_SERVING_CONFIG_ID = "default_search"
+    PUBLIC_URL            = local.public_url
 
     # Session capture. Dev and prd share one FullStory org; the environment is
     # set as a page property on every page so the two can be segmented.

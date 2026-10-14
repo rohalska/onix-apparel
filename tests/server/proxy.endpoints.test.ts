@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeAll, afterAll, afterEach, vi } from 'vitest';
 import net from 'net';
+import http from 'http';
 // proxy.mjs has no type declarations; suppress the implicit-any error here
 // rather than widen allowJs/checkJs project-wide for one test file.
 // @ts-expect-error -- '../../server/proxy.mjs' has no declaration file
@@ -958,5 +959,46 @@ describe('getGcpAccessToken resolution, caching, and priority order', () => {
         delete process.env.GOOGLE_APPLICATION_CREDENTIALS;
       }
     }
+  });
+});
+
+describe('legacy Cloud Run host', () => {
+  const publicUrl = 'https://gecx-shopping-agent-demo-835936341567.us-central1.run.app';
+
+  function getWithHost(path: string, host: string) {
+    const { port } = new URL(base);
+    return new Promise<{ status?: number; location?: string; cacheControl?: string }>(
+      (resolve, reject) => {
+        const r = http.request(
+          { host: '127.0.0.1', port, path, method: 'GET', headers: { host } },
+          (res) => {
+            res.resume();
+            resolve({
+              status: res.statusCode,
+              location: res.headers.location,
+              cacheControl: res.headers['cache-control'],
+            });
+          },
+        );
+        r.on('error', reject);
+        r.end();
+      },
+    );
+  }
+
+  afterEach(() => {
+    delete process.env.PUBLIC_URL;
+  });
+
+  it('redirects a page load to PUBLIC_URL and still serves the API there', async () => {
+    process.env.PUBLIC_URL = publicUrl;
+    const legacy = 'gecx-shopping-agent-demo-as77tzr44a-uc.a.run.app';
+
+    expect(await getWithHost('/?q=boots', legacy)).toEqual({
+      status: 302,
+      location: `${publicUrl}/?q=boots`,
+      cacheControl: 'no-store',
+    });
+    expect((await getWithHost('/api/health', legacy)).status).toBe(200);
   });
 });

@@ -698,9 +698,11 @@ jobs:
           VERSION: ${{ inputs.version }}
         run: |
           set -euo pipefail
-          deployed="$(gcloud run services describe "$SERVICE" \
-            --region "$REGION" --project "$PROJECT_ID" \
-            --format='value(spec.template.spec.containers[0].image)')"
+          service="$(gcloud run services describe "$SERVICE" \
+            --region "$REGION" --project "$PROJECT_ID" --format=json)"
+          container='.spec.template.spec.containers[0]'
+
+          deployed="$(jq -r "${container}.image" <<<"$service")"
           echo "Deployed image: ${deployed}"
           echo "Promoted digest: ${WANT_DIGEST}"
           if [ "$deployed" != "${TARGET_REPO}@${WANT_DIGEST}" ]; then
@@ -708,8 +710,18 @@ jobs:
             exit 1
           fi
 
-          url="$(gcloud run services describe "$SERVICE" \
-            --region "$REGION" --project "$PROJECT_ID" --format='value(status.url)')"
+          # The URL people are given is the PUBLIC_URL the service runs with.
+          # Cloud Run's own reported URL is the legacy *.a.run.app form, which
+          # redirects there.
+          url="$(jq -r "${container}.env[]? | select(.name == \"PUBLIC_URL\") | .value" <<<"$service")"
+          if [ -z "$url" ]; then
+            echo "::error::the service has no PUBLIC_URL, so there is no public address to report"
+            exit 1
+          fi
+          if ! curl -fsS --retry 3 --retry-delay 5 -o /dev/null "${url}/api/health"; then
+            echo "::error::${url} does not answer /api/health. The new revision is already serving traffic; see 'Rolling back' in docs/promotion.md to move traffic to the previous one."
+            exit 1
+          fi
           {
             echo "### ${ENVIRONMENT} is running ${VERSION}"
             echo

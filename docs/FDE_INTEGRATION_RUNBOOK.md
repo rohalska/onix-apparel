@@ -7,10 +7,22 @@ same Node process that proxies the Retail API.
 
 It runs in two projects, both `us-central1`, both public:
 
-| Environment | Project                       | Number         | URL                                                      |
-| ----------- | ----------------------------- | -------------- | -------------------------------------------------------- |
-| `dev`       | `onx-dev-int-shop-demo-qes8`  | `835936341567` | https://gecx-shopping-agent-demo-as77tzr44a-uc.a.run.app |
-| `prd`       | `onx-prod-int-shop-demo-gml8` | `210812903728` | https://gecx-shopping-agent-demo-6lcz6sarwa-uc.a.run.app |
+| Environment | Project                       | Number         | URL                                                               |
+| ----------- | ----------------------------- | -------------- | ----------------------------------------------------------------- |
+| `dev`       | `onx-dev-int-shop-demo-qes8`  | `835936341567` | https://gecx-shopping-agent-demo-835936341567.us-central1.run.app |
+| `prd`       | `onx-prod-int-shop-demo-gml8` | `210812903728` | https://gecx-shopping-agent-demo-210812903728.us-central1.run.app |
+
+Cloud Run also answers on an older `*.a.run.app` address for each service. Page
+loads there are redirected to the addresses above (`server/canonicalUrl.mjs`),
+which are the only ones FullStory records and the ones to share. The API,
+`/.well-known` and anything that names a file, such as `/openapi.yaml`, still
+answer on both, so nothing that holds an old address breaks.
+
+The two addresses are separate origins to the browser. Someone who used the old
+address before the redirect existed arrives at the new one with an empty bag,
+an empty wishlist, a new `onix_visitor_id` (so Retail sees a new visitor) and
+the consent banner again, because all of that lives in per-origin storage. That
+is a one-off cost for anyone who bookmarked the old address.
 
 Give the prd URL to anyone demonstrating the storefront.
 
@@ -372,7 +384,7 @@ gcloud run deploy gecx-shopping-agent-demo \
   --allow-unauthenticated \
   --service-account "gecx-shop-run@YOUR_PROJECT_ID.iam.gserviceaccount.com" \
   --port 8080 \
-  --set-env-vars GCP_PROJECT_ID=YOUR_PROJECT_ID,GCP_LOCATION=global,GCP_CATALOG_ID=default_catalog,GCP_SERVING_CONFIG_ID=default_search,FULLSTORY_ORG_ID=o-25B85Y-na1,FULLSTORY_ENVIRONMENT=dev
+  --set-env-vars GCP_PROJECT_ID=YOUR_PROJECT_ID,GCP_LOCATION=global,GCP_CATALOG_ID=default_catalog,GCP_SERVING_CONFIG_ID=default_search,FULLSTORY_ORG_ID=o-25B85Y-na1,FULLSTORY_ENVIRONMENT=dev,PUBLIC_URL=https://gecx-shopping-agent-demo-YOUR_PROJECT_NUMBER.us-central1.run.app
 ```
 
 > **Security Note**: Never deploy public-facing Cloud Run containers without an explicit `--service-account`. Omitting it causes Cloud Run to run as the project's default Compute Engine service account. Also never include `.env` or credential files when deploying; if secrets are needed at runtime, bind them directly from Secret Manager:
@@ -383,8 +395,10 @@ gcloud run deploy gecx-shopping-agent-demo \
 >   --set-secrets="API_SECRET_KEY=my-secret:latest"
 > ```
 
-The deploy prints the service URL. Dev is
-`https://gecx-shopping-agent-demo-as77tzr44a-uc.a.run.app`.
+The deploy prints the legacy `*.a.run.app` URL, which redirects page loads to
+the project-number address in `PUBLIC_URL`. Dev is
+`https://gecx-shopping-agent-demo-835936341567.us-central1.run.app`. Leave
+`PUBLIC_URL` out and the service answers on both addresses without redirecting.
 
 ---
 
@@ -393,7 +407,8 @@ The deploy prints the service URL. Dev is
 ### 5.1 A2A Agent Card Endpoint
 
 The storefront serves an Agent-to-Agent (A2A) protocol card at:
-`https://<YOUR-CLOUD-RUN-URL>/.well-known/agent-card.json`
+`https://<YOUR-CLOUD-RUN-URL>/.well-known/agent-card.json`, where the URL is the
+project-number address from the table above.
 
 Verify the endpoint returns HTTP 200 with JSON metadata:
 

@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { DEFAULT_SORT, ORDER_BY, isSortValue } from '../shared/sortOptions.mjs';
+import { canonicalRedirect } from './canonicalUrl.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -754,6 +755,14 @@ export function validateRetailUserEvent(eventPayload) {
 // Request dispatcher
 const server = http.createServer(async (req, res) => {
   try {
+    // Page loads on the legacy *.a.run.app host move to PUBLIC_URL, so capture
+    // and consent see one host. See server/canonicalUrl.mjs.
+    const redirectTo = canonicalRedirect(req);
+    if (redirectTo) {
+      res.writeHead(302, { Location: redirectTo, 'Cache-Control': 'no-store' });
+      return res.end();
+    }
+
     // Handle CORS preflight
     if (req.method === 'OPTIONS') {
       res.writeHead(204, {

@@ -322,8 +322,7 @@ gcloud run services update-traffic gecx-shopping-agent-demo \
 # Confirm it took, then check the service actually answers.
 gcloud run services describe gecx-shopping-agent-demo \
   --region us-central1 --project onx-prod-int-shop-demo-gml8 --format='value(status.traffic)'
-curl -fsS -o /dev/null -w '%{http_code}\n' "$(gcloud run services describe gecx-shopping-agent-demo \
-  --region us-central1 --project onx-prod-int-shop-demo-gml8 --format='value(status.url)')"
+curl -fsS -o /dev/null -w '%{http_code}\n' https://gecx-shopping-agent-demo-210812903728.us-central1.run.app/api/health
 ```
 
 The Cloud Run stack serves `TRAFFIC_TARGET_ALLOCATION_TYPE_LATEST` at 100, so a
