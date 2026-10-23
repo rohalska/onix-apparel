@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' 'unsafe-inline' https://apis.google.com https://*.google.com https://cloud.google.com https://edge.fullstory.com https://rs.fullstory.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' http://localhost:* http://127.0.0.1:* https://fakestoreapi.com https://*.media-amazon.com https://retail.googleapis.com https://*.googleapis.com https://edge.fullstory.com https://rs.fullstory.com wss://*; frame-src 'self' https://*.google.com https://cloud.google.com;"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' https://apis.google.com https://*.google.com https://cloud.google.com https://edge.fullstory.com https://rs.fullstory.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' http://localhost:* http://127.0.0.1:* https://fakestoreapi.com https://*.media-amazon.com https://retail.googleapis.com https://*.googleapis.com https://token-svc-835936341567.us-central1.run.app https://edge.fullstory.com https://rs.fullstory.com wss://*; frame-src 'self' https://*.google.com https://cloud.google.com;"
     />
     <title>ONIX Wares | Curated Goods & Modern Living</title>
     <!-- Google Fonts -->
@@ -20,5 +20,79 @@
   <body class="bg-stone-50 text-slate-800 antialiased selection:bg-stone-200">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      window.googleAgentSettings = {
+        id: 'PtOnix4nR7wZ5bY1',
+        tokenFunc: async (sessionId) => {
+          try {
+            const endpoint = 'https://token-svc-835936341567.us-central1.run.app/get-token';
+            const response = await fetch(endpoint, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: sessionId ? JSON.stringify({ sessionId }) : JSON.stringify({}),
+            });
+            if (!response.ok) {
+              console.error(
+                `Shopping Agent: Error fetching session ID: ${response.status} ${response.statusText}`,
+              );
+              throw new Error(
+                `Error fetching session ID: ${response.status} ${response.statusText}`,
+              );
+            }
+            const data = await response.json();
+            return {
+              sessionId: data.sessionId,
+              token: data.token,
+            };
+          } catch (e) {
+            console.error('Shopping Agent: Error in tokenFunc:', e);
+            throw e;
+          }
+        },
+        handleCartUpdate: async (productId, quantity, method, action, options = {}) => {
+          if (!window.onixStore) {
+            return { success: false, error: 'Store bus not initialized' };
+          }
+          if (action !== 'add') {
+            return { success: false, error: `Unsupported action: ${action}` };
+          }
+          return new Promise((resolve) => {
+            const correlationId = crypto.randomUUID();
+            const unsubscribe = window.onixStore.subscribeOutcomes((outcome) => {
+              if (outcome.id === correlationId) {
+                unsubscribe();
+                clearTimeout(timeoutId);
+                if (outcome.ok) {
+                  resolve({ success: true });
+                } else {
+                  resolve({
+                    success: false,
+                    error: outcome.reason || outcome.code || 'Unknown error',
+                  });
+                }
+              }
+            });
+            const timeoutId = setTimeout(() => {
+              unsubscribe();
+              resolve({ success: false, error: 'Action timed out' });
+            }, 5000);
+            window.onixStore.dispatch({
+              id: correlationId,
+              action: 'ADD_TO_CART',
+              productId: Number(productId),
+              quantity: Number(quantity),
+              size: options?.size,
+              color: options?.color,
+            });
+          });
+        },
+      };
+    </script>
+    <script
+      src="https://agents.cloud.google.com/shopping_agent/loader.js"
+      async
+      fetchpriority="high"
+      type="text/javascript"
+    ></script>
   </body>
 </html>

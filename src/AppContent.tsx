@@ -24,7 +24,6 @@ import { Sparkles, RefreshCw, AlertCircle } from 'lucide-react';
 import { FALLBACK_PRODUCTS } from './data/fallbackProducts';
 import { correctQuery } from './utils/fuzzySearch';
 import { CustomerCarePage, CustomerCareSection } from './components/CustomerCare/CustomerCarePage';
-import { ConciergeChatModal } from './components/ConciergeChatModal';
 import {
   subscribeToAgentActions,
   subscribeToActionRejections,
@@ -879,9 +878,6 @@ export const AppContent: React.FC = () => {
 
       {/* Checkout Modal */}
       <CheckoutModal isOpen={isCheckoutOpen} onClose={() => setIsCheckoutOpen(false)} />
-
-      {/* Gemini Enterprise AI Concierge Assistant & Client Action Bus Shell */}
-      <ConciergeChatModal />
 
       {/* Toast Notifications */}
       <Toast toasts={toasts} onDismiss={handleDismissToast} />
