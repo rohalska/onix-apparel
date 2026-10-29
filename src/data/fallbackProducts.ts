@@ -202,7 +202,7 @@ export const FALLBACK_PRODUCTS: Product[] = [
     price: 695,
     description:
       "From our Legends Collection, the Naga was inspired by the mythical water dragon that protects the ocean's pearl. Wear facing inward to be bestowed with love and abundance, or outward for protection.",
-    category: 'jewelery',
+    category: 'jewelry',
     image: 'https://m.media-amazon.com/images/I/71pWzhdJNwL._AC_UL640_QL65_ML3.jpg',
     rating: { rate: 4.6, count: 400 },
     sizes: ACCESSORY_SIZES,
@@ -217,7 +217,7 @@ export const FALLBACK_PRODUCTS: Product[] = [
     price: 168,
     description:
       'Satisfaction Guaranteed. Return or exchange any order within 30 days. Designed and handcrafted in fine gold with glistening pavé stones for subtle everyday brilliance.',
-    category: 'jewelery',
+    category: 'jewelry',
     image: 'https://m.media-amazon.com/images/I/61sbMiUnoGL._AC_UL640_QL65_ML3.jpg',
     rating: { rate: 3.9, count: 70 },
     sizes: ['Size 6', 'Size 7', 'Size 8'],
@@ -236,7 +236,7 @@ export const FALLBACK_PRODUCTS: Product[] = [
     price: 9.99,
     description:
       "Classic Created Wedding Engagement Solitaire Diamond Promise Ring for Her. Gifts to spoil your love more for Engagement, Wedding, Anniversary, Valentine's Day...",
-    category: 'jewelery',
+    category: 'jewelry',
     image: 'https://m.media-amazon.com/images/I/71YAIFU48IL._AC_UL640_QL65_ML3.jpg',
     rating: { rate: 3, count: 400 },
     sizes: ['Size 6', 'Size 7', 'Size 8'],
@@ -254,7 +254,7 @@ export const FALLBACK_PRODUCTS: Product[] = [
     price: 10.99,
     description:
       'Rose Gold Plated Flared Tunnel Plug Earrings. Made of 316L Surgical Grade Stainless Steel, polished smooth for comfortable daily wear.',
-    category: 'jewelery',
+    category: 'jewelry',
     image: 'https://m.media-amazon.com/images/I/51UDEzMJVpL._AC_UL640_QL65_ML3.jpg',
     rating: { rate: 1.9, count: 100 },
     sizes: ACCESSORY_SIZES,
@@ -672,7 +672,7 @@ export const FALLBACK_PRODUCTS: Product[] = [
     price: 48.0,
     description:
       'Vegetable-tanned full-grain bridle leather belt with beveled edge detailing and a brushed solid brass buckle. An essential styling anchor for trousers and suits.',
-    category: 'jewelery',
+    category: 'jewelry',
     image:
       'https://images.unsplash.com/photo-1624222247344-550fb60583dc?w=600&auto=format&fit=crop&q=80',
     rating: { rate: 4.8, count: 240 },
@@ -691,7 +691,7 @@ export const FALLBACK_PRODUCTS: Product[] = [
     price: 155.0,
     description:
       'Geometric saddle-shaped crossbody handbag in smooth Tuscan box calf leather. Features magnetic flap closure, gold-plated hardware, and suede lining.',
-    category: 'jewelery',
+    category: 'jewelry',
     image:
       'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&auto=format&fit=crop&q=80',
     rating: { rate: 4.9, count: 165 },
@@ -710,7 +710,7 @@ export const FALLBACK_PRODUCTS: Product[] = [
     price: 210.0,
     description:
       'Swiss quartz movement chronograph with a scratch-resistant anti-reflective sapphire crystal face, brushed 316L stainless steel case, and quick-release strap.',
-    category: 'jewelery',
+    category: 'jewelry',
     image:
       'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=600&auto=format&fit=crop&q=80',
     rating: { rate: 4.9, count: 180 },
@@ -729,7 +729,7 @@ export const FALLBACK_PRODUCTS: Product[] = [
     price: 85.0,
     description:
       'Statement hollow-tube hoop earrings hand-crafted in 14k gold vermeil over 925 sterling silver with an artisanal light-catching hammered texture.',
-    category: 'jewelery',
+    category: 'jewelry',
     image:
       'https://images.unsplash.com/photo-1630019852942-f89202989a59?w=600&auto=format&fit=crop&q=80',
     rating: { rate: 4.8, count: 215 },
@@ -1066,7 +1066,7 @@ export const FALLBACK_PRODUCTS: Product[] = [
     price: 115.0,
     description:
       'Sleek liquid-metal herringbone flat snake chain in 14k gold vermeil. Sits smoothly along the collarbone for everyday elegance.',
-    category: 'jewelery',
+    category: 'jewelry',
     image:
       'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&auto=format&fit=crop&q=80',
     rating: { rate: 4.9, count: 165 },
@@ -1082,7 +1082,7 @@ export const FALLBACK_PRODUCTS: Product[] = [
     price: 175.0,
     description:
       'Spacious everyday shoulder tote crafted in supple pebbled Italian leather with reinforced straps, magnetic snap, and padded laptop slip.',
-    category: 'jewelery',
+    category: 'jewelry',
     image:
       'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600&auto=format&fit=crop&q=80',
     rating: { rate: 4.8, count: 190 },
@@ -1101,7 +1101,7 @@ export const FALLBACK_PRODUCTS: Product[] = [
     price: 95.0,
     description:
       'Hand-polished Italian cellulose acetate frames with 100% UV400 polarized mineral glass lenses and durable five-barrel hinges.',
-    category: 'jewelery',
+    category: 'jewelry',
     image:
       'https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600&auto=format&fit=crop&q=80',
     rating: { rate: 4.7, count: 145 },
@@ -1120,7 +1120,7 @@ export const FALLBACK_PRODUCTS: Product[] = [
     price: 65.0,
     description:
       'Woven from pure featherlight Himalayan cashmere with delicate fringed ends. Generously sized for styling as a scarf or travel wrap.',
-    category: 'jewelery',
+    category: 'jewelry',
     image:
       'https://images.unsplash.com/photo-1608256246200-53e635b5b65f?w=600&auto=format&fit=crop&q=80',
     rating: { rate: 4.8, count: 220 },

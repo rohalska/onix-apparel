@@ -95,7 +95,7 @@ export const WishlistDrawer: React.FC<WishlistDrawerProps> = ({
                           if (product.category === "women's clothing") {
                             target.src =
                               'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80';
-                          } else if (product.category === 'jewelery') {
+                          } else if (product.category === 'jewelry') {
                             target.src =
                               'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=600&q=80';
                           } else {

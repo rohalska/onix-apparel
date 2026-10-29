@@ -218,6 +218,18 @@ describe('POST /api/search input handling', () => {
     }
   });
 
+  it('returns jewelry products under the canonical spelling and accepts the legacy category key', async () => {
+    for (const category of ['jewelry', 'jewelery']) {
+      const res = await postJson('/api/search', JSON.stringify({ category }));
+      expect(res.status).toBe(200);
+      const body = await res.json();
+      expect(body.products.length).toBeGreaterThan(0);
+      for (const product of body.products) {
+        expect(product.category).toBe('jewelry');
+      }
+    }
+  });
+
   it('correctly discriminates coffee products between furniture and groceries', async () => {
     const furnRes = await postJson(
       '/api/search',
@@ -343,9 +355,10 @@ describe('POST /api/search input handling', () => {
       [['beauty & fragrance > skincare'], 'beauty'],
       [['beauty & fragrance > fragrances'], 'fragrances'],
       [['gourmet pantry > specialty coffee'], 'groceries'],
-      [['accessories > fine jewelry'], 'jewelery'],
-      [['accessories'], 'jewelery'],
-      [['accessories > watches & bags'], 'jewelery'],
+      [['accessories > fine jewelry'], 'jewelry'],
+      [['accessories > fine jewelery'], 'jewelry'],
+      [['accessories'], 'jewelry'],
+      [['accessories > watches & bags'], 'jewelry'],
     ];
 
     for (const [categories, expected] of testCases) {

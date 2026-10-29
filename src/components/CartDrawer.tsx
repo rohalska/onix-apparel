@@ -153,7 +153,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onProceedToCheckout }) =
                           if (item.product.category === "women's clothing") {
                             target.src =
                               'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80';
-                          } else if (item.product.category === 'jewelery') {
+                          } else if (item.product.category === 'jewelry') {
                             target.src =
                               'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=600&q=80';
                           } else {

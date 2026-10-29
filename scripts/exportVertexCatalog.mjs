@@ -107,7 +107,7 @@ export const ONIX_PRODUCTS = [
     originalPrice: 750.0,
     description:
       "From our Legends Collection, the Naga was inspired by the mythical water dragon that protects the ocean's pearl. Wear facing inward to be bestowed with love and abundance, or outward for protection.",
-    category: 'jewelery',
+    category: 'jewelry',
     image: 'https://m.media-amazon.com/images/I/71pWzhdJNwL._AC_UL640_QL65_ML3.jpg',
     rating: { rate: 4.6, count: 400 },
     sizes: ['One Size'],
@@ -129,7 +129,7 @@ export const ONIX_PRODUCTS = [
     originalPrice: 210.0,
     description:
       'Satisfaction Guaranteed. Return or exchange any order within 30 days. Designed and handcrafted in fine gold with glistening pavé stones for subtle everyday brilliance.',
-    category: 'jewelery',
+    category: 'jewelry',
     image: 'https://m.media-amazon.com/images/I/61sbMiUnoGL._AC_UL640_QL65_ML3.jpg',
     rating: { rate: 3.9, count: 70 },
     sizes: ['Size 6', 'Size 7', 'Size 8'],
@@ -152,7 +152,7 @@ export const ONIX_PRODUCTS = [
     originalPrice: 15.99,
     description:
       "Classic Created Wedding Engagement Solitaire Diamond Promise Ring for Her. Gifts to spoil your love more for Engagement, Wedding, Anniversary, Valentine's Day...",
-    category: 'jewelery',
+    category: 'jewelry',
     image: 'https://m.media-amazon.com/images/I/71YAIFU48IL._AC_UL640_QL65_ML3.jpg',
     rating: { rate: 3.0, count: 400 },
     sizes: ['Size 6', 'Size 7', 'Size 8'],
@@ -171,7 +171,7 @@ export const ONIX_PRODUCTS = [
     originalPrice: 14.99,
     description:
       'Rose Gold Plated Flared Tunnel Plug Earrings. Made of 316L Surgical Grade Stainless Steel, polished smooth for comfortable daily wear.',
-    category: 'jewelery',
+    category: 'jewelry',
     image: 'https://m.media-amazon.com/images/I/51UDEzMJVpL._AC_UL640_QL65_ML3.jpg',
     rating: { rate: 1.9, count: 100 },
     sizes: ['One Size'],
@@ -816,7 +816,7 @@ export const ONIX_PRODUCTS = [
     originalPrice: 60.0,
     description:
       'Vegetable-tanned full-grain bridle leather belt with beveled edge detailing and a brushed solid brass buckle. An essential styling anchor for trousers and suits.',
-    category: 'jewelery',
+    category: 'jewelry',
     subcategory: 'Accessories',
     gender: 'Unisex',
     image:
@@ -839,7 +839,7 @@ export const ONIX_PRODUCTS = [
     originalPrice: 190.0,
     description:
       'Geometric saddle-shaped crossbody handbag in smooth Tuscan box calf leather. Features magnetic flap closure, gold-plated hardware, and suede lining.',
-    category: 'jewelery',
+    category: 'jewelry',
     subcategory: 'Bags & Leather',
     gender: 'Women',
     image:
@@ -862,7 +862,7 @@ export const ONIX_PRODUCTS = [
     originalPrice: 260.0,
     description:
       'Swiss quartz movement chronograph with a scratch-resistant anti-reflective sapphire crystal face, brushed 316L stainless steel case, and quick-release strap.',
-    category: 'jewelery',
+    category: 'jewelry',
     subcategory: 'Watches',
     gender: 'Unisex',
     image:
@@ -885,7 +885,7 @@ export const ONIX_PRODUCTS = [
     originalPrice: 110.0,
     description:
       'Statement hollow-tube hoop earrings hand-crafted in 14k gold vermeil over 925 sterling silver with an artisanal light-catching hammered texture.',
-    category: 'jewelery',
+    category: 'jewelry',
     subcategory: 'Fine Jewelry',
     gender: 'Women',
     image:
@@ -1298,7 +1298,7 @@ export const ONIX_PRODUCTS = [
     originalPrice: 140.0,
     description:
       'Sleek liquid-metal herringbone flat snake chain in 14k gold vermeil. Sits smoothly along the collarbone for everyday elegance.',
-    category: 'jewelery',
+    category: 'jewelry',
     subcategory: 'Necklaces',
     gender: 'Women',
     image:
@@ -1318,7 +1318,7 @@ export const ONIX_PRODUCTS = [
     originalPrice: 210.0,
     description:
       'Spacious everyday shoulder tote crafted in supple pebbled Italian leather with reinforced straps, magnetic snap, and padded laptop slip.',
-    category: 'jewelery',
+    category: 'jewelry',
     subcategory: 'Bags & Totes',
     gender: 'Unisex',
     image:
@@ -1341,7 +1341,7 @@ export const ONIX_PRODUCTS = [
     originalPrice: 120.0,
     description:
       'Hand-polished Italian cellulose acetate frames with 100% UV400 polarized mineral glass lenses and durable five-barrel hinges.',
-    category: 'jewelery',
+    category: 'jewelry',
     subcategory: 'Eyewear',
     gender: 'Unisex',
     image:
@@ -1364,7 +1364,7 @@ export const ONIX_PRODUCTS = [
     originalPrice: 85.0,
     description:
       'Woven from pure featherlight Himalayan cashmere with delicate fringed ends. Generously sized for styling as a scarf or travel wrap.',
-    category: 'jewelery',
+    category: 'jewelry',
     subcategory: 'Scarves & Wraps',
     gender: 'Unisex',
     image:
@@ -1667,7 +1667,7 @@ function getCategoryHierarchy(category, subcategory) {
       subcategory ? `Apparel > Women's Clothing > ${subcategory}` : "Apparel > Women's Clothing",
     ];
   }
-  if (category === 'jewelery') {
+  if (category === 'jewelry') {
     return [
       'Accessories',
       'Accessories > Fine Jewelry',

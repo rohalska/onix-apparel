@@ -21,7 +21,7 @@ const rootDir = path.resolve(__dirname, '..');
 const VALID_CATEGORIES = [
   "men's clothing",
   "women's clothing",
-  'jewelery',
+  'jewelry',
   'electronics',
   'furniture',
   'fragrances',

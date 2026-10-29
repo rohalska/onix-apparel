@@ -29,7 +29,7 @@ describe('Search UX & Business Logic Edge Cases', () => {
     assert.ok(res.products.length > 0, 'Partial keyword "jack" should match jacket');
   });
 
-  it('Partial word matching: "jewel" should match jewelery items', () => {
+  it('Partial word matching: "jewel" should match jewelry items', () => {
     const res = simulateClientSearch({ query: 'jewel' }, FALLBACK_PRODUCTS);
     assert.ok(res.products.length > 0, 'Partial keyword "jewel" should match jewelry');
   });

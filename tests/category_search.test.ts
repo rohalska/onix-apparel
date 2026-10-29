@@ -21,8 +21,8 @@ describe('Global vs Category Search Behavior', () => {
     assert.ok(backpackRes.products.length > 0, 'Must find backpacks in global search');
   });
 
-  it('proves that restricting search strictly to category="jewelery" blocks finding jackets', () => {
-    const res = simulateClientSearch({ query: 'jacket', category: 'jewelery' }, FALLBACK_PRODUCTS);
+  it('proves that restricting search strictly to category="jewelry" blocks finding jackets', () => {
+    const res = simulateClientSearch({ query: 'jacket', category: 'jewelry' }, FALLBACK_PRODUCTS);
     assert.equal(res.products.length, 0, 'Jewelry category has 0 jackets');
   });
 

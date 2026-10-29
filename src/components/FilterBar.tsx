@@ -33,7 +33,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
     { label: 'Beauty', value: 'beauty' },
     { label: "Women's Collection", value: "women's clothing" },
     { label: "Men's Collection", value: "men's clothing" },
-    { label: 'Fine Jewelry', value: 'jewelery' },
+    { label: 'Fine Jewelry', value: 'jewelry' },
     { label: 'Gourmet Pantry', value: 'groceries' },
   ];
 

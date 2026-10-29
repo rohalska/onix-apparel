@@ -92,7 +92,7 @@ export const AppContent: React.FC = () => {
       setSpecialCollection('all');
       setMaxPrice(700);
     } else if (collectionKey === 'accessories') {
-      setCategory('jewelery');
+      setCategory('jewelry');
       setSpecialCollection('all');
       setMaxPrice(700);
     } else if (collectionKey === 'new') {
@@ -617,7 +617,7 @@ export const AppContent: React.FC = () => {
                             ? "Men's Apparel & Outerwear"
                             : category === "women's clothing"
                               ? "Women's Collection & Tops"
-                              : category === 'jewelery'
+                              : category === 'jewelry'
                                 ? 'Fine Jewelry & Accessories'
                                 : category === 'electronics'
                                   ? 'Consumer Electronics & Audio'
@@ -644,7 +644,7 @@ export const AppContent: React.FC = () => {
                             ? 'Refined tailoring, premium sustainable staples, and effortless styling.'
                             : category === "women's clothing"
                               ? 'Contemporary silhouettes, elegant dresses, and everyday luxury.'
-                              : category === 'jewelery'
+                              : category === 'jewelry'
                                 ? 'Artisanal gold, sterling silver, statement rings, and luxury accessories.'
                                 : category === 'electronics'
                                   ? 'High-fidelity audio, streaming accessories, and modern workstation gear.'

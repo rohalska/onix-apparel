@@ -21,7 +21,7 @@ describe('Agent Action Bus Security & Input Validation', () => {
           title: 'Fabricated Diamond Ring',
           price: 0.01,
           description: 'Hacked item',
-          category: 'jewelery',
+          category: 'jewelry',
           image: 'https://evil.com/fake.jpg',
           rating: { rate: 5, count: 100 },
         },

@@ -139,7 +139,7 @@ export function mapVertexProductToFrontend(vertexProduct) {
     lowerCat.includes('jewelry') ||
     lowerCat.includes('jewelery')
   ) {
-    rawCategory = 'jewelery';
+    rawCategory = 'jewelry';
   } else if (fullCatString.trim().length > 0) {
     console.warn(
       `[mapVertexProductToFrontend] Unrecognised category hierarchy "${fullCatString}" for product "${vertexProduct.id || vertexProduct.title}". Defaulting to neutral category "all".`,
@@ -200,7 +200,7 @@ export function filterCatalogByCategory(catalog, category) {
     if (category === 'electronics') return lowerHierarchy.includes('electronics');
     if (category === 'furniture')
       return lowerHierarchy.includes('home & living') || lowerHierarchy.includes('furniture');
-    if (category === 'jewelery') {
+    if (category === 'jewelry' || category === 'jewelery') {
       if (lowerHierarchy.includes('electronics')) return false;
       return (
         lowerHierarchy.includes('accessories') ||
@@ -893,7 +893,7 @@ const server = http.createServer(async (req, res) => {
                 filterConditions.push(
                   '(categories: ANY("Apparel > Women\'s Clothing", "Women\'s Clothing"))',
                 );
-              } else if (category === 'jewelery') {
+              } else if (category === 'jewelry' || category === 'jewelery') {
                 filterConditions.push(
                   '(categories: ANY("Accessories > Fine Jewelry", "Accessories", "Jewelry", "Jewelery"))',
                 );

@@ -28,7 +28,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   const formatCategory = (cat: string) => {
     if (cat === "men's clothing") return 'Men';
     if (cat === "women's clothing") return 'Women';
-    if (cat === 'jewelery') return 'Accessories';
+    if (cat === 'jewelry') return 'Accessories';
     return cat;
   };
 
@@ -36,7 +36,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
     if (cat === "women's clothing") {
       return 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80';
     }
-    if (cat === 'jewelery') {
+    if (cat === 'jewelry') {
       return 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=600&q=80';
     }
     return 'https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?auto=format&fit=crop&w=600&q=80';

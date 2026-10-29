@@ -63,7 +63,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     { label: 'Beauty', value: 'beauty' },
     { label: "Women's", value: "women's clothing" },
     { label: "Men's", value: "men's clothing" },
-    { label: 'Jewelry', value: 'jewelery' },
+    { label: 'Jewelry', value: 'jewelry' },
     { label: 'Pantry', value: 'groceries' },
   ];
 

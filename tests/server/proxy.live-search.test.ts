@@ -155,6 +155,11 @@ describe('live Retail search hydrates results from the catalog', () => {
     await search({ category: 'beauty' });
     expect(capturedFilter).toBe('(categories: ANY("Beauty & Fragrance > Skincare", "Skincare"))');
 
+    await search({ category: 'jewelry' });
+    expect(capturedFilter).toBe(
+      '(categories: ANY("Accessories > Fine Jewelry", "Accessories", "Jewelry", "Jewelery"))',
+    );
+
     await search({ category: 'jewelery' });
     expect(capturedFilter).toBe(
       '(categories: ANY("Accessories > Fine Jewelry", "Accessories", "Jewelry", "Jewelery"))',

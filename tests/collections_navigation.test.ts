@@ -48,12 +48,10 @@ describe('Footer Collections Links & Catalog Filtering', () => {
   });
 
   it('verifies filtering for Fine Jewelry & Accessories (#accessories) returns only jewelry', () => {
-    const jewelryProducts = FALLBACK_PRODUCTS.filter(
-      (p) => p.category.toLowerCase() === 'jewelery',
-    );
+    const jewelryProducts = FALLBACK_PRODUCTS.filter((p) => p.category.toLowerCase() === 'jewelry');
     assert.ok(jewelryProducts.length > 0, 'Must have jewelry products');
     jewelryProducts.forEach((p) => {
-      assert.equal(p.category, 'jewelery');
+      assert.equal(p.category, 'jewelry');
     });
   });
 

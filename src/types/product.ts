@@ -36,7 +36,7 @@ export type Category =
   | 'all'
   | "men's clothing"
   | "women's clothing"
-  | 'jewelery'
+  | 'jewelry'
   | 'electronics'
   | 'furniture'
   | 'fragrances'
