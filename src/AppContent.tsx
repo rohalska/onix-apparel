@@ -9,6 +9,7 @@ import { CartDrawer } from './components/CartDrawer';
 import { WishlistDrawer } from './components/WishlistDrawer';
 import { CheckoutModal } from './components/CheckoutModal';
 import { Footer } from './components/Footer';
+import { ShoppingAgentLauncher } from './components/ShoppingAgentLauncher';
 import { Toast, ToastMessage } from './components/Toast';
 import { fetchProducts } from './services/api';
 import {
@@ -878,6 +879,9 @@ export const AppContent: React.FC = () => {
 
       {/* Checkout Modal */}
       <CheckoutModal isOpen={isCheckoutOpen} onClose={() => setIsCheckoutOpen(false)} />
+
+      {/* Google Shopping Agent launcher */}
+      <ShoppingAgentLauncher />
 
       {/* Toast Notifications */}
       <Toast toasts={toasts} onDismiss={handleDismissToast} />

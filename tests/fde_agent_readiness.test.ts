@@ -121,6 +121,29 @@ describe('Google Forward Deployment Engineer & Gemini Enterprise Readiness', () 
       assert.ok(html.includes('https://apis.google.com'));
       assert.ok(html.includes('https://cloud.google.com'));
       assert.ok(html.includes('https://retail.googleapis.com'));
+
+      const policy = /http-equiv="Content-Security-Policy"\s+content="([^"]+)"/.exec(html)?.[1];
+      assert.ok(policy, 'CSP meta tag must include a content policy');
+      const directives = new Map(
+        policy.split(';').map((directive) => {
+          const [name, ...sources] = directive.trim().split(/\s+/);
+          return [name, sources];
+        }),
+      );
+      for (const directive of ['script-src', 'connect-src', 'frame-src']) {
+        assert.ok(
+          directives.get(directive)?.includes('https://agents.cloud.google.com'),
+          `CSP ${directive} must allow the Google Shopping Agent origin`,
+        );
+      }
+      assert.ok(
+        directives.get('script-src')?.includes('https://www.gstatic.com'),
+        'CSP script-src must allow the Google Shopping Agent UI bundle',
+      );
+      assert.ok(
+        directives.get('connect-src')?.includes('https://*.google.com'),
+        'CSP connect-src must allow Google Shopping Agent API and web-channel requests',
+      );
     });
   });
 
