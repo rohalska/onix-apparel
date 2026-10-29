@@ -1,7 +1,7 @@
 {
   "name": "clothing-store",
   "private": true,
-  "version": "0.8.1",
+  "version": "0.8.2",
   "type": "module",
   "scripts": {
     "prepare": "node -e \"const f='scripts/installHooks.mjs';if(require('node:fs').existsSync(f))require('node:child_process').execFileSync(process.execPath,[f],{stdio:'inherit'})\"",

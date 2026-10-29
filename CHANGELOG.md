@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.8.2](https://github.com/onix-net/gecx-shopping-agent-demo/compare/v0.8.1...v0.8.2) (2026-10-29)
+
+
+### Bug Fixes
+
+* correct jewelry category spelling ([#69](https://github.com/onix-net/gecx-shopping-agent-demo/issues/69)) ([6b24acd](https://github.com/onix-net/gecx-shopping-agent-demo/commit/6b24acd706a672706fc9f30632d4c46467d92411))
+
 ## [0.8.1](https://github.com/onix-net/gecx-shopping-agent-demo/compare/v0.8.0...v0.8.1) (2026-10-29)
 
 
