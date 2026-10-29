@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.8.1](https://github.com/onix-net/gecx-shopping-agent-demo/compare/v0.8.0...v0.8.1) (2026-10-29)
+
+
+### Bug Fixes
+
+* restore Google Shopping Agent launcher ([#67](https://github.com/onix-net/gecx-shopping-agent-demo/issues/67)) ([51d4106](https://github.com/onix-net/gecx-shopping-agent-demo/commit/51d4106d5924f9760bbbade66baa72466260d1d0))
+
 ## [0.8.0](https://github.com/onix-net/gecx-shopping-agent-demo/compare/v0.7.1...v0.8.0) (2026-10-23)
 
 
