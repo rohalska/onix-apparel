@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.8.0](https://github.com/onix-net/gecx-shopping-agent-demo/compare/v0.7.1...v0.8.0) (2026-10-23)
+
+
+### Features
+
+* initial integration of Gemini Enterprise CX Shopping Agent ([#63](https://github.com/onix-net/gecx-shopping-agent-demo/issues/63)) ([c999830](https://github.com/onix-net/gecx-shopping-agent-demo/commit/c99983089d1740e479fcb75c5bb07d4a8f5f6ec1))
+
 ## [0.7.1](https://github.com/onix-net/gecx-shopping-agent-demo/compare/v0.7.0...v0.7.1) (2026-10-14)
 
 
