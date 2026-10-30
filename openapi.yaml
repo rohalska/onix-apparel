@@ -8,7 +8,7 @@ info:
 servers:
   - url: http://localhost:3001
     description: Local Development Proxy
-  - url: https://api.onixwares.com
+  - url: https://gecx-shopping-agent-demo-210812903728.us-central1.run.app
     description: Production Google Cloud Run Service
 
 paths:
