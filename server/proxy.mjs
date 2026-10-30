@@ -146,8 +146,10 @@ export function mapVertexProductToFrontend(vertexProduct) {
     );
   }
 
-  const sizes = vertexProduct.attributes?.sizes?.text || ['S', 'M', 'L', 'XL'];
-  const colorNames = vertexProduct.attributes?.colors?.text || ['Onyx Black'];
+  const sizes = vertexProduct.sizes ||
+    vertexProduct.attributes?.sizes?.text || ['S', 'M', 'L', 'XL'];
+  const colorNames = vertexProduct.colorInfo?.colors ||
+    vertexProduct.attributes?.colors?.text || ['Onyx Black'];
   const colorHexes = vertexProduct.attributes?.color_hexes?.text || ['#1c1917'];
 
   const colors = colorNames.map((name, i) => ({
@@ -155,8 +157,14 @@ export function mapVertexProductToFrontend(vertexProduct) {
     hex: colorHexes[i] || '#1c1917',
   }));
 
-  const ratingRate = vertexProduct.attributes?.rating_rate?.numbers?.[0] || 4.5;
-  const ratingCount = vertexProduct.attributes?.rating_count?.numbers?.[0] || 150;
+  const ratingRate =
+    vertexProduct.rating?.averageRating ??
+    vertexProduct.attributes?.rating_rate?.numbers?.[0] ??
+    4.5;
+  const ratingCount =
+    vertexProduct.rating?.ratingCount ??
+    vertexProduct.attributes?.rating_count?.numbers?.[0] ??
+    150;
   const featured = vertexProduct.attributes?.featured?.text?.[0] === 'true';
   const isNewArrival = vertexProduct.attributes?.is_new_arrival?.text?.[0] === 'true';
 

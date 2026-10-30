@@ -49,8 +49,9 @@ dev, behind an approval. Both run the same image digest.
   covering every item in it. A persistent anonymous `visitorId` is generated and
   reused from `localStorage`.
 - **Catalog export** into strict `google.cloud.retail.v2.Product` form: `PRIMARY`
-  type, hierarchical categories, custom attributes, price info, validated CDN
-  image URIs.
+  type, hierarchical categories, price info, validated CDN image URIs, and
+  native Retail `sizes`, `colorInfo.colors`, and `rating` fields. Matching custom
+  attributes remain available for storefront facets and backward compatibility.
 
 ### Storefront
 
@@ -99,7 +100,7 @@ gecx-shopping-agent-demo/
 │   ├── types/                    # Product, CartItem, Filters
 │   └── utils/                    # agentActionValidator, filterSanitizer, fuzzySearch
 ├── tests/                        # Vitest suites (services, proxy, components, contracts)
-├── vertex-retail-catalog.jsonl   # Ready-to-import Retail catalog, 14 products
+├── vertex-retail-catalog.jsonl   # Ready-to-import Retail catalog, 150 products
 └── vertex-retail-catalog.json    # The same catalog, formatted for review
 ```
 

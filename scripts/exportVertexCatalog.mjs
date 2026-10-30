@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
+import { ADDITIONAL_PRODUCTS } from '../src/data/additionalProducts.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -1649,6 +1650,7 @@ export const ONIX_PRODUCTS = [
     featured: false,
     isNewArrival: true,
   },
+  ...ADDITIONAL_PRODUCTS,
 ];
 
 // Helper to build category hierarchies required by Vertex AI Search for Retail
@@ -1747,8 +1749,16 @@ function transformToVertexProduct(item) {
       originalPrice: item.originalPrice || item.price,
       cost: Number((item.price * 0.45).toFixed(2)),
     },
+    rating: {
+      averageRating: item.rating.rate,
+      ratingCount: item.rating.count,
+    },
     availability: item.inStock ? 'IN_STOCK' : 'OUT_OF_STOCK',
     availableQuantity: item.availableQuantity || 50,
+    colorInfo: {
+      colors: colorNames,
+    },
+    sizes: item.sizes,
     tags: Array.from(new Set(tags)),
     attributes: {
       sizes: {

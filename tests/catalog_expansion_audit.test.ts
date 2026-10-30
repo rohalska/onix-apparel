@@ -29,42 +29,50 @@ const VALID_CATEGORIES = [
   'groceries',
 ] as const;
 
-describe('75-Item Catalog Expansion Audit & Production Readiness Suite', () => {
+describe('150-Item Catalog Expansion Audit & Production Readiness Suite', () => {
   describe('1. Catalog Parity & Synchronization Across All Formats', () => {
-    it('should have exactly 75 items in FALLBACK_PRODUCTS', () => {
-      assert.equal(FALLBACK_PRODUCTS.length, 75, 'FALLBACK_PRODUCTS must contain exactly 75 items');
+    it('should have exactly 150 items in FALLBACK_PRODUCTS', () => {
+      assert.equal(
+        FALLBACK_PRODUCTS.length,
+        150,
+        'FALLBACK_PRODUCTS must contain exactly 150 items',
+      );
     });
 
-    it('should have exactly 75 items in exportVertexCatalog source', () => {
-      assert.equal(ONIX_PRODUCTS.length, 75, 'ONIX_PRODUCTS must contain exactly 75 items');
+    it('should have exactly 150 items in exportVertexCatalog source', () => {
+      assert.equal(ONIX_PRODUCTS.length, 150, 'ONIX_PRODUCTS must contain exactly 150 items');
     });
 
-    it('should have exactly 75 items in vertex-retail-catalog.json', () => {
+    it('should have exactly 150 items in vertex-retail-catalog.json', () => {
       const jsonPath = path.resolve(rootDir, 'vertex-retail-catalog.json');
       const catalog = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
-      assert.equal(catalog.length, 75, 'vertex-retail-catalog.json must contain exactly 75 items');
+      assert.equal(
+        catalog.length,
+        150,
+        'vertex-retail-catalog.json must contain exactly 150 items',
+      );
     });
 
-    it('should have exactly 75 non-empty lines in vertex-retail-catalog.jsonl', () => {
+    it('should have exactly 150 non-empty lines in vertex-retail-catalog.jsonl', () => {
       const jsonlPath = path.resolve(rootDir, 'vertex-retail-catalog.jsonl');
       const lines = fs
         .readFileSync(jsonlPath, 'utf-8')
         .split('\n')
         .map((l) => l.trim())
         .filter(Boolean);
-      assert.equal(lines.length, 75, 'vertex-retail-catalog.jsonl must contain exactly 75 lines');
+      assert.equal(lines.length, 150, 'vertex-retail-catalog.jsonl must contain exactly 150 lines');
     });
 
-    it('should have 100% unique IDs across all 75 items', () => {
+    it('should have 100% unique IDs across all 150 items', () => {
       const fallbackIds = FALLBACK_PRODUCTS.map((p) => p.id);
       assert.equal(
         new Set(fallbackIds).size,
-        75,
+        150,
         'All product IDs in FALLBACK_PRODUCTS must be unique',
       );
 
       const onixIds = (ONIX_PRODUCTS as Array<{ id: number }>).map((p) => p.id);
-      assert.equal(new Set(onixIds).size, 75, 'All product IDs in ONIX_PRODUCTS must be unique');
+      assert.equal(new Set(onixIds).size, 150, 'All product IDs in ONIX_PRODUCTS must be unique');
 
       // Parity check between fallback and export sources
       assert.deepEqual(
@@ -169,6 +177,14 @@ describe('75-Item Catalog Expansion Audit & Production Readiness Suite', () => {
       });
     });
 
+    it('allocates the 150 products evenly across all 8 departments', () => {
+      const counts = VALID_CATEGORIES.map(
+        (category) => FALLBACK_PRODUCTS.filter((product) => product.category === category).length,
+      );
+      assert.ok(counts.every((count) => count === 18 || count === 19));
+      assert.equal(Math.max(...counts) - Math.min(...counts), 1);
+    });
+
     it('verifies Vertex Retail category hierarchies for all products', () => {
       const jsonPath = path.resolve(rootDir, 'vertex-retail-catalog.json');
       const catalog = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
@@ -197,10 +213,47 @@ describe('75-Item Catalog Expansion Audit & Production Readiness Suite', () => {
         },
       );
     });
+
+    it('maps sizes, colors, and ratings to AICS standard fields for every product', () => {
+      const jsonPath = path.resolve(rootDir, 'vertex-retail-catalog.json');
+      const catalog = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
+
+      catalog.forEach(
+        (item: {
+          id: string;
+          sizes?: string[];
+          colorInfo?: { colors?: string[] };
+          rating?: { averageRating?: number; ratingCount?: number };
+          attributes?: {
+            sizes?: { text?: string[] };
+            colors?: { text?: string[] };
+            rating_rate?: { numbers?: number[] };
+            rating_count?: { numbers?: number[] };
+          };
+        }) => {
+          assert.deepEqual(item.sizes, item.attributes?.sizes?.text, `${item.id} standard sizes`);
+          assert.deepEqual(
+            item.colorInfo?.colors,
+            item.attributes?.colors?.text,
+            `${item.id} standard colors`,
+          );
+          assert.equal(
+            item.rating?.averageRating,
+            item.attributes?.rating_rate?.numbers?.[0],
+            `${item.id} standard average rating`,
+          );
+          assert.equal(
+            item.rating?.ratingCount,
+            item.attributes?.rating_count?.numbers?.[0],
+            `${item.id} standard rating count`,
+          );
+        },
+      );
+    });
   });
 
-  describe('4. Agent Action Bus: ADD_TO_CART & OPEN_PRODUCT for All 75 Products', () => {
-    it('resolves validated ADD_TO_CART for every product ID in the 75-item catalog', () => {
+  describe('4. Agent Action Bus: ADD_TO_CART & OPEN_PRODUCT for All 150 Products', () => {
+    it('resolves validated ADD_TO_CART for every product ID in the 150-item catalog', () => {
       FALLBACK_PRODUCTS.forEach((product) => {
         const action = {
           action: 'ADD_TO_CART' as const,
@@ -220,7 +273,7 @@ describe('75-Item Catalog Expansion Audit & Production Readiness Suite', () => {
       });
     });
 
-    it('resolves validated OPEN_PRODUCT for every product ID in the 75-item catalog', () => {
+    it('resolves validated OPEN_PRODUCT for every product ID in the 150-item catalog', () => {
       FALLBACK_PRODUCTS.forEach((product) => {
         const action = {
           action: 'OPEN_PRODUCT' as const,
@@ -252,9 +305,9 @@ describe('75-Item Catalog Expansion Audit & Production Readiness Suite', () => {
   });
 
   describe('5. Client Search & Complete-the-Outfit Scenario Simulation', () => {
-    it('returns all 75 products on blank global search', () => {
+    it('returns all 150 products on blank global search', () => {
       const res = simulateClientSearch({ category: 'all' }, FALLBACK_PRODUCTS);
-      assert.equal(res.products.length, 75);
+      assert.equal(res.products.length, 150);
     });
 
     it('returns exact category subsets for all 8 departments', () => {
@@ -339,7 +392,7 @@ describe('75-Item Catalog Expansion Audit & Production Readiness Suite', () => {
       });
     });
 
-    it('filterCatalogByCategory partitions all 75 items across the 8 categories without leakage', () => {
+    it('filterCatalogByCategory partitions all 150 items across the 8 categories without leakage', () => {
       let totalFilteredCount = 0;
       VALID_CATEGORIES.forEach((cat) => {
         const filtered = filterCatalogByCategory(catalog, cat);
@@ -355,8 +408,8 @@ describe('75-Item Catalog Expansion Audit & Production Readiness Suite', () => {
 
       assert.equal(
         totalFilteredCount,
-        75,
-        `Sum of category partition counts (${totalFilteredCount}) must equal total catalog size (75)`,
+        150,
+        `Sum of category partition counts (${totalFilteredCount}) must equal total catalog size (150)`,
       );
     });
   });

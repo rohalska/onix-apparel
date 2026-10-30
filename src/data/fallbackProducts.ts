@@ -1,4 +1,5 @@
 import { Product } from '../types/product';
+import { ADDITIONAL_PRODUCTS } from './additionalProducts.mjs';
 
 const DEFAULT_SIZES = ['XS', 'S', 'M', 'L', 'XL'];
 const MEN_SIZES = ['S', 'M', 'L', 'XL', 'XXL'];
@@ -1350,4 +1351,5 @@ export const FALLBACK_PRODUCTS: Product[] = [
     featured: false,
     isNewArrival: true,
   },
+  ...ADDITIONAL_PRODUCTS,
 ];

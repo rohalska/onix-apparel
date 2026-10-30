@@ -309,7 +309,7 @@ Redis, would also synchronise the buckets across instances.
 
 ## 3. Product Catalog Ingestion
 
-`vertex-retail-catalog.jsonl` holds 14 products in Retail API Product schema.
+`vertex-retail-catalog.jsonl` holds 150 products in Retail API Product schema.
 `npm run export:vertex` regenerates it from the app's catalog data.
 
 ### The normal path: the `catalog-import` workflow

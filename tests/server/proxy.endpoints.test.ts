@@ -345,6 +345,28 @@ describe('POST /api/search input handling', () => {
     expect(product.category).not.toBe('jewelery');
   });
 
+  it('maps AICS standard sizes, colors, and ratings to the storefront product', () => {
+    const product = mapVertexProductToFrontend({
+      id: 'onx-999',
+      title: 'Standard fields product',
+      categories: ['Apparel', "Apparel > Men's Clothing"],
+      sizes: ['M', 'L'],
+      colorInfo: { colors: ['Forest Green'] },
+      rating: { averageRating: 4.2, ratingCount: 0 },
+      attributes: {
+        sizes: { text: ['XS'] },
+        colors: { text: ['Fallback color'] },
+        color_hexes: { text: ['#228b22'] },
+        rating_rate: { numbers: [3] },
+        rating_count: { numbers: [18] },
+      },
+    });
+
+    expect(product.sizes).toEqual(['M', 'L']);
+    expect(product.colors).toEqual([{ name: 'Forest Green', hex: '#228b22' }]);
+    expect(product.rating).toEqual({ rate: 4.2, count: 0 });
+  });
+
   it('maps categories case-insensitively across all departments', () => {
     const testCases: [string[], string][] = [
       [["apparel > women's clothing"], "women's clothing"],
