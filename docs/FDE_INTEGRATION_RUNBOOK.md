@@ -170,6 +170,28 @@ The storefront container (`server/proxy.mjs`) calls only the following external 
 | `https://retail.googleapis.com/v2/.../userEvents:write`          | Retail API (`retail.googleapis.com`) | Real-time event ingestion           | `retail.userEvents.create`     | `projects/${PROJECT_ID}/roles/gecxShoppingAgentRuntime` |
 | `http://metadata.google.internal/.../token`                      | Compute Engine Metadata Server       | In-container OAuth token generation | _(built-in Cloud Run ADC)_     | Attached `gecx-shop-run` identity                       |
 
+##### Startup Readiness Probe and Shopping Agent CSP
+
+At startup, `server/proxy.mjs` sends a small Retail `:search` request to check
+that the upstream dependency is reachable. Retail requires `visitorId` on
+search requests, including this one. If it is omitted, Retail returns HTTP 400
+(`visitorId` is required), and `/api/health` reports
+`dependencyReadiness: "error"` with that response as its `fallbackReason`.
+That made a missing field look like a Retail dependency outage even when the
+runtime identity and permissions were valid. The probe now supplies the fixed
+value `onix-health-check`; it is only a synthetic identifier for this
+readiness request, not a shopper identifier or a Gemini chat session ID.
+
+The page's Content Security Policy also needs to allow
+`https://www.gstatic.com` in `style-src`: the Google Shopping Agent loads its
+Highlight.js stylesheet from that host. Without it, the browser blocks code
+syntax highlighting styles. This affects presentation only and does not cause
+the agent's chat request to fail.
+
+These changes correct the readiness diagnostic and remove the stylesheet CSP
+warning. They do not address failures returned by the separately hosted
+Shopping Agent chat service.
+
 **Other Google Cloud APIs Not Invoked at Runtime**:
 
 - **Vertex AI (`aiplatform.googleapis.com`)**: storefront search goes to the Retail API. The container does not call `aiplatform.googleapis.com` or include `@google-cloud/vertexai`, so the runtime account needs no Vertex AI role.

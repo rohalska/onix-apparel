@@ -1374,7 +1374,7 @@ if (!isTesting) {
               'Content-Type': 'application/json',
               'X-Goog-User-Project': GCP_PROJECT_ID,
             },
-            body: JSON.stringify({ pageSize: 1 }),
+            body: JSON.stringify({ query: '', visitorId: 'onix-health-check', pageSize: 1 }),
           })
             .then(async (apiResponse) => {
               if (apiResponse.ok) {

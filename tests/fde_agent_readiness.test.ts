@@ -141,6 +141,10 @@ describe('Google Forward Deployment Engineer & Gemini Enterprise Readiness', () 
         'CSP script-src must allow the Google Shopping Agent UI bundle',
       );
       assert.ok(
+        directives.get('style-src')?.includes('https://www.gstatic.com'),
+        'CSP style-src must allow the Google Shopping Agent UI stylesheets',
+      );
+      assert.ok(
         directives.get('connect-src')?.includes('https://*.google.com'),
         'CSP connect-src must allow Google Shopping Agent API and web-channel requests',
       );
