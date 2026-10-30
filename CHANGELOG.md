@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.8.3](https://github.com/onix-net/gecx-shopping-agent-demo/compare/v0.8.2...v0.8.3) (2026-10-30)
+
+
+### Bug Fixes
+
+* correct agent integration diagnostics ([#71](https://github.com/onix-net/gecx-shopping-agent-demo/issues/71)) ([ce0c208](https://github.com/onix-net/gecx-shopping-agent-demo/commit/ce0c208f40b66f9c77ddab8f6a6be984ed6077b1))
+
 ## [0.8.2](https://github.com/onix-net/gecx-shopping-agent-demo/compare/v0.8.1...v0.8.2) (2026-10-29)
 
 
