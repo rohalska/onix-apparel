@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.8.4](https://github.com/onix-net/gecx-shopping-agent-demo/compare/v0.8.3...v0.8.4) (2026-10-30)
+
+
+### Bug Fixes
+
+* 'expand inventory to 150 items and map AICS standard fields' ([#73](https://github.com/onix-net/gecx-shopping-agent-demo/issues/73)) ([4b83611](https://github.com/onix-net/gecx-shopping-agent-demo/commit/4b8361130b437e98827c48bf5ac7726e5ac04e74))
+* **openapi:** use production Cloud Run URL ([#74](https://github.com/onix-net/gecx-shopping-agent-demo/issues/74)) ([5c7ce9a](https://github.com/onix-net/gecx-shopping-agent-demo/commit/5c7ce9a5cc70032386e043db2c7720d2b9f07944))
+
 ## [0.8.3](https://github.com/onix-net/gecx-shopping-agent-demo/compare/v0.8.2...v0.8.3) (2026-10-30)
 
 
