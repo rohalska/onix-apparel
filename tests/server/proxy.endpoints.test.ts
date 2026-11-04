@@ -152,6 +152,14 @@ describe('POST /api/search input handling', () => {
     expect(res.status).toBe(400);
   });
 
+  it('rejects an invalid collection key with 400', async () => {
+    const res = await postJson(
+      '/api/search',
+      JSON.stringify({ collectionKey: 'holiday") OR true OR ("x' }),
+    );
+    expect(res.status).toBe(400);
+  });
+
   it('rejects malformed JSON with 400', async () => {
     const res = await postJson('/api/search', '{not json');
     expect(res.status).toBe(400);
@@ -216,6 +224,22 @@ describe('POST /api/search input handling', () => {
     for (const p of body.products) {
       expect(p.category).toBe('electronics');
     }
+  });
+
+  it('filters search results by the indexed holiday product collection attribute', async () => {
+    const res = await postJson(
+      '/api/search',
+      JSON.stringify({ collectionKey: 'holiday_gifts_2026' }),
+    );
+    expect(res.status).toBe(200);
+    const body = await res.json();
+    expect(body.products).toHaveLength(30);
+    for (const product of body.products) {
+      expect(product.collectionKeys).toContain('holiday_gifts_2026');
+    }
+    expect(new Set(body.products.map((product: { category: string }) => product.category))).toEqual(
+      new Set(['electronics', "men's clothing", 'jewelry', 'groceries', 'furniture']),
+    );
   });
 
   it('returns jewelry products under the canonical spelling and accepts the legacy category key', async () => {

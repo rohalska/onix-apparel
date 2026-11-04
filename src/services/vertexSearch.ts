@@ -16,6 +16,7 @@ export interface FacetGroup {
 export interface VertexSearchParams {
   query?: string;
   category?: string;
+  collectionKey?: string;
   minPrice?: number;
   maxPrice?: number;
   size?: string;
@@ -72,6 +73,7 @@ export function simulateClientSearch(
   const {
     query = '',
     category = 'all',
+    collectionKey,
     minPrice,
     maxPrice = 700,
     size,
@@ -84,6 +86,10 @@ export function simulateClientSearch(
   // 1. Category Filter
   if (category && category !== 'all') {
     filtered = filtered.filter((p) => p.category.toLowerCase() === category.toLowerCase());
+  }
+
+  if (collectionKey) {
+    filtered = filtered.filter((p) => p.collectionKeys?.includes(collectionKey));
   }
 
   // 2. Price Filter
@@ -121,12 +127,24 @@ export function simulateClientSearch(
         const titleLower = (p.title || '').toLowerCase();
         const descLower = (p.description || '').toLowerCase();
         const catLower = (p.category || '').toLowerCase();
+        const metadataLower = [
+          p.subcategory,
+          p.productType,
+          ...(p.useCases || []),
+          ...(p.keyFeatures || []),
+          ...(p.searchTags || []),
+          ...(p.targetAudience || []),
+          ...(p.occasions || []),
+        ]
+          .join(' ')
+          .toLowerCase();
         const colorsLower = (p.colors || []).map((c) => c.name.toLowerCase()).join(' ');
         const sizesLower = (p.sizes || []).join(' ').toLowerCase();
 
         for (const token of searchTokens) {
           if (titleLower.includes(token)) score += 15;
           if (catLower.includes(token)) score += 8;
+          if (metadataLower.includes(token)) score += 6;
           if (colorsLower.includes(token)) score += 5;
           if (sizesLower.includes(token)) score += 4;
           if (descLower.includes(token)) score += 2;

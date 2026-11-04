@@ -3,7 +3,9 @@ import { ArrowRight, Check, Heart, Mail, ShieldCheck } from 'lucide-react';
 import { isConsentManaged, openConsentPreferences } from '../services/consent';
 
 export interface FooterProps {
-  onSelectCollection?: (collectionKey: 'women' | 'men' | 'accessories' | 'new' | 'sale') => void;
+  onSelectCollection?: (
+    collectionKey: 'women' | 'men' | 'accessories' | 'new' | 'sale' | 'holiday',
+  ) => void;
   onSelectCustomerCare?: (
     sectionKey: 'shipping' | 'returns' | 'sizing' | 'order-lookup' | 'contact' | 'privacy',
   ) => void;
@@ -87,6 +89,20 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCollection, onSelectCust
                   className="hover:text-white transition-colors cursor-pointer"
                 >
                   Fine Jewelry & Accessories
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#holiday"
+                  onClick={(e) => {
+                    if (onSelectCollection) {
+                      e.preventDefault();
+                      onSelectCollection('holiday');
+                    }
+                  }}
+                  className="hover:text-white transition-colors cursor-pointer"
+                >
+                  Holiday Gifts for Tech Professionals
                 </a>
               </li>
               <li>

@@ -88,6 +88,11 @@ components:
               'beauty',
               'groceries',
             ]
+        collectionKey:
+          type: string
+          pattern: '^[a-z0-9_]{1,64}$'
+          description: Optional indexed product collection key, such as holiday_gifts_2026.
+          example: holiday_gifts_2026
         minPrice:
           type: number
           example: 20.0

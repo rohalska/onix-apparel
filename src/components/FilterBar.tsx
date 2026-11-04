@@ -12,6 +12,8 @@ interface FilterBarProps {
   totalCount: number;
   onResetFilters: () => void;
   hasActiveFilters: boolean;
+  onSelectHoliday?: () => void;
+  isHolidaySelected?: boolean;
 }
 
 export const FilterBar: React.FC<FilterBarProps> = ({
@@ -24,6 +26,8 @@ export const FilterBar: React.FC<FilterBarProps> = ({
   totalCount,
   onResetFilters,
   hasActiveFilters,
+  onSelectHoliday,
+  isHolidaySelected = false,
 }) => {
   const categories: { label: string; value: Category }[] = [
     { label: 'All Items', value: 'all' },
@@ -42,8 +46,21 @@ export const FilterBar: React.FC<FilterBarProps> = ({
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
         {/* Category Filter Pills */}
         <div className="flex items-center gap-2 overflow-x-auto pb-1 md:pb-0 scrollbar-none">
+          {onSelectHoliday && (
+            <button
+              onClick={onSelectHoliday}
+              className={`px-4 py-2 text-xs font-semibold rounded-full whitespace-nowrap transition-all ${
+                isHolidaySelected
+                  ? 'bg-rose-800 text-white shadow-sm'
+                  : 'bg-rose-50 text-rose-800 hover:bg-rose-100'
+              }`}
+            >
+              Holiday Gifts
+            </button>
+          )}
           {categories.map((cat) => {
-            const active = currentCategory === cat.value;
+            const active =
+              currentCategory === cat.value && !(cat.value === 'all' && isHolidaySelected);
             return (
               <button
                 key={cat.value}

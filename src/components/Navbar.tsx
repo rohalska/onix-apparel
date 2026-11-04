@@ -12,6 +12,8 @@ interface NavbarProps {
   onSearchSubmit?: () => void;
   searchResults?: Product[];
   onSelectProduct?: (product: Product) => void;
+  onSelectHoliday?: () => void;
+  isHolidaySelected?: boolean;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -22,6 +24,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   onSearchSubmit,
   searchResults,
   onSelectProduct,
+  onSelectHoliday,
+  isHolidaySelected = false,
 }) => {
   const { totalItems, openCart } = useCart();
   const { wishlist, openWishlist } = useWishlist();
@@ -105,8 +109,24 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Desktop Nav Categories */}
           <nav className="hidden lg:flex items-center space-x-8">
+            {onSelectHoliday && (
+              <button
+                onClick={onSelectHoliday}
+                className={`text-sm font-medium tracking-wide uppercase transition-colors relative py-1 ${
+                  isHolidaySelected
+                    ? 'text-black font-semibold'
+                    : 'text-rose-700 hover:text-rose-900'
+                }`}
+              >
+                Holiday Gifts
+                {isHolidaySelected && (
+                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-rose-700 rounded-full animate-fade-in" />
+                )}
+              </button>
+            )}
             {categories.map((cat) => {
-              const active = currentCategory === cat.value;
+              const active =
+                currentCategory === cat.value && !(cat.value === 'all' && isHolidaySelected);
               return (
                 <button
                   key={cat.value}
@@ -339,8 +359,24 @@ export const Navbar: React.FC<NavbarProps> = ({
         {/* Mobile Navigation Dropdown */}
         {mobileMenuOpen && (
           <div className="lg:hidden border-t border-stone-200 py-3 space-y-1 animate-fade-in">
+            {onSelectHoliday && (
+              <button
+                onClick={() => {
+                  onSelectHoliday();
+                  setMobileMenuOpen(false);
+                }}
+                className={`block w-full text-left px-3 py-2 text-sm font-medium rounded-md ${
+                  isHolidaySelected
+                    ? 'bg-rose-100 font-semibold text-rose-900'
+                    : 'text-rose-700 hover:bg-rose-50'
+                }`}
+              >
+                Holiday Gifts
+              </button>
+            )}
             {categories.map((cat) => {
-              const active = currentCategory === cat.value;
+              const active =
+                currentCategory === cat.value && !(cat.value === 'all' && isHolidaySelected);
               return (
                 <button
                   key={cat.value}

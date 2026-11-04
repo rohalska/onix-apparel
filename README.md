@@ -100,9 +100,11 @@ gecx-shopping-agent-demo/
 │   ├── types/                    # Product, CartItem, Filters
 │   └── utils/                    # agentActionValidator, filterSanitizer, fuzzySearch
 ├── tests/                        # Vitest suites (services, proxy, components, contracts)
-├── vertex-retail-catalog.jsonl   # Ready-to-import Retail catalog, 167 products
+├── vertex-retail-catalog.jsonl   # Ready-to-import Retail catalog, 197 products
 └── vertex-retail-catalog.json    # The same catalog, formatted for review
 ```
+
+The 30 Christmas 2026 gift entries use the `holiday_gifts_2026` collection key and searchable audience, occasion, use-case, and feature attributes. They are illustrative ONIX WARES demo listings; verify real specifications, prices, imagery, ratings, and inventory before importing them into a live catalog.
 
 ## Getting started
 

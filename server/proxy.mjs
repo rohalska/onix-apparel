@@ -184,6 +184,14 @@ export function mapVertexProductToFrontend(vertexProduct) {
     inStock: vertexProduct.availability === 'IN_STOCK',
     featured,
     isNewArrival,
+    collectionKeys: vertexProduct.attributes?.product_collections?.text || [],
+    targetAudience: vertexProduct.attributes?.target_audience?.text || [],
+    occasions: vertexProduct.attributes?.occasion?.text || [],
+    subcategory: vertexProduct.attributes?.subcategory?.text?.[0],
+    productType: vertexProduct.attributes?.product_type?.text?.[0],
+    useCases: vertexProduct.attributes?.use_case?.text || [],
+    keyFeatures: vertexProduct.attributes?.key_features?.text || [],
+    searchTags: vertexProduct.tags || [],
   };
 }
 
@@ -872,8 +880,18 @@ const server = http.createServer(async (req, res) => {
       if (body.sortBy != null && typeof body.sortBy !== 'string') {
         return badRequest(res, req, 'sortBy must be a string');
       }
+      if (
+        body.collectionKey != null &&
+        (typeof body.collectionKey !== 'string' || !/^[a-z0-9_]{1,64}$/.test(body.collectionKey))
+      ) {
+        return badRequest(
+          res,
+          req,
+          'collectionKey must contain lowercase letters, digits, or underscores',
+        );
+      }
 
-      const { category, minPrice, maxPrice, size, color } = body;
+      const { category, collectionKey, minPrice, maxPrice, size, color } = body;
       // Destructuring defaults only fire for `undefined`, not `null`, so every
       // defaulted field is normalized with `??`. A null visitorId or pageSize
       // forwarded to Vertex is rejected there, which would silently drop live
@@ -920,6 +938,9 @@ const server = http.createServer(async (req, res) => {
               } else if (category === 'groceries') {
                 filterConditions.push('(categories: ANY("Gourmet Pantry", "Groceries", "Pantry"))');
               }
+            }
+            if (collectionKey) {
+              filterConditions.push(`(attributes.product_collections: ANY("${collectionKey}"))`);
             }
             const numMinPrice =
               typeof minPrice === 'number' && !isNaN(minPrice) ? minPrice : undefined;
@@ -985,8 +1006,14 @@ const server = http.createServer(async (req, res) => {
               // If live Retail search returned 0 items for category browsing (empty search query)
               // because newly added categories have not yet been indexed in the live GCP Retail API,
               // seamlessly fall back to the local catalog filtered by that category.
-              if (hydrated.length === 0 && !query.trim() && category && category !== 'all') {
-                hydrated = filterCatalogByCategory(localCatalog, category);
+              if (!hydrated.length && !query.trim()) {
+                if (collectionKey) {
+                  hydrated = localCatalog.filter((item) =>
+                    item.attributes?.product_collections?.text?.includes(collectionKey),
+                  );
+                } else if (category && category !== 'all') {
+                  hydrated = filterCatalogByCategory(localCatalog, category);
+                }
               }
 
               const results = hydrated.map(mapVertexProductToFrontend);
@@ -1038,6 +1065,11 @@ const server = http.createServer(async (req, res) => {
       // Category filter
       if (category && category !== 'all') {
         filtered = filterCatalogByCategory(filtered, category);
+      }
+      if (collectionKey) {
+        filtered = filtered.filter((item) =>
+          item.attributes?.product_collections?.text?.includes(collectionKey),
+        );
       }
 
       // Price filter

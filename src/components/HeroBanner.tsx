@@ -6,12 +6,14 @@ interface HeroBannerProps {
   onSelectCategory: (cat: Category) => void;
   featuredProduct?: Product;
   onQuickView?: (product: Product) => void;
+  onSelectHoliday?: () => void;
 }
 
 export const HeroBanner: React.FC<HeroBannerProps> = ({
   onSelectCategory,
   featuredProduct,
   onQuickView,
+  onSelectHoliday,
 }) => {
   const displayImage =
     featuredProduct?.image || 'https://m.media-amazon.com/images/I/71li-ujtlUL._AC_UX679.jpg';
@@ -55,6 +57,14 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
               >
                 Shop Tech & Living
               </button>
+              {onSelectHoliday && (
+                <button
+                  onClick={onSelectHoliday}
+                  className="px-6 py-3.5 bg-rose-800 text-white text-sm font-semibold rounded-full hover:bg-rose-900 transition-all shadow-sm hover:translate-y-[-1px]"
+                >
+                  Holiday Gifts for Tech Pros
+                </button>
+              )}
             </div>
           </div>
 

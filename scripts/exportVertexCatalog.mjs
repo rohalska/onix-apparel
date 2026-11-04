@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
 import { ADDITIONAL_PRODUCTS } from '../src/data/additionalProducts.mjs';
+import { HOLIDAY_GIFT_PRODUCTS } from '../src/data/holidayGiftProducts.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -1651,6 +1652,7 @@ export const ONIX_PRODUCTS = [
     isNewArrival: true,
   },
   ...ADDITIONAL_PRODUCTS,
+  ...HOLIDAY_GIFT_PRODUCTS,
 ];
 
 // Helper to build category hierarchies required by Vertex AI Search for Retail
@@ -1727,7 +1729,15 @@ function transformToVertexProduct(item) {
       .trim()
       .replace(/[^a-z0-9]+/g, '_')
       .replace(/^_+|_+$/g, '');
-  const tags = [item.gender, item.category, item.subcategory, ...(item.searchTags || [])]
+  const tags = [
+    item.gender,
+    item.category,
+    item.subcategory,
+    ...(item.searchTags || []),
+    ...(item.collectionKeys || []),
+    ...(item.targetAudience || []),
+    ...(item.occasions || []),
+  ]
     .filter(Boolean)
     .map(normalizeTag);
 
@@ -1759,6 +1769,9 @@ function transformToVertexProduct(item) {
   };
   if (item.useCases?.length) attributes.use_case = { text: item.useCases };
   if (item.keyFeatures?.length) attributes.key_features = { text: item.keyFeatures };
+  if (item.collectionKeys?.length) attributes.product_collections = { text: item.collectionKeys };
+  if (item.targetAudience?.length) attributes.target_audience = { text: item.targetAudience };
+  if (item.occasions?.length) attributes.occasion = { text: item.occasions };
 
   return {
     id: `onx-${item.id}`,

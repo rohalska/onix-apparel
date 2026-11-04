@@ -15611,5 +15611,4023 @@
         ]
       }
     }
+  },
+  {
+    "id": "onx-204",
+    "type": "PRIMARY",
+    "title": "Hot-Swappable Mechanical Keyboard",
+    "description": "A compact mechanical keyboard with hot-swappable tactile switches, a durable aluminum frame, and Bluetooth or USB-C connectivity for focused coding at home or on the move.",
+    "languageCode": "en-US",
+    "categories": [
+      "Electronics",
+      "Electronics > Keyboards & Input Devices"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/204",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 149
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 128
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 62,
+    "conditions": [
+      "new"
+    ],
+    "colorInfo": {
+      "colors": [
+        "Graphite"
+      ]
+    },
+    "sizes": [
+      "One Size"
+    ],
+    "tags": [
+      "unisex",
+      "electronics",
+      "keyboards_input_devices",
+      "mechanical_keyboard",
+      "coding",
+      "developer_desk",
+      "wireless_keyboard",
+      "holiday_gifts_2026",
+      "ai_engineers",
+      "google_forward_deployment_engineers",
+      "technology_professionals",
+      "christmas_2026",
+      "holiday_season",
+      "gift_giving"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "One Size"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Graphite"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#475569"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Keyboards & Input Devices"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Mechanical computer keyboard"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "software development",
+          "AI model development",
+          "desk setup",
+          "travel"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "hot-swappable switches",
+          "compact layout",
+          "Bluetooth and USB-C connectivity"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "holiday_gifts_2026"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "AI engineers",
+          "Google Forward Deployment Engineers",
+          "technology professionals"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Christmas 2026",
+          "Holiday season",
+          "Gift giving"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-205",
+    "type": "PRIMARY",
+    "title": "Ergonomic Precision Wireless Mouse",
+    "description": "A precision wireless mouse with a contoured shape, programmable controls, and multi-device pairing for long coding sessions, customer demos, and hybrid work.",
+    "languageCode": "en-US",
+    "categories": [
+      "Electronics",
+      "Electronics > Keyboards & Input Devices"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/205",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1527814050087-3793815479db?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 89
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 145
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 75,
+    "conditions": [
+      "new"
+    ],
+    "colorInfo": {
+      "colors": [
+        "Graphite"
+      ]
+    },
+    "sizes": [
+      "One Size"
+    ],
+    "tags": [
+      "unisex",
+      "electronics",
+      "keyboards_input_devices",
+      "wireless_mouse",
+      "ergonomic_mouse",
+      "developer_gift",
+      "computer_accessory",
+      "holiday_gifts_2026",
+      "ai_engineers",
+      "google_forward_deployment_engineers",
+      "technology_professionals",
+      "christmas_2026",
+      "holiday_season",
+      "gift_giving"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "One Size"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Graphite"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#475569"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Keyboards & Input Devices"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Ergonomic wireless mouse"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "software development",
+          "office work",
+          "multi-device workflow",
+          "travel"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "ergonomic contour",
+          "programmable buttons",
+          "multi-device pairing"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "holiday_gifts_2026"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "AI engineers",
+          "Google Forward Deployment Engineers",
+          "technology professionals"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Christmas 2026",
+          "Holiday season",
+          "Gift giving"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-206",
+    "type": "PRIMARY",
+    "title": "Thunderbolt 4 Laptop Dock",
+    "description": "A single-cable workstation dock expands a compatible laptop with high-speed data, dual-display connections, Ethernet, and power delivery for a tidy engineering desk.",
+    "languageCode": "en-US",
+    "categories": [
+      "Electronics",
+      "Electronics > Docks & Connectivity"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/206",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1625842268584-8f3296236761?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 259
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 162
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 88,
+    "conditions": [
+      "new"
+    ],
+    "colorInfo": {
+      "colors": [
+        "Graphite"
+      ]
+    },
+    "sizes": [
+      "One Size"
+    ],
+    "tags": [
+      "unisex",
+      "electronics",
+      "docks_connectivity",
+      "thunderbolt_dock",
+      "laptop_docking_station",
+      "work_from_home",
+      "developer_setup",
+      "holiday_gifts_2026",
+      "ai_engineers",
+      "google_forward_deployment_engineers",
+      "technology_professionals",
+      "christmas_2026",
+      "holiday_season",
+      "gift_giving"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "One Size"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Graphite"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#475569"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Docks & Connectivity"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Thunderbolt laptop docking station"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "developer workstation",
+          "multi-monitor setup",
+          "remote work",
+          "desk organization"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "Thunderbolt connectivity",
+          "dual-display support",
+          "Ethernet and power delivery"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "holiday_gifts_2026"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "AI engineers",
+          "Google Forward Deployment Engineers",
+          "technology professionals"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Christmas 2026",
+          "Holiday season",
+          "Gift giving"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-207",
+    "type": "PRIMARY",
+    "title": "Instant Film Camera",
+    "description": "A point-and-shoot instant camera turns conference trips, team gatherings, and everyday adventures into keepsake prints, with a built-in flash and easy controls.",
+    "languageCode": "en-US",
+    "categories": [
+      "Electronics",
+      "Electronics > Cameras & Imaging"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/207",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 119
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 179
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 101,
+    "conditions": [
+      "new"
+    ],
+    "colorInfo": {
+      "colors": [
+        "Graphite"
+      ]
+    },
+    "sizes": [
+      "One Size"
+    ],
+    "tags": [
+      "unisex",
+      "electronics",
+      "cameras_imaging",
+      "instant_camera",
+      "film_photography",
+      "travel_camera",
+      "team_gift",
+      "holiday_gifts_2026",
+      "ai_engineers",
+      "google_forward_deployment_engineers",
+      "technology_professionals",
+      "christmas_2026",
+      "holiday_season",
+      "gift_giving"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "One Size"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Graphite"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#475569"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Cameras & Imaging"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Instant film camera"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "instant photography",
+          "team gatherings",
+          "travel",
+          "everyday memories"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "point-and-shoot operation",
+          "built-in flash",
+          "instant photo prints"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "holiday_gifts_2026"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "AI engineers",
+          "Google Forward Deployment Engineers",
+          "technology professionals"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Christmas 2026",
+          "Holiday season",
+          "Gift giving"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-208",
+    "type": "PRIMARY",
+    "title": "16-Inch Portable USB-C Monitor",
+    "description": "A slim 16-inch portable monitor adds a second screen for customer workshops, field deployments, and travel; a fold-cover stand protects it in a work bag.",
+    "languageCode": "en-US",
+    "categories": [
+      "Electronics",
+      "Electronics > Monitors & Displays"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/208",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1593640408182-31c70c8268f5?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 199
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 196
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 24,
+    "conditions": [
+      "new"
+    ],
+    "colorInfo": {
+      "colors": [
+        "Graphite"
+      ]
+    },
+    "sizes": [
+      "One Size"
+    ],
+    "tags": [
+      "unisex",
+      "electronics",
+      "monitors_displays",
+      "portable_monitor",
+      "travel_display",
+      "field_engineer",
+      "second_screen",
+      "holiday_gifts_2026",
+      "ai_engineers",
+      "google_forward_deployment_engineers",
+      "technology_professionals",
+      "christmas_2026",
+      "holiday_season",
+      "gift_giving"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "One Size"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Graphite"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#475569"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Monitors & Displays"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Portable USB-C monitor"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "field deployment",
+          "customer workshops",
+          "travel work",
+          "dual-screen productivity"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "16-inch portable display",
+          "single-cable USB-C connection",
+          "fold-cover stand"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "holiday_gifts_2026"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "AI engineers",
+          "Google Forward Deployment Engineers",
+          "technology professionals"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Christmas 2026",
+          "Holiday season",
+          "Gift giving"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-209",
+    "type": "PRIMARY",
+    "title": "Wireless Gaming Headset",
+    "description": "A comfortable wireless gaming headset with a flip-to-mute microphone and immersive stereo sound is made for after-hours multiplayer sessions and everyday listening.",
+    "languageCode": "en-US",
+    "categories": [
+      "Electronics",
+      "Electronics > Gaming & Audio"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/209",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1599669454699-248893623440?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 129
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 213
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 37,
+    "conditions": [
+      "new"
+    ],
+    "colorInfo": {
+      "colors": [
+        "Graphite"
+      ]
+    },
+    "sizes": [
+      "One Size"
+    ],
+    "tags": [
+      "unisex",
+      "electronics",
+      "gaming_audio",
+      "gaming_headset",
+      "wireless_headphones",
+      "pc_gaming",
+      "gamer_gift",
+      "holiday_gifts_2026",
+      "ai_engineers",
+      "google_forward_deployment_engineers",
+      "technology_professionals",
+      "christmas_2026",
+      "holiday_season",
+      "gift_giving"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "One Size"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Graphite"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#475569"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Gaming & Audio"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Wireless gaming headset"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "PC gaming",
+          "console gaming",
+          "voice chat",
+          "music listening"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "wireless audio",
+          "flip-to-mute microphone",
+          "padded over-ear fit"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "holiday_gifts_2026"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "AI engineers",
+          "Google Forward Deployment Engineers",
+          "technology professionals"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Christmas 2026",
+          "Holiday season",
+          "Gift giving"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-210",
+    "type": "PRIMARY",
+    "title": "Smart LED Light Strip Kit",
+    "description": "An app-controlled LED light strip adds adjustable color and ambient effects to a TV area, game room, or living space, with schedules and music-reactive modes.",
+    "languageCode": "en-US",
+    "categories": [
+      "Electronics",
+      "Electronics > Smart Home & Lighting"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/210",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 49
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 230
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 50,
+    "conditions": [
+      "new"
+    ],
+    "colorInfo": {
+      "colors": [
+        "Graphite"
+      ]
+    },
+    "sizes": [
+      "One Size"
+    ],
+    "tags": [
+      "unisex",
+      "electronics",
+      "smart_home_lighting",
+      "smart_led_lights",
+      "gaming_room",
+      "ambient_lighting",
+      "smart_home_gift",
+      "holiday_gifts_2026",
+      "ai_engineers",
+      "google_forward_deployment_engineers",
+      "technology_professionals",
+      "christmas_2026",
+      "holiday_season",
+      "gift_giving"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "One Size"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Graphite"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#475569"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Smart Home & Lighting"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "App-controlled smart LED light strip"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "smart home lighting",
+          "gaming room setup",
+          "TV ambience",
+          "room decoration"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "app-based color control",
+          "scheduled lighting",
+          "music-reactive effects"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "holiday_gifts_2026"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "AI engineers",
+          "Google Forward Deployment Engineers",
+          "technology professionals"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Christmas 2026",
+          "Holiday season",
+          "Gift giving"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-211",
+    "type": "PRIMARY",
+    "title": "Single-Origin Coffee Tasting Flight",
+    "description": "A gift set of small-batch, single-origin coffees invites a curious coffee drinker to compare roast profiles and tasting notes during a well-earned break.",
+    "languageCode": "en-US",
+    "categories": [
+      "Gourmet Pantry",
+      "Gourmet Pantry > Specialty Coffee"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/211",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 48
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 247
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 63,
+    "conditions": [
+      "new"
+    ],
+    "colorInfo": {
+      "colors": [
+        "Graphite"
+      ]
+    },
+    "sizes": [
+      "One Size"
+    ],
+    "tags": [
+      "unisex",
+      "groceries",
+      "specialty_coffee",
+      "coffee_tasting_set",
+      "single_origin_coffee",
+      "coffee_lover_gift",
+      "holiday_gift_box",
+      "holiday_gifts_2026",
+      "ai_engineers",
+      "google_forward_deployment_engineers",
+      "technology_professionals",
+      "christmas_2026",
+      "holiday_season",
+      "gift_giving"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "One Size"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Graphite"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#475569"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Specialty Coffee"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Coffee tasting gift set"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "coffee tasting",
+          "holiday hosting",
+          "thank-you gift",
+          "coffee breaks"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "single-origin coffee selection",
+          "multiple roast profiles",
+          "gift-ready packaging"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "holiday_gifts_2026"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "AI engineers",
+          "Google Forward Deployment Engineers",
+          "technology professionals"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Christmas 2026",
+          "Holiday season",
+          "Gift giving"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-212",
+    "type": "PRIMARY",
+    "title": "20,000mAh USB-C Power Bank",
+    "description": "A high-capacity USB-C power bank with a clear charge display helps keep a phone, tablet, or compatible laptop powered during conferences, commutes, and customer-site visits.",
+    "languageCode": "en-US",
+    "categories": [
+      "Electronics",
+      "Electronics > Power & Charging"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/212",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 79
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 264
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 76,
+    "conditions": [
+      "new"
+    ],
+    "colorInfo": {
+      "colors": [
+        "Graphite"
+      ]
+    },
+    "sizes": [
+      "One Size"
+    ],
+    "tags": [
+      "unisex",
+      "electronics",
+      "power_charging",
+      "power_bank",
+      "portable_charger",
+      "usb_c_battery",
+      "travel_tech_gift",
+      "holiday_gifts_2026",
+      "ai_engineers",
+      "google_forward_deployment_engineers",
+      "technology_professionals",
+      "christmas_2026",
+      "holiday_season",
+      "gift_giving"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "One Size"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Graphite"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#475569"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Power & Charging"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "USB-C portable power bank"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "conference travel",
+          "field deployment",
+          "commuting",
+          "mobile device charging"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "20,000mAh capacity",
+          "USB-C power delivery",
+          "charge-level display"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "holiday_gifts_2026"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "AI engineers",
+          "Google Forward Deployment Engineers",
+          "technology professionals"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Christmas 2026",
+          "Holiday season",
+          "Gift giving"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-213",
+    "type": "PRIMARY",
+    "title": "65W Dual-Port GaN Wall Charger",
+    "description": "A compact 65W gallium-nitride wall charger powers a compatible laptop and phone from one travel-ready adapter, with two USB-C ports for everyday flexibility.",
+    "languageCode": "en-US",
+    "categories": [
+      "Electronics",
+      "Electronics > Power & Charging"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/213",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 49
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 281
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 89,
+    "conditions": [
+      "new"
+    ],
+    "colorInfo": {
+      "colors": [
+        "Graphite"
+      ]
+    },
+    "sizes": [
+      "One Size"
+    ],
+    "tags": [
+      "unisex",
+      "electronics",
+      "power_charging",
+      "gan_charger",
+      "usb_c_wall_charger",
+      "laptop_power_adapter",
+      "travel_charging",
+      "holiday_gifts_2026",
+      "ai_engineers",
+      "google_forward_deployment_engineers",
+      "technology_professionals",
+      "christmas_2026",
+      "holiday_season",
+      "gift_giving"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "One Size"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Graphite"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#475569"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Power & Charging"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "GaN USB-C wall charger"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "laptop charging",
+          "phone charging",
+          "conference travel",
+          "desk organization"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "65W power output",
+          "gallium-nitride design",
+          "dual USB-C ports"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "holiday_gifts_2026"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "AI engineers",
+          "Google Forward Deployment Engineers",
+          "technology professionals"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Christmas 2026",
+          "Holiday season",
+          "Gift giving"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-214",
+    "type": "PRIMARY",
+    "title": "Circuit Board Pendant Necklace",
+    "description": "A small circuit-board inspired pendant adds a subtle technology motif to a polished everyday necklace, an easy personal gift for a maker or engineer.",
+    "languageCode": "en-US",
+    "categories": [
+      "Accessories",
+      "Accessories > Fine Jewelry",
+      "Accessories > Fine Jewelry > Tech-Themed Accessories"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/214",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 64
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 298
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 102,
+    "conditions": [
+      "new"
+    ],
+    "colorInfo": {
+      "colors": [
+        "Graphite"
+      ]
+    },
+    "sizes": [
+      "One Size"
+    ],
+    "tags": [
+      "unisex",
+      "jewelry",
+      "tech_themed_accessories",
+      "circuit_board_necklace",
+      "engineer_jewelry",
+      "maker_gift",
+      "geek_style_accessory",
+      "holiday_gifts_2026",
+      "ai_engineers",
+      "google_forward_deployment_engineers",
+      "technology_professionals",
+      "christmas_2026",
+      "holiday_season",
+      "gift_giving"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "One Size"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Graphite"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#475569"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Tech-Themed Accessories"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Circuit board pendant necklace"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "everyday wear",
+          "maker community events",
+          "personal style",
+          "holiday gifting"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "circuit-inspired pendant",
+          "adjustable chain",
+          "gift presentation box"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "holiday_gifts_2026"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "AI engineers",
+          "Google Forward Deployment Engineers",
+          "technology professionals"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Christmas 2026",
+          "Holiday season",
+          "Gift giving"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-215",
+    "type": "PRIMARY",
+    "title": "FIDO2 USB-C Security Key Pair",
+    "description": "A pair of USB-C hardware security keys supports passkeys and two-step sign-in on compatible services, with a spare key for reliable account recovery.",
+    "languageCode": "en-US",
+    "categories": [
+      "Electronics",
+      "Electronics > Security & Privacy"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/215",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 69
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 55
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 25,
+    "conditions": [
+      "new"
+    ],
+    "colorInfo": {
+      "colors": [
+        "Graphite"
+      ]
+    },
+    "sizes": [
+      "One Size"
+    ],
+    "tags": [
+      "unisex",
+      "electronics",
+      "security_privacy",
+      "security_key",
+      "fido2",
+      "passkey",
+      "hardware_authentication",
+      "privacy_gift",
+      "holiday_gifts_2026",
+      "ai_engineers",
+      "google_forward_deployment_engineers",
+      "technology_professionals",
+      "christmas_2026",
+      "holiday_season",
+      "gift_giving"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "One Size"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Graphite"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#475569"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Security & Privacy"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "FIDO2 hardware security key"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "passkey sign-in",
+          "account security",
+          "developer security",
+          "travel backup"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "FIDO2 and passkey support",
+          "USB-C interface",
+          "two-key backup set"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "holiday_gifts_2026"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "AI engineers",
+          "Google Forward Deployment Engineers",
+          "technology professionals"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Christmas 2026",
+          "Holiday season",
+          "Gift giving"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-216",
+    "type": "PRIMARY",
+    "title": "Wi-Fi 7 Travel Router",
+    "description": "A pocket-size Wi-Fi 7 travel router creates a private network from a compatible wired connection or supported hotspot for a more consistent mobile workspace.",
+    "languageCode": "en-US",
+    "categories": [
+      "Electronics",
+      "Electronics > Networking"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/216",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1606904825846-647eb07f5be2?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 149
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 72
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 38,
+    "conditions": [
+      "new"
+    ],
+    "colorInfo": {
+      "colors": [
+        "Graphite"
+      ]
+    },
+    "sizes": [
+      "One Size"
+    ],
+    "tags": [
+      "unisex",
+      "electronics",
+      "networking",
+      "wi_fi_7_router",
+      "travel_router",
+      "portable_networking",
+      "field_engineer",
+      "holiday_gifts_2026",
+      "ai_engineers",
+      "google_forward_deployment_engineers",
+      "technology_professionals",
+      "christmas_2026",
+      "holiday_season",
+      "gift_giving"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "One Size"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Graphite"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#475569"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Networking"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Portable Wi-Fi 7 router"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "hotel workspace",
+          "field deployment",
+          "network testing",
+          "conference travel"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "Wi-Fi 7 wireless networking",
+          "compact travel form",
+          "private network setup"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "holiday_gifts_2026"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "AI engineers",
+          "Google Forward Deployment Engineers",
+          "technology professionals"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Christmas 2026",
+          "Holiday season",
+          "Gift giving"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-217",
+    "type": "PRIMARY",
+    "title": "Portable Smartphone Photo Printer",
+    "description": "A pocket-size Bluetooth photo printer makes shareable prints from a compatible smartphone, turning travel photos, event snapshots, and team memories into keepsakes.",
+    "languageCode": "en-US",
+    "categories": [
+      "Electronics",
+      "Electronics > Cameras & Imaging"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/217",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1512428559087-560fa5ceab42?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 129
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 89
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 51,
+    "conditions": [
+      "new"
+    ],
+    "colorInfo": {
+      "colors": [
+        "Graphite"
+      ]
+    },
+    "sizes": [
+      "One Size"
+    ],
+    "tags": [
+      "unisex",
+      "electronics",
+      "cameras_imaging",
+      "phone_photo_printer",
+      "smartphone_photography",
+      "bluetooth_printer",
+      "creative_tech_gift",
+      "holiday_gifts_2026",
+      "ai_engineers",
+      "google_forward_deployment_engineers",
+      "technology_professionals",
+      "christmas_2026",
+      "holiday_season",
+      "gift_giving"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "One Size"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Graphite"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#475569"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Cameras & Imaging"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Portable smartphone photo printer"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "smartphone printing",
+          "photo sharing",
+          "travel",
+          "event keepsakes"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "Bluetooth phone connection",
+          "compact portable design",
+          "instant photo prints"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "holiday_gifts_2026"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "AI engineers",
+          "Google Forward Deployment Engineers",
+          "technology professionals"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Christmas 2026",
+          "Holiday season",
+          "Gift giving"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-218",
+    "type": "PRIMARY",
+    "title": "Retro Pixel Art LED Clock",
+    "description": "A playful LED clock displays time in a retro pixel-art style, bringing a nostalgic gaming accent to a bookshelf, living room, or personal space.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Home Decor & Clocks"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/218",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1508057198894-247b23fe5ade?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 79
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 106
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 64,
+    "conditions": [
+      "new"
+    ],
+    "colorInfo": {
+      "colors": [
+        "Graphite"
+      ]
+    },
+    "sizes": [
+      "One Size"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "home_decor_clocks",
+      "pixel_art_clock",
+      "gaming_decor",
+      "retro_tech",
+      "geek_gift",
+      "holiday_gifts_2026",
+      "ai_engineers",
+      "google_forward_deployment_engineers",
+      "technology_professionals",
+      "christmas_2026",
+      "holiday_season",
+      "gift_giving"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "One Size"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Graphite"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#475569"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Home Decor & Clocks"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Pixel art LED digital clock"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "home decoration",
+          "time display",
+          "gaming room decor",
+          "nostalgic tech styling"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "pixel-inspired LED display",
+          "digital timekeeping",
+          "retro gaming design"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "holiday_gifts_2026"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "AI engineers",
+          "Google Forward Deployment Engineers",
+          "technology professionals"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Christmas 2026",
+          "Holiday season",
+          "Gift giving"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-219",
+    "type": "PRIMARY",
+    "title": "Specialty Coffee and Chocolate Gift Box",
+    "description": "A gift-ready pairing of small-batch roasted coffee and craft chocolate makes a thoughtful break-time treat for people who love good coffee as much as good technology.",
+    "languageCode": "en-US",
+    "categories": [
+      "Gourmet Pantry",
+      "Gourmet Pantry > Specialty Coffee & Sweets"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/219",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 54
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 123
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 77,
+    "conditions": [
+      "new"
+    ],
+    "colorInfo": {
+      "colors": [
+        "Graphite"
+      ]
+    },
+    "sizes": [
+      "One Size"
+    ],
+    "tags": [
+      "unisex",
+      "groceries",
+      "specialty_coffee_sweets",
+      "coffee_gift_box",
+      "chocolate_gift_set",
+      "coffee_lover",
+      "holiday_host_gift",
+      "holiday_gifts_2026",
+      "ai_engineers",
+      "google_forward_deployment_engineers",
+      "technology_professionals",
+      "christmas_2026",
+      "holiday_season",
+      "gift_giving"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "One Size"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Graphite"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#475569"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Specialty Coffee & Sweets"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Coffee and chocolate gift set"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "coffee break",
+          "holiday hosting",
+          "thank-you gift",
+          "coffee and chocolate tasting"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "small-batch coffee",
+          "craft chocolate pairing",
+          "gift-ready presentation"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "holiday_gifts_2026"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "AI engineers",
+          "Google Forward Deployment Engineers",
+          "technology professionals"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Christmas 2026",
+          "Holiday season",
+          "Gift giving"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-220",
+    "type": "PRIMARY",
+    "title": "Wireless ANC Earbuds with Multipoint",
+    "description": "Wireless earbuds with active noise cancellation and multipoint pairing make it easy to switch between a laptop call and phone audio while traveling or working.",
+    "languageCode": "en-US",
+    "categories": [
+      "Electronics",
+      "Electronics > Headphones & Earbuds"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/220",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 129
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 140
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 90,
+    "conditions": [
+      "new"
+    ],
+    "colorInfo": {
+      "colors": [
+        "Graphite"
+      ]
+    },
+    "sizes": [
+      "One Size"
+    ],
+    "tags": [
+      "unisex",
+      "electronics",
+      "headphones_earbuds",
+      "anc_earbuds",
+      "wireless_headphones",
+      "commuter_audio",
+      "travel_gift",
+      "holiday_gifts_2026",
+      "ai_engineers",
+      "google_forward_deployment_engineers",
+      "technology_professionals",
+      "christmas_2026",
+      "holiday_season",
+      "gift_giving"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "One Size"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Graphite"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#475569"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Headphones & Earbuds"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Wireless noise-cancelling earbuds"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "commuting",
+          "video calls",
+          "focus time",
+          "conference travel"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "active noise cancellation",
+          "multipoint Bluetooth pairing",
+          "charging case"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "holiday_gifts_2026"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "AI engineers",
+          "Google Forward Deployment Engineers",
+          "technology professionals"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Christmas 2026",
+          "Holiday season",
+          "Gift giving"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-221",
+    "type": "PRIMARY",
+    "title": "Over-Ear Wireless ANC Headphones",
+    "description": "Over-ear wireless headphones combine active noise cancellation, memory-foam cushions, and long-listening comfort for focused work, flights, and everyday audio.",
+    "languageCode": "en-US",
+    "categories": [
+      "Electronics",
+      "Electronics > Headphones & Earbuds"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/221",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 229
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 157
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 103,
+    "conditions": [
+      "new"
+    ],
+    "colorInfo": {
+      "colors": [
+        "Graphite"
+      ]
+    },
+    "sizes": [
+      "One Size"
+    ],
+    "tags": [
+      "unisex",
+      "electronics",
+      "headphones_earbuds",
+      "noise_cancelling_headphones",
+      "over_ear_audio",
+      "focus_headphones",
+      "tech_gift",
+      "holiday_gifts_2026",
+      "ai_engineers",
+      "google_forward_deployment_engineers",
+      "technology_professionals",
+      "christmas_2026",
+      "holiday_season",
+      "gift_giving"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "One Size"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Graphite"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#475569"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Headphones & Earbuds"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Over-ear noise-cancelling headphones"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "focus work",
+          "air travel",
+          "music listening",
+          "video calls"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "active noise cancellation",
+          "over-ear cushioned fit",
+          "wireless connectivity"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "holiday_gifts_2026"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "AI engineers",
+          "Google Forward Deployment Engineers",
+          "technology professionals"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Christmas 2026",
+          "Holiday season",
+          "Gift giving"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-222",
+    "type": "PRIMARY",
+    "title": "Open-Ear Bluetooth Headphones",
+    "description": "Open-ear Bluetooth headphones keep the ear canal uncovered for listening while remaining more aware of nearby teammates, announcements, and surroundings.",
+    "languageCode": "en-US",
+    "categories": [
+      "Electronics",
+      "Electronics > Headphones & Earbuds"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/222",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 99
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 174
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 26,
+    "conditions": [
+      "new"
+    ],
+    "colorInfo": {
+      "colors": [
+        "Graphite"
+      ]
+    },
+    "sizes": [
+      "One Size"
+    ],
+    "tags": [
+      "unisex",
+      "electronics",
+      "headphones_earbuds",
+      "open_ear_headphones",
+      "bluetooth_audio",
+      "work_headphones",
+      "commuter_gift",
+      "holiday_gifts_2026",
+      "ai_engineers",
+      "google_forward_deployment_engineers",
+      "technology_professionals",
+      "christmas_2026",
+      "holiday_season",
+      "gift_giving"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "One Size"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Graphite"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#475569"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Headphones & Earbuds"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Open-ear wireless headphones"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "office listening",
+          "walking meetings",
+          "commuting",
+          "situational awareness"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "open-ear fit",
+          "Bluetooth wireless audio",
+          "lightweight design"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "holiday_gifts_2026"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "AI engineers",
+          "Google Forward Deployment Engineers",
+          "technology professionals"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Christmas 2026",
+          "Holiday season",
+          "Gift giving"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-223",
+    "type": "PRIMARY",
+    "title": "Water-Resistant Portable Bluetooth Speaker",
+    "description": "A compact water-resistant Bluetooth speaker brings portable audio to a home office, team gathering, or weekend trip, with simple wireless pairing.",
+    "languageCode": "en-US",
+    "categories": [
+      "Electronics",
+      "Electronics > Portable Audio"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/223",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 89
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 191
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 39,
+    "conditions": [
+      "new"
+    ],
+    "colorInfo": {
+      "colors": [
+        "Graphite"
+      ]
+    },
+    "sizes": [
+      "One Size"
+    ],
+    "tags": [
+      "unisex",
+      "electronics",
+      "portable_audio",
+      "bluetooth_speaker",
+      "wireless_speaker",
+      "holiday_tech_gift",
+      "holiday_gifts_2026",
+      "ai_engineers",
+      "google_forward_deployment_engineers",
+      "technology_professionals",
+      "christmas_2026",
+      "holiday_season",
+      "gift_giving"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "One Size"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Graphite"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#475569"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Portable Audio"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Portable Bluetooth speaker"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "portable listening",
+          "team gatherings",
+          "home office",
+          "weekend travel"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "Bluetooth wireless audio",
+          "water-resistant enclosure",
+          "portable design"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "holiday_gifts_2026"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "AI engineers",
+          "Google Forward Deployment Engineers",
+          "technology professionals"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Christmas 2026",
+          "Holiday season",
+          "Gift giving"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-224",
+    "type": "PRIMARY",
+    "title": "Warm-Light E-Ink E-Reader",
+    "description": "A glare-reducing e-ink reader with adjustable warm front lighting is a lightweight companion for technical books, long-form reading, commutes, and travel.",
+    "languageCode": "en-US",
+    "categories": [
+      "Electronics",
+      "Electronics > E-Readers & Reading"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/224",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 159
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 208
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 52,
+    "conditions": [
+      "new"
+    ],
+    "colorInfo": {
+      "colors": [
+        "Graphite"
+      ]
+    },
+    "sizes": [
+      "One Size"
+    ],
+    "tags": [
+      "unisex",
+      "electronics",
+      "e_readers_reading",
+      "e_reader",
+      "e_ink_reader",
+      "technical_books",
+      "reading_gift",
+      "holiday_gifts_2026",
+      "ai_engineers",
+      "google_forward_deployment_engineers",
+      "technology_professionals",
+      "christmas_2026",
+      "holiday_season",
+      "gift_giving"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "One Size"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Graphite"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#475569"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "E-Readers & Reading"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "E-ink e-reader"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "technical reading",
+          "commuting",
+          "travel",
+          "evening reading"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "glare-reducing e-ink display",
+          "adjustable warm front light",
+          "lightweight reader"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "holiday_gifts_2026"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "AI engineers",
+          "Google Forward Deployment Engineers",
+          "technology professionals"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Christmas 2026",
+          "Holiday season",
+          "Gift giving"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-225",
+    "type": "PRIMARY",
+    "title": "E-Ink Digital Notebook and Stylus",
+    "description": "An e-ink digital notebook with a pressure-sensitive stylus helps capture architecture sketches, meeting notes, and field observations in a focused writing device.",
+    "languageCode": "en-US",
+    "categories": [
+      "Electronics",
+      "Electronics > E-Readers & Reading"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/225",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1517842645767-c639042777db?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 329
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 225
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 65,
+    "conditions": [
+      "new"
+    ],
+    "colorInfo": {
+      "colors": [
+        "Graphite"
+      ]
+    },
+    "sizes": [
+      "One Size"
+    ],
+    "tags": [
+      "unisex",
+      "electronics",
+      "e_readers_reading",
+      "digital_notebook",
+      "e_ink_tablet",
+      "stylus_notes",
+      "engineer_gift",
+      "holiday_gifts_2026",
+      "ai_engineers",
+      "google_forward_deployment_engineers",
+      "technology_professionals",
+      "christmas_2026",
+      "holiday_season",
+      "gift_giving"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "One Size"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Graphite"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#475569"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "E-Readers & Reading"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "E-ink digital notebook"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "meeting notes",
+          "architecture sketches",
+          "field observations",
+          "document review"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "paper-like e-ink writing surface",
+          "pressure-sensitive stylus",
+          "digital note organization"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "holiday_gifts_2026"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "AI engineers",
+          "Google Forward Deployment Engineers",
+          "technology professionals"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Christmas 2026",
+          "Holiday season",
+          "Gift giving"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-226",
+    "type": "PRIMARY",
+    "title": "Programmable Wireless Game Controller",
+    "description": "A wireless game controller with programmable buttons pairs with compatible computers and mobile devices for casual gaming and ergonomic input experiments.",
+    "languageCode": "en-US",
+    "categories": [
+      "Electronics",
+      "Electronics > Gaming & Maker Gear"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/226",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1580327332925-a10e6cb11baa?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 79
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 242
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 78,
+    "conditions": [
+      "new"
+    ],
+    "colorInfo": {
+      "colors": [
+        "Graphite"
+      ]
+    },
+    "sizes": [
+      "One Size"
+    ],
+    "tags": [
+      "unisex",
+      "electronics",
+      "gaming_maker_gear",
+      "game_controller",
+      "wireless_controller",
+      "pc_gaming",
+      "maker_tech_gift",
+      "holiday_gifts_2026",
+      "ai_engineers",
+      "google_forward_deployment_engineers",
+      "technology_professionals",
+      "christmas_2026",
+      "holiday_season",
+      "gift_giving"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "One Size"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Graphite"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#475569"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Gaming & Maker Gear"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Wireless game controller"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "PC gaming",
+          "mobile gaming",
+          "maker projects",
+          "recreational breaks"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "wireless connectivity",
+          "programmable controls",
+          "multi-device compatibility"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "holiday_gifts_2026"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "AI engineers",
+          "Google Forward Deployment Engineers",
+          "technology professionals"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Christmas 2026",
+          "Holiday season",
+          "Gift giving"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-227",
+    "type": "PRIMARY",
+    "title": "Developer \"Ship It\" Graphic Hoodie",
+    "description": "A soft pullover hoodie with an original \"Ship It\" developer-themed graphic is a comfortable layer for casual days, hackathons, and relaxed weekends.",
+    "languageCode": "en-US",
+    "categories": [
+      "Apparel",
+      "Apparel > Men's Clothing",
+      "Apparel > Men's Clothing > Tech-Themed Apparel"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/227",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 68
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 259
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 91,
+    "conditions": [
+      "new"
+    ],
+    "colorInfo": {
+      "colors": [
+        "Midnight Black",
+        "Heather Grey"
+      ]
+    },
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "tags": [
+      "unisex",
+      "men_s_clothing",
+      "tech_themed_apparel",
+      "developer_hoodie",
+      "ship_it_graphic",
+      "tech_apparel",
+      "programmer_gift",
+      "holiday_gifts_2026",
+      "ai_engineers",
+      "google_forward_deployment_engineers",
+      "technology_professionals",
+      "christmas_2026",
+      "holiday_season",
+      "gift_giving"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "S",
+          "M",
+          "L",
+          "XL",
+          "XXL"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Midnight Black",
+          "Heather Grey"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#18181b",
+          "#64748b"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Tech-Themed Apparel"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Developer graphic pullover hoodie"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "casual wear",
+          "hackathons",
+          "weekend wear",
+          "developer community events"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "soft fleece interior",
+          "original developer-themed graphic",
+          "machine-washable"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "holiday_gifts_2026"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "AI engineers",
+          "Google Forward Deployment Engineers",
+          "technology professionals"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Christmas 2026",
+          "Holiday season",
+          "Gift giving"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-228",
+    "type": "PRIMARY",
+    "title": "Circuit Board Pattern Cufflinks",
+    "description": "Polished cufflinks with a subtle printed circuit pattern add a low-key engineering reference to formal shirts, celebrations, and conference dinners.",
+    "languageCode": "en-US",
+    "categories": [
+      "Accessories",
+      "Accessories > Fine Jewelry",
+      "Accessories > Fine Jewelry > Tech-Themed Accessories"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/228",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 59
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 276
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 104,
+    "conditions": [
+      "new"
+    ],
+    "colorInfo": {
+      "colors": [
+        "Graphite"
+      ]
+    },
+    "sizes": [
+      "One Size"
+    ],
+    "tags": [
+      "unisex",
+      "jewelry",
+      "tech_themed_accessories",
+      "circuit_board_cufflinks",
+      "engineer_accessories",
+      "geek_style",
+      "tech_professional_gift",
+      "holiday_gifts_2026",
+      "ai_engineers",
+      "google_forward_deployment_engineers",
+      "technology_professionals",
+      "christmas_2026",
+      "holiday_season",
+      "gift_giving"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "One Size"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Graphite"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#475569"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Tech-Themed Accessories"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Circuit board pattern cufflinks"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "formal events",
+          "conference dinners",
+          "professional attire",
+          "holiday celebrations"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "circuit-inspired design",
+          "secure cufflink backs",
+          "gift presentation box"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "holiday_gifts_2026"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "AI engineers",
+          "Google Forward Deployment Engineers",
+          "technology professionals"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Christmas 2026",
+          "Holiday season",
+          "Gift giving"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-229",
+    "type": "PRIMARY",
+    "title": "Smart Temperature-Control Travel Mug",
+    "description": "A rechargeable temperature-control mug with a companion app helps keep coffee or tea near a preferred drinking temperature during deep-work sessions.",
+    "languageCode": "en-US",
+    "categories": [
+      "Electronics",
+      "Electronics > Smart Desk & Everyday Tech"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/229",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 119
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 293
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 27,
+    "conditions": [
+      "new"
+    ],
+    "colorInfo": {
+      "colors": [
+        "Graphite"
+      ]
+    },
+    "sizes": [
+      "One Size"
+    ],
+    "tags": [
+      "unisex",
+      "electronics",
+      "smart_desk_everyday_tech",
+      "smart_mug",
+      "heated_coffee_mug",
+      "desk_gadget",
+      "coffee_tech_gift",
+      "holiday_gifts_2026",
+      "ai_engineers",
+      "google_forward_deployment_engineers",
+      "technology_professionals",
+      "christmas_2026",
+      "holiday_season",
+      "gift_giving"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "One Size"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Graphite"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#475569"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Smart Desk & Everyday Tech"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Temperature-control smart mug"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "home office",
+          "desk work",
+          "coffee and tea",
+          "daily commute"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "adjustable beverage temperature",
+          "rechargeable warming base",
+          "companion app"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "holiday_gifts_2026"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "AI engineers",
+          "Google Forward Deployment Engineers",
+          "technology professionals"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Christmas 2026",
+          "Holiday season",
+          "Gift giving"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-230",
+    "type": "PRIMARY",
+    "title": "Retro Gaming Graphic T-Shirt",
+    "description": "A soft cotton graphic tee with an original retro-computing inspired design is an easy casual gift for someone who appreciates vintage games and technology.",
+    "languageCode": "en-US",
+    "categories": [
+      "Apparel",
+      "Apparel > Men's Clothing",
+      "Apparel > Men's Clothing > Tech-Themed Apparel"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/230",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 32
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 50
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 40,
+    "conditions": [
+      "new"
+    ],
+    "colorInfo": {
+      "colors": [
+        "Midnight Black",
+        "Heather Grey"
+      ]
+    },
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "tags": [
+      "unisex",
+      "men_s_clothing",
+      "tech_themed_apparel",
+      "retro_gaming_shirt",
+      "tech_apparel",
+      "geek_t_shirt",
+      "gamer_clothing_gift",
+      "holiday_gifts_2026",
+      "ai_engineers",
+      "google_forward_deployment_engineers",
+      "technology_professionals",
+      "christmas_2026",
+      "holiday_season",
+      "gift_giving"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "S",
+          "M",
+          "L",
+          "XL",
+          "XXL"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Midnight Black",
+          "Heather Grey"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#18181b",
+          "#64748b"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Tech-Themed Apparel"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Retro gaming graphic T-shirt"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "casual wear",
+          "gaming events",
+          "weekend wear",
+          "tech community meetups"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "soft cotton fabric",
+          "retro-computing inspired graphic",
+          "machine-washable"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "holiday_gifts_2026"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "AI engineers",
+          "Google Forward Deployment Engineers",
+          "technology professionals"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Christmas 2026",
+          "Holiday season",
+          "Gift giving"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-231",
+    "type": "PRIMARY",
+    "title": "Compact 1080p Portable Projector",
+    "description": "A compact 1080p projector with HDMI and wireless-screen options makes architecture walkthroughs, team movie nights, and customer presentations easy to set up.",
+    "languageCode": "en-US",
+    "categories": [
+      "Electronics",
+      "Electronics > Monitors & Displays"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/231",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 229
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 67
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 53,
+    "conditions": [
+      "new"
+    ],
+    "colorInfo": {
+      "colors": [
+        "Graphite"
+      ]
+    },
+    "sizes": [
+      "One Size"
+    ],
+    "tags": [
+      "unisex",
+      "electronics",
+      "monitors_displays",
+      "portable_projector",
+      "presentation_tech",
+      "home_theater",
+      "holiday_gift_for_engineers",
+      "holiday_gifts_2026",
+      "ai_engineers",
+      "google_forward_deployment_engineers",
+      "technology_professionals",
+      "christmas_2026",
+      "holiday_season",
+      "gift_giving"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "One Size"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Graphite"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#475569"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Monitors & Displays"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Portable LED projector"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "customer presentations",
+          "architecture walkthroughs",
+          "team movie nights",
+          "travel"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "1080p image output",
+          "HDMI connectivity",
+          "compact portable form"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "holiday_gifts_2026"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "AI engineers",
+          "Google Forward Deployment Engineers",
+          "technology professionals"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Christmas 2026",
+          "Holiday season",
+          "Gift giving"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-232",
+    "type": "PRIMARY",
+    "title": "Commuter Backpack with Laptop Sleeve",
+    "description": "A versatile commuter backpack with a padded laptop sleeve, organized pockets, and comfortable straps carries a laptop and everyday essentials between work, travel, and weekends.",
+    "languageCode": "en-US",
+    "categories": [
+      "Apparel",
+      "Apparel > Men's Clothing",
+      "Apparel > Men's Clothing > Bags & Backpacks"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/232",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 89
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 84
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 66,
+    "conditions": [
+      "new"
+    ],
+    "colorInfo": {
+      "colors": [
+        "Graphite"
+      ]
+    },
+    "sizes": [
+      "One Size"
+    ],
+    "tags": [
+      "unisex",
+      "men_s_clothing",
+      "bags_backpacks",
+      "laptop_backpack",
+      "commuter_bag",
+      "travel_backpack",
+      "tech_professional_gift",
+      "holiday_gifts_2026",
+      "ai_engineers",
+      "google_forward_deployment_engineers",
+      "technology_professionals",
+      "christmas_2026",
+      "holiday_season",
+      "gift_giving"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "One Size"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Graphite"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#475569"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Bags & Backpacks"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Commuter backpack with padded laptop sleeve"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "daily commuting",
+          "laptop transport",
+          "conference travel",
+          "weekend trips"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "padded laptop compartment",
+          "multiple organizer pockets",
+          "adjustable shoulder straps"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "holiday_gifts_2026"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "AI engineers",
+          "Google Forward Deployment Engineers",
+          "technology professionals"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Christmas 2026",
+          "Holiday season",
+          "Gift giving"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-233",
+    "type": "PRIMARY",
+    "title": "Edge AI Sensor Development Kit",
+    "description": "A hands-on edge AI kit pairs a programmable development board with basic sensors and project materials for learning local inference, embedded systems, and prototyping.",
+    "languageCode": "en-US",
+    "categories": [
+      "Electronics",
+      "Electronics > Maker & AI Development"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/233",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 129
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 101
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 79,
+    "conditions": [
+      "new"
+    ],
+    "colorInfo": {
+      "colors": [
+        "Graphite"
+      ]
+    },
+    "sizes": [
+      "One Size"
+    ],
+    "tags": [
+      "unisex",
+      "electronics",
+      "maker_ai_development",
+      "edge_ai_kit",
+      "ai_engineer_gift",
+      "microcontroller",
+      "maker_electronics",
+      "local_inference",
+      "holiday_gifts_2026",
+      "ai_engineers",
+      "google_forward_deployment_engineers",
+      "technology_professionals",
+      "christmas_2026",
+      "holiday_season",
+      "gift_giving"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "One Size"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Graphite"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#475569"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Maker & AI Development"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Edge AI development kit"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "edge AI prototyping",
+          "embedded systems learning",
+          "sensor projects",
+          "maker workshops"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "programmable development board",
+          "sensor components",
+          "guided prototyping projects"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "holiday_gifts_2026"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "AI engineers",
+          "Google Forward Deployment Engineers",
+          "technology professionals"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Christmas 2026",
+          "Holiday season",
+          "Gift giving"
+        ]
+      }
+    }
   }
 ]

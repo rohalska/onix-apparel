@@ -22,6 +22,14 @@ export interface Product {
   onSale?: boolean;
   originalPrice?: number;
   discountPercent?: number;
+  subcategory?: string;
+  productType?: string;
+  useCases?: string[];
+  keyFeatures?: string[];
+  searchTags?: string[];
+  collectionKeys?: string[];
+  targetAudience?: string[];
+  occasions?: string[];
 }
 
 export interface CartItem {

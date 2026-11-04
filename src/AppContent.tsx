@@ -39,7 +39,7 @@ import {
   resolveValidatedOpenProduct,
 } from './utils/agentActionValidator';
 
-export type SpecialCollection = 'all' | 'new' | 'sale';
+export type SpecialCollection = 'all' | 'new' | 'sale' | 'holiday';
 
 /** Bounds the toast column; see addToast. */
 const MAX_VISIBLE_TOASTS = 3;
@@ -77,7 +77,7 @@ export const AppContent: React.FC = () => {
   const { addToCart } = useCart();
 
   const handleSelectCollection = (
-    collectionKey: 'women' | 'men' | 'accessories' | 'new' | 'sale',
+    collectionKey: 'women' | 'men' | 'accessories' | 'new' | 'sale' | 'holiday',
   ) => {
     setCustomerCareRoute(null);
     setSearchQuery('');
@@ -103,6 +103,10 @@ export const AppContent: React.FC = () => {
     } else if (collectionKey === 'sale') {
       setCategory('all');
       setSpecialCollection('sale');
+      setMaxPrice(700);
+    } else if (collectionKey === 'holiday') {
+      setCategory('all');
+      setSpecialCollection('holiday');
       setMaxPrice(700);
     }
 
@@ -130,8 +134,10 @@ export const AppContent: React.FC = () => {
       ) {
         setCustomerCareRoute(rawHash as CustomerCareSection);
         window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else if (['women', 'men', 'accessories', 'new', 'sale'].includes(rawHash)) {
-        handleSelectCollection(rawHash as 'women' | 'men' | 'accessories' | 'new' | 'sale');
+      } else if (['women', 'men', 'accessories', 'new', 'sale', 'holiday'].includes(rawHash)) {
+        handleSelectCollection(
+          rawHash as 'women' | 'men' | 'accessories' | 'new' | 'sale' | 'holiday',
+        );
       } else if (rawHash === '' || rawHash === 'catalog' || rawHash === 'shop') {
         setCustomerCareRoute(null);
       }
@@ -160,6 +166,8 @@ export const AppContent: React.FC = () => {
           {
             query: searchQuery,
             category,
+            collectionKey: specialCollection === 'holiday' ? 'holiday_gifts_2026' : undefined,
+            pageSize: specialCollection === 'holiday' ? 30 : undefined,
             maxPrice,
             size: selectedFacetSize || undefined,
             color: selectedFacetColor || undefined,
@@ -195,7 +203,16 @@ export const AppContent: React.FC = () => {
       isActive = false;
       clearTimeout(timer);
     };
-  }, [searchQuery, category, maxPrice, sortBy, selectedFacetSize, selectedFacetColor, products]);
+  }, [
+    searchQuery,
+    category,
+    specialCollection,
+    maxPrice,
+    sortBy,
+    selectedFacetSize,
+    selectedFacetColor,
+    products,
+  ]);
 
   // Load products from Fake Store API (with local fallback)
   useEffect(() => {
@@ -273,11 +290,26 @@ export const AppContent: React.FC = () => {
 
     return products
       .filter((p) => {
+        if (specialCollection === 'holiday' && !p.collectionKeys?.includes('holiday_gifts_2026')) {
+          return false;
+        }
+
         // Search query filter (matches title, description, category, color, size)
         if (tokens.length > 0) {
           const titleLower = (p.title || '').toLowerCase();
           const descLower = (p.description || '').toLowerCase();
           const catLower = (p.category || '').toLowerCase();
+          const metadataLower = [
+            p.subcategory,
+            p.productType,
+            ...(p.useCases || []),
+            ...(p.keyFeatures || []),
+            ...(p.searchTags || []),
+            ...(p.targetAudience || []),
+            ...(p.occasions || []),
+          ]
+            .join(' ')
+            .toLowerCase();
           const colorsLower = (p.colors || []).map((c) => c.name.toLowerCase()).join(' ');
           const sizesLower = (p.sizes || []).join(' ').toLowerCase();
 
@@ -286,6 +318,7 @@ export const AppContent: React.FC = () => {
               titleLower.includes(token) ||
               descLower.includes(token) ||
               catLower.includes(token) ||
+              metadataLower.includes(token) ||
               colorsLower.includes(token) ||
               sizesLower.includes(token),
           );
@@ -389,7 +422,9 @@ export const AppContent: React.FC = () => {
     vertexHealth?.mode === 'live' &&
     vertexResults !== null &&
     (vertexResults.length > 0 || searchQuery.trim().length > 0)
-      ? vertexResults
+      ? specialCollection === 'holiday'
+        ? vertexResults.filter((product) => product.collectionKeys?.includes('holiday_gifts_2026'))
+        : vertexResults
       : filteredProducts;
 
   const hasActiveFilters =
@@ -412,7 +447,7 @@ export const AppContent: React.FC = () => {
 
   const handleSearchChange = (query: string) => {
     setSearchQuery(query);
-    if (specialCollection !== 'all') {
+    if (specialCollection !== 'all' && specialCollection !== 'holiday') {
       setSpecialCollection('all');
     }
     if (customerCareRoute) {
@@ -553,6 +588,8 @@ export const AppContent: React.FC = () => {
       <Navbar
         currentCategory={category}
         onSelectCategory={handleSelectCategory}
+        onSelectHoliday={() => handleSelectCollection('holiday')}
+        isHolidaySelected={specialCollection === 'holiday'}
         searchQuery={searchQuery}
         onSearchChange={handleSearchChange}
         onSearchSubmit={handleSearchSubmit}
@@ -582,6 +619,7 @@ export const AppContent: React.FC = () => {
           {!searchQuery.trim() && (
             <HeroBanner
               onSelectCategory={handleSelectCategory}
+              onSelectHoliday={() => handleSelectCollection('holiday')}
               featuredProduct={featuredProduct}
               onQuickView={setSelectedProduct}
             />
@@ -591,6 +629,8 @@ export const AppContent: React.FC = () => {
           <FilterBar
             currentCategory={category}
             onSelectCategory={handleSelectCategory}
+            onSelectHoliday={() => handleSelectCollection('holiday')}
+            isHolidaySelected={specialCollection === 'holiday'}
             maxPrice={maxPrice}
             onMaxPriceChange={setMaxPrice}
             sortBy={sortBy}
@@ -611,25 +651,27 @@ export const AppContent: React.FC = () => {
                       ? 'Seasonal New Arrivals'
                       : specialCollection === 'sale'
                         ? 'End of Season Sale — Exclusive Markdowns'
-                        : category === 'all'
-                          ? 'Curated Department Collection'
-                          : category === "men's clothing"
-                            ? "Men's Apparel & Outerwear"
-                            : category === "women's clothing"
-                              ? "Women's Collection & Tops"
-                              : category === 'jewelry'
-                                ? 'Fine Jewelry & Accessories'
-                                : category === 'electronics'
-                                  ? 'AI Engineering & Field Tech'
-                                  : category === 'furniture'
-                                    ? 'Home & Living Essentials'
-                                    : category === 'fragrances'
-                                      ? 'Luxury Fragrances & Perfume'
-                                      : category === 'beauty'
-                                        ? 'Beauty & Botanical Skincare'
-                                        : category === 'groceries'
-                                          ? 'Gourmet Pantry & Provisions'
-                                          : 'Curated Collection'}
+                        : specialCollection === 'holiday'
+                          ? 'Christmas 2026 Gifts for AI & Tech Professionals'
+                          : category === 'all'
+                            ? 'Curated Department Collection'
+                            : category === "men's clothing"
+                              ? "Men's Apparel & Outerwear"
+                              : category === "women's clothing"
+                                ? "Women's Collection & Tops"
+                                : category === 'jewelry'
+                                  ? 'Fine Jewelry & Accessories'
+                                  : category === 'electronics'
+                                    ? 'AI Engineering & Field Tech'
+                                    : category === 'furniture'
+                                      ? 'Home & Living Essentials'
+                                      : category === 'fragrances'
+                                        ? 'Luxury Fragrances & Perfume'
+                                        : category === 'beauty'
+                                          ? 'Beauty & Botanical Skincare'
+                                          : category === 'groceries'
+                                            ? 'Gourmet Pantry & Provisions'
+                                            : 'Curated Collection'}
                 </h2>
                 <p className="text-xs text-stone-500 mt-0.5">
                   {searchQuery.trim()
@@ -638,25 +680,27 @@ export const AppContent: React.FC = () => {
                       ? `Showing ${displayedProducts.length} new seasonal arrivals fresh off the runway.`
                       : specialCollection === 'sale'
                         ? `Limited-time archive pricing and seasonal reductions. Up to 50% off select styles.`
-                        : category === 'all'
-                          ? 'Refined tailoring, modern electronics, artisanal scents, and curated goods across all departments.'
-                          : category === "men's clothing"
-                            ? 'Refined tailoring, premium sustainable staples, and effortless styling.'
-                            : category === "women's clothing"
-                              ? 'Contemporary silhouettes, elegant dresses, and everyday luxury.'
-                              : category === 'jewelry'
-                                ? 'Artisanal gold, sterling silver, statement rings, and luxury accessories.'
-                                : category === 'electronics'
-                                  ? 'Workstation, collaboration, and travel tech for AI engineers and Google Forward Deployment Engineers.'
-                                  : category === 'furniture'
-                                    ? 'Curated ergonomic furniture, minimalist oak tables, and artisanal accents.'
-                                    : category === 'fragrances'
-                                      ? 'Sophisticated eau de parfums, artisanal santal scents, and unisex colognes.'
-                                      : category === 'beauty'
-                                        ? 'Clean botanical serums, nourishing treatments, and daily skincare rituals.'
-                                        : category === 'groceries'
-                                          ? 'Single-origin specialty coffees, cold-pressed oils, and fine culinary goods.'
-                                          : 'Refined craftsmanship, premium staples, and effortless styling.'}
+                        : specialCollection === 'holiday'
+                          ? `30 curated ideas for AI engineers, Google Forward Deployment Engineers, and tech professionals—from workstation upgrades to travel-ready field gear.`
+                          : category === 'all'
+                            ? 'Refined tailoring, modern electronics, artisanal scents, and curated goods across all departments.'
+                            : category === "men's clothing"
+                              ? 'Refined tailoring, premium sustainable staples, and effortless styling.'
+                              : category === "women's clothing"
+                                ? 'Contemporary silhouettes, elegant dresses, and everyday luxury.'
+                                : category === 'jewelry'
+                                  ? 'Artisanal gold, sterling silver, statement rings, and luxury accessories.'
+                                  : category === 'electronics'
+                                    ? 'Workstation, collaboration, and travel tech for AI engineers and Google Forward Deployment Engineers.'
+                                    : category === 'furniture'
+                                      ? 'Curated ergonomic furniture, minimalist oak tables, and artisanal accents.'
+                                      : category === 'fragrances'
+                                        ? 'Sophisticated eau de parfums, artisanal santal scents, and unisex colognes.'
+                                        : category === 'beauty'
+                                          ? 'Clean botanical serums, nourishing treatments, and daily skincare rituals.'
+                                          : category === 'groceries'
+                                            ? 'Single-origin specialty coffees, cold-pressed oils, and fine culinary goods.'
+                                            : 'Refined craftsmanship, premium staples, and effortless styling.'}
                 </p>
               </div>
 

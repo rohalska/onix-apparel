@@ -3,11 +3,11 @@ import assert from 'node:assert/strict';
 import { FALLBACK_PRODUCTS } from '../src/data/fallbackProducts';
 
 describe('Footer Collections Links & Catalog Filtering', () => {
-  const collectionRoutes = ['women', 'men', 'accessories', 'new', 'sale'];
+  const collectionRoutes = ['women', 'men', 'accessories', 'new', 'sale', 'holiday'];
 
-  it('validates that all 5 Collections routes are recognized', () => {
+  it('validates that all 6 Collections routes are recognized', () => {
     collectionRoutes.forEach((route) => {
-      assert.ok(['women', 'men', 'accessories', 'new', 'sale'].includes(route));
+      assert.ok(['women', 'men', 'accessories', 'new', 'sale', 'holiday'].includes(route));
     });
   });
 
@@ -18,12 +18,35 @@ describe('Footer Collections Links & Catalog Filtering', () => {
       { hash: '#accessories', expected: 'accessories' },
       { hash: '#new', expected: 'new' },
       { hash: '#sale', expected: 'sale' },
+      { hash: '#holiday', expected: 'holiday' },
     ];
 
     testCases.forEach(({ hash, expected }) => {
       const parsed = hash.replace('#', '');
       assert.equal(parsed, expected);
       assert.ok(collectionRoutes.includes(parsed));
+    });
+  });
+
+  it('provides 30 holiday gifts across Electronics and lifestyle departments', () => {
+    const holidayProducts = FALLBACK_PRODUCTS.filter((product) =>
+      product.collectionKeys?.includes('holiday_gifts_2026'),
+    );
+
+    assert.equal(holidayProducts.length, 30);
+    const categoryCounts = holidayProducts.reduce<Record<string, number>>((counts, product) => {
+      counts[product.category] = (counts[product.category] || 0) + 1;
+      return counts;
+    }, {});
+
+    assert.equal(categoryCounts.electronics, 22);
+    assert.equal(categoryCounts["men's clothing"], 3);
+    assert.equal(categoryCounts.jewelry, 2);
+    assert.equal(categoryCounts.groceries, 2);
+    assert.equal(categoryCounts.furniture, 1);
+    holidayProducts.forEach((product) => {
+      assert.ok(product.targetAudience?.includes('AI engineers'));
+      assert.ok(product.occasions?.includes('Christmas 2026'));
     });
   });
 

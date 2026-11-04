@@ -165,4 +165,37 @@ describe('live Retail search hydrates results from the catalog', () => {
       '(categories: ANY("Accessories > Fine Jewelry", "Accessories", "Jewelry", "Jewelery"))',
     );
   });
+
+  it('filters live Retail results by the indexed holiday collection and uses local fallback data', async () => {
+    let capturedFilter = '';
+    let capturedPageSize: number | undefined;
+    globalThis.fetch = vi.fn(async (url: string | URL | Request, init?: RequestInit) => {
+      const href = String(url);
+      if (href.includes('retail.googleapis.com')) {
+        const body = JSON.parse(String(init?.body || '{}'));
+        capturedFilter = body.filter || '';
+        capturedPageSize = body.pageSize;
+        return new Response(JSON.stringify({ results: [], totalSize: 0 }), {
+          status: 200,
+          headers: { 'content-type': 'application/json' },
+        });
+      }
+      throw new Error(`unexpected outbound fetch: ${href}`);
+    }) as unknown as typeof fetch;
+
+    const { status, json } = await search({
+      collectionKey: 'holiday_gifts_2026',
+      pageSize: 30,
+    });
+    expect(status).toBe(200);
+    expect(capturedFilter).toBe('(attributes.product_collections: ANY("holiday_gifts_2026"))');
+    expect(capturedPageSize).toBe(30);
+    expect(json.products).toHaveLength(30);
+    expect(json.products[0].collectionKeys).toEqual(['holiday_gifts_2026']);
+    expect(json.products[0].targetAudience).toContain('Google Forward Deployment Engineers');
+    expect(json.products[0].occasions).toContain('Christmas 2026');
+    expect(new Set(json.products.map((product: { category: string }) => product.category))).toEqual(
+      new Set(['electronics', "men's clothing", 'jewelry', 'groceries', 'furniture']),
+    );
+  });
 });
