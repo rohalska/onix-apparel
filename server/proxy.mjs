@@ -1105,8 +1105,8 @@ const server = http.createServer(async (req, res) => {
       } else if (appliedSort === 'rating') {
         filtered.sort(
           (a, b) =>
-            (b.attributes?.rating_rate?.numbers?.[0] || 0) -
-            (a.attributes?.rating_rate?.numbers?.[0] || 0),
+            (b.rating?.averageRating ?? b.attributes?.rating_rate?.numbers?.[0] ?? 0) -
+            (a.rating?.averageRating ?? a.attributes?.rating_rate?.numbers?.[0] ?? 0),
         );
       } else if (appliedSort === 'newest') {
         // Compare both operands. The previous form ignored `a` and never

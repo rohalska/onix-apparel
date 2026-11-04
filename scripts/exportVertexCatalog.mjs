@@ -1721,33 +1721,63 @@ function transformToVertexProduct(item) {
   const colorNames = item.colors.map((c) => c.name);
   const colorHexes = item.colors.map((c) => c.hex);
 
-  // Extract relevant keywords for tags
-  const tags = [
-    item.gender.toLowerCase(),
-    item.category.replace(/[^a-zA-Z]/g, '').toLowerCase(),
-    ...(item.subcategory ? item.subcategory.toLowerCase().split(/[ &]+/) : []),
-  ].filter(Boolean);
+  const normalizeTag = (value) =>
+    value
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9]+/g, '_')
+      .replace(/^_+|_+$/g, '');
+  const tags = [item.gender, item.category, item.subcategory, ...(item.searchTags || [])]
+    .filter(Boolean)
+    .map(normalizeTag);
+
+  const attributes = {
+    sizes: {
+      text: item.sizes,
+    },
+    colors: {
+      text: colorNames,
+    },
+    color_hexes: {
+      text: colorHexes,
+    },
+    gender: {
+      text: [item.gender],
+    },
+    subcategory: {
+      text: [item.subcategory || 'General'],
+    },
+    product_type: {
+      text: [item.productType || item.subcategory || 'General'],
+    },
+    featured: {
+      text: [String(item.featured)],
+    },
+    is_new_arrival: {
+      text: [String(item.isNewArrival)],
+    },
+  };
+  if (item.useCases?.length) attributes.use_case = { text: item.useCases };
+  if (item.keyFeatures?.length) attributes.key_features = { text: item.keyFeatures };
 
   return {
     id: `onx-${item.id}`,
     type: 'PRIMARY',
     title: item.title,
     description: item.description,
-    categories: categories,
+    languageCode: 'en-US',
+    categories,
     brands: ['ONIX WARES'],
     uri: `https://onixwares.com/products/${item.id}`,
     images: [
       {
         uri: item.image,
-        height: 800,
-        width: 800,
       },
     ],
     priceInfo: {
       currencyCode: 'USD',
       price: item.price,
-      originalPrice: item.originalPrice || item.price,
-      cost: Number((item.price * 0.45).toFixed(2)),
+      ...(item.originalPrice > item.price ? { originalPrice: item.originalPrice } : {}),
     },
     rating: {
       averageRating: item.rating.rate,
@@ -1755,40 +1785,13 @@ function transformToVertexProduct(item) {
     },
     availability: item.inStock ? 'IN_STOCK' : 'OUT_OF_STOCK',
     availableQuantity: item.availableQuantity || 50,
+    conditions: ['new'],
     colorInfo: {
       colors: colorNames,
     },
     sizes: item.sizes,
     tags: Array.from(new Set(tags)),
-    attributes: {
-      sizes: {
-        text: item.sizes,
-      },
-      colors: {
-        text: colorNames,
-      },
-      color_hexes: {
-        text: colorHexes,
-      },
-      gender: {
-        text: [item.gender],
-      },
-      subcategory: {
-        text: [item.subcategory || 'General'],
-      },
-      featured: {
-        text: [String(item.featured)],
-      },
-      is_new_arrival: {
-        text: [String(item.isNewArrival)],
-      },
-      rating_rate: {
-        numbers: [item.rating.rate],
-      },
-      rating_count: {
-        numbers: [item.rating.count],
-      },
-    },
+    attributes,
   };
 }
 

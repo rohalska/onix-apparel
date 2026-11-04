@@ -100,7 +100,7 @@ gecx-shopping-agent-demo/
 │   ├── types/                    # Product, CartItem, Filters
 │   └── utils/                    # agentActionValidator, filterSanitizer, fuzzySearch
 ├── tests/                        # Vitest suites (services, proxy, components, contracts)
-├── vertex-retail-catalog.jsonl   # Ready-to-import Retail catalog, 150 products
+├── vertex-retail-catalog.jsonl   # Ready-to-import Retail catalog, 167 products
 └── vertex-retail-catalog.json    # The same catalog, formatted for review
 ```
 
@@ -377,6 +377,13 @@ gcloud auth application-default login
 ```
 
 ### 3. Import the catalog
+
+The export uses Google Retail's native product fields and adds `product_type`,
+`use_case`, and `key_features` as custom text attributes where curated product
+metadata is available. Configure those attribute keys in the Retail catalog
+before relying on them for search, filters, or facets; product-level
+`searchable`/`indexable` flags are deprecated by the API. The export omits
+unknown GTINs, cost, and image dimensions rather than fabricating values.
 
 Dispatch the `catalog-import` workflow from the Actions tab. It takes an
 `environment` (`dev` or `prd`) and a `confirm` input that has to be the literal
