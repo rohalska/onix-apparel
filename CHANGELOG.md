@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.9.0](https://github.com/onix-net/gecx-shopping-agent-demo/compare/v0.8.4...v0.9.0) (2026-11-04)
+
+
+### Features
+
+* **catalog:** curate electronics for AI engineers ([#76](https://github.com/onix-net/gecx-shopping-agent-demo/issues/76)) ([df67bda](https://github.com/onix-net/gecx-shopping-agent-demo/commit/df67bda02cfae3eafa741c9b3d4facf570ef510f))
+
 ## [0.8.4](https://github.com/onix-net/gecx-shopping-agent-demo/compare/v0.8.3...v0.8.4) (2026-10-30)
 
 
