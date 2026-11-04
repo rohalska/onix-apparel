@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.10.0](https://github.com/onix-net/gecx-shopping-agent-demo/compare/v0.9.0...v0.10.0) (2026-11-04)
+
+
+### Features
+
+* add diversified Holiday gifts collection ([#79](https://github.com/onix-net/gecx-shopping-agent-demo/issues/79)) ([59cd5e2](https://github.com/onix-net/gecx-shopping-agent-demo/commit/59cd5e2caccff242c7bf92245899eedfb3e21860))
+
 ## [0.9.0](https://github.com/onix-net/gecx-shopping-agent-demo/compare/v0.8.4...v0.9.0) (2026-11-04)
 
 
