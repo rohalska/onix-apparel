@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.11.0](https://github.com/onix-net/gecx-shopping-agent-demo/compare/v0.10.0...v0.11.0) (2026-11-05)
+
+
+### Features
+
+* curate tech-work apparel catalog ([#78](https://github.com/onix-net/gecx-shopping-agent-demo/issues/78)) ([f9d1cbf](https://github.com/onix-net/gecx-shopping-agent-demo/commit/f9d1cbf72f5f4c8b852d0f0f08b881343e1ef778))
+
 ## [0.10.0](https://github.com/onix-net/gecx-shopping-agent-demo/compare/v0.9.0...v0.10.0) (2026-11-04)
 
 
