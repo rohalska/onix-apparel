@@ -1717,11 +1717,312 @@ function getCategoryHierarchy(category, subcategory) {
   return ['General Merchandise'];
 }
 
+const apparelSearchProfiles = {
+  1: {
+    productType: 'Laptop commuter backpack',
+    searchTags: ['work_commute', 'laptop_carry', 'work_travel'],
+    useCases: ['commuting', 'laptop carry', 'work travel'],
+    keyFeatures: ['padded laptop sleeve', 'everyday storage', 'zip-close pocket'],
+  },
+  2: {
+    productType: 'Casual knit shirt',
+    searchTags: ['hybrid_office', 'everyday_basic', 'layering'],
+    useCases: ['hybrid office', 'everyday wear', 'layering'],
+    keyFeatures: ['lightweight fabric', 'soft hand feel', 'button-front neckline'],
+  },
+  3: {
+    productType: 'Casual cotton jacket',
+    searchTags: ['commuter_outerwear', 'office_layer', 'weekend'],
+    useCases: ['commuting', 'office layering', 'weekends'],
+    keyFeatures: ['cotton outer layer', 'multiple pockets', 'transitional weather'],
+    materials: ['Cotton'],
+  },
+  4: {
+    productType: 'Casual short-sleeve shirt',
+    searchTags: ['hybrid_office', 'everyday_basic', 'casual_workwear'],
+    useCases: ['hybrid office', 'everyday wear', 'casual workdays'],
+    keyFeatures: ['short sleeves', 'casual fit', 'easy everyday styling'],
+  },
+  15: {
+    productType: 'Insulated 3-in-1 jacket',
+    searchTags: ['commuter_outerwear', 'cold_weather', 'work_travel'],
+    useCases: ['cold-weather commuting', 'outdoor work travel', 'layering'],
+    keyFeatures: ['detachable fleece liner', 'water-resistant shell', 'zip pockets'],
+    materials: ['Polyester', 'Fleece'],
+  },
+  16: {
+    productType: 'Faux-leather casual jacket',
+    searchTags: ['office_layer', 'casual_outerwear', 'weekend'],
+    useCases: ['office layering', 'commuting', 'weekends'],
+    keyFeatures: ['removable hood', 'front pockets', 'layering silhouette'],
+    materials: ['Polyurethane', 'Polyester'],
+  },
+  17: {
+    productType: 'Packable rain jacket',
+    searchTags: ['rainwear', 'commuter_outerwear', 'weather_layer'],
+    useCases: ['rainy commutes', 'work travel', 'outdoor errands'],
+    keyFeatures: ['waterproof breathable fabric', 'lightweight layer', 'hooded coverage'],
+  },
+  18: {
+    productType: 'Short-sleeve boat-neck top',
+    searchTags: ['hybrid_office', 'everyday_basic', 'office_layer'],
+    useCases: ['hybrid office', 'video meetings', 'everyday wear'],
+    keyFeatures: ['boat neckline', 'short sleeves', 'stretch comfort'],
+    materials: ['Rayon', 'Spandex'],
+  },
+  19: {
+    productType: 'Moisture-wicking active T-shirt',
+    searchTags: ['active_commute', 'travel_basic', 'everyday_basic'],
+    useCases: ['active commuting', 'travel', 'everyday wear'],
+    keyFeatures: ['moisture-wicking fabric', 'lightweight construction', 'machine washable'],
+    materials: ['Polyester'],
+  },
+  20: {
+    productType: 'Casual V-neck T-shirt',
+    searchTags: ['hybrid_office', 'everyday_basic', 'casual_workwear'],
+    useCases: ['hybrid office', 'everyday wear', 'layering'],
+    keyFeatures: ['V-neckline', 'short sleeves', 'stretch fabric'],
+    materials: ['Cotton', 'Spandex'],
+  },
+  21: {
+    productType: 'Wool-blend tailored blazer',
+    searchTags: ['client_meeting', 'presentation', 'smart_casual'],
+    useCases: ['client meetings', 'presentations', 'office wear'],
+    keyFeatures: ['notch lapels', 'interior pockets', 'double back vents'],
+    materials: ['Wool blend'],
+  },
+  22: {
+    productType: 'Stretch cotton chino trousers',
+    searchTags: ['hybrid_office', 'commuter_pants', 'smart_casual'],
+    useCases: ['office wear', 'commuting', 'work travel'],
+    keyFeatures: ['stretch cotton twill', 'tapered fit', 'slant pockets'],
+    materials: ['Cotton twill'],
+  },
+  23: {
+    productType: 'Poplin button-down shirt',
+    searchTags: ['client_meeting', 'office_shirt', 'work_travel'],
+    useCases: ['client meetings', 'office wear', 'work travel'],
+    keyFeatures: ['semi-spread collar', 'wrinkle-resistant finish', 'button-front closure'],
+    materials: ['Egyptian cotton'],
+  },
+  24: {
+    productType: 'Leather Oxford dress shoes',
+    searchTags: ['client_meeting', 'presentation', 'office_shoes'],
+    useCases: ['client meetings', 'presentations', 'office wear'],
+    keyFeatures: ['cap-toe design', 'Goodyear welted sole', 'cushioned footbed'],
+    materials: ['Calfskin leather'],
+  },
+  25: {
+    productType: 'Minimal leather low-top sneakers',
+    searchTags: ['commuter_shoes', 'casual_office', 'walking'],
+    useCases: ['commuting', 'casual office', 'everyday walking'],
+    keyFeatures: ['low-top profile', 'leather upper', 'rubber sole'],
+    materials: ['Leather'],
+  },
+  26: {
+    productType: 'Merino wool crewneck sweater',
+    searchTags: ['office_layer', 'temperature_layering', 'smart_casual'],
+    useCases: ['office layering', 'commuting', 'work travel'],
+    keyFeatures: ['temperature-regulating knit', 'naturally odor-resistant', 'ribbed cuffs'],
+    materials: ['Merino wool'],
+  },
+  27: {
+    productType: 'Silk satin midi dress',
+    searchTags: ['client_event', 'presentation', 'work_travel'],
+    useCases: ['client events', 'presentations', 'work travel'],
+    keyFeatures: ['bias-cut drape', 'adjustable straps', 'cowl neckline'],
+    materials: ['Mulberry silk'],
+  },
+  28: {
+    productType: 'Linen-blend blazer',
+    searchTags: ['client_meeting', 'warm_weather_office', 'smart_casual'],
+    useCases: ['client meetings', 'warm-weather office', 'presentations'],
+    keyFeatures: ['relaxed silhouette', 'light shoulder structure', 'breathable linen'],
+    materials: ['European flax linen'],
+  },
+  29: {
+    productType: 'High-waisted wide-leg trousers',
+    searchTags: ['hybrid_office', 'commuter_pants', 'smart_casual'],
+    useCases: ['office wear', 'commuting', 'presentations'],
+    keyFeatures: ['wide-leg fit', 'front pleats', 'wrinkle-resistant stretch crepe'],
+    materials: ['Stretch crepe'],
+  },
+  30: {
+    productType: 'Silk button-up blouse',
+    searchTags: ['client_meeting', 'office_blouse', 'work_travel'],
+    useCases: ['client meetings', 'office wear', 'work travel'],
+    keyFeatures: ['matte finish', 'mother-of-pearl buttons', 'convertible cuffs'],
+    materials: ['Silk crepe de chine'],
+  },
+  31: {
+    productType: 'Leather mule pumps',
+    searchTags: ['client_meeting', 'office_shoes', 'smart_casual'],
+    useCases: ['office wear', 'client meetings', 'work events'],
+    keyFeatures: ['65 mm kitten heel', 'padded leather insole', 'slip-on design'],
+    materials: ['Lambskin leather'],
+  },
+  32: {
+    productType: 'Pleated midi skirt',
+    searchTags: ['hybrid_office', 'client_event', 'smart_casual'],
+    useCases: ['office wear', 'client events', 'work travel'],
+    keyFeatures: ['accordion pleats', 'lightweight georgette', 'elasticized waistband'],
+    materials: ['Georgette'],
+  },
+  47: {
+    productType: 'Water-resistant trench coat',
+    searchTags: ['commuter_outerwear', 'client_meeting', 'rainwear'],
+    useCases: ['commuting', 'client meetings', 'rainy weather'],
+    keyFeatures: ['water-resistant cotton gabardine', 'storm flap', 'belted waist'],
+    materials: ['Cotton gabardine'],
+  },
+  48: {
+    productType: 'Organic cotton French terry hoodie',
+    searchTags: ['hybrid_office', 'casual_layer', 'commuting'],
+    useCases: ['casual office', 'commuting', 'weekends'],
+    keyFeatures: ['heavyweight French terry', 'double-lined hood', 'rib-knit cuffs'],
+    materials: ['Organic cotton French terry'],
+  },
+  49: {
+    productType: 'Selvedge denim jeans',
+    searchTags: ['casual_office', 'commuter_pants', 'weekend'],
+    useCases: ['casual office', 'commuting', 'weekends'],
+    keyFeatures: ['Japanese selvedge denim', 'straight tapered fit', 'button fly'],
+    materials: ['Japanese selvedge denim'],
+  },
+  50: {
+    productType: 'Suede Chelsea boots',
+    searchTags: ['commuter_shoes', 'smart_casual', 'office_shoes'],
+    useCases: ['commuting', 'office wear', 'smart-casual events'],
+    keyFeatures: ['elastic side gussets', 'pull tabs', 'crepe rubber sole'],
+    materials: ['Calf suede'],
+  },
+  51: {
+    productType: 'Cashmere turtleneck sweater',
+    searchTags: ['office_layer', 'temperature_layering', 'smart_casual'],
+    useCases: ['office layering', 'commuting', 'work travel'],
+    keyFeatures: ['relaxed rollneck', 'ribbed trims', 'lightweight warmth'],
+    materials: ['Mongolian cashmere'],
+  },
+  52: {
+    productType: 'Tailored wool wrap coat',
+    searchTags: ['commuter_outerwear', 'client_meeting', 'cold_weather'],
+    useCases: ['cold-weather commuting', 'client meetings', 'work travel'],
+    keyFeatures: ['double-faced wool', 'tie belt', 'deep welt pockets'],
+    materials: ['Virgin wool'],
+  },
+  53: {
+    productType: 'Leather block-heel ankle boots',
+    searchTags: ['commuter_shoes', 'office_shoes', 'smart_casual'],
+    useCases: ['commuting', 'office wear', 'work events'],
+    keyFeatures: ['55 mm block heel', 'side zipper', 'cushioned insole'],
+    materials: ['Calfskin leather'],
+  },
+  54: {
+    productType: 'Organic cotton straight-leg jeans',
+    searchTags: ['casual_office', 'commuter_pants', 'weekend'],
+    useCases: ['casual office', 'commuting', 'weekends'],
+    keyFeatures: ['high-rise waist', 'straight-leg fit', 'five-pocket design'],
+    materials: ['Organic cotton denim'],
+  },
+  112: {
+    productType: 'Merino wool quarter-zip sweater',
+    searchTags: ['hybrid_office', 'office_layer', 'smart_casual'],
+    useCases: ['office layering', 'video meetings', 'commuting'],
+    keyFeatures: ['breathable merino wool', 'quarter-zip neckline', 'work-to-weekend layering'],
+    materials: ['Merino wool'],
+  },
+  113: {
+    productType: 'Selvedge denim shirt',
+    searchTags: ['hybrid_office', 'overshirt', 'casual_workwear'],
+    useCases: ['casual office', 'office layering', 'weekends'],
+    keyFeatures: ['Japanese selvedge denim', 'midweight construction', 'snap-button front'],
+    materials: ['Japanese selvedge denim'],
+  },
+  114: {
+    productType: 'Cotton Oxford button-down shirt',
+    searchTags: ['client_meeting', 'office_shirt', 'smart_casual'],
+    useCases: ['office wear', 'client meetings', 'video calls'],
+    keyFeatures: ['brushed cotton Oxford cloth', 'tailored fit', 'button-down collar'],
+    materials: ['Cotton Oxford cloth'],
+  },
+  115: {
+    productType: 'Water-repellent commuter jacket',
+    searchTags: ['commuter_outerwear', 'weather_layer', 'work_travel'],
+    useCases: ['commuting', 'work travel', 'weather layering'],
+    keyFeatures: ['water-repellent shell', 'lightweight construction', 'packable silhouette'],
+    materials: ['Recycled shell fabric'],
+  },
+  116: {
+    productType: 'Linen-blend wide-leg trousers',
+    searchTags: ['hybrid_office', 'warm_weather_office', 'smart_casual'],
+    useCases: ['office wear', 'warm-weather commuting', 'travel'],
+    keyFeatures: ['wide-leg fit', 'adjustable back waist tabs', 'breathable linen blend'],
+    materials: ['Linen blend'],
+  },
+  117: {
+    productType: 'Silk satin camisole',
+    searchTags: ['office_layer', 'client_meeting', 'smart_casual'],
+    useCases: ['office layering', 'client meetings', 'work events'],
+    keyFeatures: ['draped cowl neckline', 'silk satin finish', 'layering silhouette'],
+    materials: ['Silk satin'],
+  },
+  234: {
+    materials: ['Merino wool blend'],
+  },
+  235: {
+    materials: ['Stretch cotton'],
+  },
+  236: {
+    materials: ['Merino wool blend'],
+  },
+  238: {
+    materials: ['Merino wool'],
+  },
+  241: {
+    materials: ['Denim'],
+  },
+  243: {
+    materials: ['Merino wool blend'],
+  },
+  246: {
+    materials: ['Stretch woven fabric'],
+  },
+  247: {
+    materials: ['Merino wool blend'],
+  },
+  248: {
+    materials: ['Stretch knit fabric'],
+  },
+  249: {
+    materials: ['Merino wool'],
+  },
+  252: {
+    materials: ['Denim'],
+  },
+  253: {
+    materials: ['Leather'],
+  },
+  254: {
+    materials: ['Knit textile'],
+  },
+};
+
 // Convert product to Google Cloud Vertex AI Search for Retail Product resource schema
 function transformToVertexProduct(item) {
   const categories = getCategoryHierarchy(item.category, item.subcategory);
   const colorNames = item.colors.map((c) => c.name);
   const colorHexes = item.colors.map((c) => c.hex);
+  const apparelProfile =
+    item.category === "men's clothing" || item.category === "women's clothing"
+      ? apparelSearchProfiles[item.id]
+      : undefined;
+  const productType =
+    item.productType || apparelProfile?.productType || item.subcategory || 'General';
+  const useCases = item.useCases || apparelProfile?.useCases;
+  const keyFeatures = item.keyFeatures || apparelProfile?.keyFeatures;
+  const searchTags = [...(apparelProfile?.searchTags || []), ...(item.searchTags || [])];
+  const materials = item.materials || apparelProfile?.materials;
+  const patterns = item.patterns || apparelProfile?.patterns;
 
   const normalizeTag = (value) =>
     value
@@ -1733,7 +2034,7 @@ function transformToVertexProduct(item) {
     item.gender,
     item.category,
     item.subcategory,
-    ...(item.searchTags || []),
+    ...searchTags,
     ...(item.collectionKeys || []),
     ...(item.targetAudience || []),
     ...(item.occasions || []),
@@ -1758,7 +2059,7 @@ function transformToVertexProduct(item) {
       text: [item.subcategory || 'General'],
     },
     product_type: {
-      text: [item.productType || item.subcategory || 'General'],
+      text: [productType],
     },
     featured: {
       text: [String(item.featured)],
@@ -1767,8 +2068,9 @@ function transformToVertexProduct(item) {
       text: [String(item.isNewArrival)],
     },
   };
-  if (item.useCases?.length) attributes.use_case = { text: item.useCases };
-  if (item.keyFeatures?.length) attributes.key_features = { text: item.keyFeatures };
+  if (useCases?.length) attributes.use_case = { text: useCases };
+  if (keyFeatures?.length) attributes.key_features = { text: keyFeatures };
+  const audienceGender = { Men: 'MALE', Women: 'FEMALE', Unisex: 'UNISEX' }[item.gender];
   if (item.collectionKeys?.length) attributes.product_collections = { text: item.collectionKeys };
   if (item.targetAudience?.length) attributes.target_audience = { text: item.targetAudience };
   if (item.occasions?.length) attributes.occasion = { text: item.occasions };
@@ -1797,11 +2099,16 @@ function transformToVertexProduct(item) {
       ratingCount: item.rating.count,
     },
     availability: item.inStock ? 'IN_STOCK' : 'OUT_OF_STOCK',
-    availableQuantity: item.availableQuantity || 50,
+    ...(Number.isInteger(item.availableQuantity)
+      ? { availableQuantity: item.availableQuantity }
+      : {}),
     conditions: ['new'],
+    ...(audienceGender ? { audience: { genders: [audienceGender] } } : {}),
     colorInfo: {
       colors: colorNames,
     },
+    ...(materials?.length ? { materials } : {}),
+    ...(patterns?.length ? { patterns } : {}),
     sizes: item.sizes,
     tags: Array.from(new Set(tags)),
     attributes,

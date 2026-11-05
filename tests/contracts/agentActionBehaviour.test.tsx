@@ -123,12 +123,12 @@ describe('actions owned by AppContent', () => {
 
   it('SEARCH filters the catalog', async () => {
     await dispatch({ action: 'SEARCH', query: 'jacket' });
-    await waitFor(() => expect(itemCount()).toBe('5'));
+    await waitFor(() => expect(itemCount()).toBe('6'));
   });
 
   it('CLEAR_FILTERS restores the full catalog', async () => {
     await dispatch({ action: 'SEARCH', query: 'jacket' });
-    await waitFor(() => expect(itemCount()).toBe('5'));
+    await waitFor(() => expect(itemCount()).toBe('6'));
     await dispatch({ action: 'CLEAR_FILTERS' });
     await waitFor(() => expect(itemCount()).toBe(String(FALLBACK_PRODUCTS.length)));
   });

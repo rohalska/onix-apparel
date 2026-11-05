@@ -33,6 +33,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Olive Green",
@@ -46,7 +51,10 @@
     "tags": [
       "unisex",
       "men_s_clothing",
-      "bags_backpacks"
+      "bags_backpacks",
+      "work_commute",
+      "laptop_carry",
+      "work_travel"
     ],
     "attributes": {
       "sizes": {
@@ -80,7 +88,7 @@
       },
       "product_type": {
         "text": [
-          "Bags & Backpacks"
+          "Laptop commuter backpack"
         ]
       },
       "featured": {
@@ -91,6 +99,20 @@
       "is_new_arrival": {
         "text": [
           "false"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "commuting",
+          "laptop carry",
+          "work travel"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "padded laptop sleeve",
+          "everyday storage",
+          "zip-close pocket"
         ]
       }
     }
@@ -129,6 +151,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "MALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Onyx Black",
@@ -146,7 +173,10 @@
     "tags": [
       "men",
       "men_s_clothing",
-      "shirts_henley"
+      "shirts_henley",
+      "hybrid_office",
+      "everyday_basic",
+      "layering"
     ],
     "attributes": {
       "sizes": {
@@ -184,7 +214,7 @@
       },
       "product_type": {
         "text": [
-          "Shirts & Henley"
+          "Casual knit shirt"
         ]
       },
       "featured": {
@@ -195,6 +225,20 @@
       "is_new_arrival": {
         "text": [
           "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "hybrid office",
+          "everyday wear",
+          "layering"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "lightweight fabric",
+          "soft hand feel",
+          "button-front neckline"
         ]
       }
     }
@@ -233,6 +277,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "MALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Khaki Stone",
@@ -240,6 +289,9 @@
         "Army Olive"
       ]
     },
+    "materials": [
+      "Cotton"
+    ],
     "sizes": [
       "S",
       "M",
@@ -250,7 +302,10 @@
     "tags": [
       "men",
       "men_s_clothing",
-      "jackets_outerwear"
+      "jackets_outerwear",
+      "commuter_outerwear",
+      "office_layer",
+      "weekend"
     ],
     "attributes": {
       "sizes": {
@@ -288,7 +343,7 @@
       },
       "product_type": {
         "text": [
-          "Jackets & Outerwear"
+          "Casual cotton jacket"
         ]
       },
       "featured": {
@@ -299,6 +354,20 @@
       "is_new_arrival": {
         "text": [
           "false"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "commuting",
+          "office layering",
+          "weekends"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "cotton outer layer",
+          "multiple pockets",
+          "transitional weather"
         ]
       }
     }
@@ -337,6 +406,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "MALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Onyx Black",
@@ -354,7 +428,10 @@
     "tags": [
       "men",
       "men_s_clothing",
-      "casual_tees"
+      "casual_tees",
+      "hybrid_office",
+      "everyday_basic",
+      "casual_workwear"
     ],
     "attributes": {
       "sizes": {
@@ -392,7 +469,7 @@
       },
       "product_type": {
         "text": [
-          "Casual Tees"
+          "Casual short-sleeve shirt"
         ]
       },
       "featured": {
@@ -403,6 +480,20 @@
       "is_new_arrival": {
         "text": [
           "false"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "hybrid office",
+          "everyday wear",
+          "casual workdays"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "short sleeves",
+          "casual fit",
+          "easy everyday styling"
         ]
       }
     }
@@ -441,6 +532,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "FEMALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Sterling Silver",
@@ -534,6 +630,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "FEMALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Rose Gold",
@@ -634,6 +735,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "FEMALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Silver Rhodium"
@@ -728,6 +834,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Rose Gold",
@@ -821,6 +932,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "FEMALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Crimson Red",
@@ -828,6 +944,10 @@
         "Royal Purple"
       ]
     },
+    "materials": [
+      "Polyester",
+      "Fleece"
+    ],
     "sizes": [
       "XS",
       "S",
@@ -838,7 +958,10 @@
     "tags": [
       "women",
       "women_s_clothing",
-      "jackets_outerwear"
+      "jackets_outerwear",
+      "commuter_outerwear",
+      "cold_weather",
+      "work_travel"
     ],
     "attributes": {
       "sizes": {
@@ -876,7 +999,7 @@
       },
       "product_type": {
         "text": [
-          "Jackets & Outerwear"
+          "Insulated 3-in-1 jacket"
         ]
       },
       "featured": {
@@ -887,6 +1010,20 @@
       "is_new_arrival": {
         "text": [
           "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "cold-weather commuting",
+          "outdoor work travel",
+          "layering"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "detachable fleece liner",
+          "water-resistant shell",
+          "zip pockets"
         ]
       }
     }
@@ -925,6 +1062,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "FEMALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Caramel Brown",
@@ -932,6 +1074,10 @@
         "Cognac"
       ]
     },
+    "materials": [
+      "Polyurethane",
+      "Polyester"
+    ],
     "sizes": [
       "XS",
       "S",
@@ -942,7 +1088,10 @@
     "tags": [
       "women",
       "women_s_clothing",
-      "jackets_outerwear"
+      "jackets_outerwear",
+      "office_layer",
+      "casual_outerwear",
+      "weekend"
     ],
     "attributes": {
       "sizes": {
@@ -980,7 +1129,7 @@
       },
       "product_type": {
         "text": [
-          "Jackets & Outerwear"
+          "Faux-leather casual jacket"
         ]
       },
       "featured": {
@@ -991,6 +1140,20 @@
       "is_new_arrival": {
         "text": [
           "false"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "office layering",
+          "commuting",
+          "weekends"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "removable hood",
+          "front pockets",
+          "layering silhouette"
         ]
       }
     }
@@ -1029,6 +1192,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "FEMALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Canary Yellow",
@@ -1046,7 +1214,10 @@
     "tags": [
       "women",
       "women_s_clothing",
-      "jackets_rainwear"
+      "jackets_rainwear",
+      "rainwear",
+      "commuter_outerwear",
+      "weather_layer"
     ],
     "attributes": {
       "sizes": {
@@ -1084,7 +1255,7 @@
       },
       "product_type": {
         "text": [
-          "Jackets & Rainwear"
+          "Packable rain jacket"
         ]
       },
       "featured": {
@@ -1095,6 +1266,20 @@
       "is_new_arrival": {
         "text": [
           "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "rainy commutes",
+          "work travel",
+          "outdoor errands"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "waterproof breathable fabric",
+          "lightweight layer",
+          "hooded coverage"
         ]
       }
     }
@@ -1133,6 +1318,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "FEMALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Onyx Black",
@@ -1140,6 +1330,10 @@
         "Warm Cream"
       ]
     },
+    "materials": [
+      "Rayon",
+      "Spandex"
+    ],
     "sizes": [
       "XS",
       "S",
@@ -1150,7 +1344,10 @@
     "tags": [
       "women",
       "women_s_clothing",
-      "tops_tees"
+      "tops_tees",
+      "hybrid_office",
+      "everyday_basic",
+      "office_layer"
     ],
     "attributes": {
       "sizes": {
@@ -1188,7 +1385,7 @@
       },
       "product_type": {
         "text": [
-          "Tops & Tees"
+          "Short-sleeve boat-neck top"
         ]
       },
       "featured": {
@@ -1199,6 +1396,20 @@
       "is_new_arrival": {
         "text": [
           "false"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "hybrid office",
+          "video meetings",
+          "everyday wear"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "boat neckline",
+          "short sleeves",
+          "stretch comfort"
         ]
       }
     }
@@ -1237,6 +1448,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "FEMALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Midnight Black",
@@ -1244,6 +1460,9 @@
         "Teal Green"
       ]
     },
+    "materials": [
+      "Polyester"
+    ],
     "sizes": [
       "XS",
       "S",
@@ -1254,7 +1473,10 @@
     "tags": [
       "women",
       "women_s_clothing",
-      "activewear_tees"
+      "activewear_tees",
+      "active_commute",
+      "travel_basic",
+      "everyday_basic"
     ],
     "attributes": {
       "sizes": {
@@ -1292,7 +1514,7 @@
       },
       "product_type": {
         "text": [
-          "Activewear & Tees"
+          "Moisture-wicking active T-shirt"
         ]
       },
       "featured": {
@@ -1303,6 +1525,20 @@
       "is_new_arrival": {
         "text": [
           "false"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "active commuting",
+          "travel",
+          "everyday wear"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "moisture-wicking fabric",
+          "lightweight construction",
+          "machine washable"
         ]
       }
     }
@@ -1341,6 +1577,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "FEMALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Onyx Black",
@@ -1348,6 +1589,10 @@
         "Navy Blue"
       ]
     },
+    "materials": [
+      "Cotton",
+      "Spandex"
+    ],
     "sizes": [
       "XS",
       "S",
@@ -1358,7 +1603,10 @@
     "tags": [
       "women",
       "women_s_clothing",
-      "tops_tees"
+      "tops_tees",
+      "hybrid_office",
+      "everyday_basic",
+      "casual_workwear"
     ],
     "attributes": {
       "sizes": {
@@ -1396,7 +1644,7 @@
       },
       "product_type": {
         "text": [
-          "Tops & Tees"
+          "Casual V-neck T-shirt"
         ]
       },
       "featured": {
@@ -1407,6 +1655,20 @@
       "is_new_arrival": {
         "text": [
           "false"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "hybrid office",
+          "everyday wear",
+          "layering"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "V-neckline",
+          "short sleeves",
+          "stretch fabric"
         ]
       }
     }
@@ -1444,6 +1706,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Matte Black",
@@ -1536,6 +1803,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite"
@@ -1625,6 +1897,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Onyx Black"
@@ -1714,6 +1991,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Natural Oak",
@@ -1806,6 +2088,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Carbon Black",
@@ -1898,6 +2185,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Speckled Clay",
@@ -1991,6 +2283,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Amber Glass"
@@ -2083,6 +2380,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Amber Dropper"
@@ -2172,6 +2474,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Kraft Bag"
@@ -2263,6 +2570,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Dark Emerald Bottle"
@@ -2355,12 +2667,20 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "MALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Navy Melange",
         "Charcoal"
       ]
     },
+    "materials": [
+      "Wool blend"
+    ],
     "sizes": [
       "38R",
       "40R",
@@ -2370,7 +2690,10 @@
     "tags": [
       "men",
       "men_s_clothing",
-      "tailoring_outerwear"
+      "tailoring_outerwear",
+      "client_meeting",
+      "presentation",
+      "smart_casual"
     ],
     "attributes": {
       "sizes": {
@@ -2405,7 +2728,7 @@
       },
       "product_type": {
         "text": [
-          "Tailoring & Outerwear"
+          "Wool-blend tailored blazer"
         ]
       },
       "featured": {
@@ -2416,6 +2739,20 @@
       "is_new_arrival": {
         "text": [
           "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "client meetings",
+          "presentations",
+          "office wear"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "notch lapels",
+          "interior pockets",
+          "double back vents"
         ]
       }
     }
@@ -2454,12 +2791,20 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "MALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "British Khaki",
         "Olive Drab"
       ]
     },
+    "materials": [
+      "Cotton twill"
+    ],
     "sizes": [
       "30x32",
       "32x32",
@@ -2469,7 +2814,10 @@
     "tags": [
       "men",
       "men_s_clothing",
-      "pants_trousers"
+      "pants_trousers",
+      "hybrid_office",
+      "commuter_pants",
+      "smart_casual"
     ],
     "attributes": {
       "sizes": {
@@ -2504,7 +2852,7 @@
       },
       "product_type": {
         "text": [
-          "Pants & Trousers"
+          "Stretch cotton chino trousers"
         ]
       },
       "featured": {
@@ -2515,6 +2863,20 @@
       "is_new_arrival": {
         "text": [
           "false"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "office wear",
+          "commuting",
+          "work travel"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "stretch cotton twill",
+          "tapered fit",
+          "slant pockets"
         ]
       }
     }
@@ -2553,12 +2915,20 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "MALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Optic White",
         "French Blue"
       ]
     },
+    "materials": [
+      "Egyptian cotton"
+    ],
     "sizes": [
       "S",
       "M",
@@ -2568,7 +2938,10 @@
     "tags": [
       "men",
       "men_s_clothing",
-      "shirts_tops"
+      "shirts_tops",
+      "client_meeting",
+      "office_shirt",
+      "work_travel"
     ],
     "attributes": {
       "sizes": {
@@ -2603,7 +2976,7 @@
       },
       "product_type": {
         "text": [
-          "Shirts & Tops"
+          "Poplin button-down shirt"
         ]
       },
       "featured": {
@@ -2614,6 +2987,20 @@
       "is_new_arrival": {
         "text": [
           "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "client meetings",
+          "office wear",
+          "work travel"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "semi-spread collar",
+          "wrinkle-resistant finish",
+          "button-front closure"
         ]
       }
     }
@@ -2652,12 +3039,20 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "MALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Cognac Brown",
         "Polished Black"
       ]
     },
+    "materials": [
+      "Calfskin leather"
+    ],
     "sizes": [
       "8",
       "9",
@@ -2668,7 +3063,10 @@
     "tags": [
       "men",
       "men_s_clothing",
-      "footwear_shoes"
+      "footwear_shoes",
+      "client_meeting",
+      "presentation",
+      "office_shoes"
     ],
     "attributes": {
       "sizes": {
@@ -2704,7 +3102,7 @@
       },
       "product_type": {
         "text": [
-          "Footwear & Shoes"
+          "Leather Oxford dress shoes"
         ]
       },
       "featured": {
@@ -2715,6 +3113,20 @@
       "is_new_arrival": {
         "text": [
           "false"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "client meetings",
+          "presentations",
+          "office wear"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "cap-toe design",
+          "Goodyear welted sole",
+          "cushioned footbed"
         ]
       }
     }
@@ -2753,11 +3165,19 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "MALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Chalk White"
       ]
     },
+    "materials": [
+      "Leather"
+    ],
     "sizes": [
       "8",
       "9",
@@ -2768,7 +3188,10 @@
     "tags": [
       "men",
       "men_s_clothing",
-      "footwear_shoes"
+      "footwear_shoes",
+      "commuter_shoes",
+      "casual_office",
+      "walking"
     ],
     "attributes": {
       "sizes": {
@@ -2802,7 +3225,7 @@
       },
       "product_type": {
         "text": [
-          "Footwear & Shoes"
+          "Minimal leather low-top sneakers"
         ]
       },
       "featured": {
@@ -2813,6 +3236,20 @@
       "is_new_arrival": {
         "text": [
           "false"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "commuting",
+          "casual office",
+          "everyday walking"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "low-top profile",
+          "leather upper",
+          "rubber sole"
         ]
       }
     }
@@ -2851,12 +3288,20 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "MALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Oatmeal Heather",
         "Forest Green"
       ]
     },
+    "materials": [
+      "Merino wool"
+    ],
     "sizes": [
       "S",
       "M",
@@ -2866,7 +3311,10 @@
     "tags": [
       "men",
       "men_s_clothing",
-      "knitwear_sweaters"
+      "knitwear_sweaters",
+      "office_layer",
+      "temperature_layering",
+      "smart_casual"
     ],
     "attributes": {
       "sizes": {
@@ -2901,7 +3349,7 @@
       },
       "product_type": {
         "text": [
-          "Knitwear & Sweaters"
+          "Merino wool crewneck sweater"
         ]
       },
       "featured": {
@@ -2912,6 +3360,20 @@
       "is_new_arrival": {
         "text": [
           "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "office layering",
+          "commuting",
+          "work travel"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "temperature-regulating knit",
+          "naturally odor-resistant",
+          "ribbed cuffs"
         ]
       }
     }
@@ -2950,12 +3412,20 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "FEMALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Champagne Gold",
         "Midnight Noir"
       ]
     },
+    "materials": [
+      "Mulberry silk"
+    ],
     "sizes": [
       "XS",
       "S",
@@ -2965,7 +3435,10 @@
     "tags": [
       "women",
       "women_s_clothing",
-      "dresses"
+      "dresses",
+      "client_event",
+      "presentation",
+      "work_travel"
     ],
     "attributes": {
       "sizes": {
@@ -3000,7 +3473,7 @@
       },
       "product_type": {
         "text": [
-          "Dresses"
+          "Silk satin midi dress"
         ]
       },
       "featured": {
@@ -3011,6 +3484,20 @@
       "is_new_arrival": {
         "text": [
           "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "client events",
+          "presentations",
+          "work travel"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "bias-cut drape",
+          "adjustable straps",
+          "cowl neckline"
         ]
       }
     }
@@ -3049,12 +3536,20 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "FEMALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Natural Ecru",
         "Terracotta"
       ]
     },
+    "materials": [
+      "European flax linen"
+    ],
     "sizes": [
       "XS",
       "S",
@@ -3064,7 +3559,10 @@
     "tags": [
       "women",
       "women_s_clothing",
-      "jackets_blazers"
+      "jackets_blazers",
+      "client_meeting",
+      "warm_weather_office",
+      "smart_casual"
     ],
     "attributes": {
       "sizes": {
@@ -3099,7 +3597,7 @@
       },
       "product_type": {
         "text": [
-          "Jackets & Blazers"
+          "Linen-blend blazer"
         ]
       },
       "featured": {
@@ -3110,6 +3608,20 @@
       "is_new_arrival": {
         "text": [
           "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "client meetings",
+          "warm-weather office",
+          "presentations"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "relaxed silhouette",
+          "light shoulder structure",
+          "breathable linen"
         ]
       }
     }
@@ -3148,12 +3660,20 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "FEMALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Sand Taupe",
         "Jet Black"
       ]
     },
+    "materials": [
+      "Stretch crepe"
+    ],
     "sizes": [
       "XS",
       "S",
@@ -3164,7 +3684,10 @@
     "tags": [
       "women",
       "women_s_clothing",
-      "pants_trousers"
+      "pants_trousers",
+      "hybrid_office",
+      "commuter_pants",
+      "smart_casual"
     ],
     "attributes": {
       "sizes": {
@@ -3200,7 +3723,7 @@
       },
       "product_type": {
         "text": [
-          "Pants & Trousers"
+          "High-waisted wide-leg trousers"
         ]
       },
       "featured": {
@@ -3211,6 +3734,20 @@
       "is_new_arrival": {
         "text": [
           "false"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "office wear",
+          "commuting",
+          "presentations"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "wide-leg fit",
+          "front pleats",
+          "wrinkle-resistant stretch crepe"
         ]
       }
     }
@@ -3249,12 +3786,20 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "FEMALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Ivory Pearl",
         "Dusty Rose"
       ]
     },
+    "materials": [
+      "Silk crepe de chine"
+    ],
     "sizes": [
       "XS",
       "S",
@@ -3264,7 +3809,10 @@
     "tags": [
       "women",
       "women_s_clothing",
-      "shirts_blouses"
+      "shirts_blouses",
+      "client_meeting",
+      "office_blouse",
+      "work_travel"
     ],
     "attributes": {
       "sizes": {
@@ -3299,7 +3847,7 @@
       },
       "product_type": {
         "text": [
-          "Shirts & Blouses"
+          "Silk button-up blouse"
         ]
       },
       "featured": {
@@ -3310,6 +3858,20 @@
       "is_new_arrival": {
         "text": [
           "false"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "client meetings",
+          "office wear",
+          "work travel"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "matte finish",
+          "mother-of-pearl buttons",
+          "convertible cuffs"
         ]
       }
     }
@@ -3348,12 +3910,20 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "FEMALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Caramel Leather",
         "Onyx Black"
       ]
     },
+    "materials": [
+      "Lambskin leather"
+    ],
     "sizes": [
       "6",
       "7",
@@ -3364,7 +3934,10 @@
     "tags": [
       "women",
       "women_s_clothing",
-      "footwear_heels"
+      "footwear_heels",
+      "client_meeting",
+      "office_shoes",
+      "smart_casual"
     ],
     "attributes": {
       "sizes": {
@@ -3400,7 +3973,7 @@
       },
       "product_type": {
         "text": [
-          "Footwear & Heels"
+          "Leather mule pumps"
         ]
       },
       "featured": {
@@ -3411,6 +3984,20 @@
       "is_new_arrival": {
         "text": [
           "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "office wear",
+          "client meetings",
+          "work events"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "65 mm kitten heel",
+          "padded leather insole",
+          "slip-on design"
         ]
       }
     }
@@ -3449,12 +4036,20 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "FEMALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Sage Green",
         "Soft Cream"
       ]
     },
+    "materials": [
+      "Georgette"
+    ],
     "sizes": [
       "XS",
       "S",
@@ -3464,7 +4059,10 @@
     "tags": [
       "women",
       "women_s_clothing",
-      "skirts"
+      "skirts",
+      "hybrid_office",
+      "client_event",
+      "smart_casual"
     ],
     "attributes": {
       "sizes": {
@@ -3499,7 +4097,7 @@
       },
       "product_type": {
         "text": [
-          "Skirts"
+          "Pleated midi skirt"
         ]
       },
       "featured": {
@@ -3510,6 +4108,20 @@
       "is_new_arrival": {
         "text": [
           "false"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "office wear",
+          "client events",
+          "work travel"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "accordion pleats",
+          "lightweight georgette",
+          "elasticized waistband"
         ]
       }
     }
@@ -3548,6 +4160,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Saddle Tan",
@@ -3647,6 +4264,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "FEMALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Chestnut Brown",
@@ -3740,6 +4362,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Silver Mesh",
@@ -3833,6 +4460,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "FEMALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "14k Yellow Gold"
@@ -3923,6 +4555,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "MALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Smoky Flacon"
@@ -4015,6 +4652,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "FEMALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Frosted Blush Bottle"
@@ -4107,6 +4749,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Frosted Glass Pump"
@@ -4197,6 +4844,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Opalescent Jar"
@@ -4287,6 +4939,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Sheer Rosé"
@@ -4376,6 +5033,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Space Gray Aluminum",
@@ -4468,6 +5130,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Matte Charcoal",
@@ -4562,6 +5229,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Brushed Brass",
@@ -4654,6 +5326,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Saddle Brown",
@@ -4748,6 +5425,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Embossed Gold Tin"
@@ -4838,12 +5520,20 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "MALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Classic Khaki",
         "Midnight Navy"
       ]
     },
+    "materials": [
+      "Cotton gabardine"
+    ],
     "sizes": [
       "38R",
       "40R",
@@ -4853,7 +5543,10 @@
     "tags": [
       "men",
       "men_s_clothing",
-      "jackets_outerwear"
+      "jackets_outerwear",
+      "commuter_outerwear",
+      "client_meeting",
+      "rainwear"
     ],
     "attributes": {
       "sizes": {
@@ -4888,7 +5581,7 @@
       },
       "product_type": {
         "text": [
-          "Jackets & Outerwear"
+          "Water-resistant trench coat"
         ]
       },
       "featured": {
@@ -4899,6 +5592,20 @@
       "is_new_arrival": {
         "text": [
           "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "commuting",
+          "client meetings",
+          "rainy weather"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "water-resistant cotton gabardine",
+          "storm flap",
+          "belted waist"
         ]
       }
     }
@@ -4937,12 +5644,20 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "MALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Heather Gray",
         "Washed Black"
       ]
     },
+    "materials": [
+      "Organic cotton French terry"
+    ],
     "sizes": [
       "S",
       "M",
@@ -4952,7 +5667,10 @@
     "tags": [
       "men",
       "men_s_clothing",
-      "sweatshirts_hoodies"
+      "sweatshirts_hoodies",
+      "hybrid_office",
+      "casual_layer",
+      "commuting"
     ],
     "attributes": {
       "sizes": {
@@ -4987,7 +5705,7 @@
       },
       "product_type": {
         "text": [
-          "Sweatshirts & Hoodies"
+          "Organic cotton French terry hoodie"
         ]
       },
       "featured": {
@@ -4998,6 +5716,20 @@
       "is_new_arrival": {
         "text": [
           "false"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "casual office",
+          "commuting",
+          "weekends"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "heavyweight French terry",
+          "double-lined hood",
+          "rib-knit cuffs"
         ]
       }
     }
@@ -5036,11 +5768,19 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "MALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Raw Indigo"
       ]
     },
+    "materials": [
+      "Japanese selvedge denim"
+    ],
     "sizes": [
       "30x32",
       "32x32",
@@ -5050,7 +5790,10 @@
     "tags": [
       "men",
       "men_s_clothing",
-      "pants_trousers"
+      "pants_trousers",
+      "casual_office",
+      "commuter_pants",
+      "weekend"
     ],
     "attributes": {
       "sizes": {
@@ -5083,7 +5826,7 @@
       },
       "product_type": {
         "text": [
-          "Pants & Trousers"
+          "Selvedge denim jeans"
         ]
       },
       "featured": {
@@ -5094,6 +5837,20 @@
       "is_new_arrival": {
         "text": [
           "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "casual office",
+          "commuting",
+          "weekends"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "Japanese selvedge denim",
+          "straight tapered fit",
+          "button fly"
         ]
       }
     }
@@ -5132,12 +5889,20 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "MALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Tobacco Suede",
         "Charcoal Suede"
       ]
     },
+    "materials": [
+      "Calf suede"
+    ],
     "sizes": [
       "8",
       "9",
@@ -5148,7 +5913,10 @@
     "tags": [
       "men",
       "men_s_clothing",
-      "footwear_shoes"
+      "footwear_shoes",
+      "commuter_shoes",
+      "smart_casual",
+      "office_shoes"
     ],
     "attributes": {
       "sizes": {
@@ -5184,7 +5952,7 @@
       },
       "product_type": {
         "text": [
-          "Footwear & Shoes"
+          "Suede Chelsea boots"
         ]
       },
       "featured": {
@@ -5195,6 +5963,20 @@
       "is_new_arrival": {
         "text": [
           "false"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "commuting",
+          "office wear",
+          "smart-casual events"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "elastic side gussets",
+          "pull tabs",
+          "crepe rubber sole"
         ]
       }
     }
@@ -5233,12 +6015,20 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "FEMALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Camel Tan",
         "Alabaster White"
       ]
     },
+    "materials": [
+      "Mongolian cashmere"
+    ],
     "sizes": [
       "XS",
       "S",
@@ -5248,7 +6038,10 @@
     "tags": [
       "women",
       "women_s_clothing",
-      "knitwear_sweaters"
+      "knitwear_sweaters",
+      "office_layer",
+      "temperature_layering",
+      "smart_casual"
     ],
     "attributes": {
       "sizes": {
@@ -5283,7 +6076,7 @@
       },
       "product_type": {
         "text": [
-          "Knitwear & Sweaters"
+          "Cashmere turtleneck sweater"
         ]
       },
       "featured": {
@@ -5294,6 +6087,20 @@
       "is_new_arrival": {
         "text": [
           "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "office layering",
+          "commuting",
+          "work travel"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "relaxed rollneck",
+          "ribbed trims",
+          "lightweight warmth"
         ]
       }
     }
@@ -5332,12 +6139,20 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "FEMALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Warm Camel",
         "Noir"
       ]
     },
+    "materials": [
+      "Virgin wool"
+    ],
     "sizes": [
       "XS",
       "S",
@@ -5347,7 +6162,10 @@
     "tags": [
       "women",
       "women_s_clothing",
-      "jackets_outerwear"
+      "jackets_outerwear",
+      "commuter_outerwear",
+      "client_meeting",
+      "cold_weather"
     ],
     "attributes": {
       "sizes": {
@@ -5382,7 +6200,7 @@
       },
       "product_type": {
         "text": [
-          "Jackets & Outerwear"
+          "Tailored wool wrap coat"
         ]
       },
       "featured": {
@@ -5393,6 +6211,20 @@
       "is_new_arrival": {
         "text": [
           "false"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "cold-weather commuting",
+          "client meetings",
+          "work travel"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "double-faced wool",
+          "tie belt",
+          "deep welt pockets"
         ]
       }
     }
@@ -5431,12 +6263,20 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "FEMALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Cognac Leather",
         "Black Calfskin"
       ]
     },
+    "materials": [
+      "Calfskin leather"
+    ],
     "sizes": [
       "6",
       "7",
@@ -5447,7 +6287,10 @@
     "tags": [
       "women",
       "women_s_clothing",
-      "footwear_boots"
+      "footwear_boots",
+      "commuter_shoes",
+      "office_shoes",
+      "smart_casual"
     ],
     "attributes": {
       "sizes": {
@@ -5483,7 +6326,7 @@
       },
       "product_type": {
         "text": [
-          "Footwear & Boots"
+          "Leather block-heel ankle boots"
         ]
       },
       "featured": {
@@ -5494,6 +6337,20 @@
       "is_new_arrival": {
         "text": [
           "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "commuting",
+          "office wear",
+          "work events"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "55 mm block heel",
+          "side zipper",
+          "cushioned insole"
         ]
       }
     }
@@ -5532,12 +6389,20 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "FEMALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Medium Vintage Wash",
         "Washed Black"
       ]
     },
+    "materials": [
+      "Organic cotton denim"
+    ],
     "sizes": [
       "25",
       "26",
@@ -5549,7 +6414,10 @@
     "tags": [
       "women",
       "women_s_clothing",
-      "pants_denim"
+      "pants_denim",
+      "casual_office",
+      "commuter_pants",
+      "weekend"
     ],
     "attributes": {
       "sizes": {
@@ -5586,7 +6454,7 @@
       },
       "product_type": {
         "text": [
-          "Pants & Denim"
+          "Organic cotton straight-leg jeans"
         ]
       },
       "featured": {
@@ -5597,6 +6465,20 @@
       "is_new_arrival": {
         "text": [
           "false"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "casual office",
+          "commuting",
+          "weekends"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "high-rise waist",
+          "straight-leg fit",
+          "five-pocket design"
         ]
       }
     }
@@ -5635,6 +6517,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "FEMALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "14k Yellow Gold"
@@ -5727,6 +6614,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Caramel Suede",
@@ -5820,6 +6712,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Tortoiseshell",
@@ -5913,6 +6810,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Oatmeal Heather",
@@ -6005,6 +6907,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Matte Silver",
@@ -6097,6 +7004,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Space Gray"
@@ -6186,6 +7098,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Forest Green",
@@ -6278,6 +7195,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Clay Sand",
@@ -6372,6 +7294,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Matte Terra Cotta"
@@ -6461,6 +7388,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Natural White Oak"
@@ -6551,6 +7483,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Clear Flacon"
@@ -6643,6 +7580,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Brushed Brass Compact"
@@ -6733,6 +7675,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Amber Glass Bottle"
@@ -6823,6 +7770,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Golden Elixir"
@@ -6912,6 +7864,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Golden Amber Jar"
@@ -7001,6 +7958,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Dark Flacon"
@@ -7090,6 +8052,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Matte Black Tin"
@@ -7179,12 +8146,20 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "MALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Midnight Navy",
         "Warm Ivory"
       ]
     },
+    "materials": [
+      "Merino wool"
+    ],
     "sizes": [
       "S",
       "M",
@@ -7194,7 +8169,10 @@
     "tags": [
       "men",
       "men_s_clothing",
-      "apparel"
+      "apparel",
+      "hybrid_office",
+      "office_layer",
+      "smart_casual"
     ],
     "attributes": {
       "sizes": {
@@ -7229,7 +8207,7 @@
       },
       "product_type": {
         "text": [
-          "Apparel"
+          "Merino wool quarter-zip sweater"
         ]
       },
       "featured": {
@@ -7240,6 +8218,20 @@
       "is_new_arrival": {
         "text": [
           "false"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "office layering",
+          "video meetings",
+          "commuting"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "breathable merino wool",
+          "quarter-zip neckline",
+          "work-to-weekend layering"
         ]
       }
     }
@@ -7277,12 +8269,20 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "MALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Midnight Navy",
         "Warm Ivory"
       ]
     },
+    "materials": [
+      "Japanese selvedge denim"
+    ],
     "sizes": [
       "S",
       "M",
@@ -7292,7 +8292,10 @@
     "tags": [
       "men",
       "men_s_clothing",
-      "apparel"
+      "apparel",
+      "hybrid_office",
+      "overshirt",
+      "casual_workwear"
     ],
     "attributes": {
       "sizes": {
@@ -7327,7 +8330,7 @@
       },
       "product_type": {
         "text": [
-          "Apparel"
+          "Selvedge denim shirt"
         ]
       },
       "featured": {
@@ -7338,6 +8341,20 @@
       "is_new_arrival": {
         "text": [
           "false"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "casual office",
+          "office layering",
+          "weekends"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "Japanese selvedge denim",
+          "midweight construction",
+          "snap-button front"
         ]
       }
     }
@@ -7375,12 +8392,20 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "MALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Midnight Navy",
         "Warm Ivory"
       ]
     },
+    "materials": [
+      "Cotton Oxford cloth"
+    ],
     "sizes": [
       "S",
       "M",
@@ -7390,7 +8415,10 @@
     "tags": [
       "men",
       "men_s_clothing",
-      "apparel"
+      "apparel",
+      "client_meeting",
+      "office_shirt",
+      "smart_casual"
     ],
     "attributes": {
       "sizes": {
@@ -7425,7 +8453,7 @@
       },
       "product_type": {
         "text": [
-          "Apparel"
+          "Cotton Oxford button-down shirt"
         ]
       },
       "featured": {
@@ -7436,6 +8464,20 @@
       "is_new_arrival": {
         "text": [
           "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "office wear",
+          "client meetings",
+          "video calls"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "brushed cotton Oxford cloth",
+          "tailored fit",
+          "button-down collar"
         ]
       }
     }
@@ -7473,12 +8515,20 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "MALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Midnight Navy",
         "Warm Ivory"
       ]
     },
+    "materials": [
+      "Recycled shell fabric"
+    ],
     "sizes": [
       "S",
       "M",
@@ -7488,7 +8538,10 @@
     "tags": [
       "men",
       "men_s_clothing",
-      "apparel"
+      "apparel",
+      "commuter_outerwear",
+      "weather_layer",
+      "work_travel"
     ],
     "attributes": {
       "sizes": {
@@ -7523,7 +8576,7 @@
       },
       "product_type": {
         "text": [
-          "Apparel"
+          "Water-repellent commuter jacket"
         ]
       },
       "featured": {
@@ -7534,6 +8587,20 @@
       "is_new_arrival": {
         "text": [
           "false"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "commuting",
+          "work travel",
+          "weather layering"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "water-repellent shell",
+          "lightweight construction",
+          "packable silhouette"
         ]
       }
     }
@@ -7571,12 +8638,20 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "FEMALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Midnight Navy",
         "Warm Ivory"
       ]
     },
+    "materials": [
+      "Linen blend"
+    ],
     "sizes": [
       "XS",
       "S",
@@ -7586,7 +8661,10 @@
     "tags": [
       "women",
       "women_s_clothing",
-      "apparel"
+      "apparel",
+      "hybrid_office",
+      "warm_weather_office",
+      "smart_casual"
     ],
     "attributes": {
       "sizes": {
@@ -7621,7 +8699,7 @@
       },
       "product_type": {
         "text": [
-          "Apparel"
+          "Linen-blend wide-leg trousers"
         ]
       },
       "featured": {
@@ -7632,6 +8710,20 @@
       "is_new_arrival": {
         "text": [
           "false"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "office wear",
+          "warm-weather commuting",
+          "travel"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "wide-leg fit",
+          "adjustable back waist tabs",
+          "breathable linen blend"
         ]
       }
     }
@@ -7669,12 +8761,20 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "FEMALE"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Midnight Navy",
         "Warm Ivory"
       ]
     },
+    "materials": [
+      "Silk satin"
+    ],
     "sizes": [
       "XS",
       "S",
@@ -7684,7 +8784,10 @@
     "tags": [
       "women",
       "women_s_clothing",
-      "apparel"
+      "apparel",
+      "office_layer",
+      "client_meeting",
+      "smart_casual"
     ],
     "attributes": {
       "sizes": {
@@ -7719,7 +8822,7 @@
       },
       "product_type": {
         "text": [
-          "Apparel"
+          "Silk satin camisole"
         ]
       },
       "featured": {
@@ -7730,6 +8833,20 @@
       "is_new_arrival": {
         "text": [
           "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "office layering",
+          "client meetings",
+          "work events"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "draped cowl neckline",
+          "silk satin finish",
+          "layering silhouette"
         ]
       }
     }
@@ -7767,6 +8884,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Sterling Silver",
@@ -7859,6 +8981,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Sterling Silver",
@@ -7951,6 +9078,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Sterling Silver",
@@ -8043,6 +9175,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Sterling Silver",
@@ -8135,6 +9272,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Sterling Silver",
@@ -8227,6 +9369,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Sterling Silver",
@@ -8319,6 +9466,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Sterling Silver",
@@ -8410,6 +9562,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite",
@@ -8501,6 +9658,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite",
@@ -8592,6 +9754,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite",
@@ -8683,6 +9850,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite",
@@ -8774,6 +9946,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite",
@@ -8865,6 +10042,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite",
@@ -8956,6 +10138,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite",
@@ -9047,6 +10234,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite",
@@ -9138,6 +10330,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite",
@@ -9229,6 +10426,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite",
@@ -9320,6 +10522,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite",
@@ -9411,6 +10618,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite",
@@ -9502,6 +10714,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite",
@@ -9593,6 +10810,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite",
@@ -9684,6 +10906,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite",
@@ -9775,6 +11002,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite",
@@ -9866,6 +11098,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite",
@@ -9957,6 +11194,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite",
@@ -10048,6 +11290,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite",
@@ -10139,6 +11386,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite",
@@ -10230,6 +11482,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite",
@@ -10321,6 +11578,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite",
@@ -10412,6 +11674,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite",
@@ -10522,6 +11789,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite",
@@ -10631,6 +11903,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite",
@@ -10740,6 +12017,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite",
@@ -10849,6 +12131,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite",
@@ -10958,6 +12245,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite",
@@ -11068,6 +12360,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Natural Oak",
@@ -11159,6 +12456,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Natural Oak",
@@ -11250,6 +12552,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Natural Oak",
@@ -11341,6 +12648,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Natural Oak",
@@ -11432,6 +12744,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Natural Oak",
@@ -11523,6 +12840,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Natural Oak",
@@ -11614,6 +12936,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Natural Oak",
@@ -11705,6 +13032,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Natural Oak",
@@ -11796,6 +13128,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Natural Oak",
@@ -11887,6 +13224,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Natural Oak",
@@ -11978,6 +13320,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Natural Oak",
@@ -12070,6 +13417,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Smoky Glass"
@@ -12161,6 +13513,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Smoky Glass"
@@ -12252,6 +13609,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Smoky Glass"
@@ -12343,6 +13705,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Smoky Glass"
@@ -12434,6 +13801,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Smoky Glass"
@@ -12525,6 +13897,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Smoky Glass"
@@ -12616,6 +13993,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Smoky Glass"
@@ -12707,6 +14089,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Smoky Glass"
@@ -12798,6 +14185,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Smoky Glass"
@@ -12889,6 +14281,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Smoky Glass"
@@ -12980,6 +14377,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Smoky Glass"
@@ -13071,6 +14473,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Smoky Glass"
@@ -13162,6 +14569,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Smoky Glass"
@@ -13253,6 +14665,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Smoky Glass"
@@ -13344,6 +14761,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Soft Blush"
@@ -13433,6 +14855,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Soft Blush"
@@ -13522,6 +14949,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Soft Blush"
@@ -13611,6 +15043,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Soft Blush"
@@ -13700,6 +15137,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Soft Blush"
@@ -13789,6 +15231,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Soft Blush"
@@ -13878,6 +15325,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Soft Blush"
@@ -13967,6 +15419,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Soft Blush"
@@ -14056,6 +15513,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Soft Blush"
@@ -14145,6 +15607,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Soft Blush"
@@ -14234,6 +15701,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Soft Blush"
@@ -14323,6 +15795,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Soft Blush"
@@ -14412,6 +15889,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Soft Blush"
@@ -14500,6 +15982,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Harvest Gold"
@@ -14588,6 +16075,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Harvest Gold"
@@ -14676,6 +16168,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Harvest Gold"
@@ -14764,6 +16261,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Harvest Gold"
@@ -14852,6 +16354,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Harvest Gold"
@@ -14940,6 +16447,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Harvest Gold"
@@ -15028,6 +16540,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Harvest Gold"
@@ -15116,6 +16633,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Harvest Gold"
@@ -15204,6 +16726,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Harvest Gold"
@@ -15292,6 +16819,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Harvest Gold"
@@ -15380,6 +16912,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Harvest Gold"
@@ -15468,6 +17005,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Harvest Gold"
@@ -15556,6 +17098,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Harvest Gold"
@@ -15613,6 +17160,2637 @@
     }
   },
   {
+    "id": "onx-234",
+    "type": "PRIMARY",
+    "title": "Merino-Blend Knit Polo",
+    "description": "A breathable merino-blend polo brings a polished collar to an easy-care knit, comfortable for video calls, office days, and after-work plans.",
+    "languageCode": "en-US",
+    "categories": [
+      "Apparel",
+      "Apparel > Men's Clothing",
+      "Apparel > Men's Clothing > Polos & Knit Tops"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/234",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 88
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 118
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 92,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "MALE"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Midnight Navy",
+        "Warm Ivory"
+      ]
+    },
+    "materials": [
+      "Merino wool blend"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "tags": [
+      "men",
+      "men_s_clothing",
+      "polos_knit_tops",
+      "tech_office",
+      "smart_casual",
+      "hybrid_work"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "S",
+          "M",
+          "L",
+          "XL",
+          "XXL"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Midnight Navy",
+          "Warm Ivory"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#1e3a5f",
+          "#f5efe6"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Men"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Polos & Knit Tops"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Knit polo shirt"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "hybrid office",
+          "video meetings",
+          "travel"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "breathable merino blend",
+          "soft knit construction",
+          "collared finish"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-235",
+    "type": "PRIMARY",
+    "title": "Stretch Cotton Commuter Chino",
+    "description": "Everyday cotton chinos with comfortable stretch and a clean tapered leg move easily between a relaxed office and an on-site workday.",
+    "languageCode": "en-US",
+    "categories": [
+      "Apparel",
+      "Apparel > Men's Clothing",
+      "Apparel > Men's Clothing > Pants & Trousers"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/235",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 94
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 135
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 105,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "MALE"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Midnight Navy",
+        "Warm Ivory"
+      ]
+    },
+    "materials": [
+      "Stretch cotton"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "tags": [
+      "men",
+      "men_s_clothing",
+      "pants_trousers",
+      "tech_office",
+      "smart_casual",
+      "commuter_pants"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "S",
+          "M",
+          "L",
+          "XL",
+          "XXL"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Midnight Navy",
+          "Warm Ivory"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#1e3a5f",
+          "#f5efe6"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Men"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Pants & Trousers"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Stretch cotton chino"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "false"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "office wear",
+          "commuting",
+          "travel"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "comfortable stretch",
+          "tapered leg",
+          "everyday pockets"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-236",
+    "type": "PRIMARY",
+    "title": "Lightweight Merino Crew T-Shirt",
+    "description": "A soft merino-blend crew tee is a comfortable base layer for warm offices, travel days, and casual team settings.",
+    "languageCode": "en-US",
+    "categories": [
+      "Apparel",
+      "Apparel > Men's Clothing",
+      "Apparel > Men's Clothing > T-Shirts & Base Layers"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/236",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 62
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 152
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 28,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "MALE"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Midnight Navy",
+        "Warm Ivory"
+      ]
+    },
+    "materials": [
+      "Merino wool blend"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "tags": [
+      "men",
+      "men_s_clothing",
+      "t_shirts_base_layers",
+      "tech_office",
+      "workwear_basics",
+      "hybrid_work"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "S",
+          "M",
+          "L",
+          "XL",
+          "XXL"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Midnight Navy",
+          "Warm Ivory"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#1e3a5f",
+          "#f5efe6"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Men"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "T-Shirts & Base Layers"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Merino-blend T-shirt"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "false"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "office layering",
+          "travel",
+          "everyday wear"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "lightweight knit",
+          "crew neckline",
+          "easy base layer"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-237",
+    "type": "PRIMARY",
+    "title": "Unstructured Stretch-Knit Blazer",
+    "description": "A softly structured knit blazer adds polish for presentations and customer workshops without feeling formal or restrictive.",
+    "languageCode": "en-US",
+    "categories": [
+      "Apparel",
+      "Apparel > Men's Clothing",
+      "Apparel > Men's Clothing > Blazers & Tailoring"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/237",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 168
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 169
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 41,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "MALE"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Midnight Navy",
+        "Warm Ivory"
+      ]
+    },
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "tags": [
+      "men",
+      "men_s_clothing",
+      "blazers_tailoring",
+      "tech_office",
+      "client_meeting",
+      "smart_casual"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "S",
+          "M",
+          "L",
+          "XL",
+          "XXL"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Midnight Navy",
+          "Warm Ivory"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#1e3a5f",
+          "#f5efe6"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Men"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Blazers & Tailoring"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Stretch-knit blazer"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "presentations",
+          "customer workshops",
+          "office wear"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "unstructured shoulders",
+          "stretch-knit fabric",
+          "easy smart-casual styling"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-238",
+    "type": "PRIMARY",
+    "title": "Fine-Gauge Merino Zip Cardigan",
+    "description": "A fine-gauge zip cardigan layers neatly over a shirt or tee for variable office temperatures and cool evenings on the commute.",
+    "languageCode": "en-US",
+    "categories": [
+      "Apparel",
+      "Apparel > Men's Clothing",
+      "Apparel > Men's Clothing > Knitwear & Sweaters"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/238",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 126
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 186
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 54,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "MALE"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Midnight Navy",
+        "Warm Ivory"
+      ]
+    },
+    "materials": [
+      "Merino wool"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "tags": [
+      "men",
+      "men_s_clothing",
+      "knitwear_sweaters",
+      "tech_office",
+      "smart_casual",
+      "layering"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "S",
+          "M",
+          "L",
+          "XL",
+          "XXL"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Midnight Navy",
+          "Warm Ivory"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#1e3a5f",
+          "#f5efe6"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Men"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Knitwear & Sweaters"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Merino zip cardigan"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "false"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "office layering",
+          "commuting",
+          "travel"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "fine-gauge knit",
+          "full-zip front",
+          "lightweight warmth"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-239",
+    "type": "PRIMARY",
+    "title": "Packable Commuter Vest",
+    "description": "A low-bulk insulated vest adds warmth over office layers and packs down for transit, travel, or changing weather.",
+    "languageCode": "en-US",
+    "categories": [
+      "Apparel",
+      "Apparel > Men's Clothing",
+      "Apparel > Men's Clothing > Vests & Outerwear"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/239",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1544923246-77307dd654cb?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 112
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 203
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 67,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "MALE"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Midnight Navy",
+        "Warm Ivory"
+      ]
+    },
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "tags": [
+      "men",
+      "men_s_clothing",
+      "vests_outerwear",
+      "tech_office",
+      "commuter_outerwear",
+      "travel"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "S",
+          "M",
+          "L",
+          "XL",
+          "XXL"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Midnight Navy",
+          "Warm Ivory"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#1e3a5f",
+          "#f5efe6"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Men"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Vests & Outerwear"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Packable commuter vest"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "false"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "commuting",
+          "work travel",
+          "weather layering"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "lightweight insulation",
+          "packable design",
+          "layer-friendly fit"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-240",
+    "type": "PRIMARY",
+    "title": "Wrinkle-Resistant Travel Shirt",
+    "description": "A versatile long-sleeve shirt with a crisp collar and easy-care finish is ready for customer-facing days straight from a work bag.",
+    "languageCode": "en-US",
+    "categories": [
+      "Apparel",
+      "Apparel > Men's Clothing",
+      "Apparel > Men's Clothing > Shirts & Tops"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/240",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1603252109303-2751441dd157?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 82
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 220
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 80,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "MALE"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Midnight Navy",
+        "Warm Ivory"
+      ]
+    },
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "tags": [
+      "men",
+      "men_s_clothing",
+      "shirts_tops",
+      "tech_office",
+      "client_meeting",
+      "travel_shirt"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "S",
+          "M",
+          "L",
+          "XL",
+          "XXL"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Midnight Navy",
+          "Warm Ivory"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#1e3a5f",
+          "#f5efe6"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Men"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Shirts & Tops"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Travel button-down shirt"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "client meetings",
+          "work travel",
+          "office wear"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "easy-care finish",
+          "button-front closure",
+          "layer-ready collar"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-241",
+    "type": "PRIMARY",
+    "title": "Dark-Wash Straight-Leg Jeans",
+    "description": "Dark-wash denim with a comfortable straight fit offers a low-key option for casual offices, team days, and weekends.",
+    "languageCode": "en-US",
+    "categories": [
+      "Apparel",
+      "Apparel > Men's Clothing",
+      "Apparel > Men's Clothing > Pants & Denim"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/241",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1542272604-780c96856592?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 92
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 237
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 93,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "MALE"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Midnight Navy",
+        "Warm Ivory"
+      ]
+    },
+    "materials": [
+      "Denim"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "tags": [
+      "men",
+      "men_s_clothing",
+      "pants_denim",
+      "tech_office",
+      "casual_workwear",
+      "denim"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "S",
+          "M",
+          "L",
+          "XL",
+          "XXL"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Midnight Navy",
+          "Warm Ivory"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#1e3a5f",
+          "#f5efe6"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Men"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Pants & Denim"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Straight-leg jeans"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "false"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "casual office",
+          "commuting",
+          "weekends"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "dark wash",
+          "straight fit",
+          "classic five-pocket styling"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-242",
+    "type": "PRIMARY",
+    "title": "Minimal Leather Commuter Sneakers",
+    "description": "Minimal low-profile sneakers pair a clean leather look with a cushioned footbed for walking between transit, office, and client sites.",
+    "languageCode": "en-US",
+    "categories": [
+      "Apparel",
+      "Apparel > Men's Clothing",
+      "Apparel > Men's Clothing > Footwear & Sneakers"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/242",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 124
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 254
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 106,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "MALE"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Midnight Navy",
+        "Warm Ivory"
+      ]
+    },
+    "sizes": [
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "13"
+    ],
+    "tags": [
+      "men",
+      "men_s_clothing",
+      "footwear_sneakers",
+      "tech_office",
+      "commuter_shoes",
+      "smart_casual"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+          "13"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Midnight Navy",
+          "Warm Ivory"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#1e3a5f",
+          "#f5efe6"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Men"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Footwear & Sneakers"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Leather commuter sneaker"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "false"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "commuting",
+          "office wear",
+          "walking"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "low-profile silhouette",
+          "cushioned footbed",
+          "versatile neutral finish"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-243",
+    "type": "PRIMARY",
+    "title": "Merino-Blend Knit Polo",
+    "description": "A breathable merino-blend polo pairs a polished collar with a comfortable knit for video calls, office days, and after-work plans.",
+    "languageCode": "en-US",
+    "categories": [
+      "Apparel",
+      "Apparel > Women's Clothing",
+      "Apparel > Women's Clothing > Polos & Knit Tops"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/243",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 84
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 271
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 29,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "FEMALE"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Midnight Navy",
+        "Warm Ivory"
+      ]
+    },
+    "materials": [
+      "Merino wool blend"
+    ],
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "tags": [
+      "women",
+      "women_s_clothing",
+      "polos_knit_tops",
+      "tech_office",
+      "smart_casual",
+      "hybrid_work"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL",
+          "XXL"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Midnight Navy",
+          "Warm Ivory"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#1e3a5f",
+          "#f5efe6"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Women"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Polos & Knit Tops"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Knit polo shirt"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "hybrid office",
+          "video meetings",
+          "travel"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "breathable merino blend",
+          "soft knit construction",
+          "collared finish"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-244",
+    "type": "PRIMARY",
+    "title": "Relaxed Technical Overshirt",
+    "description": "A relaxed overshirt adds a practical layer over tees and blouses for cool offices, commutes, and customer visits.",
+    "languageCode": "en-US",
+    "categories": [
+      "Apparel",
+      "Apparel > Women's Clothing",
+      "Apparel > Women's Clothing > Overshirts & Layers"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/244",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 112
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 288
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 42,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "FEMALE"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Midnight Navy",
+        "Warm Ivory"
+      ]
+    },
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "tags": [
+      "women",
+      "women_s_clothing",
+      "overshirts_layers",
+      "tech_office",
+      "smart_casual",
+      "commuter_layer"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL",
+          "XXL"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Midnight Navy",
+          "Warm Ivory"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#1e3a5f",
+          "#f5efe6"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Women"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Overshirts & Layers"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Casual overshirt"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "false"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "office layering",
+          "commuting",
+          "customer visits"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "relaxed fit",
+          "button-front closure",
+          "easy layering"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-245",
+    "type": "PRIMARY",
+    "title": "Stretch Pull-On Straight Trousers",
+    "description": "Polished straight-leg trousers with an easy pull-on waist bring everyday comfort to desk time, travel, and client-facing work.",
+    "languageCode": "en-US",
+    "categories": [
+      "Apparel",
+      "Apparel > Women's Clothing",
+      "Apparel > Women's Clothing > Pants & Trousers"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/245",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 96
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 45
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 55,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "FEMALE"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Midnight Navy",
+        "Warm Ivory"
+      ]
+    },
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "tags": [
+      "women",
+      "women_s_clothing",
+      "pants_trousers",
+      "tech_office",
+      "smart_casual",
+      "commuter_pants"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL",
+          "XXL"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Midnight Navy",
+          "Warm Ivory"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#1e3a5f",
+          "#f5efe6"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Women"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Pants & Trousers"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Stretch pull-on trousers"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "false"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "office wear",
+          "work travel",
+          "customer meetings"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "pull-on waist",
+          "comfortable stretch",
+          "straight-leg fit"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-246",
+    "type": "PRIMARY",
+    "title": "Technical Wide-Leg Travel Pants",
+    "description": "Fluid wide-leg pants in a flexible woven fabric balance a polished look with easy movement through busy workdays and travel.",
+    "languageCode": "en-US",
+    "categories": [
+      "Apparel",
+      "Apparel > Women's Clothing",
+      "Apparel > Women's Clothing > Pants & Trousers"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/246",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 104
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 62
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 68,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "FEMALE"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Midnight Navy",
+        "Warm Ivory"
+      ]
+    },
+    "materials": [
+      "Stretch woven fabric"
+    ],
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "tags": [
+      "women",
+      "women_s_clothing",
+      "pants_trousers",
+      "tech_office",
+      "travel_pants",
+      "smart_casual"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL",
+          "XXL"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Midnight Navy",
+          "Warm Ivory"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#1e3a5f",
+          "#f5efe6"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Women"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Pants & Trousers"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Stretch travel pants"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "work travel",
+          "commuting",
+          "everyday wear"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "wide-leg fit",
+          "flexible fabric",
+          "easy-care styling"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-247",
+    "type": "PRIMARY",
+    "title": "Lightweight Merino Crew T-Shirt",
+    "description": "A lightweight merino-blend crew tee is an easy base layer for warm offices, travel days, and casual team settings.",
+    "languageCode": "en-US",
+    "categories": [
+      "Apparel",
+      "Apparel > Women's Clothing",
+      "Apparel > Women's Clothing > T-Shirts & Base Layers"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/247",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 58
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 79
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 81,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "FEMALE"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Midnight Navy",
+        "Warm Ivory"
+      ]
+    },
+    "materials": [
+      "Merino wool blend"
+    ],
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "tags": [
+      "women",
+      "women_s_clothing",
+      "t_shirts_base_layers",
+      "tech_office",
+      "workwear_basics",
+      "hybrid_work"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL",
+          "XXL"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Midnight Navy",
+          "Warm Ivory"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#1e3a5f",
+          "#f5efe6"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Women"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "T-Shirts & Base Layers"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Merino-blend T-shirt"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "false"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "office layering",
+          "travel",
+          "everyday wear"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "lightweight knit",
+          "crew neckline",
+          "easy base layer"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-248",
+    "type": "PRIMARY",
+    "title": "Unstructured Stretch-Knit Blazer",
+    "description": "A softly structured knit blazer adds polish for presentations and customer workshops while staying comfortable through a full workday.",
+    "languageCode": "en-US",
+    "categories": [
+      "Apparel",
+      "Apparel > Women's Clothing",
+      "Apparel > Women's Clothing > Blazers & Tailoring"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/248",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1584273143981-41c073dfe8f8?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 158
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 96
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 94,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "FEMALE"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Midnight Navy",
+        "Warm Ivory"
+      ]
+    },
+    "materials": [
+      "Stretch knit fabric"
+    ],
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "tags": [
+      "women",
+      "women_s_clothing",
+      "blazers_tailoring",
+      "tech_office",
+      "client_meeting",
+      "smart_casual"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL",
+          "XXL"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Midnight Navy",
+          "Warm Ivory"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#1e3a5f",
+          "#f5efe6"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Women"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Blazers & Tailoring"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Stretch-knit blazer"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "false"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "presentations",
+          "customer workshops",
+          "office wear"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "unstructured shoulders",
+          "stretch-knit fabric",
+          "easy smart-casual styling"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-249",
+    "type": "PRIMARY",
+    "title": "Fine-Gauge Merino Cardigan",
+    "description": "A fine-gauge cardigan layers over a shirt or tee for variable office temperatures and cool evenings on the commute.",
+    "languageCode": "en-US",
+    "categories": [
+      "Apparel",
+      "Apparel > Women's Clothing",
+      "Apparel > Women's Clothing > Knitwear & Sweaters"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/249",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 118
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 113
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 107,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "FEMALE"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Midnight Navy",
+        "Warm Ivory"
+      ]
+    },
+    "materials": [
+      "Merino wool"
+    ],
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "tags": [
+      "women",
+      "women_s_clothing",
+      "knitwear_sweaters",
+      "tech_office",
+      "smart_casual",
+      "layering"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL",
+          "XXL"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Midnight Navy",
+          "Warm Ivory"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#1e3a5f",
+          "#f5efe6"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Women"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Knitwear & Sweaters"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Merino cardigan"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "office layering",
+          "commuting",
+          "travel"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "fine-gauge knit",
+          "button-front closure",
+          "lightweight warmth"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-250",
+    "type": "PRIMARY",
+    "title": "Packable Commuter Shell Jacket",
+    "description": "A lightweight shell layers over workday basics and packs away easily for commuting, customer visits, and changing weather.",
+    "languageCode": "en-US",
+    "categories": [
+      "Apparel",
+      "Apparel > Women's Clothing",
+      "Apparel > Women's Clothing > Jackets & Outerwear"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/250",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1544923246-77307dd654cb?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 138
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 130
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 30,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "FEMALE"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Midnight Navy",
+        "Warm Ivory"
+      ]
+    },
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "tags": [
+      "women",
+      "women_s_clothing",
+      "jackets_outerwear",
+      "tech_office",
+      "commuter_outerwear",
+      "travel"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL",
+          "XXL"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Midnight Navy",
+          "Warm Ivory"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#1e3a5f",
+          "#f5efe6"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Women"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Jackets & Outerwear"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Packable commuter shell"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "false"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "commuting",
+          "work travel",
+          "weather layering"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "lightweight construction",
+          "packable design",
+          "layer-friendly fit"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-251",
+    "type": "PRIMARY",
+    "title": "Wrinkle-Resistant Poplin Shirt",
+    "description": "An easy-care poplin shirt with a clean collar and relaxed shape works on its own or layered for client-facing days.",
+    "languageCode": "en-US",
+    "categories": [
+      "Apparel",
+      "Apparel > Women's Clothing",
+      "Apparel > Women's Clothing > Shirts & Blouses"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/251",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1608256246200-53e635b5b65f?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 76
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 147
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 43,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "FEMALE"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Midnight Navy",
+        "Warm Ivory"
+      ]
+    },
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "tags": [
+      "women",
+      "women_s_clothing",
+      "shirts_blouses",
+      "tech_office",
+      "client_meeting",
+      "travel_shirt"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL",
+          "XXL"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Midnight Navy",
+          "Warm Ivory"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#1e3a5f",
+          "#f5efe6"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Women"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Shirts & Blouses"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Poplin button-down shirt"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "false"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "client meetings",
+          "work travel",
+          "office wear"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "easy-care finish",
+          "button-front closure",
+          "relaxed silhouette"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-252",
+    "type": "PRIMARY",
+    "title": "Dark-Wash Straight-Leg Jeans",
+    "description": "Dark-wash denim in a comfortable straight fit makes an easy choice for casual offices, team days, and weekends.",
+    "languageCode": "en-US",
+    "categories": [
+      "Apparel",
+      "Apparel > Women's Clothing",
+      "Apparel > Women's Clothing > Pants & Denim"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/252",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 88
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 164
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 56,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "FEMALE"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Midnight Navy",
+        "Warm Ivory"
+      ]
+    },
+    "materials": [
+      "Denim"
+    ],
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "tags": [
+      "women",
+      "women_s_clothing",
+      "pants_denim",
+      "tech_office",
+      "casual_workwear",
+      "denim"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL",
+          "XXL"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Midnight Navy",
+          "Warm Ivory"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#1e3a5f",
+          "#f5efe6"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Women"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Pants & Denim"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Straight-leg jeans"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "casual office",
+          "commuting",
+          "weekends"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "dark wash",
+          "straight fit",
+          "classic five-pocket styling"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-253",
+    "type": "PRIMARY",
+    "title": "Minimal Leather Commuter Sneakers",
+    "description": "Low-profile leather sneakers pair easily with workday basics and offer a cushioned footbed for commutes and client-site walks.",
+    "languageCode": "en-US",
+    "categories": [
+      "Apparel",
+      "Apparel > Women's Clothing",
+      "Apparel > Women's Clothing > Footwear & Sneakers"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/253",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 118
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 181
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 69,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "FEMALE"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Midnight Navy",
+        "Warm Ivory"
+      ]
+    },
+    "materials": [
+      "Leather"
+    ],
+    "sizes": [
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11"
+    ],
+    "tags": [
+      "women",
+      "women_s_clothing",
+      "footwear_sneakers",
+      "tech_office",
+      "commuter_shoes",
+      "smart_casual"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Midnight Navy",
+          "Warm Ivory"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#1e3a5f",
+          "#f5efe6"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Women"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Footwear & Sneakers"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Leather commuter sneaker"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "false"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "commuting",
+          "office wear",
+          "walking"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "low-profile silhouette",
+          "cushioned footbed",
+          "versatile neutral finish"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-254",
+    "type": "PRIMARY",
+    "title": "Sleeveless Knit Midi Dress",
+    "description": "A softly structured knit midi dress offers an easy one-piece option for office days, presentations, and travel with a layer.",
+    "languageCode": "en-US",
+    "categories": [
+      "Apparel",
+      "Apparel > Women's Clothing",
+      "Apparel > Women's Clothing > Dresses"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/254",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 126
+    },
+    "rating": {
+      "averageRating": 4.7,
+      "ratingCount": 198
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 82,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "FEMALE"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Midnight Navy",
+        "Warm Ivory"
+      ]
+    },
+    "materials": [
+      "Knit textile"
+    ],
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "tags": [
+      "women",
+      "women_s_clothing",
+      "dresses",
+      "tech_office",
+      "smart_casual",
+      "travel_wardrobe"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL",
+          "XXL"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Midnight Navy",
+          "Warm Ivory"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#1e3a5f",
+          "#f5efe6"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Women"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Dresses"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Knit midi dress"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "false"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "office wear",
+          "presentations",
+          "work travel"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "comfortable knit",
+          "sleeveless layering shape",
+          "midi length"
+        ]
+      }
+    }
+  },
+  {
     "id": "onx-204",
     "type": "PRIMARY",
     "title": "Hot-Swappable Mechanical Keyboard",
@@ -15644,6 +19822,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite"
@@ -15777,6 +19960,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite"
@@ -15910,6 +20098,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite"
@@ -16043,6 +20236,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite"
@@ -16176,6 +20374,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite"
@@ -16309,6 +20512,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite"
@@ -16442,6 +20650,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite"
@@ -16575,6 +20788,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite"
@@ -16708,6 +20926,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite"
@@ -16841,6 +21064,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite"
@@ -16975,6 +21203,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite"
@@ -17108,6 +21341,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite"
@@ -17242,6 +21480,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite"
@@ -17375,6 +21618,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite"
@@ -17508,6 +21756,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite"
@@ -17641,6 +21894,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite"
@@ -17774,6 +22032,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite"
@@ -17907,6 +22170,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite"
@@ -18040,6 +22308,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite"
@@ -18173,6 +22446,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite"
@@ -18305,6 +22583,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite"
@@ -18438,6 +22721,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite"
@@ -18571,6 +22859,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite"
@@ -18705,6 +22998,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Midnight Black",
@@ -18850,6 +23148,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite"
@@ -18983,6 +23286,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite"
@@ -19117,6 +23425,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Midnight Black",
@@ -19261,6 +23574,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite"
@@ -19395,6 +23713,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite"
@@ -19528,6 +23851,11 @@
     "conditions": [
       "new"
     ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
     "colorInfo": {
       "colors": [
         "Graphite"

@@ -100,7 +100,7 @@ gecx-shopping-agent-demo/
 │   ├── types/                    # Product, CartItem, Filters
 │   └── utils/                    # agentActionValidator, filterSanitizer, fuzzySearch
 ├── tests/                        # Vitest suites (services, proxy, components, contracts)
-├── vertex-retail-catalog.jsonl   # Ready-to-import Retail catalog, 197 products
+├── vertex-retail-catalog.jsonl   # Ready-to-import Retail catalog, 218 products
 └── vertex-retail-catalog.json    # The same catalog, formatted for review
 ```
 
