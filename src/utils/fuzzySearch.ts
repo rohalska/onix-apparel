@@ -31,6 +31,27 @@ export const APPAREL_DICTIONARY: string[] = [
   'bags',
   'tote',
   'rucksack',
+  'tent',
+  'tents',
+  'shelter',
+  'sleeping',
+  'pad',
+  'pads',
+  'hammock',
+  'bivy',
+  'stove',
+  'stoves',
+  'bottle',
+  'bottles',
+  'hydration',
+  'cookset',
+  'cookpot',
+  'titanium',
+  'filter',
+  'filters',
+  'hiking',
+  'hike',
+  'trail',
   'diamond',
   'jewelry',
   'jewelery',
@@ -129,6 +150,15 @@ export function correctTypo(token: string): string | null {
   }
   if (clean === 'hoodi' || clean === 'hoody') {
     return 'hoodie';
+  }
+  if (clean === 'tnt') {
+    return 'tent';
+  }
+  if (clean === 'stov') {
+    return 'stove';
+  }
+  if (clean === 'botle' || clean === 'botl') {
+    return 'bottle';
   }
 
   // Levenshtein threshold:

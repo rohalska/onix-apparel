@@ -23957,5 +23957,8103 @@
         ]
       }
     }
+  },
+  {
+    "id": "onx-255",
+    "type": "PRIMARY",
+    "title": "Ultralight 55L Multi-Day Backpack",
+    "description": "Engineered for long-distance thru-hikers and alpine traverses, this 55-liter internal frame pack features waterproof Ultra 200X fabric, a roll-top storm closure, removable aerospace aluminum stays, and oversized dual Lycra water bottle pockets. Delivers supreme load transfer under 2.2 pounds.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Backpacks & Trail Packs"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/255",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 289,
+      "originalPrice": 329
+    },
+    "rating": {
+      "averageRating": 4.699999999999999,
+      "ratingCount": 250
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 35,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Slate Grey",
+        "Forest Green",
+        "Coyote Tan"
+      ]
+    },
+    "materials": [
+      "Ultra 200X laminate",
+      "Aerospace aluminum stays",
+      "Dyneema stretch mesh"
+    ],
+    "sizes": [
+      "Small (15-17 in)",
+      "Medium (18-20 in)",
+      "Large (21-23 in)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "backpacks_trail_packs",
+      "ultralight_backpack",
+      "55l_pack",
+      "thru_hiking_backpack",
+      "internal_frame_pack",
+      "hiking_pack",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "Small (15-17 in)",
+          "Medium (18-20 in)",
+          "Large (21-23 in)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Slate Grey",
+          "Forest Green",
+          "Coyote Tan"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#475569",
+          "#2d5a27",
+          "#92704f"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Backpacks & Trail Packs"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Ultralight multi-day internal frame backpack"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "thru-hiking",
+          "multi-day backpacking",
+          "alpine trekking",
+          "lightweight expeditions"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "55L carrying capacity",
+          "sub-2.2 lb trail weight",
+          "waterproof roll-top closure",
+          "removable contoured hipbelt"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-256",
+    "type": "PRIMARY",
+    "title": "Alpine 40L Technical Climbing & Trail Pack",
+    "description": "A streamlined 40L technical pack designed for alpine rock scrambles, peak-bagging, and fast backcountry tours. Includes dual tool/ice-axe attachment toggles, reinforced crampon pouch, tuck-away rope strap, and ergonomic shoulder harness with load-lifters.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Backpacks & Trail Packs"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/256",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 219,
+      "originalPrice": 249
+    },
+    "rating": {
+      "averageRating": 4.6,
+      "ratingCount": 269
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 46,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Alpine Blue",
+        "Onyx Black",
+        "Signal Red"
+      ]
+    },
+    "materials": [
+      "420D High-Tenacity Cordura Nylon",
+      "Hypalon reinforcements"
+    ],
+    "sizes": [
+      "Regular (18-20 in)",
+      "Long (20-22 in)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "backpacks_trail_packs",
+      "alpine_pack",
+      "climbing_backpack",
+      "40l_hiking_pack",
+      "technical_daypack",
+      "mountaineering_bag",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "Regular (18-20 in)",
+          "Long (20-22 in)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Alpine Blue",
+          "Onyx Black",
+          "Signal Red"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#2563eb",
+          "#18181b",
+          "#b91c1c"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Backpacks & Trail Packs"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Technical mountaineering and trail backpack"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "alpine mountaineering",
+          "technical trail hiking",
+          "ice climbing",
+          "winter peak ascents"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "40L capacity",
+          "dual ice-axe toggles",
+          "crampon pocket",
+          "rope carry system"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-257",
+    "type": "PRIMARY",
+    "title": "Ergonomic 30L Day Hiking Pack with Air-Flow Mesh",
+    "description": "Designed for full-day summit hikes and canyon trails, featuring a suspended trampoline mesh backpanel that maintains continuous cooling airflow against your back. Includes an integrated tuck-away rain cover, trekking pole bungee attachments, and dual hydration ports.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Backpacks & Trail Packs"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/257",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1509762774605-f07235a08f00?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 139,
+      "originalPrice": 159
+    },
+    "rating": {
+      "averageRating": 4.8999999999999995,
+      "ratingCount": 288
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 57,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Ember Orange",
+        "Forest Green",
+        "Midnight Navy"
+      ]
+    },
+    "materials": [
+      "210D Ripstop Nylon",
+      "Tensioned spring steel frame",
+      "Breathable 3D spacer mesh"
+    ],
+    "sizes": [
+      "One Size (Adjustable Torso)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "backpacks_trail_packs",
+      "daypack",
+      "30l_daypack",
+      "hiking_backpack",
+      "ventilated_backpack",
+      "trail_pack",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "One Size (Adjustable Torso)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Ember Orange",
+          "Forest Green",
+          "Midnight Navy"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#ea580c",
+          "#2d5a27",
+          "#1e3a5f"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Backpacks & Trail Packs"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Suspended mesh day hiking backpack"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "day hikes",
+          "national park excursions",
+          "summit hikes",
+          "weekend nature walks"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "ventilated mesh backpanel",
+          "integrated high-vis rain cover",
+          "trekking pole attachments",
+          "30L volume"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-258",
+    "type": "PRIMARY",
+    "title": "Ultralight Frameless 35L Fastpack",
+    "description": "Built for fastpackers and endurance mountain hikers covering 30+ miles a day. Combines the bounce-free stability of a running vest with the 35L hauling capacity of a thru-hiking pack. Features wide vest harness with front soft flask pockets and phone stash pockets.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Backpacks & Trail Packs"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/258",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1546938576-6e6a64f317cc?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 179,
+      "originalPrice": 199
+    },
+    "rating": {
+      "averageRating": 4.8,
+      "ratingCount": 307
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 68,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Onyx Black",
+        "Slate Grey"
+      ]
+    },
+    "materials": [
+      "100D Robic Ripstop Nylon",
+      "PowerNet stretch mesh"
+    ],
+    "sizes": [
+      "S/M (Chest 34-40 in)",
+      "M/L (Chest 40-46 in)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "backpacks_trail_packs",
+      "fastpack",
+      "running_vest_backpack",
+      "frameless_backpack",
+      "speed_hiking_pack",
+      "trail_running_pack",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "S/M (Chest 34-40 in)",
+          "M/L (Chest 40-46 in)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Onyx Black",
+          "Slate Grey"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#18181b",
+          "#475569"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Backpacks & Trail Packs"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Frameless running and fastpacking backpack"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "fastpacking",
+          "speed thru-hiking",
+          "long distance trail running",
+          "ultralight backpacking"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "vest-style harness",
+          "zero-bounce fit",
+          "front soft-flask pockets",
+          "35L roll-top capacity"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-259",
+    "type": "PRIMARY",
+    "title": "Heavy-Duty 65L Expedition Backpack",
+    "description": "When your route requires 7+ days between trailheads or heavy winter gear, this 65-liter load hauler provides relentless stability. Features a pivoting dual-density hipbelt, detachable floating top lid that converts into a daypack, and dedicated zippered sleeping bag compartment.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Backpacks & Trail Packs"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/259",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1510519138161-58474ebf828e?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 349,
+      "originalPrice": 389
+    },
+    "rating": {
+      "averageRating": 4.699999999999999,
+      "ratingCount": 326
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 79,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Coyote Tan",
+        "Forest Green",
+        "Midnight Navy"
+      ]
+    },
+    "materials": [
+      "630D High-Density Ballistic Nylon",
+      "Tubular aluminum peripheral hoop frame"
+    ],
+    "sizes": [
+      "Medium (18-20 in)",
+      "Large (20-22 in)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "backpacks_trail_packs",
+      "65l_backpack",
+      "expedition_pack",
+      "trekking_backpack",
+      "heavy_load_hauler",
+      "backpacking_gear",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "Medium (18-20 in)",
+          "Large (20-22 in)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Coyote Tan",
+          "Forest Green",
+          "Midnight Navy"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#92704f",
+          "#2d5a27",
+          "#1e3a5f"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Backpacks & Trail Packs"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Expedition multi-day internal frame backpack"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "extended backcountry expeditions",
+          "winter camping trips",
+          "heavy load hauling",
+          "wilderness guide trips"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "65L volume capacity",
+          "pivoting ergonomic hipbelt",
+          "convertible daypack lid",
+          "sleeping bag compartment"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-260",
+    "type": "PRIMARY",
+    "title": "20L Summit Packable Daypack",
+    "description": "Weighing only 6.2 ounces, this packable summit daypack stows inside its own interior zip pocket and unfurls into a fully featured 20L daypack with breathable air-mesh shoulder straps, dual water bottle pockets, and hydration bladder compatibility for side trips from basecamp.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Backpacks & Trail Packs"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/260",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1473448912268-2022ce9509d8?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 68,
+      "originalPrice": 79
+    },
+    "rating": {
+      "averageRating": 4.6,
+      "ratingCount": 55
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 25,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Ember Orange",
+        "Slate Grey",
+        "Alpine Frost"
+      ]
+    },
+    "materials": [
+      "70D Silicone-Coated Ripstop Nylon"
+    ],
+    "sizes": [
+      "One Size"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "backpacks_trail_packs",
+      "packable_backpack",
+      "summit_pack",
+      "ultralight_daypack",
+      "pocket_daypack",
+      "travel_hiking_pack",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "One Size"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Ember Orange",
+          "Slate Grey",
+          "Alpine Frost"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#ea580c",
+          "#475569",
+          "#e2e8f0"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Backpacks & Trail Packs"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Ultralight packable summit daypack"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "summit pushes",
+          "basecamp excursions",
+          "travel daypack",
+          "emergency pack"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "packs into its own pocket",
+          "6.2 oz featherlight weight",
+          "water-resistant silnylon",
+          "20L volume"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-261",
+    "type": "PRIMARY",
+    "title": "Hydration Trail Running & Day Hike Vest (12L)",
+    "description": "A technical 12L endurance vest engineered for fast day hikes and mountain trail outings. Features breathable 3D air-mesh shoulder straps, twin front chest holsters for 500ml flasks, dual zippered nutrition pockets, and rear compartment for an insulated 2-liter hydration bladder.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Backpacks & Trail Packs"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/261",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1577733966973-d680bffd2e80?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 119,
+      "originalPrice": 139
+    },
+    "rating": {
+      "averageRating": 4.8999999999999995,
+      "ratingCount": 74
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 36,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Onyx Black",
+        "Alpine Blue"
+      ]
+    },
+    "materials": [
+      "Stretch woven ripstop",
+      "Anti-chafing 3D micro-mesh"
+    ],
+    "sizes": [
+      "Small (Chest 33-37 in)",
+      "Medium (Chest 37-41 in)",
+      "Large (Chest 41-45 in)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "backpacks_trail_packs",
+      "hydration_vest",
+      "trail_running_pack",
+      "hiking_vest",
+      "12l_vest_pack",
+      "hydration_backpack",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "Small (Chest 33-37 in)",
+          "Medium (Chest 37-41 in)",
+          "Large (Chest 41-45 in)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Onyx Black",
+          "Alpine Blue"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#18181b",
+          "#2563eb"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Backpacks & Trail Packs"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Hydration trail vest backpack"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "fast trail hiking",
+          "trail running",
+          "mountain scrambles",
+          "endurance races"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "12L gear capacity",
+          "dual front soft flask holsters",
+          "bladder compatible",
+          "anti-chafe harness"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-262",
+    "type": "PRIMARY",
+    "title": "Women's-Specific Ergonomic 45L Trail Pack",
+    "description": "Engineered specifically for female anatomy, with pre-curved S-shaped shoulder straps that bypass the bust line, an angled conical hipbelt suited for female pelvic tilt, and a narrower backpanel. Features 45L capacity, J-zip front access, and integrated trekking pole keepers.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Backpacks & Trail Packs"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/262",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1581605405669-fcdf81165afa?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 239,
+      "originalPrice": 269
+    },
+    "rating": {
+      "averageRating": 4.8,
+      "ratingCount": 93
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 47,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Forest Green",
+        "Slate Grey",
+        "Terra Cotta"
+      ]
+    },
+    "materials": [
+      "210D/420D Recycled High-Tenacity Nylon"
+    ],
+    "sizes": [
+      "XS/S (Torso 14-17 in)",
+      "M/L (Torso 17-20 in)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "backpacks_trail_packs",
+      "womens_hiking_backpack",
+      "45l_backpack",
+      "ergonomic_trail_pack",
+      "womens_backpacking_pack",
+      "hiking_pack",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "XS/S (Torso 14-17 in)",
+          "M/L (Torso 17-20 in)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Forest Green",
+          "Slate Grey",
+          "Terra Cotta"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#2d5a27",
+          "#475569",
+          "#c2410c"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Backpacks & Trail Packs"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Women's ergonomic internal frame backpack"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "weekend backpacking",
+          "multi-day hiking",
+          "hut-to-hut trekking",
+          "scenic wilderness trails"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "women's anatomical harness",
+          "conical hipbelt",
+          "J-zip panel access",
+          "45L capacity"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-263",
+    "type": "PRIMARY",
+    "title": "Rugged 25L Commute & Forest Trail Daypack",
+    "description": "Combining heritage outdoor durability with modern trail functionality. Constructed with paraffin wax-treated canvas and recycled poly reinforcements, leather lash tabs, heavy-duty brass YKK zippers, internal hydration sleeve, and padded breathable back channel.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Backpacks & Trail Packs"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/263",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1501555088652-021faa106b9b?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 129,
+      "originalPrice": 149
+    },
+    "rating": {
+      "averageRating": 4.699999999999999,
+      "ratingCount": 112
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 58,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Olive Drab",
+        "Coyote Tan",
+        "Onyx Black"
+      ]
+    },
+    "materials": [
+      "Waxed cotton canvas",
+      "1000D Recycled poly base",
+      "Full-grain leather accents"
+    ],
+    "sizes": [
+      "One Size"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "backpacks_trail_packs",
+      "waxed_canvas_pack",
+      "forest_daypack",
+      "hiking_rucksack",
+      "heritage_daypack",
+      "25l_backpack",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "One Size"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Olive Drab",
+          "Coyote Tan",
+          "Onyx Black"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#4b5320",
+          "#92704f",
+          "#18181b"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Backpacks & Trail Packs"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Heritage forest trail and daypack"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "forest hiking",
+          "bushcraft walks",
+          "daily commute",
+          "weekend day treks"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "weatherproof waxed canvas",
+          "25L storage volume",
+          "hydration & laptop compatible",
+          "leather lash points"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-264",
+    "type": "PRIMARY",
+    "title": "Sub-16oz Dyneema DCF 40L Ultralight Pack",
+    "description": "The crown jewel of lightweight thru-hiking gear. Crafted entirely from waterproof Dyneema Composite Fabric (DCF) with fully taped seams. Weighs under 16 ounces while comfortably supporting 25-pound loads thanks to integrated carbon fiber stays and a structured hipbelt.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Backpacks & Trail Packs"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/264",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 369,
+      "originalPrice": 399
+    },
+    "rating": {
+      "averageRating": 4.6,
+      "ratingCount": 131
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 69,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Alpine Frost",
+        "Onyx Black"
+      ]
+    },
+    "materials": [
+      "Dyneema Composite Fabric CT5K.18",
+      "Carbon fiber stays",
+      "UltraMesh front pocket"
+    ],
+    "sizes": [
+      "Medium (18-20 in)",
+      "Large (20-22 in)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "backpacks_trail_packs",
+      "dyneema_backpack",
+      "dcf_pack",
+      "ultralight_hiking_pack",
+      "sub_1lb_backpack",
+      "thru_hiking_gear",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "Medium (18-20 in)",
+          "Large (20-22 in)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Alpine Frost",
+          "Onyx Black"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#e2e8f0",
+          "#18181b"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Backpacks & Trail Packs"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Dyneema Composite Fabric ultralight backpack"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "Pacific Crest Trail thru-hiking",
+          "Appalachian Trail thru-hiking",
+          "fast-and-light traverses"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "sub-16oz trail weight",
+          "100% waterproof taped seams",
+          "carbon fiber stays",
+          "40L main volume"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-265",
+    "type": "PRIMARY",
+    "title": "Technical 18L Alpine Assault Pack",
+    "description": "A low-profile 18-liter pack that hugs your center of gravity during Class 4 scrambles and technical ridge ascents. Features an asymmetrical zippered opening, removable webbing waist belt, side gear loops, and daisy chain webbing for clipping carabiners.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Backpacks & Trail Packs"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/265",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1544816155-12df9643f363?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 98,
+      "originalPrice": 119
+    },
+    "rating": {
+      "averageRating": 4.8999999999999995,
+      "ratingCount": 150
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 80,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Alpine Blue",
+        "Signal Red",
+        "Slate Grey"
+      ]
+    },
+    "materials": [
+      "330D Mini-Ripstop Nylon",
+      "High-density EVA foam backpanel"
+    ],
+    "sizes": [
+      "One Size"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "backpacks_trail_packs",
+      "alpine_daypack",
+      "climbing_pack",
+      "18l_backpack",
+      "scramble_pack",
+      "summit_assault_pack",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "One Size"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Alpine Blue",
+          "Signal Red",
+          "Slate Grey"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#2563eb",
+          "#b91c1c",
+          "#475569"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Backpacks & Trail Packs"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Compact technical alpine daypack"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "ridge scrambles",
+          "alpine climbing",
+          "fast mountain ascents",
+          "day summit pushes"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "low-profile streamlined silhouette",
+          "18L volume",
+          "gear clipping daisy chains",
+          "removable waistbelt"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-266",
+    "type": "PRIMARY",
+    "title": "Comfort 50L Weekend Trekking Pack",
+    "description": "The sweet spot for 2-3 night wilderness trips. Features 50 liters of capacity, an adjustable ladder-style torso harness, full front U-zip panel access to quickly retrieve rain shells or cook gear, and dual oversized stretch side pockets that easily swallow 32oz trail bottles.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Backpacks & Trail Packs"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/266",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 229,
+      "originalPrice": 259
+    },
+    "rating": {
+      "averageRating": 4.8,
+      "ratingCount": 169
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 26,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Forest Green",
+        "Midnight Navy",
+        "Coyote Tan"
+      ]
+    },
+    "materials": [
+      "300D Recycled Ripstop Polyester",
+      "Tempered alloy perimeter frame"
+    ],
+    "sizes": [
+      "Small/Medium (16-19 in)",
+      "Medium/Large (19-22 in)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "backpacks_trail_packs",
+      "50l_backpack",
+      "weekend_pack",
+      "trekking_backpack",
+      "hiking_backpack",
+      "internal_frame_bag",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "Small/Medium (16-19 in)",
+          "Medium/Large (19-22 in)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Forest Green",
+          "Midnight Navy",
+          "Coyote Tan"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#2d5a27",
+          "#1e3a5f",
+          "#92704f"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Backpacks & Trail Packs"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Weekend internal frame trekking pack"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "weekend backpacking trips",
+          "state park camping",
+          "3-day backcountry loops",
+          "hut treks"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "50L storage capacity",
+          "front U-zip panel access",
+          "adjustable torso harness",
+          "oversized bottle pockets"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-267",
+    "type": "PRIMARY",
+    "title": "Ultralight 8L Lumbar Hiking Pack",
+    "description": "For minimalist hikers who prefer unrestricted shoulder mobility on hot summer days. Sits comfortably against the lower back with a wide padded hipbelt, dual angled bottle holsters with bungee cinches, 8L main zippered compartment, and top bungee outer-layer compression system.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Backpacks & Trail Packs"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/267",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1503264116251-35a269479413?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 64,
+      "originalPrice": 75
+    },
+    "rating": {
+      "averageRating": 4.699999999999999,
+      "ratingCount": 188
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 37,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Slate Grey",
+        "Ember Orange",
+        "Onyx Black"
+      ]
+    },
+    "materials": [
+      "210D Honeycomb Ripstop Nylon",
+      "Air-mesh lumbar pad"
+    ],
+    "sizes": [
+      "One Size (Waist 26-44 in)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "backpacks_trail_packs",
+      "lumbar_pack",
+      "hiking_waist_pack",
+      "trail_fanny_pack",
+      "minimalist_daypack",
+      "hip_pack",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "One Size (Waist 26-44 in)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Slate Grey",
+          "Ember Orange",
+          "Onyx Black"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#475569",
+          "#ea580c",
+          "#18181b"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Backpacks & Trail Packs"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Lumbar trail waist pack"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "short day hikes",
+          "trail scouting",
+          "summer ridge walks",
+          "minimalist trail gear"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "unrestricted shoulder freedom",
+          "dual angled bottle holsters",
+          "8L volume",
+          "bungee compression system"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-268",
+    "type": "PRIMARY",
+    "title": "All-Weather 32L Dry-Bag Roll-Top Daypack",
+    "description": "Constructed with 500D PVC-free TPU-laminated fabric and RF-welded waterproof seams, this 32L roll-top daypack is submersible IPX6 waterproof. Defends electronics, dry layers, and trail cameras against torrential downpours, river crossings, and wet canyon treks.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Backpacks & Trail Packs"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/268",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 159,
+      "originalPrice": 179
+    },
+    "rating": {
+      "averageRating": 4.6,
+      "ratingCount": 207
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 48,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Signal Red",
+        "Onyx Black",
+        "Alpine Blue"
+      ]
+    },
+    "materials": [
+      "500D TPU-coated nylon",
+      "RF-welded waterproof seams"
+    ],
+    "sizes": [
+      "One Size"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "backpacks_trail_packs",
+      "waterproof_backpack",
+      "dry_bag_daypack",
+      "roll_top_hiking_pack",
+      "weatherproof_pack",
+      "canyon_trail_pack",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "One Size"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Signal Red",
+          "Onyx Black",
+          "Alpine Blue"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#b91c1c",
+          "#18181b",
+          "#2563eb"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Backpacks & Trail Packs"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Waterproof dry-bag hiking daypack"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "river crossing hikes",
+          "rainy rainforest trails",
+          "canyoneering",
+          "kayak camping"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "IPX6 waterproof rating",
+          "RF-welded airtight seams",
+          "roll-top closure",
+          "32L storage capacity"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-269",
+    "type": "PRIMARY",
+    "title": "Compact 15L Trail Hydration Daypack",
+    "description": "Equipped with an included 2.5L BPA-free insulated water reservoir and magnetic bite-valve holder on the chest strap. Compact 15L pack body holds an extra warmth layer, first-aid kit, trail snacks, and sunglasses without weighing you down on brisk 5-10 mile day hikes.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Backpacks & Trail Packs"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/269",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 89,
+      "originalPrice": 99
+    },
+    "rating": {
+      "averageRating": 4.8999999999999995,
+      "ratingCount": 226
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 59,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Forest Green",
+        "Slate Grey",
+        "Ember Orange"
+      ]
+    },
+    "materials": [
+      "210D Velocity Ripstop Nylon",
+      "Taste-free antimicrobial TPU reservoir"
+    ],
+    "sizes": [
+      "One Size"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "backpacks_trail_packs",
+      "hydration_pack",
+      "water_backpack",
+      "15l_hiking_pack",
+      "daypack_with_water_bladder",
+      "trail_pack",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "One Size"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Forest Green",
+          "Slate Grey",
+          "Ember Orange"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#2d5a27",
+          "#475569",
+          "#ea580c"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Backpacks & Trail Packs"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Hydration reservoir daypack"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "brisk day hikes",
+          "desert canyon trails",
+          "mountain biking",
+          "fitness hiking"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "includes 2.5L reservoir",
+          "magnetic hose retention clip",
+          "15L cargo volume",
+          "breathable harness"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-270",
+    "type": "PRIMARY",
+    "title": "Ultralight 1-Person 3-Season Backpacking Tent",
+    "description": "The quintessential solo thru-hiker shelter. Weighing just 24 ounces (680g), this single-wall silnylon tent pitches with a single trekking pole. Boasts 20 square feet of floor space, an integrated full vestibule, high-and-low ventilation vents, and magnetic door tie-backs.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Shelter & Sleep Systems"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/270",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 299,
+      "originalPrice": 349
+    },
+    "rating": {
+      "averageRating": 4.8,
+      "ratingCount": 245
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 70,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Olive Drab",
+        "Slate Grey"
+      ]
+    },
+    "materials": [
+      "20D Silnylon (3000mm hydrostatic head)",
+      "No-See-Um micromesh canopy"
+    ],
+    "sizes": [
+      "1-Person (86 x 32 in)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "shelter_sleep_systems",
+      "1_person_tent",
+      "ultralight_tent",
+      "trekking_pole_tent",
+      "solo_backpacking_shelter",
+      "hiking_tent",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "1-Person (86 x 32 in)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Olive Drab",
+          "Slate Grey"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#4b5320",
+          "#475569"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Shelter & Sleep Systems"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "1-person ultralight trekking pole tent"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "solo thru-hiking",
+          "fast-and-light backpacking",
+          "bikepacking",
+          "solo trail journeys"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "sub-24 oz trail weight",
+          "pitches with trekking pole",
+          "integrated vestibule",
+          "1-person capacity"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-271",
+    "type": "PRIMARY",
+    "title": "Freestanding 2-Person Ultralight Backpacking Tent",
+    "description": "The gold standard in 2-person trail living. Features hubbed DAC Featherlite NFL aluminum poles for a rapid 2-minute freestanding pitch. Two generous doors and twin 9 sq ft vestibules ensure neither camper climbs over the other. Fully seam-taped 1200mm polyurethane/silicone fly.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Shelter & Sleep Systems"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/271",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1510312305653-8ed496efae75?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 389,
+      "originalPrice": 429
+    },
+    "rating": {
+      "averageRating": 4.699999999999999,
+      "ratingCount": 264
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 81,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Ember Orange",
+        "Forest Green"
+      ]
+    },
+    "materials": [
+      "15D Ripstop Nylon fly & floor",
+      "DAC Featherlite NFL poles"
+    ],
+    "sizes": [
+      "2-Person (88 x 52 in)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "shelter_sleep_systems",
+      "2_person_tent",
+      "backpacking_tent",
+      "freestanding_tent",
+      "ultralight_2p_tent",
+      "camping_shelter",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "2-Person (88 x 52 in)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Ember Orange",
+          "Forest Green"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#ea580c",
+          "#2d5a27"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Shelter & Sleep Systems"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "2-person freestanding backpacking tent"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "couples backpacking",
+          "partner hiking trips",
+          "3-season wilderness camping",
+          "national park treks"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "freestanding design",
+          "dual doors and twin vestibules",
+          "sub-3.1 lb packed weight",
+          "DAC aluminum poles"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-272",
+    "type": "PRIMARY",
+    "title": "Spacious 3-Person 3-Season Backcountry Tent",
+    "description": "Ideal for backcountry trios, hiking couples with a trail dog, or pairs wanting palace-like room on multi-day routes. Pre-bent pole geometry creates near-vertical sidewalls for maximized headroom. Dual oversized vestibules store 3 full 60L packs with ease.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Shelter & Sleep Systems"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/272",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 449,
+      "originalPrice": 499
+    },
+    "rating": {
+      "averageRating": 4.6,
+      "ratingCount": 283
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 27,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Forest Green",
+        "Alpine Frost"
+      ]
+    },
+    "materials": [
+      "30D Ripstop Silpoly rainfly",
+      "Aluminum alloy pole hub system"
+    ],
+    "sizes": [
+      "3-Person (90 x 70 in)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "shelter_sleep_systems",
+      "3_person_tent",
+      "family_backpacking_tent",
+      "spacious_trail_tent",
+      "lightweight_group_shelter",
+      "3p_tent",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "3-Person (90 x 70 in)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Forest Green",
+          "Alpine Frost"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#2d5a27",
+          "#e2e8f0"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Shelter & Sleep Systems"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "3-person lightweight backcountry tent"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "small group backpacking",
+          "hiking with dogs",
+          "family wilderness trips",
+          "spacious basecamping"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "near-vertical sidewalls",
+          "3-person sleeping floor",
+          "dual oversized vestibules",
+          "color-coded pole clips"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-273",
+    "type": "PRIMARY",
+    "title": "Ultralight Backcountry Bivy Sack",
+    "description": "For minimalist alpine bivouacs and emergency storm shelter. Features a waterproof and breathable 3-layer eVent laminate upper fabric that expels body moisture while blocking 100% of driving rain and wind. Includes a zippered wire-stiffened insect mesh hood.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Shelter & Sleep Systems"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/273",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1470246973918-29a93221c455?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 169,
+      "originalPrice": 195
+    },
+    "rating": {
+      "averageRating": 4.8999999999999995,
+      "ratingCount": 302
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 38,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Olive Drab",
+        "Signal Red"
+      ]
+    },
+    "materials": [
+      "3-Layer eVent breathable membrane",
+      "70D Bathtub polyurethane floor"
+    ],
+    "sizes": [
+      "Regular (84 x 33 in)",
+      "Long (90 x 36 in)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "shelter_sleep_systems",
+      "bivy_sack",
+      "bivy_shelter",
+      "emergency_bivy",
+      "ultralight_bivy",
+      "solo_storm_shelter",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "Regular (84 x 33 in)",
+          "Long (90 x 36 in)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Olive Drab",
+          "Signal Red"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#4b5320",
+          "#b91c1c"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Shelter & Sleep Systems"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Waterproof breathable bivy sack"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "alpine bivouacs",
+          "fastpacking overnights",
+          "emergency shelter",
+          "minimalist stealth camping"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "15 oz trail weight",
+          "breathable eVent upper",
+          "zippered bug mesh face screen",
+          "waterproof bathtub floor"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-274",
+    "type": "PRIMARY",
+    "title": "All-Weather Silnylon 10x10ft Cat-Cut Camping Tarp",
+    "description": "A versatile 10x10-foot catenary-cut shelter tarp that can be pitched in an A-frame, Lean-to, Flying Diamond, or Pyramid configuration. Features 16 reinforced perimeter tie-outs, LineLoc tensioners, and silicone-impregnated waterproof ripstop fabric that will not sag in rain.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Shelter & Sleep Systems"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/274",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1517824806704-9040b037703b?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 129,
+      "originalPrice": 149
+    },
+    "rating": {
+      "averageRating": 4.8,
+      "ratingCount": 321
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 49,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Forest Green",
+        "Coyote Tan"
+      ]
+    },
+    "materials": [
+      "20D Silpoly ripstop (2500mm waterproof rating)",
+      "Bonded Kevlar tie-out patches"
+    ],
+    "sizes": [
+      "10 x 10 ft (Packs to 8 x 4 in)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "shelter_sleep_systems",
+      "camping_tarp",
+      "backpacking_tarp",
+      "silnylon_shelter",
+      "bushcraft_tarp",
+      "hammock_rainfly",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "10 x 10 ft (Packs to 8 x 4 in)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Forest Green",
+          "Coyote Tan"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#2d5a27",
+          "#92704f"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Shelter & Sleep Systems"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Modular backpacking tarp shelter"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "tarp camping",
+          "hammock rainfly",
+          "trail cooking shelter",
+          "group gathering rain awning"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "catenary cut taut pitch",
+          "16 reinforced tie-outs",
+          "14.5 oz pack weight",
+          "zero-sag in wet weather"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-275",
+    "type": "PRIMARY",
+    "title": "850 Fill-Power Down Mummy Sleeping Bag (20°F / -7°C)",
+    "description": "Engineered for freezing alpine nights and crisp autumn trails. Insulated with RDS-certified 850 fill-power hydrophobic goose down that retains loft even in damp coastal conditions. Features a snug insulated draft collar, contoured hood cinch, and anatomical footbox.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Shelter & Sleep Systems"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/275",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1537225228614-56cc3556d7ed?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 379,
+      "originalPrice": 429
+    },
+    "rating": {
+      "averageRating": 4.699999999999999,
+      "ratingCount": 50
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 60,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Midnight Navy",
+        "Ember Orange"
+      ]
+    },
+    "materials": [
+      "850 Fill-Power Goose Down",
+      "10D Pertex Quantum shell",
+      "DWR finish"
+    ],
+    "sizes": [
+      "Regular (fits up to 6 ft)",
+      "Long (fits up to 6 ft 6 in)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "shelter_sleep_systems",
+      "down_sleeping_bag",
+      "20_degree_sleeping_bag",
+      "mummy_sleeping_bag",
+      "backpacking_sleeping_bag",
+      "ultralight_sleeping_bag",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "Regular (fits up to 6 ft)",
+          "Long (fits up to 6 ft 6 in)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Midnight Navy",
+          "Ember Orange"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#1e3a5f",
+          "#ea580c"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Shelter & Sleep Systems"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "20 degree down mummy sleeping bag"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "3-season alpine camping",
+          "fall backpacking",
+          "high-altitude passes",
+          "cold-weather trail nights"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "20°F (-7°C) ISO temperature rating",
+          "850 fill-power down",
+          "sub-2.1 lb weight",
+          "curved baffle construction"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-276",
+    "type": "PRIMARY",
+    "title": "Ultralight Down Mummy Sleeping Bag (30°F / -1°C)",
+    "description": "Weighing a scant 19 ounces (540g), this compact 30°F down sleeping bag compresses to the size of a honeydew melon. Stuffed with water-resistant 800FP duck down encased in featherweight 10D nylon taffeta. Perfect for summer in the Rockies or full-season desert trails.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Shelter & Sleep Systems"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/276",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 319,
+      "originalPrice": 359
+    },
+    "rating": {
+      "averageRating": 4.6,
+      "ratingCount": 69
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 71,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Slate Grey",
+        "Forest Green"
+      ]
+    },
+    "materials": [
+      "800 Fill-Power Water-Resistant Down",
+      "10D Featherlight Nylon Taffeta"
+    ],
+    "sizes": [
+      "Regular (fits up to 6 ft)",
+      "Long (fits up to 6 ft 6 in)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "shelter_sleep_systems",
+      "ultralight_down_bag",
+      "30_degree_sleeping_bag",
+      "compact_sleeping_bag",
+      "summer_backpacking_bag",
+      "down_sleep_system",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "Regular (fits up to 6 ft)",
+          "Long (fits up to 6 ft 6 in)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Slate Grey",
+          "Forest Green"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#475569",
+          "#2d5a27"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Shelter & Sleep Systems"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "30 degree ultralight down sleeping bag"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "summer backpacking",
+          "thru-hiking",
+          "fastpacking",
+          "mild alpine camping"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "30°F (-1°C) rating",
+          "compresses to 5L volume",
+          "19 oz ultra-packable weight",
+          "anti-snag two-way zipper"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-277",
+    "type": "PRIMARY",
+    "title": "Sub-Zero Down Expedition Sleeping Bag (0°F / -18°C)",
+    "description": "For extreme mountaineering, winter snow camping, and late-season expeditions. Overfilled with 850+ fill-power DownTek hydrophobic down in a continuous V-baffle system that eliminates cold spots. Equipped with an expedition girth cut allowing you to sleep wearing insulated boot liners and parkas.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Shelter & Sleep Systems"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/277",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1445307806294-bff7f67ff225?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 489,
+      "originalPrice": 549
+    },
+    "rating": {
+      "averageRating": 4.8999999999999995,
+      "ratingCount": 88
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 82,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Signal Red",
+        "Onyx Black"
+      ]
+    },
+    "materials": [
+      "850+ FP Hydrophobic Down",
+      "20D Pertex Shield waterproof-breathable fabric"
+    ],
+    "sizes": [
+      "Regular (fits up to 6 ft)",
+      "Long (fits up to 6 ft 6 in)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "shelter_sleep_systems",
+      "0_degree_sleeping_bag",
+      "winter_sleeping_bag",
+      "expedition_down_bag",
+      "snow_camping_gear",
+      "cold_weather_sleeping_bag",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "Regular (fits up to 6 ft)",
+          "Long (fits up to 6 ft 6 in)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Signal Red",
+          "Onyx Black"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#b91c1c",
+          "#18181b"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Shelter & Sleep Systems"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "0 degree winter expedition sleeping bag"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "winter snow camping",
+          "mountaineering expeditions",
+          "frozen lake treks",
+          "sub-zero overnights"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "0°F (-18°C) extreme rating",
+          "dual insulated draft tubes",
+          "roomy expedition cut",
+          "waterproof hood & footbox"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-278",
+    "type": "PRIMARY",
+    "title": "Synthetic Quick-Dry Summer Sleeping Bag (45°F / 7°C)",
+    "description": "Ideal for humid Appalachian summer trails, canoe portages, and coastal hikes where moisture is inescapable. Insulated with continuous-filament Climashield Apex synthetic insulation that retains thermal warmth even when damp. Dries rapidly in morning sun.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Shelter & Sleep Systems"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/278",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1487730116645-74489c95b41b?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 139,
+      "originalPrice": 159
+    },
+    "rating": {
+      "averageRating": 4.8,
+      "ratingCount": 107
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 28,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Alpine Blue",
+        "Coyote Tan"
+      ]
+    },
+    "materials": [
+      "Climashield Apex continuous filament insulation",
+      "20D DWR Ripstop Polyester"
+    ],
+    "sizes": [
+      "Regular (fits up to 6 ft)",
+      "Long (fits up to 6 ft 6 in)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "shelter_sleep_systems",
+      "synthetic_sleeping_bag",
+      "summer_sleeping_bag",
+      "quick_dry_camp_bag",
+      "moisture_resistant_sleeping_bag",
+      "45_degree_bag",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "Regular (fits up to 6 ft)",
+          "Long (fits up to 6 ft 6 in)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Alpine Blue",
+          "Coyote Tan"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#2563eb",
+          "#92704f"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Shelter & Sleep Systems"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "45 degree synthetic summer sleeping bag"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "humid summer camping",
+          "canoe/kayak camping",
+          "rainy trail overnights",
+          "festival camping"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "warmth even when wet",
+          "45°F (7°C) rating",
+          "quick-drying synthetic fibers",
+          "full-length side zip opens flat"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-279",
+    "type": "PRIMARY",
+    "title": "Ultralight Down Camping Quilt (20°F / -7°C)",
+    "description": "The modern thru-hiker choice over traditional mummy bags. Removes the compressed bottom insulation and hood to save 25% weight and bulk while letting active side-sleepers toss and turn naturally. Secures to your sleeping pad via included elastic pad attachment straps.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Shelter & Sleep Systems"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/279",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1516939884455-1445c8652f83?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 289,
+      "originalPrice": 329
+    },
+    "rating": {
+      "averageRating": 4.699999999999999,
+      "ratingCount": 126
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 39,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Forest Green",
+        "Slate Grey"
+      ]
+    },
+    "materials": [
+      "850 Fill-Power Down",
+      "7D/10D Ultralight Taffeta Shell"
+    ],
+    "sizes": [
+      "Regular (54 x 74 in)",
+      "Wide/Long (58 x 78 in)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "shelter_sleep_systems",
+      "backpacking_quilt",
+      "down_camping_quilt",
+      "thru_hike_quilt",
+      "ultralight_quilt",
+      "hammock_top_quilt",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "Regular (54 x 74 in)",
+          "Wide/Long (58 x 78 in)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Forest Green",
+          "Slate Grey"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#2d5a27",
+          "#475569"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Shelter & Sleep Systems"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Ultralight backpacking down quilt"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "thru-hiking",
+          "side sleepers",
+          "ultralight backpacking",
+          "hammock top quilt"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "backless weight savings (21 oz)",
+          "pad attachment strap system",
+          "cinchable footbox",
+          "20°F rating"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-280",
+    "type": "PRIMARY",
+    "title": "Insulated Backcountry Air Sleeping Pad (R-Value 4.8)",
+    "description": "Sleep soundly on 3 inches of luxurious baffled cushion that completely isolates your body from frozen ground. Incorporates multiple layers of ThermaCapture reflective foil that radiates body heat back up. Packs to 1-liter bottle size and inflates in 90 seconds with included pump sack.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Shelter & Sleep Systems"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/280",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1532339142463-fd0a8979791a?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 189,
+      "originalPrice": 219
+    },
+    "rating": {
+      "averageRating": 4.6,
+      "ratingCount": 145
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 50,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Ember Orange",
+        "Slate Grey"
+      ]
+    },
+    "materials": [
+      "30D/70D Ripstop Nylon",
+      "ThermaCapture heat reflective film",
+      "Zero-leak WingLock valve"
+    ],
+    "sizes": [
+      "Regular (72 x 20 in)",
+      "Regular Wide (72 x 25 in)",
+      "Large (77 x 25 in)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "shelter_sleep_systems",
+      "sleeping_pad",
+      "insulated_sleeping_pad",
+      "air_mattress_camping",
+      "r_value_pad",
+      "backpacking_pad",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "Regular (72 x 20 in)",
+          "Regular Wide (72 x 25 in)",
+          "Large (77 x 25 in)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Ember Orange",
+          "Slate Grey"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#ea580c",
+          "#475569"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Shelter & Sleep Systems"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "4-season insulated air sleeping pad"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "cold weather backpacking",
+          "snow camping",
+          "alpine traverses",
+          "side sleeper cushioning"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "R-value 4.8 thermal insulation",
+          "3-inch thick cushion",
+          "includes pump sack",
+          "16 oz trail weight"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-281",
+    "type": "PRIMARY",
+    "title": "Ultralight 3-Season Air Sleeping Pad (R-Value 3.2)",
+    "description": "Weighing only 12.5 ounces, this 3-season air mattress provides 2.5 inches of quiet, stable, non-crinkling support. Horizontal baffles prevent the edges from rolling up while you sleep. Features an intuitive micro-adjust dump valve for personalized firmness.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Shelter & Sleep Systems"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/281",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1508873696983-2df5293cb325?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 139,
+      "originalPrice": 159
+    },
+    "rating": {
+      "averageRating": 4.8999999999999995,
+      "ratingCount": 164
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 61,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Alpine Frost",
+        "Olive Drab"
+      ]
+    },
+    "materials": [
+      "20D High-Tenacity Polyurethane-coated Nylon",
+      "Synthetic microfiber thermal matrix"
+    ],
+    "sizes": [
+      "Regular (72 x 20 in)",
+      "Large (77 x 25 in)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "shelter_sleep_systems",
+      "ultralight_pad",
+      "air_pad_camping",
+      "3_season_sleeping_pad",
+      "quiet_sleeping_pad",
+      "lightweight_camp_pad",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "Regular (72 x 20 in)",
+          "Large (77 x 25 in)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Alpine Frost",
+          "Olive Drab"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#e2e8f0",
+          "#4b5320"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Shelter & Sleep Systems"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "3-season ultralight air sleeping pad"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "summer backpacking",
+          "thru-hiking",
+          "fastpacking",
+          "warm weekend camping"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "12.5 oz ultralight weight",
+          "R-value 3.2",
+          "quiet non-crinkle fabric",
+          "micro-adjust valve"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-282",
+    "type": "PRIMARY",
+    "title": "Closed-Cell Foam Folding Trail Sleeping Pad",
+    "description": "The virtually indestructible benchmark for trail durability. Never leaks, punctures, or fails. Features an accordion-folding egg-crate dimple pattern with a vacuum-aluminized thermal coating that reflects body heat back to the sleeper, increasing warmth by 20%.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Shelter & Sleep Systems"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/282",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1496545672447-f699b503d270?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 49,
+      "originalPrice": 59
+    },
+    "rating": {
+      "averageRating": 4.8,
+      "ratingCount": 183
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 72,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Ember Orange",
+        "Olive Drab"
+      ]
+    },
+    "materials": [
+      "Cross-linked closed-cell polyethylene foam",
+      "Aluminized heat-reflective barrier"
+    ],
+    "sizes": [
+      "Regular (72 x 20 x 0.75 in)",
+      "Short (51 x 20 x 0.75 in)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "shelter_sleep_systems",
+      "foam_sleeping_pad",
+      "closed_cell_pad",
+      "folding_sleeping_pad",
+      "accordion_camp_mat",
+      "thru_hike_pad",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "Regular (72 x 20 x 0.75 in)",
+          "Short (51 x 20 x 0.75 in)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Ember Orange",
+          "Olive Drab"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#ea580c",
+          "#4b5320"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Shelter & Sleep Systems"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Closed-cell foam accordion folding sleeping pad"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "thru-hiking",
+          "puncture-prone desert trails",
+          "sit pad at camp",
+          "under-pad winter insulation"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "100% puncture-proof",
+          "instant deployment",
+          "R-value 2.0",
+          "14 oz trail weight"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-283",
+    "type": "PRIMARY",
+    "title": "Self-Inflating Ergonomic Camp Mattress",
+    "description": "Combining the rapid convenience of self-inflating die-cut open-cell foam with a quiet brushed stretch-knit top surface. Simply twist open the brass valve and watch the core expand automatically. Topped off with 2 breaths for custom lumbar firmness.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Shelter & Sleep Systems"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/283",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 99,
+      "originalPrice": 119
+    },
+    "rating": {
+      "averageRating": 4.699999999999999,
+      "ratingCount": 202
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 83,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Forest Green",
+        "Midnight Navy"
+      ]
+    },
+    "materials": [
+      "Brushed 50D stretch polyester top",
+      "Open-cell polyurethane foam core"
+    ],
+    "sizes": [
+      "Regular (72 x 20 in)",
+      "Camp Deluxe (77 x 26 in)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "shelter_sleep_systems",
+      "self_inflating_pad",
+      "foam_air_mattress",
+      "camp_mattress",
+      "comfortable_sleeping_pad",
+      "hiking_bed_mat",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "Regular (72 x 20 in)",
+          "Camp Deluxe (77 x 26 in)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Forest Green",
+          "Midnight Navy"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#2d5a27",
+          "#1e3a5f"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Shelter & Sleep Systems"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Self-inflating foam camping mattress"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "car-to-trailhead camping",
+          "comfortable backpacking",
+          "canoe camping",
+          "basecamp relaxation"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "self-inflating core",
+          "brushed soft-touch fabric",
+          "R-value 3.8 warmth",
+          "durable brass valve"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-284",
+    "type": "PRIMARY",
+    "title": "Ultralight Gathered-End Camping Hammock with Tree Straps",
+    "description": "Camp elevated above roots, mud, and rocks. Made from breathable 40D diamond ripstop nylon with triple-stitched interlocking seams. Includes two 10-foot no-stretch tree-friendly daisy chain suspension straps and lightweight wiregate aluminum carabiners.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Shelter & Sleep Systems"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/284",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1525811902-f2342640856e?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 79,
+      "originalPrice": 95
+    },
+    "rating": {
+      "averageRating": 4.6,
+      "ratingCount": 221
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 29,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Forest Green",
+        "Slate Grey",
+        "Ember Orange"
+      ]
+    },
+    "materials": [
+      "40D Diamond Ripstop Nylon",
+      "1000D Poly webbing tree straps",
+      "7075 Aluminum carabiners"
+    ],
+    "sizes": [
+      "Single Plus (10 x 5 ft, 400 lb capacity)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "shelter_sleep_systems",
+      "camping_hammock",
+      "hiking_hammock",
+      "ultralight_hammock",
+      "hammock_with_straps",
+      "tree_hammock",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "Single Plus (10 x 5 ft, 400 lb capacity)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Forest Green",
+          "Slate Grey",
+          "Ember Orange"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#2d5a27",
+          "#475569",
+          "#ea580c"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Shelter & Sleep Systems"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Ultralight camping hammock set"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "hammock camping",
+          "backcountry relaxation",
+          "day hike lounging",
+          "steep terrain camping"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "includes tree-safe straps & carabiners",
+          "400 lb weight rating",
+          "integrated stuff sack",
+          "16 oz total weight"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-285",
+    "type": "PRIMARY",
+    "title": "Hammock Bug Net & Waterproof Rainfly Shelter System",
+    "description": "Turns any gathered-end hammock into a full 4-season bug-proof, weather-proof backcountry shelter. Includes a 360-degree fine no-see-um mesh bug sleeve with dual-sided zipper and an 11-foot hexagonal silnylon waterproof rainfly tarp with reflective guylines.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Shelter & Sleep Systems"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/285",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1520072959219-c595dc870360?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 139,
+      "originalPrice": 165
+    },
+    "rating": {
+      "averageRating": 4.8999999999999995,
+      "ratingCount": 240
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 40,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Forest Green",
+        "Olive Drab"
+      ]
+    },
+    "materials": [
+      "No-See-Um micromesh",
+      "20D Silpoly hexagonal rainfly (3000mm rating)"
+    ],
+    "sizes": [
+      "Universal 11ft Ridgeline Fit"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "shelter_sleep_systems",
+      "hammock_bug_net",
+      "hammock_shelter_system",
+      "hammock_rainfly",
+      "tarp_bugnet_combo",
+      "weatherproof_hammock",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "Universal 11ft Ridgeline Fit"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Forest Green",
+          "Olive Drab"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#2d5a27",
+          "#4b5320"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Shelter & Sleep Systems"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Hammock bug net and rainfly shelter combo"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "hammock storm camping",
+          "mosquito country hikes",
+          "rainy Appalachian trails",
+          "swamp & lake trails"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "360-degree bug protection",
+          "11ft waterproof hex rainfly",
+          "easy-pitch structural ridgeline",
+          "packable stuff sacks"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-286",
+    "type": "PRIMARY",
+    "title": "Ergonomic Inflatable Down-Topped Camp Pillow",
+    "description": "Never bunch up a dirty hoodie again. Features an ergonomic contoured air bladder topped with a plush layer of RDS duck down and a removable, washable brushed microfleece cover. Scalloped bottom cradles your neck whether sleeping on back or side.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Shelter & Sleep Systems"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/286",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1519052537078-e6302a4968d4?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 45,
+      "originalPrice": 55
+    },
+    "rating": {
+      "averageRating": 4.8,
+      "ratingCount": 259
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 51,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Slate Grey",
+        "Midnight Navy"
+      ]
+    },
+    "materials": [
+      "Brushed microfleece cover",
+      "650 Fill Power duck down",
+      "Durable TPU air bladder"
+    ],
+    "sizes": [
+      "Standard (14 x 10 x 4 in)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "shelter_sleep_systems",
+      "camp_pillow",
+      "backpacking_pillow",
+      "inflatable_down_pillow",
+      "hiking_pillow",
+      "ultralight_pillow",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "Standard (14 x 10 x 4 in)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Slate Grey",
+          "Midnight Navy"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#475569",
+          "#1e3a5f"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Shelter & Sleep Systems"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Inflatable down camp pillow"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "backpacking sleep comfort",
+          "side and back sleepers",
+          "long distance trail comfort",
+          "airplane travel"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "down-filled pillowtop",
+          "packs into fist-sized pouch",
+          "3.4 oz weight",
+          "removable washable cover"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-287",
+    "type": "PRIMARY",
+    "title": "Thermal Reflective Emergency Survival Bivy",
+    "description": "An indispensable piece of the 10 Essentials for every hiker. Made from vacuum-metalized tear-resistant polyethylene that reflects 90% of your radiated body heat back to prevent hypothermia. Completely windproof and waterproof with sealed seams.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Shelter & Sleep Systems"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/287",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1510312305653-8ed496efae75?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 24,
+      "originalPrice": 29
+    },
+    "rating": {
+      "averageRating": 4.699999999999999,
+      "ratingCount": 278
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 62,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Ember Orange",
+        "Olive Drab"
+      ]
+    },
+    "materials": [
+      "Heat-reflective metalized Heatsheets polyethylene"
+    ],
+    "sizes": [
+      "1-Person (84 x 36 in, Packs to 4 x 2.5 in)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "shelter_sleep_systems",
+      "emergency_bivy",
+      "survival_shelter",
+      "reflective_bivy",
+      "space_blanket_bivy",
+      "hiking_emergency_kit",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "1-Person (84 x 36 in, Packs to 4 x 2.5 in)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Ember Orange",
+          "Olive Drab"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#ea580c",
+          "#4b5320"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Shelter & Sleep Systems"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Emergency reflective thermal survival bivy"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "10 essentials kit",
+          "emergency storm shelter",
+          "unexpected trail bivouacs",
+          "sleeping bag warmth booster"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "reflects 90% body heat",
+          "3.8 oz featherlight weight",
+          "reusable tear-resistant fabric",
+          "waterproof sealed seams"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-288",
+    "type": "PRIMARY",
+    "title": "Ultralight Micro Titanium Canister Stove (25g)",
+    "description": "Weighing a mind-boggling 0.88 ounces (25 grams), this micro-sized titanium stove threads directly onto standard isobutane/propane backpacking fuel canisters. Features serrated folding titanium pot supports and a high-efficiency precision flame control valve.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Cooking & Hydration"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/288",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1523362628745-0c100150b504?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 49,
+      "originalPrice": 59
+    },
+    "rating": {
+      "averageRating": 4.6,
+      "ratingCount": 297
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 73,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Graphite Titanium",
+        "Polished Silver"
+      ]
+    },
+    "materials": [
+      "Grade 1 Titanium",
+      "Brass valve stem",
+      "Anodized aluminum base"
+    ],
+    "sizes": [
+      "One Size (Folds to 1.5 x 2 in)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "cooking_hydration",
+      "titanium_stove",
+      "backpacking_stove",
+      "ultralight_camp_stove",
+      "canister_stove",
+      "trail_stove",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "One Size (Folds to 1.5 x 2 in)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Graphite Titanium",
+          "Polished Silver"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#475569",
+          "#d1d5db"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Cooking & Hydration"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Ultralight titanium micro backpacking stove"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "ultralight thru-hiking",
+          "boiling water on the trail",
+          "fastpacking cook kit",
+          "minimalist cooking"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "25g (0.88 oz) world-class weight",
+          "9,200 BTU heat output",
+          "boils 500ml water in 3 minutes",
+          "folding pot supports"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-289",
+    "type": "PRIMARY",
+    "title": "Windproof All-Weather Backpacking Stove System",
+    "description": "The ultimate all-in-one water boiling system for mountain conditions. Integrates a windproof radiant burner with a 1.0-liter hard-anodized flux-ring pot with insulated cozy. Boils 0.5 liters of water in just 100 seconds while withstanding 20 mph trail winds.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Cooking & Hydration"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/289",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1507034589631-9433cc6bc453?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 139,
+      "originalPrice": 159
+    },
+    "rating": {
+      "averageRating": 4.8999999999999995,
+      "ratingCount": 316
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 84,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Onyx Black",
+        "Ember Orange",
+        "Forest Green"
+      ]
+    },
+    "materials": [
+      "Hard-anodized aluminum",
+      "Stainless steel burner",
+      "Neoprene insulated cozy"
+    ],
+    "sizes": [
+      "1.0 Liter Pot Capacity"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "cooking_hydration",
+      "stove_system",
+      "integrated_backpacking_stove",
+      "windproof_camp_stove",
+      "fast_boil_stove",
+      "cooking_system",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "1.0 Liter Pot Capacity"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Onyx Black",
+          "Ember Orange",
+          "Forest Green"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#18181b",
+          "#ea580c",
+          "#2d5a27"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Cooking & Hydration"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Integrated personal backpacking stove system"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "boiling water for freeze-dried meals",
+          "quick morning coffee on trail",
+          "windy mountain summits",
+          "winter cooking"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "integrated heat exchanger flux-ring",
+          "100-second boil time",
+          "push-button piezo igniter",
+          "all parts pack inside pot"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-290",
+    "type": "PRIMARY",
+    "title": "Titanium 750ml Backcountry Cookpot with Bail & Handles",
+    "description": "The standard pot of the thru-hiking community. Ultralight 750ml capacity precisely nests a 110g fuel canister and micro stove. Features folding butterfly handles, detachable wire bail for hanging over campfires, graduated milliliter volume markings, and steam-vent lid.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Cooking & Hydration"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/290",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1544717302-de2939b7ef71?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 45,
+      "originalPrice": 54
+    },
+    "rating": {
+      "averageRating": 4.8,
+      "ratingCount": 45
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 30,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Raw Titanium"
+      ]
+    },
+    "materials": [
+      "Grade 1 Pure Titanium (0.3mm wall thickness)"
+    ],
+    "sizes": [
+      "750 ml (4.5 x 3.75 in)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "cooking_hydration",
+      "titanium_pot",
+      "750ml_pot",
+      "backpacking_cookpot",
+      "ultralight_pot",
+      "titanium_mug_pot",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "750 ml (4.5 x 3.75 in)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Raw Titanium"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#64748b"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Cooking & Hydration"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Titanium backpacking pot and mug"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "solo meal cooking",
+          "boiling trail water",
+          "camp coffee mug",
+          "campfire suspension cooking"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "3.6 oz weight",
+          "nests 110g gas canister",
+          "folding butterfly handles & bail",
+          "graduated volume marks"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-291",
+    "type": "PRIMARY",
+    "title": "Anodized Aluminum 2-Pot Non-Stick Cookset",
+    "description": "For hiking partners who love gourmet backcountry dining. Includes a 1.5L sauce pot, a 7-inch mini frypan that doubles as a lid, dual BPA-free deep dish bowls, and insulated mugs. Ceramic non-stick coating makes trail cleanup effortless with just a splash of water.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Cooking & Hydration"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/291",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1498654896293-37aacf113fd9?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 68,
+      "originalPrice": 79
+    },
+    "rating": {
+      "averageRating": 4.699999999999999,
+      "ratingCount": 64
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 41,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Slate Grey",
+        "Ember Orange"
+      ]
+    },
+    "materials": [
+      "Hard-anodized aluminum with ceramic non-stick",
+      "Silicone-coated folding grip handles"
+    ],
+    "sizes": [
+      "2-Person Cookset (1.5L pot + 7in frypan)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "cooking_hydration",
+      "camp_cookset",
+      "backpacking_pots",
+      "nonstick_camping_pan",
+      "2_person_cook_kit",
+      "hiking_cookware",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "2-Person Cookset (1.5L pot + 7in frypan)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Slate Grey",
+          "Ember Orange"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#475569",
+          "#ea580c"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Cooking & Hydration"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "2-person camping cookset"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "2-person trail meals",
+          "gourmet camp cooking",
+          "weekend canoe camping",
+          "pan frying fish on trail"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "ceramic non-stick coating",
+          "complete nested kit (15 oz)",
+          "strainer lid",
+          "scratch-resistant hard anodizing"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-292",
+    "type": "PRIMARY",
+    "title": "32oz Vacuum Insulated Stainless Steel Wide-Mouth Bottle",
+    "description": "Double-wall TempShield vacuum insulation maintains ice-cold hydration for up to 24 hours or piping hot broth for 12 hours. Made with 18/8 pro-grade stainless steel that never retains or transfers flavors. Wide-mouth opening fits ice cubes and backcountry water filters.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Cooking & Hydration"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/292",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 42,
+      "originalPrice": 48
+    },
+    "rating": {
+      "averageRating": 4.6,
+      "ratingCount": 83
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 52,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Forest Green",
+        "Coyote Tan",
+        "Slate Grey",
+        "Alpine Frost"
+      ]
+    },
+    "materials": [
+      "18/8 Pro-Grade Stainless Steel",
+      "BPA-free polypropylene flex cap",
+      "ColorLast powder coat"
+    ],
+    "sizes": [
+      "32 oz (946 ml)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "cooking_hydration",
+      "insulated_water_bottle",
+      "32oz_bottle",
+      "hydro_flask_style_bottle",
+      "trail_water_bottle",
+      "stainless_steel_bottle",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "32 oz (946 ml)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Forest Green",
+          "Coyote Tan",
+          "Slate Grey",
+          "Alpine Frost"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#2d5a27",
+          "#92704f",
+          "#475569",
+          "#e2e8f0"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Cooking & Hydration"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Vacuum insulated trail water bottle"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "all-day trail hydration",
+          "winter hot drink storage",
+          "desert day hikes",
+          "basecamp beverage"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "24-hour cold / 12-hour hot",
+          "sweat-free powder coating",
+          "wide-mouth compatible with water filters",
+          "leakproof flex cap"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-293",
+    "type": "PRIMARY",
+    "title": "24oz Trail Ultralight Thermal Flask with Chug Cap",
+    "description": "Engineered specifically for hikers watching pack weight. Features tapered lightweight stainless steel walls that shave 25% of the weight of standard insulated bottles. The ergonomic narrow-spout chug cap delivers high-flow hydration without splashing while hiking.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Cooking & Hydration"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/293",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1516455590571-18256e5bb9ff?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 38,
+      "originalPrice": 44
+    },
+    "rating": {
+      "averageRating": 4.8999999999999995,
+      "ratingCount": 102
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 63,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Alpine Blue",
+        "Onyx Black",
+        "Ember Orange"
+      ]
+    },
+    "materials": [
+      "Thinned-wall 18/8 Stainless Steel",
+      "Food-grade silicone spout gasket"
+    ],
+    "sizes": [
+      "24 oz (710 ml)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "cooking_hydration",
+      "24oz_water_bottle",
+      "chug_cap_bottle",
+      "thermal_trail_flask",
+      "lightweight_water_bottle",
+      "hiking_bottle",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "24 oz (710 ml)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Alpine Blue",
+          "Onyx Black",
+          "Ember Orange"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#2563eb",
+          "#18181b",
+          "#ea580c"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Cooking & Hydration"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Lightweight vacuum trail bottle"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "active trail hiking",
+          "backpack side pocket hydration",
+          "hot summer summits",
+          "day hike flask"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "25% lighter weight design",
+          "ergonomic chug cap spout",
+          "fits all standard backpack side pockets",
+          "18 hours icy cold"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-294",
+    "type": "PRIMARY",
+    "title": "40oz Heavy-Duty Insulated Expedition Water Bottle",
+    "description": "For long dry stretches between backcountry water sources. Provides 40 ounces of vacuum-insulated capacity with an armor-like textured matte powder coat, removable 550 Paracord survival carry handle, and a heavy-duty silicone bumper base that prevents dings on jagged boulders.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Cooking & Hydration"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/294",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1536939459926-301728717817?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 48,
+      "originalPrice": 55
+    },
+    "rating": {
+      "averageRating": 4.8,
+      "ratingCount": 121
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 74,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Coyote Tan",
+        "Onyx Black",
+        "Olive Drab"
+      ]
+    },
+    "materials": [
+      "Heavy-gauge 18/8 Stainless Steel",
+      "550 Paracord handle",
+      "Removable protective silicone boot"
+    ],
+    "sizes": [
+      "40 oz (1180 ml)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "cooking_hydration",
+      "40oz_water_bottle",
+      "large_insulated_bottle",
+      "expedition_water_bottle",
+      "canteen",
+      "heavy_duty_trail_flask",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "40 oz (1180 ml)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Coyote Tan",
+          "Onyx Black",
+          "Olive Drab"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#92704f",
+          "#18181b",
+          "#4b5320"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Cooking & Hydration"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Large capacity insulated expedition bottle"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "dry trail segments",
+          "expedition basecamping",
+          "canyon hiking",
+          "full-day hydration without refills"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "40 oz high capacity",
+          "includes paracord carry handle",
+          "silicone boulder guard boot",
+          "sweat-proof vacuum wall"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-295",
+    "type": "PRIMARY",
+    "title": "Collapsible Backcountry 2L Hydration Bladder Reservoir",
+    "description": "Stay hydrated on the move without breaking stride. Features a wide top slide-seal opening for lightning-fast refills and easy inside-out cleaning. Flexible high-flow Phaser bite valve delivers rapid sips and locks shut with a twist to guarantee zero leaks inside your backpack.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Cooking & Hydration"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/295",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1542838132-92c53300491e?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 36,
+      "originalPrice": 42
+    },
+    "rating": {
+      "averageRating": 4.699999999999999,
+      "ratingCount": 140
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 85,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Alpine Frost",
+        "Alpine Blue"
+      ]
+    },
+    "materials": [
+      "Taste-free, BPA-free TPU film",
+      "Insulated Neoprene hose sheath"
+    ],
+    "sizes": [
+      "2.0 Liters (70 oz)",
+      "3.0 Liters (100 oz)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "cooking_hydration",
+      "hydration_bladder",
+      "water_reservoir",
+      "2l_bladder",
+      "camelbak_style_bladder",
+      "backpack_water_bladder",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "2.0 Liters (70 oz)",
+          "3.0 Liters (100 oz)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Alpine Frost",
+          "Alpine Blue"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#e2e8f0",
+          "#2563eb"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Cooking & Hydration"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Hands-free trail hydration bladder"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "hands-free trail hydration",
+          "continuous sipping while climbing",
+          "endurance trail walks",
+          "pack hydration sleeves"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "slide-seal wide opening",
+          "plugs into quick-disconnect hose",
+          "turn inside out to dry",
+          "insulated hose wrap"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-296",
+    "type": "PRIMARY",
+    "title": "Fast-Flow Squeeze Backcountry Water Filter (0.1 Micron)",
+    "description": "Weighing just 2 ounces, this hollow-fiber membrane filter removes 99.99999% of bacteria (Salmonella, Cholera, E. coli) and 99.9999% of protozoa (Giardia, Cryptosporidium). Screws directly onto standard 28mm threaded water bottles or included 32oz squeeze pouch for instant clean water.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Cooking & Hydration"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/296",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 44,
+      "originalPrice": 49
+    },
+    "rating": {
+      "averageRating": 4.6,
+      "ratingCount": 159
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 31,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Alpine Blue",
+        "Forest Green"
+      ]
+    },
+    "materials": [
+      "0.1 Micron Absolute Hollow Fiber Membrane",
+      "BPA-free food-grade ABS housing"
+    ],
+    "sizes": [
+      "One Size (Filters up to 100,000 gallons)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "cooking_hydration",
+      "water_filter",
+      "squeeze_water_filter",
+      "sawyer_style_filter",
+      "backcountry_water_purifier",
+      "hiking_water_filter",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "One Size (Filters up to 100,000 gallons)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Alpine Blue",
+          "Forest Green"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#2563eb",
+          "#2d5a27"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Cooking & Hydration"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Ultralight squeeze water filter"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "creek and stream water purification",
+          "thru-hiking trail filters",
+          "day hike emergency filtration",
+          "backcountry loops"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "0.1 micron absolute filtration",
+          "2.0 oz ultralight weight",
+          "threads onto standard soda/smart water bottles",
+          "includes backwash syringe"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-297",
+    "type": "PRIMARY",
+    "title": "3L Gravity-Fed Backcountry Water Filter System",
+    "description": "Effortless basecamp and group hydration. Hang the 3-liter dirty water reservoir from a tree branch, connect the quick-release hose, and let gravity filter 3 liters of crystal-clear water into your clean pots or bottles in less than 2.5 minutes without any hand pumping.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Cooking & Hydration"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/297",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1542838132-92c53300491e?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 89,
+      "originalPrice": 99
+    },
+    "rating": {
+      "averageRating": 4.8999999999999995,
+      "ratingCount": 178
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 42,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Slate Grey",
+        "Forest Green"
+      ]
+    },
+    "materials": [
+      "High-flow Hollow Fiber Membrane",
+      "Rugged RF-welded TPU reservoir bag"
+    ],
+    "sizes": [
+      "3.0 Liter Reservoir Capacity"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "cooking_hydration",
+      "gravity_water_filter",
+      "camp_water_purifier",
+      "3l_gravity_bag",
+      "group_water_filter",
+      "hiking_water_system",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "3.0 Liter Reservoir Capacity"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Slate Grey",
+          "Forest Green"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#475569",
+          "#2d5a27"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Cooking & Hydration"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Camp gravity water filtration system"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "basecamp water purification",
+          "group hiking trips",
+          "cooking water prep",
+          "hassle-free trail hydration"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "hands-free gravity operation",
+          "filters 3L in under 2.5 minutes",
+          "wide roll-top dirty water scoop",
+          "quick-disconnect hose"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-298",
+    "type": "PRIMARY",
+    "title": "Double-Wall Titanium Camp Mug with Folding Handles (450ml)",
+    "description": "Enjoy steaming mountain coffee that stays hot to the last sip. Double-wall titanium construction provides superior thermal vacuum insulation without burning your lips or fingers. Features folding curved handles that wrap snugly around the mug profile for compact packing.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Cooking & Hydration"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/298",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 36,
+      "originalPrice": 42
+    },
+    "rating": {
+      "averageRating": 4.8,
+      "ratingCount": 197
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 53,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Raw Matte Titanium"
+      ]
+    },
+    "materials": [
+      "Grade 1 Double-Wall Pure Titanium"
+    ],
+    "sizes": [
+      "450 ml (15.2 oz)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "cooking_hydration",
+      "titanium_mug",
+      "double_wall_camp_cup",
+      "backpacking_coffee_cup",
+      "insulated_titanium_mug",
+      "camp_mug",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "450 ml (15.2 oz)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Raw Matte Titanium"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#64748b"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Cooking & Hydration"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Insulated titanium camp mug"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "morning trail coffee",
+          "evening camp tea",
+          "insulated broth drinking",
+          "camp kitchen luxury"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "double-wall thermal insulation",
+          "folding ergonomic handles",
+          "sub-4.2 oz weight",
+          "zero metallic taste"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-299",
+    "type": "PRIMARY",
+    "title": "Long-Handle Polished Titanium Backpacking Spoon",
+    "description": "Never get meal sauce on your knuckles again. At 8.6 inches in length, this polished titanium spoon reaches deep into dehydrated and freeze-dried meal pouches. Features a mirror-smooth polished bowl that feels pleasant on the lips and a rigid textured matte handle.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Cooking & Hydration"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/299",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 16,
+      "originalPrice": 19
+    },
+    "rating": {
+      "averageRating": 4.699999999999999,
+      "ratingCount": 216
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 64,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Polished Titanium"
+      ]
+    },
+    "materials": [
+      "Pure Grade 1 Titanium"
+    ],
+    "sizes": [
+      "8.6 in (21.8 cm, 0.65 oz)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "cooking_hydration",
+      "titanium_spoon",
+      "long_handle_spoon",
+      "backpacking_utensil",
+      "trail_spoon",
+      "freeze_dried_meal_spoon",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "8.6 in (21.8 cm, 0.65 oz)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Polished Titanium"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#94a3b8"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Cooking & Hydration"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Long-handle titanium trail spoon"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "eating freeze-dried meal pouches",
+          "stirring deep backpacking pots",
+          "trail dining",
+          "minimalist utensils"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "8.6-inch pouch-reaching length",
+          "smooth polished bowl",
+          "0.65 oz ultralight weight",
+          "unbendable titanium strength"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-300",
+    "type": "PRIMARY",
+    "title": "Ultralight Titanium Folding Spork & Cutlery Set",
+    "description": "The classic trail hybrid utensil perfected. Combines the scooping capacity of a deep spoon with fork tines that easily pierce trail sausage and pasta. Folds in half to just 3.5 inches with a sliding stainless steel lock bar. Comes with a breathable mesh storage pouch.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Cooking & Hydration"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/300",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 22,
+      "originalPrice": 26
+    },
+    "rating": {
+      "averageRating": 4.6,
+      "ratingCount": 235
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 75,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Raw Titanium"
+      ]
+    },
+    "materials": [
+      "Grade 1 Titanium bowl",
+      "Stainless steel sliding lock bar"
+    ],
+    "sizes": [
+      "One Size (Folds to 3.5 in)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "cooking_hydration",
+      "titanium_spork",
+      "folding_spork",
+      "camp_cutlery",
+      "backpacking_spork",
+      "hiking_utensil",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "One Size (Folds to 3.5 in)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Raw Titanium"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#64748b"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Cooking & Hydration"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Folding titanium spork and fork set"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "compact backpacking cutlery",
+          "day hike lunches",
+          "camp meals",
+          "pocket trail eating"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "folding space-saving design",
+          "hybrid spoon & fork",
+          "sliding lock bar",
+          "0.6 oz featherlight weight"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-301",
+    "type": "PRIMARY",
+    "title": "Collapsible Food-Grade Silicone Camp Bowl & Cup Set",
+    "description": "Space-saving collapsible bowl (650ml) and cup (350ml) fabricated from heat-resistant European food-grade silicone with rigid nylon cutting board bases. Collapses completely flat to less than 1 inch in height, slipping effortlessly into your cookpot or pack lid.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Cooking & Hydration"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/301",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1517256064527-09c73fc73e38?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 26,
+      "originalPrice": 32
+    },
+    "rating": {
+      "averageRating": 4.8999999999999995,
+      "ratingCount": 254
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 86,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Forest Green",
+        "Ember Orange",
+        "Slate Grey"
+      ]
+    },
+    "materials": [
+      "BPA-free Food-Grade Silicone (heat safe to 300°F)",
+      "Rigid nylon 66 bases"
+    ],
+    "sizes": [
+      "Set (650ml Bowl + 350ml Cup)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "cooking_hydration",
+      "collapsible_bowl",
+      "camp_cup_set",
+      "silicone_camping_bowl",
+      "foldable_tableware",
+      "space_saving_camp_gear",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "Set (650ml Bowl + 350ml Cup)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Forest Green",
+          "Ember Orange",
+          "Slate Grey"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#2d5a27",
+          "#ea580c",
+          "#475569"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Cooking & Hydration"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Collapsible silicone camp tableware set"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "camp meals",
+          "soup and oatmeal bowls",
+          "coffee and tea cups",
+          "cutting board prep base"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "folds flat to 0.8 inches",
+          "heat resistant silicone",
+          "rigid cutting-safe base",
+          "calibrated volume markings"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-302",
+    "type": "PRIMARY",
+    "title": "Portable Manual Coffee Hand Grinder with Titanium Burrs",
+    "description": "Elevate your backcountry sunrise with freshly ground specialty beans. Solid CNC-machined aerospace aluminum body with 38mm titanium-coated stainless steel conical burrs and dual bearings. Produces exceptionally uniform grounds from coarse French press to fine pour-over.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Cooking & Hydration"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/302",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 69,
+      "originalPrice": 79
+    },
+    "rating": {
+      "averageRating": 4.8,
+      "ratingCount": 273
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 32,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Gunmetal Grey",
+        "Onyx Black"
+      ]
+    },
+    "materials": [
+      "Aerospace aluminum unibody",
+      "38mm titanium-coated steel burrs",
+      "Real walnut handle knob"
+    ],
+    "sizes": [
+      "Compact Trail (Holds 25g beans)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "cooking_hydration",
+      "coffee_hand_grinder",
+      "trail_coffee_grinder",
+      "portable_coffee_grinder",
+      "camp_coffee",
+      "manual_burr_grinder",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "Compact Trail (Holds 25g beans)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Gunmetal Grey",
+          "Onyx Black"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#334155",
+          "#18181b"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Cooking & Hydration"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Portable manual trail coffee grinder"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "fresh morning camp coffee",
+          "espresso on mountain summits",
+          "bikepacking coffee kits",
+          "car camping luxury"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "38mm precision conical burrs",
+          "stepped internal grind adjustment",
+          "folding hand crank",
+          "packable 11 oz weight"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-303",
+    "type": "PRIMARY",
+    "title": "Collapsible Silicone Trail Pour-Over Coffee Dripper",
+    "description": "A flexible food-grade silicone pour-over cone designed to brew artisanal coffee directly into your camp mug or water bottle. Features internal spiral ribs that ensure even water saturation and a reusable micro-mesh stainless steel filter that eliminates single-use paper waste.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Cooking & Hydration"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/303",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 18,
+      "originalPrice": 22
+    },
+    "rating": {
+      "averageRating": 4.699999999999999,
+      "ratingCount": 292
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 43,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Forest Green",
+        "Ember Orange",
+        "Slate Grey"
+      ]
+    },
+    "materials": [
+      "BPA-free Food-Grade Silicone",
+      "304 Stainless steel ultra-fine mesh filter"
+    ],
+    "sizes": [
+      "1-2 Cup Capacity (Folds to 0.5 in)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "cooking_hydration",
+      "camp_coffee_dripper",
+      "pour_over_dripper",
+      "collapsible_coffee_cone",
+      "trail_coffee_maker",
+      "silicone_dripper",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "1-2 Cup Capacity (Folds to 0.5 in)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Forest Green",
+          "Ember Orange",
+          "Slate Grey"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#2d5a27",
+          "#ea580c",
+          "#475569"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Cooking & Hydration"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Collapsible camp coffee pour-over dripper"
+        ]
+      },
+      "featured": {
+        "text": [
+          "true"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "backcountry morning pour-over",
+          "zero-waste trail coffee",
+          "day hike coffee breaks",
+          "travel brewing"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "includes reusable stainless filter",
+          "collapses flat to 0.5 inches",
+          "fits any mug diameter",
+          "3.1 oz total weight"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
+  },
+  {
+    "id": "onx-304",
+    "type": "PRIMARY",
+    "title": "Backpacking Fuel Canister Stabilizer Stand & Windscreen",
+    "description": "Safety and efficiency for your trail kitchen. The universal 3-leg folding canister tripod clips to 110g, 230g, and 450g fuel canisters to prevent boiling pots from tipping over on uneven granite. Paired with an ultralight 8-plate folding aluminum windscreen that saves up to 30% fuel.",
+    "languageCode": "en-US",
+    "categories": [
+      "Home & Living",
+      "Home & Living > Cooking & Hydration"
+    ],
+    "brands": [
+      "ONIX WARES"
+    ],
+    "uri": "https://onixwares.com/products/304",
+    "images": [
+      {
+        "uri": "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=600&auto=format&fit=crop&q=80"
+      }
+    ],
+    "priceInfo": {
+      "currencyCode": "USD",
+      "price": 19,
+      "originalPrice": 24
+    },
+    "rating": {
+      "averageRating": 4.6,
+      "ratingCount": 311
+    },
+    "availability": "IN_STOCK",
+    "availableQuantity": 54,
+    "conditions": [
+      "new"
+    ],
+    "audience": {
+      "genders": [
+        "UNISEX"
+      ]
+    },
+    "colorInfo": {
+      "colors": [
+        "Ember Orange",
+        "Slate Grey"
+      ]
+    },
+    "materials": [
+      "Reinforced polycarbonate tripod base",
+      "Lightweight anodized aluminum windscreen plates"
+    ],
+    "sizes": [
+      "Universal Canister Fit (110g, 230g, 450g)"
+    ],
+    "tags": [
+      "unisex",
+      "furniture",
+      "cooking_hydration",
+      "canister_stand",
+      "stove_stabilizer",
+      "camp_stove_windscreen",
+      "pot_stabilizer",
+      "backpacking_stove_accessories",
+      "hiking_gear_2026",
+      "outdoor_adventure",
+      "hikers",
+      "backpackers",
+      "thru_hikers",
+      "outdoor_enthusiasts",
+      "campers",
+      "trail_runners",
+      "day_hiking",
+      "weekend_backpacking",
+      "thru_hiking",
+      "alpine_expeditions",
+      "trail_camping"
+    ],
+    "attributes": {
+      "sizes": {
+        "text": [
+          "Universal Canister Fit (110g, 230g, 450g)"
+        ]
+      },
+      "colors": {
+        "text": [
+          "Ember Orange",
+          "Slate Grey"
+        ]
+      },
+      "color_hexes": {
+        "text": [
+          "#ea580c",
+          "#475569"
+        ]
+      },
+      "gender": {
+        "text": [
+          "Unisex"
+        ]
+      },
+      "subcategory": {
+        "text": [
+          "Cooking & Hydration"
+        ]
+      },
+      "product_type": {
+        "text": [
+          "Fuel canister stabilizer stand and windscreen set"
+        ]
+      },
+      "featured": {
+        "text": [
+          "false"
+        ]
+      },
+      "is_new_arrival": {
+        "text": [
+          "true"
+        ]
+      },
+      "use_case": {
+        "text": [
+          "uneven rocky campsite cooking",
+          "windy trail cooking",
+          "fuel conservation",
+          "spill prevention"
+        ]
+      },
+      "key_features": {
+        "text": [
+          "universal fuel canister fit",
+          "8-plate folding windscreen",
+          "prevents pot tip-overs",
+          "folds compact into drawstring pouch"
+        ]
+      },
+      "product_collections": {
+        "text": [
+          "hiking_gear_2026",
+          "outdoor_adventure"
+        ]
+      },
+      "target_audience": {
+        "text": [
+          "hikers",
+          "backpackers",
+          "thru-hikers",
+          "outdoor enthusiasts",
+          "campers",
+          "trail runners"
+        ]
+      },
+      "occasion": {
+        "text": [
+          "Day hiking",
+          "Weekend backpacking",
+          "Thru-hiking",
+          "Alpine expeditions",
+          "Trail camping"
+        ]
+      }
+    }
   }
 ]

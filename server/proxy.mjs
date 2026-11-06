@@ -1097,6 +1097,9 @@ const server = http.createServer(async (req, res) => {
         if (cleanQ.includes('jacet') || cleanQ.includes('jaket')) correctedQuery = 'jacket';
         if (cleanQ.includes('shrt') || cleanQ.includes('tshirt')) correctedQuery = 't-shirt';
         if (cleanQ.includes('jewl') || cleanQ.includes('dimond')) correctedQuery = 'diamond';
+        if (cleanQ.includes('tnt')) correctedQuery = 'tent';
+        if (cleanQ.includes('stov')) correctedQuery = 'stove';
+        if (cleanQ.includes('botle')) correctedQuery = 'bottle';
 
         const tokens = Array.from(
           new Set([

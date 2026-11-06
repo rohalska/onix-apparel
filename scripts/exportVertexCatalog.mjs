@@ -3,6 +3,7 @@ import path from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
 import { ADDITIONAL_PRODUCTS } from '../src/data/additionalProducts.mjs';
 import { HOLIDAY_GIFT_PRODUCTS } from '../src/data/holidayGiftProducts.mjs';
+import { HIKING_GEAR_PRODUCTS } from '../src/data/hikingGearProducts.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -1653,6 +1654,7 @@ export const ONIX_PRODUCTS = [
   },
   ...ADDITIONAL_PRODUCTS,
   ...HOLIDAY_GIFT_PRODUCTS,
+  ...HIKING_GEAR_PRODUCTS,
 ];
 
 // Helper to build category hierarchies required by Vertex AI Search for Retail

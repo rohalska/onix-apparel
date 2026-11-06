@@ -5,6 +5,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { FALLBACK_PRODUCTS } from '../src/data/fallbackProducts';
 import { HOLIDAY_GIFT_PRODUCTS } from '../src/data/holidayGiftProducts.mjs';
+import { HIKING_GEAR_PRODUCTS } from '../src/data/hikingGearProducts.mjs';
 import {
   resolveValidatedAddToCart,
   resolveValidatedOpenProduct,
@@ -29,9 +30,9 @@ const VALID_CATEGORIES = [
   'beauty',
   'groceries',
 ] as const;
-const TOTAL_PRODUCTS = 218;
+const TOTAL_PRODUCTS = 268;
 
-describe('218-Item Catalog Expansion Audit & Production Readiness Suite', () => {
+describe('268-Item Catalog Expansion Audit & Production Readiness Suite', () => {
   describe('1. Catalog Parity & Synchronization Across All Formats', () => {
     it('includes 30 holiday gift ideas with complete search metadata', () => {
       assert.equal(HOLIDAY_GIFT_PRODUCTS.length, 30);
@@ -44,6 +45,40 @@ describe('218-Item Catalog Expansion Audit & Production Readiness Suite', () => 
         assert.ok(product.useCases?.length);
         assert.ok(product.keyFeatures?.length);
         assert.ok(product.searchTags?.length);
+      });
+    });
+
+    it('includes 50 hiking gear items across backpacks, shelter & sleep, and cooking & hydration', () => {
+      assert.equal(HIKING_GEAR_PRODUCTS.length, 50);
+      assert.equal(new Set(HIKING_GEAR_PRODUCTS.map((product) => product.id)).size, 50);
+
+      const backpacks = HIKING_GEAR_PRODUCTS.filter(
+        (p) => p.subcategory === 'Backpacks & Trail Packs',
+      );
+      const shelterSleep = HIKING_GEAR_PRODUCTS.filter(
+        (p) => p.subcategory === 'Shelter & Sleep Systems',
+      );
+      const cookingHydration = HIKING_GEAR_PRODUCTS.filter(
+        (p) => p.subcategory === 'Cooking & Hydration',
+      );
+
+      assert.equal(backpacks.length, 15, 'Must contain 15 Backpacks & Trail Packs');
+      assert.equal(shelterSleep.length, 18, 'Must contain 18 Shelter & Sleep Systems');
+      assert.equal(cookingHydration.length, 17, 'Must contain 17 Cooking & Hydration items');
+
+      HIKING_GEAR_PRODUCTS.forEach((product) => {
+        assert.ok(product.collectionKeys?.includes('hiking_gear_2026'));
+        assert.ok(product.collectionKeys?.includes('outdoor_adventure'));
+        assert.ok(product.targetAudience?.includes('hikers'));
+        assert.ok(
+          product.occasions?.includes('Day hiking') ||
+            product.occasions?.includes('Weekend backpacking'),
+        );
+        assert.ok(product.productType);
+        assert.ok((product.useCases?.length ?? 0) >= 3);
+        assert.ok((product.keyFeatures?.length ?? 0) >= 3);
+        assert.ok((product.searchTags?.length ?? 0) >= 4);
+        assert.ok(product.price <= 700);
       });
     });
 
@@ -193,11 +228,11 @@ describe('218-Item Catalog Expansion Audit & Production Readiness Suite', () => 
       });
     });
 
-    it('maintains department coverage with a diversified Electronics assortment', () => {
+    it('maintains department coverage with a diversified Electronics assortment and expanded Outdoor Living gear', () => {
       const counts = VALID_CATEGORIES.map(
         (category) => FALLBACK_PRODUCTS.filter((product) => product.category === category).length,
       );
-      assert.deepEqual(counts, [30, 30, 21, 58, 20, 19, 19, 21]);
+      assert.deepEqual(counts, [30, 30, 21, 58, 70, 19, 19, 21]);
     });
 
     it('provides complete Retail search metadata for all 60 apparel products', () => {
@@ -517,6 +552,35 @@ describe('218-Item Catalog Expansion Audit & Production Readiness Suite', () => 
 
       const mugRes = simulateClientSearch({ query: 'smart mug' }, FALLBACK_PRODUCTS);
       assert.ok(mugRes.products.length > 0);
+    });
+
+    it('enables hiking gear search journeys across backpacks, shelter, and cooking hydration', () => {
+      const hikingCollectionRes = simulateClientSearch(
+        { collectionKey: 'hiking_gear_2026' },
+        FALLBACK_PRODUCTS,
+      );
+      assert.equal(hikingCollectionRes.products.length, 50);
+
+      const tentRes = simulateClientSearch({ query: 'tent' }, FALLBACK_PRODUCTS);
+      assert.ok(tentRes.products.length >= 3, 'Must find multiple backpacking tents');
+
+      const sleepingBagRes = simulateClientSearch({ query: 'sleeping bag' }, FALLBACK_PRODUCTS);
+      assert.ok(sleepingBagRes.products.length >= 4, 'Must find multiple sleeping bags');
+
+      const stoveRes = simulateClientSearch({ query: 'stove' }, FALLBACK_PRODUCTS);
+      assert.ok(stoveRes.products.length >= 2, 'Must find camp stoves');
+
+      const bottleRes = simulateClientSearch({ query: 'water bottle' }, FALLBACK_PRODUCTS);
+      assert.ok(bottleRes.products.length >= 3, 'Must find water bottles');
+
+      const filterRes = simulateClientSearch({ query: 'filter' }, FALLBACK_PRODUCTS);
+      assert.ok(filterRes.products.length >= 2, 'Must find backcountry water filters');
+
+      const titaniumRes = simulateClientSearch({ query: 'titanium' }, FALLBACK_PRODUCTS);
+      assert.ok(titaniumRes.products.length >= 4, 'Must find titanium gear');
+
+      const backpackRes = simulateClientSearch({ query: 'backpack' }, FALLBACK_PRODUCTS);
+      assert.ok(backpackRes.products.length >= 5, 'Must find hiking backpacks');
     });
   });
 
